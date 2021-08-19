@@ -1,0 +1,156 @@
+﻿@model CreateAccountViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <form asp-action="Create" method="post">
+                    <div class="card-header">
+                        <h2>Create Account</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label class="control-label">Owner Name</label>
+                            <input asp-for="OwnerName" class="form-control" />
+                            <span asp-validation-for="OwnerName"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Account Name</label>
+                            <input asp-for="AccountName" class="form-control" />
+                            <span asp-validation-for="AccountName"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Mobile</label>
+                            <input asp-for="Mobile" class="form-control" />
+                            <span asp-validation-for="Mobile"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Address</label>
+                            <input asp-for="Address" class="form-control" />
+                            <span asp-validation-for="Address"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Email</label>
+                            <input asp-for="Email" class="form-control" />
+                            <span asp-validation-for="Email"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">National ID</label>
+                            <input asp-for="NationalID" class="form-control" />
+                            <span asp-validation-for="NationalID"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Commercial Registration No</label>
+                            <input asp-for="CommercialRegistrationNo" class="form-control" />
+                            <span asp-validation-for="CommercialRegistrationNo"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Tax No</label>
+                            <input asp-for="TaxNo" class="form-control" />
+                            <span asp-validation-for="TaxNo"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Governerate</label>
+                            <select asp-for="GovernerateId" asp-items="Model.Governerates" class="form-control" data-style="select-with-transition" title="Choose a governerate" data-size="7">
+                                <option disabled> Choose</option>
+                            </select>
+                            <span asp-validation-for="GovernerateId"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Cites</label>
+                            <select disabled asp-for="CityId" class="form-control" data-style="select-with-transition" title="Choose a governerate" data-size="7">
+                                <option disabled> Choose</option>
+                            </select>
+                            <span asp-validation-for="CityId"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Activity</label>
+                            <select asp-for="ActivityId" asp-items="Model.Activities" class="form-control" data-style="select-with-transition" title="Choose an actitviy" data-size="7">
+                                <option disabled> Choose</option>
+                            </select>
+                            <span asp-validation-for="ActivityId"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Entity</label>
+                            <select asp-for="EntityId" asp-items="Model.Entities" class="form-control" data-style="select-with-transition" title="Choose an entity" data-size="7">
+                                <option disabled> Choose</option>
+                            </select>
+                            <span asp-validation-for="EntityId"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Account Type Profile</label>
+                            <select asp-for="AccountTypeProfileId" asp-items="Model.AccountTypeProfiles" class="form-control" data-style="select-with-transition" title="Choose an account type profile" data-size="7">
+                                <option disabled> Choose</option>
+                            </select>
+                            <span asp-validation-for="AccountTypeProfileId"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Account Related to (Parent Id) </label>
+                            <select asp-for="ParentAccountId" class="form-control" data-style="select-with-transition" title="Choose a parent" data-size="7">
+                                <option disabled> Choose</option>
+                            </select>
+                            <span asp-validation-for="ParentAccountId"></span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $('#GovernerateId').on("change", function () {
+            var goveId = $(this).val();
+            $('#CityId').attr("disabled", false)
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetCities")",
+                data: { id: goveId},
+                dataType: "text",
+                success: function (msg) {
+                    $('#CityId').prop('disabled', true);
+                    $('#CityId').html('');
+                    $.each(JSON.parse(msg), function (i, state) {
+                        $('#CityId').append('<option value="' + state.id + '">' +
+                            state.name + '</option>');
+                    });
+                    $('#CityId').prop('disabled', false);
+                },
+                error: function (req, status, error) {
+                    console.log(msg);
+                }
+            });
+        });
+        $('#AccountTypeProfileId').on("change", function () {
+            var Id = $(this).val();
+            $('#ParentAccountId').attr("disabled", false)
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetAccountTypesByParentId")",
+                data: { id: Id},
+                dataType: "text",
+                success: function (msg) {
+                    $('#ParentAccountId').prop('disabled', true);
+                    $('#ParentAccountId').html('');
+                    $.each(JSON.parse(msg), function (i, state) {
+                        $('#ParentAccountId').append('<option value="' + state.id + '">' +
+                            state.name + '</option>');
+                    });
+                    $('#ParentAccountId').prop('disabled', false);
+                },
+                error: function (req, status, error) {
+                    console.log(msg);
+                }
+            });
+        });
+    </script>
+}

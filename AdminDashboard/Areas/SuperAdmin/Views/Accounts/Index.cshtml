@@ -1,0 +1,48 @@
+﻿@model List<AccountViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Accounts</h2>
+                    <a asp-action="Create" class="pull-right btn btn-outline-primary">Create</a>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Account Name</th>
+                                <th>Mobile</th>
+                                <th>NationalID</th>
+                                <th>ActivityName</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var account in Model)
+                            {
+                                <tr>
+                                    <td>@account.AccountName</td>
+                                    <td>@account.Mobile</td>
+                                    <td>@account.NationalID</td>
+                                    <td>@account.ActivityName</td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@account.Id" class="btn btn-primary">Edit</a>
+                                        <a asp-action="Delete" asp-route-id="@account.Id" class="btn btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
