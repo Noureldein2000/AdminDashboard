@@ -1,9 +1,11 @@
 ﻿using AdminDashboard.Areas.SuperAdmin.Models;
+using AdminDashboard.Models;
 using AdminDashboard.Models.SwaggerModels;
 using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using PagedList.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -35,12 +37,19 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             accountTypeProfileApi = new AccountTypeProfileApi(url);
         }
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(int page = 1)
         {
-            // var client = await _swagerClient.GetAccountsAsync(1, 10);
-            //var client = await _swagerClient.GetAsync();
-            var data = api.ApiAccountGetAccountsGet(1, 10);
-            return View(data.Select(account => Map(account)).ToList());
+            var data = api.ApiAccountGetAccountsGet(page, 10);
+            var dd = data.Results.Select(account => Map(account)).ToList();
+            var viewModel = new PagedResult<AccountViewModel>
+            {
+                Results = dd,
+                PageCount = (int)data.PageCount,
+                CurrentPage = page,
+                PageSize = 10
+            };
+           
+            return View(viewModel);
         }
         [HttpGet]
         public IActionResult Create(int id)
@@ -112,12 +121,16 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             viewModel.Governerates = governerates;
             viewModel.Entities = entities;
             viewModel.AccountTypeProfiles = accountTypes;
-            var cities = regionApi.ApiRegionGetRegionByGovernorateIdIdGet(model.GovernerateID).ToList();
-            viewModel.Regions = cities.Select(s => new SelectListItem
+            if (model.GovernerateID.HasValue)
             {
-                Text = s.Name,
-                Value = s.Id.ToString()
-            }).ToList();
+                var cities = regionApi.ApiRegionGetRegionByGovernorateIdIdGet(model.GovernerateID).ToList();
+                viewModel.Regions = cities.Select(s => new SelectListItem
+                {
+                    Text = s.Name,
+                    Value = s.Id.ToString()
+                }).ToList();
+            }
+          
             return View(viewModel);
         }
         [HttpPost]
@@ -175,7 +188,12 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            //api.account
+            return RedirectToAction(nameof(Index));
+        }
+        [HttpGet]
+        public IActionResult ChangeStatus(int id)
+        {
+            api.ApiAccountChangeAccountStatusIdGet(id);
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
@@ -210,6 +228,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 EntityID = model.EntityID,
                 GovernerateID = model.GovernerateID,
                 ParentAccountID = model.ParentID,
+                Status = (bool)model.Status
             };
         }
     }

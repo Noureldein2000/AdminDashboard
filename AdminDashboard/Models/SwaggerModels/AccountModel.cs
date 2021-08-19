@@ -51,7 +51,8 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="governerateID">governerateID.</param>
         /// <param name="entityID">entityID.</param>
         /// <param name="parentID">parentID.</param>
-        public AccountModel(int? id = default(int?), string ownerName = default(string), string accountName = default(string), string mobile = default(string), string address = default(string), string email = default(string), string nationalID = default(string), string commercialRegistrationNo = default(string), string taxNo = default(string), int? activityID = default(int?), string activityName = default(string), DateTime? creationDate = default(DateTime?), int? createdBy = default(int?), int? updatedBy = default(int?), int? accountTypeProfileID = default(int?), int? regionID = default(int?), int? governerateID = default(int?), int? entityID = default(int?), int? parentID = default(int?))
+        /// <param name="status">status.</param>
+        public AccountModel(int? id = default(int?), string ownerName = default(string), string accountName = default(string), string mobile = default(string), string address = default(string), string email = default(string), string nationalID = default(string), string commercialRegistrationNo = default(string), string taxNo = default(string), int? activityID = default(int?), string activityName = default(string), DateTime? creationDate = default(DateTime?), int? createdBy = default(int?), int? updatedBy = default(int?), int? accountTypeProfileID = default(int?), int? regionID = default(int?), int? governerateID = default(int?), int? entityID = default(int?), int? parentID = default(int?), bool? status = default(bool?))
         {
             this.Id = id;
             this.OwnerName = ownerName;
@@ -72,6 +73,7 @@ namespace AdminDashboard.Models.SwaggerModels
             this.GovernerateID = governerateID;
             this.EntityID = entityID;
             this.ParentID = parentID;
+            this.Status = status;
         }
         
         /// <summary>
@@ -189,6 +191,12 @@ namespace AdminDashboard.Models.SwaggerModels
         public int? ParentID { get; set; }
 
         /// <summary>
+        /// Gets or Sets Status
+        /// </summary>
+        [DataMember(Name="status", EmitDefaultValue=false)]
+        public bool? Status { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -215,6 +223,7 @@ namespace AdminDashboard.Models.SwaggerModels
             sb.Append("  GovernerateID: ").Append(GovernerateID).Append("\n");
             sb.Append("  EntityID: ").Append(EntityID).Append("\n");
             sb.Append("  ParentID: ").Append(ParentID).Append("\n");
+            sb.Append("  Status: ").Append(Status).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -343,6 +352,11 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.ParentID == input.ParentID ||
                     (this.ParentID != null &&
                     this.ParentID.Equals(input.ParentID))
+                ) && 
+                (
+                    this.Status == input.Status ||
+                    (this.Status != null &&
+                    this.Status.Equals(input.Status))
                 );
         }
 
@@ -393,6 +407,8 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.EntityID.GetHashCode();
                 if (this.ParentID != null)
                     hashCode = hashCode * 59 + this.ParentID.GetHashCode();
+                if (this.Status != null)
+                    hashCode = hashCode * 59 + this.Status.GetHashCode();
                 return hashCode;
             }
         }

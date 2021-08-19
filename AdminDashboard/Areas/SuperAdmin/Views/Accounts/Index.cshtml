@@ -1,4 +1,4 @@
-﻿@model List<AccountViewModel>
+﻿@model PagedResult<AccountViewModel>
 @{
     ViewData["Title"] = "Index";
 }
@@ -23,7 +23,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var account in Model)
+                            @foreach (var account in Model.Results)
                             {
                                 <tr>
                                     <td>@account.AccountName</td>
@@ -32,15 +32,21 @@
                                     <td>@account.ActivityName</td>
                                     <td>
                                         <a asp-action="Edit" asp-route-id="@account.Id" class="btn btn-primary">Edit</a>
-                                        <a asp-action="Delete" asp-route-id="@account.Id" class="btn btn-danger">Delete</a>
+                                        <a asp-action="ChangeStatus" asp-route-id="@account.Id" class="btn @(account.Status ? "btn-success": "btn-danger")">
+                                            @(account.Status ? "Active" : "Deactive")
+                                        </a>
                                     </td>
                                 </tr>
                             }
                         </tbody>
                     </table>
                 </div>
-                <div class="card-footer">
-
+                <div class="card-footer text-center">
+                    <pager link-url="/SuperAdmin/Accounts/Index"
+                           page="Model.CurrentPage"
+                           page-size="Model.PageSize"
+                           total-items="Model.PageCount">
+                    </pager>
                 </div>
             </div>
         </div>

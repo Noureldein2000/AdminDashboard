@@ -206,8 +206,8 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>List&lt;AccountModel&gt;</returns>
-        List<AccountModel> ApiAccountGetAccountsGet (int? pageNumber = null, int? pageSize = null);
+        /// <returns>AccountModelPagedResult</returns>
+        AccountModelPagedResult ApiAccountGetAccountsGet (int? pageNumber = null, int? pageSize = null);
 
         /// <summary>
         /// 
@@ -218,8 +218,8 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>ApiResponse of List&lt;AccountModel&gt;</returns>
-        ApiResponse<List<AccountModel>> ApiAccountGetAccountsGetWithHttpInfo (int? pageNumber = null, int? pageSize = null);
+        /// <returns>ApiResponse of AccountModelPagedResult</returns>
+        ApiResponse<AccountModelPagedResult> ApiAccountGetAccountsGetWithHttpInfo (int? pageNumber = null, int? pageSize = null);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -405,8 +405,8 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of List&lt;AccountModel&gt;</returns>
-        System.Threading.Tasks.Task<List<AccountModel>> ApiAccountGetAccountsGetAsync (int? pageNumber = null, int? pageSize = null);
+        /// <returns>Task of AccountModelPagedResult</returns>
+        System.Threading.Tasks.Task<AccountModelPagedResult> ApiAccountGetAccountsGetAsync (int? pageNumber = null, int? pageSize = null);
 
         /// <summary>
         /// 
@@ -417,8 +417,8 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of ApiResponse (List&lt;AccountModel&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<AccountModel>>> ApiAccountGetAccountsGetAsyncWithHttpInfo (int? pageNumber = null, int? pageSize = null);
+        /// <returns>Task of ApiResponse (AccountModelPagedResult)</returns>
+        System.Threading.Tasks.Task<ApiResponse<AccountModelPagedResult>> ApiAccountGetAccountsGetAsyncWithHttpInfo (int? pageNumber = null, int? pageSize = null);
         #endregion Asynchronous Operations
     }
 
@@ -561,6 +561,7 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Content-Type header
             String[] localVarHttpContentTypes = new String[] {
+                "application/json-patch+json", 
                 "application/json", 
                 "text/json", 
                 "application/_*+json"
@@ -641,6 +642,7 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Content-Type header
             String[] localVarHttpContentTypes = new String[] {
+                "application/json-patch+json", 
                 "application/json", 
                 "text/json", 
                 "application/_*+json"
@@ -720,6 +722,7 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Content-Type header
             String[] localVarHttpContentTypes = new String[] {
+                "application/json-patch+json", 
                 "application/json", 
                 "text/json", 
                 "application/_*+json"
@@ -800,6 +803,7 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Content-Type header
             String[] localVarHttpContentTypes = new String[] {
+                "application/json-patch+json", 
                 "application/json", 
                 "text/json", 
                 "application/_*+json"
@@ -1165,6 +1169,7 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Content-Type header
             String[] localVarHttpContentTypes = new String[] {
+                "application/json-patch+json", 
                 "application/json", 
                 "text/json", 
                 "application/_*+json"
@@ -1245,6 +1250,7 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Content-Type header
             String[] localVarHttpContentTypes = new String[] {
+                "application/json-patch+json", 
                 "application/json", 
                 "text/json", 
                 "application/_*+json"
@@ -1738,10 +1744,10 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>List&lt;AccountModel&gt;</returns>
-        public List<AccountModel> ApiAccountGetAccountsGet (int? pageNumber = null, int? pageSize = null)
+        /// <returns>AccountModelPagedResult</returns>
+        public AccountModelPagedResult ApiAccountGetAccountsGet (int? pageNumber = null, int? pageSize = null)
         {
-             ApiResponse<List<AccountModel>> localVarResponse = ApiAccountGetAccountsGetWithHttpInfo(pageNumber, pageSize);
+             ApiResponse<AccountModelPagedResult> localVarResponse = ApiAccountGetAccountsGetWithHttpInfo(pageNumber, pageSize);
              return localVarResponse.Data;
         }
 
@@ -1751,8 +1757,8 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>ApiResponse of List&lt;AccountModel&gt;</returns>
-        public ApiResponse< List<AccountModel> > ApiAccountGetAccountsGetWithHttpInfo (int? pageNumber = null, int? pageSize = null)
+        /// <returns>ApiResponse of AccountModelPagedResult</returns>
+        public ApiResponse< AccountModelPagedResult > ApiAccountGetAccountsGetWithHttpInfo (int? pageNumber = null, int? pageSize = null)
         {
 
             var localVarPath = "/api/Account/GetAccounts";
@@ -1799,9 +1805,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<List<AccountModel>>(localVarStatusCode,
+            return new ApiResponse<AccountModelPagedResult>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (List<AccountModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<AccountModel>)));
+                (AccountModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountModelPagedResult)));
         }
 
         /// <summary>
@@ -1810,10 +1816,10 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of List&lt;AccountModel&gt;</returns>
-        public async System.Threading.Tasks.Task<List<AccountModel>> ApiAccountGetAccountsGetAsync (int? pageNumber = null, int? pageSize = null)
+        /// <returns>Task of AccountModelPagedResult</returns>
+        public async System.Threading.Tasks.Task<AccountModelPagedResult> ApiAccountGetAccountsGetAsync (int? pageNumber = null, int? pageSize = null)
         {
-             ApiResponse<List<AccountModel>> localVarResponse = await ApiAccountGetAccountsGetAsyncWithHttpInfo(pageNumber, pageSize);
+             ApiResponse<AccountModelPagedResult> localVarResponse = await ApiAccountGetAccountsGetAsyncWithHttpInfo(pageNumber, pageSize);
              return localVarResponse.Data;
 
         }
@@ -1824,8 +1830,8 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of ApiResponse (List&lt;AccountModel&gt;)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<List<AccountModel>>> ApiAccountGetAccountsGetAsyncWithHttpInfo (int? pageNumber = null, int? pageSize = null)
+        /// <returns>Task of ApiResponse (AccountModelPagedResult)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<AccountModelPagedResult>> ApiAccountGetAccountsGetAsyncWithHttpInfo (int? pageNumber = null, int? pageSize = null)
         {
 
             var localVarPath = "/api/Account/GetAccounts";
@@ -1872,9 +1878,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<List<AccountModel>>(localVarStatusCode,
+            return new ApiResponse<AccountModelPagedResult>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (List<AccountModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<AccountModel>)));
+                (AccountModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountModelPagedResult)));
         }
 
     }

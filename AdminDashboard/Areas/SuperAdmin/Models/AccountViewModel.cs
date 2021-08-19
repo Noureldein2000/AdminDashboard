@@ -34,6 +34,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public int? RegionID { get; set; }
         [Required]
         public int? AccountTypeProfileID { get; set; }
+        public bool Status { get; set; }
         public List<SelectListItem> Activities { get; set; }
         public List<SelectListItem> Entities { get; set; }
         public List<SelectListItem> Governerates { get; set; }
