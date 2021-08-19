@@ -142,8 +142,8 @@
                     $('#ParentAccountId').prop('disabled', true);
                     $('#ParentAccountId').html('');
                     $.each(JSON.parse(msg), function (i, state) {
-                        $('#ParentAccountId').append('<option value="' + state.id + '">' +
-                            state.name + '</option>');
+                        $('#ParentAccountId').append('<option value="' + state.Id + '">' +
+                            state.AccountName + '</option>');
                     });
                     $('#ParentAccountId').prop('disabled', false);
                 },
