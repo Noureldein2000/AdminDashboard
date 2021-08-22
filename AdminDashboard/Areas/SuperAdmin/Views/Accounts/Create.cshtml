@@ -139,11 +139,13 @@
                 data: { id: Id},
                 dataType: "text",
                 success: function (msg) {
+              
                     $('#ParentAccountId').prop('disabled', true);
                     $('#ParentAccountId').html('');
                     $.each(JSON.parse(msg), function (i, state) {
-                        $('#ParentAccountId').append('<option value="' + state.Id + '">' +
-                            state.AccountName + '</option>');
+              
+                        $('#ParentAccountId').append('<option value="' + state.id + '">' +
+                            state.accountName + '</option>');
                     });
                     $('#ParentAccountId').prop('disabled', false);
                 },
