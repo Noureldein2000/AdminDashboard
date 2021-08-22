@@ -84,6 +84,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return View(model);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(CreateAccountViewModel model)
         {
             if (!ModelState.IsValid)
@@ -175,6 +176,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return View(viewModel);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(AccountViewModel model)
         {
             if (!ModelState.IsValid)
