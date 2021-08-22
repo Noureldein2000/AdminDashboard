@@ -87,9 +87,50 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         public IActionResult Create(CreateAccountViewModel model)
         {
             if (!ModelState.IsValid)
+            {
+                var activities = activityApi.ApiActivityGetAllGet().Select(a => new SelectListItem
+                {
+                    Text = a.Name,
+                    Value = a.Id.ToString()
+                }).ToList();
+                var governerates = regionApi.ApiRegionGetGovernorateGet().Select(a => new SelectListItem
+                {
+                    Text = a.Name,
+                    Value = a.Id.ToString()
+                }).ToList();
+                var entities = entityApi.ApiEntityGetAllGet().Select(a => new SelectListItem
+                {
+                    Text = a.Name,
+                    Value = a.Id.ToString()
+                }).ToList();
+                var accountTypes = accountTypeProfileApi.ApiAccountTypeProfileGetAllGet(1, 10000).Select(a => new SelectListItem
+                {
+                    Text = a.FullName,
+                    Value = a.Id.ToString()
+                }).ToList();
+                model.Activities = activities;
+                model.Governerates = governerates;
+                model.Entities = entities;
+                model.AccountTypeProfiles = accountTypes;
                 return View(model);
+            }
 
-            //save changes
+            api.ApiAccountAddAccountPost(new AddAccountModel(
+                ownerName: model.OwnerName,
+                accountName: model.AccountName,
+                mobile: model.Mobile,
+                address: model.Address,
+                latitude: model.Latitude.ToString(),
+                longitude: model.Longitude.ToString(),
+                email: model.Email,
+                nationalID: model.NationalID,
+                commercialRegistrationNo: model.CommercialRegistrationNo,
+                taxNo: model.TaxNo,
+                activityID: model.ActivityID,
+                accountTypeProfileID: model.AccountTypeProfileID,
+                regionID: model.RegionID,
+                entityID: model.EntityID
+                ));
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]

@@ -20,17 +20,19 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public string NationalID { get; set; }
         public string CommercialRegistrationNo { get; set; }
         public string TaxNo { get; set; }
-        public int ActivityId { get; set; }
+        public int? ActivityID { get; set; }
         [Required]
-        public int EntityId { get; set; }
+        public int? EntityID { get; set; }
         [Required]
-        public int ParentAccountId { get; set; }
+        public int? ParentAccountID { get; set; }
         [Required]
-        public int GovernerateId { get; set; }
+        public int? GovernerateID { get; set; }
         [Required]
-        public int CityId { get; set; }
+        public int? RegionID { get; set; }
         [Required]
-        public int AccountTypeProfileId { get; set; }
+        public int? AccountTypeProfileID { get; set; }
+        public decimal Latitude { get; set; }
+        public decimal Longitude { get; set; }
         public List<SelectListItem> Activities { get; set; }
         public List<SelectListItem> Entities { get; set; }
         public List<SelectListItem> Governerates { get; set; }
