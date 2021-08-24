@@ -1,0 +1,71 @@
+﻿@model PagedResult<ChannelViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Channels</h2>
+                    <a asp-action="Create" class="pull-right btn btn-outline-primary">Create</a>
+                </div>
+                <div class="card-body">
+                    <form asp-controller="Channels" asp-action="Index" method="get">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <input asp-for="@Model.SearchKey" class="form-control" placeholder="Search by Serial" />
+                                </div>
+                                <div class="col-md-2">
+                                    <input type="submit" value="Search" class="btn btn-secondary" />
+                                </div>
+                            </div>
+                            
+                           
+                        </div>
+                    </form>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Channel Name</th>
+                                <th>Serial</th>
+                                <th>Channel Type</th>
+                                <th>Channel Owner</th>
+                                <th>Payment Method</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var channel in Model.Results)
+                            {
+                                <tr>
+                                    <td>@channel.Name</td>
+                                    <td>@channel.Serial</td>
+                                    <td>@channel.ChannelTypeName</td>
+                                    <td>@channel.ChannelOwnerName</td>
+                                    <td>@channel.PaymentMethodName</td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@channel.Id" class="btn btn-primary">Edit</a>
+                                        @*<a asp-action="Delete" asp-route-id="@channel.Id" class="btn btn-danger">Delete</a>*@
+                                        <a asp-action="ChangeStatus" asp-route-id="@channel.Id" class="btn @(channel.Status ? "btn-success": "btn-danger")">
+                                            @(channel.Status ? "Active" : "Deactive")
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer d-flex justify-content-center">
+                    <pager link-url="/SuperAdmin/Channels/Index"
+                           page="Model.CurrentPage"
+                           page-size="Model.PageSize"
+                           total-items="Model.PageCount">
+                    </pager>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
