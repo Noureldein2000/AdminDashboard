@@ -245,7 +245,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     activityID: model.ActivityID,
                     accountTypeProfileID: model.AccountTypeProfileID,
                     regionID: model.RegionID,
-                    entityID: model.EntityID
+                    entityID: model.EntityID,
+                    parentID:model.ParentAccountID
                     ));
                 return RedirectToAction(nameof(Index));
             }
