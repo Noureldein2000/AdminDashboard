@@ -1,0 +1,82 @@
+﻿@model IEnumerable<AccountChannelViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Account Channels</h2>
+                    <button type="button" class="pull-right btn btn-outline-primary" data-toggle="modal" data-target="#myModal">Create</button>
+                    <partial name="_CreateAccountChannel.cshtml" />
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Channel Name</th>
+                                <th>Status</th>
+                                <th>Created By</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var channel in Model)
+                            {
+                                <tr>
+                                    <td>@channel.ChannelName</td>
+                                    <td>@channel.Status</td>
+                                    <td>@channel.CreatedName</td>
+                                    <td>
+                                        @*<a asp-action="DeleteAccountChannel" asp-route-id="@channel.Id" class="btn btn-danger">Delete</a>*@
+                                        <a asp-action="ChangeAccountChannel" asp-route-id="@channel.Id" class="btn @(channel.Status ? "btn-danger": "btn-success")">
+                                            @(channel.Status ? "Deactive" : "Active")
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                @*<div class="card-footer text-center">
+                        <pager link-url="/SuperAdmin/Accounts/Index"
+                               page="Model.CurrentPage"
+                               page-size="Model.PageSize"
+                               total-items="Model.PageCount">
+                        </pager>
+                    </div>*@
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $('#btnSearch').on("click", function () {
+            console.log('entred action');
+            debugger;
+            var searchKey = $("#txtSearchKey").val();
+            var accountId = document.URL.substring(document.URL.lastIndexOf('/') + 1);
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetChannels")",
+                data: { serial: searchKey },
+                dataType: "text",
+                success: function (msg) {
+                    console.log('success');
+
+                    var x = $('#tblChannels tbody').empty();
+                    $.each(JSON.parse(msg), function (i, data) {
+                        $('#tblChannels').append('<tr><td>' + data.serial + '</td><td>' + data.channelTypeName + '</td><td>' + data.channelOwnerName + '</td><td>' + data.paymentMethodName + '</td><td>' + data.createdBy + '</td><td> <a href="@Url.Action("CreateAccountChannel", "Accounts")?accountId=' + accountId + '&channelId=' + data.id + '" class="btn btn-info">Assign</a></td></tr>');
+                    });
+                },
+                error: function (req, status, error) {
+                    console.log(msg);
+                }
+            });
+        });
+
+    </script>
+}

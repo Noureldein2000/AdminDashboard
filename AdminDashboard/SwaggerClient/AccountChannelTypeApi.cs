@@ -31,8 +31,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns></returns>
-        void ApiAccountChannelTypeAddAccountChannelTypesPost (AddAccountChannelTypeModel body = null);
+        /// <returns>AccountChannelTypeModel</returns>
+        AccountChannelTypeModel ApiAccountChannelTypeAddAccountChannelTypesPost (AddAccountChannelTypeModel body = null);
 
         /// <summary>
         /// 
@@ -42,8 +42,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ApiAccountChannelTypeAddAccountChannelTypesPostWithHttpInfo (AddAccountChannelTypeModel body = null);
+        /// <returns>ApiResponse of AccountChannelTypeModel</returns>
+        ApiResponse<AccountChannelTypeModel> ApiAccountChannelTypeAddAccountChannelTypesPostWithHttpInfo (AddAccountChannelTypeModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -52,8 +52,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns></returns>
-        void ApiAccountChannelTypeDeleteAccountChannelTypesIdDelete (int? id);
+        /// <returns>AccountChannelTypeModel</returns>
+        AccountChannelTypeModel ApiAccountChannelTypeDeleteAccountChannelTypesIdDelete (int? id);
 
         /// <summary>
         /// 
@@ -63,8 +63,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ApiAccountChannelTypeDeleteAccountChannelTypesIdDeleteWithHttpInfo (int? id);
+        /// <returns>ApiResponse of AccountChannelTypeModel</returns>
+        ApiResponse<AccountChannelTypeModel> ApiAccountChannelTypeDeleteAccountChannelTypesIdDeleteWithHttpInfo (int? id);
         /// <summary>
         /// 
         /// </summary>
@@ -73,8 +73,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns></returns>
-        void ApiAccountChannelTypeEditAccountChannelTypesPut (EditAccountChannelTypeModel body = null);
+        /// <returns>AccountChannelTypeModel</returns>
+        AccountChannelTypeModel ApiAccountChannelTypeEditAccountChannelTypesPut (EditAccountChannelTypeModel body = null);
 
         /// <summary>
         /// 
@@ -84,8 +84,29 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ApiAccountChannelTypeEditAccountChannelTypesPutWithHttpInfo (EditAccountChannelTypeModel body = null);
+        /// <returns>ApiResponse of AccountChannelTypeModel</returns>
+        ApiResponse<AccountChannelTypeModel> ApiAccountChannelTypeEditAccountChannelTypesPutWithHttpInfo (EditAccountChannelTypeModel body = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>AccountChannelTypeModel</returns>
+        AccountChannelTypeModel ApiAccountChannelTypeGetAccountChannelTypeByIdIdGet (int? id);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>ApiResponse of AccountChannelTypeModel</returns>
+        ApiResponse<AccountChannelTypeModel> ApiAccountChannelTypeGetAccountChannelTypeByIdIdGetWithHttpInfo (int? id);
         /// <summary>
         /// 
         /// </summary>
@@ -94,8 +115,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="accountId"></param>
-        /// <returns></returns>
-        void ApiAccountChannelTypeGetAccountChannelTypesAccountIdGet (int? accountId);
+        /// <returns>List&lt;AccountChannelTypeModel&gt;</returns>
+        List<AccountChannelTypeModel> ApiAccountChannelTypeGetAccountChannelTypesAccountIdGet (int? accountId);
 
         /// <summary>
         /// 
@@ -105,8 +126,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="accountId"></param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ApiAccountChannelTypeGetAccountChannelTypesAccountIdGetWithHttpInfo (int? accountId);
+        /// <returns>ApiResponse of List&lt;AccountChannelTypeModel&gt;</returns>
+        ApiResponse<List<AccountChannelTypeModel>> ApiAccountChannelTypeGetAccountChannelTypesAccountIdGetWithHttpInfo (int? accountId);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -117,8 +138,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ApiAccountChannelTypeAddAccountChannelTypesPostAsync (AddAccountChannelTypeModel body = null);
+        /// <returns>Task of AccountChannelTypeModel</returns>
+        System.Threading.Tasks.Task<AccountChannelTypeModel> ApiAccountChannelTypeAddAccountChannelTypesPostAsync (AddAccountChannelTypeModel body = null);
 
         /// <summary>
         /// 
@@ -128,8 +149,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountChannelTypeAddAccountChannelTypesPostAsyncWithHttpInfo (AddAccountChannelTypeModel body = null);
+        /// <returns>Task of ApiResponse (AccountChannelTypeModel)</returns>
+        System.Threading.Tasks.Task<ApiResponse<AccountChannelTypeModel>> ApiAccountChannelTypeAddAccountChannelTypesPostAsyncWithHttpInfo (AddAccountChannelTypeModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -138,8 +159,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ApiAccountChannelTypeDeleteAccountChannelTypesIdDeleteAsync (int? id);
+        /// <returns>Task of AccountChannelTypeModel</returns>
+        System.Threading.Tasks.Task<AccountChannelTypeModel> ApiAccountChannelTypeDeleteAccountChannelTypesIdDeleteAsync (int? id);
 
         /// <summary>
         /// 
@@ -149,8 +170,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountChannelTypeDeleteAccountChannelTypesIdDeleteAsyncWithHttpInfo (int? id);
+        /// <returns>Task of ApiResponse (AccountChannelTypeModel)</returns>
+        System.Threading.Tasks.Task<ApiResponse<AccountChannelTypeModel>> ApiAccountChannelTypeDeleteAccountChannelTypesIdDeleteAsyncWithHttpInfo (int? id);
         /// <summary>
         /// 
         /// </summary>
@@ -159,8 +180,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ApiAccountChannelTypeEditAccountChannelTypesPutAsync (EditAccountChannelTypeModel body = null);
+        /// <returns>Task of AccountChannelTypeModel</returns>
+        System.Threading.Tasks.Task<AccountChannelTypeModel> ApiAccountChannelTypeEditAccountChannelTypesPutAsync (EditAccountChannelTypeModel body = null);
 
         /// <summary>
         /// 
@@ -170,8 +191,29 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountChannelTypeEditAccountChannelTypesPutAsyncWithHttpInfo (EditAccountChannelTypeModel body = null);
+        /// <returns>Task of ApiResponse (AccountChannelTypeModel)</returns>
+        System.Threading.Tasks.Task<ApiResponse<AccountChannelTypeModel>> ApiAccountChannelTypeEditAccountChannelTypesPutAsyncWithHttpInfo (EditAccountChannelTypeModel body = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>Task of AccountChannelTypeModel</returns>
+        System.Threading.Tasks.Task<AccountChannelTypeModel> ApiAccountChannelTypeGetAccountChannelTypeByIdIdGetAsync (int? id);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>Task of ApiResponse (AccountChannelTypeModel)</returns>
+        System.Threading.Tasks.Task<ApiResponse<AccountChannelTypeModel>> ApiAccountChannelTypeGetAccountChannelTypeByIdIdGetAsyncWithHttpInfo (int? id);
         /// <summary>
         /// 
         /// </summary>
@@ -180,8 +222,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="accountId"></param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ApiAccountChannelTypeGetAccountChannelTypesAccountIdGetAsync (int? accountId);
+        /// <returns>Task of List&lt;AccountChannelTypeModel&gt;</returns>
+        System.Threading.Tasks.Task<List<AccountChannelTypeModel>> ApiAccountChannelTypeGetAccountChannelTypesAccountIdGetAsync (int? accountId);
 
         /// <summary>
         /// 
@@ -191,8 +233,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="accountId"></param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountChannelTypeGetAccountChannelTypesAccountIdGetAsyncWithHttpInfo (int? accountId);
+        /// <returns>Task of ApiResponse (List&lt;AccountChannelTypeModel&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<AccountChannelTypeModel>>> ApiAccountChannelTypeGetAccountChannelTypesAccountIdGetAsyncWithHttpInfo (int? accountId);
         #endregion Asynchronous Operations
     }
 
@@ -309,10 +351,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns></returns>
-        public void ApiAccountChannelTypeAddAccountChannelTypesPost (AddAccountChannelTypeModel body = null)
+        /// <returns>AccountChannelTypeModel</returns>
+        public AccountChannelTypeModel ApiAccountChannelTypeAddAccountChannelTypesPost (AddAccountChannelTypeModel body = null)
         {
-             ApiAccountChannelTypeAddAccountChannelTypesPostWithHttpInfo(body);
+             ApiResponse<AccountChannelTypeModel> localVarResponse = ApiAccountChannelTypeAddAccountChannelTypesPostWithHttpInfo(body);
+             return localVarResponse.Data;
         }
 
         /// <summary>
@@ -320,8 +363,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ApiAccountChannelTypeAddAccountChannelTypesPostWithHttpInfo (AddAccountChannelTypeModel body = null)
+        /// <returns>ApiResponse of AccountChannelTypeModel</returns>
+        public ApiResponse< AccountChannelTypeModel > ApiAccountChannelTypeAddAccountChannelTypesPostWithHttpInfo (AddAccountChannelTypeModel body = null)
         {
 
             var localVarPath = "/api/AccountChannelType/AddAccountChannelTypes";
@@ -343,6 +386,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -375,9 +421,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<AccountChannelTypeModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (AccountChannelTypeModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountChannelTypeModel)));
         }
 
         /// <summary>
@@ -385,10 +431,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ApiAccountChannelTypeAddAccountChannelTypesPostAsync (AddAccountChannelTypeModel body = null)
+        /// <returns>Task of AccountChannelTypeModel</returns>
+        public async System.Threading.Tasks.Task<AccountChannelTypeModel> ApiAccountChannelTypeAddAccountChannelTypesPostAsync (AddAccountChannelTypeModel body = null)
         {
-             await ApiAccountChannelTypeAddAccountChannelTypesPostAsyncWithHttpInfo(body);
+             ApiResponse<AccountChannelTypeModel> localVarResponse = await ApiAccountChannelTypeAddAccountChannelTypesPostAsyncWithHttpInfo(body);
+             return localVarResponse.Data;
 
         }
 
@@ -397,8 +444,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountChannelTypeAddAccountChannelTypesPostAsyncWithHttpInfo (AddAccountChannelTypeModel body = null)
+        /// <returns>Task of ApiResponse (AccountChannelTypeModel)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<AccountChannelTypeModel>> ApiAccountChannelTypeAddAccountChannelTypesPostAsyncWithHttpInfo (AddAccountChannelTypeModel body = null)
         {
 
             var localVarPath = "/api/AccountChannelType/AddAccountChannelTypes";
@@ -420,6 +467,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -452,9 +502,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<AccountChannelTypeModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (AccountChannelTypeModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountChannelTypeModel)));
         }
 
         /// <summary>
@@ -462,10 +512,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns></returns>
-        public void ApiAccountChannelTypeDeleteAccountChannelTypesIdDelete (int? id)
+        /// <returns>AccountChannelTypeModel</returns>
+        public AccountChannelTypeModel ApiAccountChannelTypeDeleteAccountChannelTypesIdDelete (int? id)
         {
-             ApiAccountChannelTypeDeleteAccountChannelTypesIdDeleteWithHttpInfo(id);
+             ApiResponse<AccountChannelTypeModel> localVarResponse = ApiAccountChannelTypeDeleteAccountChannelTypesIdDeleteWithHttpInfo(id);
+             return localVarResponse.Data;
         }
 
         /// <summary>
@@ -473,8 +524,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ApiAccountChannelTypeDeleteAccountChannelTypesIdDeleteWithHttpInfo (int? id)
+        /// <returns>ApiResponse of AccountChannelTypeModel</returns>
+        public ApiResponse< AccountChannelTypeModel > ApiAccountChannelTypeDeleteAccountChannelTypesIdDeleteWithHttpInfo (int? id)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -495,6 +546,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -520,9 +574,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<AccountChannelTypeModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (AccountChannelTypeModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountChannelTypeModel)));
         }
 
         /// <summary>
@@ -530,10 +584,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ApiAccountChannelTypeDeleteAccountChannelTypesIdDeleteAsync (int? id)
+        /// <returns>Task of AccountChannelTypeModel</returns>
+        public async System.Threading.Tasks.Task<AccountChannelTypeModel> ApiAccountChannelTypeDeleteAccountChannelTypesIdDeleteAsync (int? id)
         {
-             await ApiAccountChannelTypeDeleteAccountChannelTypesIdDeleteAsyncWithHttpInfo(id);
+             ApiResponse<AccountChannelTypeModel> localVarResponse = await ApiAccountChannelTypeDeleteAccountChannelTypesIdDeleteAsyncWithHttpInfo(id);
+             return localVarResponse.Data;
 
         }
 
@@ -542,8 +597,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountChannelTypeDeleteAccountChannelTypesIdDeleteAsyncWithHttpInfo (int? id)
+        /// <returns>Task of ApiResponse (AccountChannelTypeModel)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<AccountChannelTypeModel>> ApiAccountChannelTypeDeleteAccountChannelTypesIdDeleteAsyncWithHttpInfo (int? id)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -564,6 +619,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -589,9 +647,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<AccountChannelTypeModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (AccountChannelTypeModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountChannelTypeModel)));
         }
 
         /// <summary>
@@ -599,10 +657,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns></returns>
-        public void ApiAccountChannelTypeEditAccountChannelTypesPut (EditAccountChannelTypeModel body = null)
+        /// <returns>AccountChannelTypeModel</returns>
+        public AccountChannelTypeModel ApiAccountChannelTypeEditAccountChannelTypesPut (EditAccountChannelTypeModel body = null)
         {
-             ApiAccountChannelTypeEditAccountChannelTypesPutWithHttpInfo(body);
+             ApiResponse<AccountChannelTypeModel> localVarResponse = ApiAccountChannelTypeEditAccountChannelTypesPutWithHttpInfo(body);
+             return localVarResponse.Data;
         }
 
         /// <summary>
@@ -610,8 +669,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ApiAccountChannelTypeEditAccountChannelTypesPutWithHttpInfo (EditAccountChannelTypeModel body = null)
+        /// <returns>ApiResponse of AccountChannelTypeModel</returns>
+        public ApiResponse< AccountChannelTypeModel > ApiAccountChannelTypeEditAccountChannelTypesPutWithHttpInfo (EditAccountChannelTypeModel body = null)
         {
 
             var localVarPath = "/api/AccountChannelType/EditAccountChannelTypes";
@@ -633,6 +692,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -665,9 +727,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<AccountChannelTypeModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (AccountChannelTypeModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountChannelTypeModel)));
         }
 
         /// <summary>
@@ -675,10 +737,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ApiAccountChannelTypeEditAccountChannelTypesPutAsync (EditAccountChannelTypeModel body = null)
+        /// <returns>Task of AccountChannelTypeModel</returns>
+        public async System.Threading.Tasks.Task<AccountChannelTypeModel> ApiAccountChannelTypeEditAccountChannelTypesPutAsync (EditAccountChannelTypeModel body = null)
         {
-             await ApiAccountChannelTypeEditAccountChannelTypesPutAsyncWithHttpInfo(body);
+             ApiResponse<AccountChannelTypeModel> localVarResponse = await ApiAccountChannelTypeEditAccountChannelTypesPutAsyncWithHttpInfo(body);
+             return localVarResponse.Data;
 
         }
 
@@ -687,8 +750,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountChannelTypeEditAccountChannelTypesPutAsyncWithHttpInfo (EditAccountChannelTypeModel body = null)
+        /// <returns>Task of ApiResponse (AccountChannelTypeModel)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<AccountChannelTypeModel>> ApiAccountChannelTypeEditAccountChannelTypesPutAsyncWithHttpInfo (EditAccountChannelTypeModel body = null)
         {
 
             var localVarPath = "/api/AccountChannelType/EditAccountChannelTypes";
@@ -710,6 +773,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -742,20 +808,154 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<AccountChannelTypeModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (AccountChannelTypeModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountChannelTypeModel)));
         }
 
         /// <summary>
         ///  
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="accountId"></param>
-        /// <returns></returns>
-        public void ApiAccountChannelTypeGetAccountChannelTypesAccountIdGet (int? accountId)
+        /// <param name="id"></param>
+        /// <returns>AccountChannelTypeModel</returns>
+        public AccountChannelTypeModel ApiAccountChannelTypeGetAccountChannelTypeByIdIdGet (int? id)
         {
-             ApiAccountChannelTypeGetAccountChannelTypesAccountIdGetWithHttpInfo(accountId);
+             ApiResponse<AccountChannelTypeModel> localVarResponse = ApiAccountChannelTypeGetAccountChannelTypeByIdIdGetWithHttpInfo(id);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>ApiResponse of AccountChannelTypeModel</returns>
+        public ApiResponse< AccountChannelTypeModel > ApiAccountChannelTypeGetAccountChannelTypeByIdIdGetWithHttpInfo (int? id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new ApiException(400, "Missing required parameter 'id' when calling AccountChannelTypeApi->ApiAccountChannelTypeGetAccountChannelTypeByIdIdGet");
+
+            var localVarPath = "/api/AccountChannelType/GetAccountChannelTypeById/{id}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (id != null) localVarPathParams.Add("id", this.Configuration.ApiClient.ParameterToString(id)); // path parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiAccountChannelTypeGetAccountChannelTypeByIdIdGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<AccountChannelTypeModel>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (AccountChannelTypeModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountChannelTypeModel)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>Task of AccountChannelTypeModel</returns>
+        public async System.Threading.Tasks.Task<AccountChannelTypeModel> ApiAccountChannelTypeGetAccountChannelTypeByIdIdGetAsync (int? id)
+        {
+             ApiResponse<AccountChannelTypeModel> localVarResponse = await ApiAccountChannelTypeGetAccountChannelTypeByIdIdGetAsyncWithHttpInfo(id);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>Task of ApiResponse (AccountChannelTypeModel)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<AccountChannelTypeModel>> ApiAccountChannelTypeGetAccountChannelTypeByIdIdGetAsyncWithHttpInfo (int? id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new ApiException(400, "Missing required parameter 'id' when calling AccountChannelTypeApi->ApiAccountChannelTypeGetAccountChannelTypeByIdIdGet");
+
+            var localVarPath = "/api/AccountChannelType/GetAccountChannelTypeById/{id}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (id != null) localVarPathParams.Add("id", this.Configuration.ApiClient.ParameterToString(id)); // path parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiAccountChannelTypeGetAccountChannelTypeByIdIdGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<AccountChannelTypeModel>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (AccountChannelTypeModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountChannelTypeModel)));
         }
 
         /// <summary>
@@ -763,8 +963,20 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="accountId"></param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ApiAccountChannelTypeGetAccountChannelTypesAccountIdGetWithHttpInfo (int? accountId)
+        /// <returns>List&lt;AccountChannelTypeModel&gt;</returns>
+        public List<AccountChannelTypeModel> ApiAccountChannelTypeGetAccountChannelTypesAccountIdGet (int? accountId)
+        {
+             ApiResponse<List<AccountChannelTypeModel>> localVarResponse = ApiAccountChannelTypeGetAccountChannelTypesAccountIdGetWithHttpInfo(accountId);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="accountId"></param>
+        /// <returns>ApiResponse of List&lt;AccountChannelTypeModel&gt;</returns>
+        public ApiResponse< List<AccountChannelTypeModel> > ApiAccountChannelTypeGetAccountChannelTypesAccountIdGetWithHttpInfo (int? accountId)
         {
             // verify the required parameter 'accountId' is set
             if (accountId == null)
@@ -785,6 +997,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -810,9 +1025,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<List<AccountChannelTypeModel>>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (List<AccountChannelTypeModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<AccountChannelTypeModel>)));
         }
 
         /// <summary>
@@ -820,10 +1035,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="accountId"></param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ApiAccountChannelTypeGetAccountChannelTypesAccountIdGetAsync (int? accountId)
+        /// <returns>Task of List&lt;AccountChannelTypeModel&gt;</returns>
+        public async System.Threading.Tasks.Task<List<AccountChannelTypeModel>> ApiAccountChannelTypeGetAccountChannelTypesAccountIdGetAsync (int? accountId)
         {
-             await ApiAccountChannelTypeGetAccountChannelTypesAccountIdGetAsyncWithHttpInfo(accountId);
+             ApiResponse<List<AccountChannelTypeModel>> localVarResponse = await ApiAccountChannelTypeGetAccountChannelTypesAccountIdGetAsyncWithHttpInfo(accountId);
+             return localVarResponse.Data;
 
         }
 
@@ -832,8 +1048,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="accountId"></param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountChannelTypeGetAccountChannelTypesAccountIdGetAsyncWithHttpInfo (int? accountId)
+        /// <returns>Task of ApiResponse (List&lt;AccountChannelTypeModel&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<AccountChannelTypeModel>>> ApiAccountChannelTypeGetAccountChannelTypesAccountIdGetAsyncWithHttpInfo (int? accountId)
         {
             // verify the required parameter 'accountId' is set
             if (accountId == null)
@@ -854,6 +1070,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -879,9 +1098,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<List<AccountChannelTypeModel>>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (List<AccountChannelTypeModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<AccountChannelTypeModel>)));
         }
 
     }

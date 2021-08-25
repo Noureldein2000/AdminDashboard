@@ -18,13 +18,27 @@
                                 <th>Account Name</th>
                                 <th>Mobile</th>
                                 <th>NationalID</th>
-                                <th>ActivityName</th>
+                                <th>Activity</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach (var account in Model.Results)
                             {
+                            <tr>
+                                <td>@account.AccountName</td>
+                                <td>@account.Mobile</td>
+                                <td>@account.NationalID</td>
+                                <td>@account.ActivityName</td>
+                                <td>
+                                    <a asp-action="ViewChannels" asp-route-id="@account.Id" class="btn btn-info">Channels</a>
+                                    <a asp-action="ViewChannelsTypes" asp-route-id="@account.Id" class="btn btn-info">ChannelTypes</a>
+                                    <a asp-action="Edit" asp-route-id="@account.Id" class="btn btn-primary">Edit</a>
+                                    <a asp-action="ChangeStatus" asp-route-id="@account.Id" class="btn @(account.Status ? "btn-success": "btn-danger")">
+                                        @(account.Status ? "Active" : "Deactive")
+                                    </a>
+                                </td>
+                            </tr>
                                 <tr>
                                     <td>@account.AccountName</td>
                                     <td>@account.Mobile</td>
@@ -42,7 +56,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="card-footer text-center">
+                <div class="card-footer d-flex justify-content-center">
                     <pager link-url="/SuperAdmin/Accounts/Index"
                            page="Model.CurrentPage"
                            page-size="Model.PageSize"

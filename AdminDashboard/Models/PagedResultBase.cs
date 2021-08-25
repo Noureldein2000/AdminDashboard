@@ -11,6 +11,7 @@ namespace AdminDashboard.Models
         public int PageCount { get; set; }
         public int PageSize { get; set; }
         public int RowCount { get; set; }
+        public string SearchKey { get; set; }
 
         public int FirstRowOnPage
         {
