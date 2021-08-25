@@ -313,6 +313,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 AccountID = d.AccountID,
                 ChannelID = d.ChannelID,
                 ChannelName = d.ChannelName,
+                Serial = d.Serial,
                 Status = (bool)d.Status,
                 CreatedBy = (int)d.CreatedBy,
                 CreatedName = d.CreatedName
