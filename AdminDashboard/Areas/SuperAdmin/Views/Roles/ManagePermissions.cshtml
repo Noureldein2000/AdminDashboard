@@ -9,8 +9,8 @@
 <form asp-action="ManagePermissions" method="post">
     <div class="card mt-4">
         <div class="card-header">
-            <h2>@Model.RoleName</h2>
-            Add/Remove Role Claims
+            <h2>Username: @Model.RoleName</h2>
+            Add/Remove Role Permissions
         </div>
         <div class="card-body">
             <input type="hidden" asp-for="RoleId" />
