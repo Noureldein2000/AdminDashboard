@@ -46,7 +46,8 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="accountTypeProfileID">accountTypeProfileID (required).</param>
         /// <param name="regionID">regionID.</param>
         /// <param name="entityID">entityID.</param>
-        public AddAccountModel(string ownerName = default(string), string accountName = default(string), string mobile = default(string), string address = default(string), string latitude = default(string), string longitude = default(string), string email = default(string), string nationalID = default(string), string commercialRegistrationNo = default(string), string taxNo = default(string), int? activityID = default(int?), int? accountTypeProfileID = default(int?), int? regionID = default(int?), int? entityID = default(int?))
+        /// <param name="parentID">parentID.</param>
+        public AddAccountModel(string ownerName = default(string), string accountName = default(string), string mobile = default(string), string address = default(string), string latitude = default(string), string longitude = default(string), string email = default(string), string nationalID = default(string), string commercialRegistrationNo = default(string), string taxNo = default(string), int? activityID = default(int?), int? accountTypeProfileID = default(int?), int? regionID = default(int?), int? entityID = default(int?), int? parentID = default(int?))
         {
             // to ensure "ownerName" is required (not null)
             if (ownerName == null)
@@ -134,6 +135,7 @@ namespace AdminDashboard.Models.SwaggerModels
             this.Email = email;
             this.RegionID = regionID;
             this.EntityID = entityID;
+            this.ParentID = parentID;
         }
         
         /// <summary>
@@ -221,6 +223,12 @@ namespace AdminDashboard.Models.SwaggerModels
         public int? EntityID { get; set; }
 
         /// <summary>
+        /// Gets or Sets ParentID
+        /// </summary>
+        [DataMember(Name="parentID", EmitDefaultValue=false)]
+        public int? ParentID { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -242,6 +250,7 @@ namespace AdminDashboard.Models.SwaggerModels
             sb.Append("  AccountTypeProfileID: ").Append(AccountTypeProfileID).Append("\n");
             sb.Append("  RegionID: ").Append(RegionID).Append("\n");
             sb.Append("  EntityID: ").Append(EntityID).Append("\n");
+            sb.Append("  ParentID: ").Append(ParentID).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -345,6 +354,11 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.EntityID == input.EntityID ||
                     (this.EntityID != null &&
                     this.EntityID.Equals(input.EntityID))
+                ) && 
+                (
+                    this.ParentID == input.ParentID ||
+                    (this.ParentID != null &&
+                    this.ParentID.Equals(input.ParentID))
                 );
         }
 
@@ -385,6 +399,8 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.RegionID.GetHashCode();
                 if (this.EntityID != null)
                     hashCode = hashCode * 59 + this.EntityID.GetHashCode();
+                if (this.ParentID != null)
+                    hashCode = hashCode * 59 + this.ParentID.GetHashCode();
                 return hashCode;
             }
         }

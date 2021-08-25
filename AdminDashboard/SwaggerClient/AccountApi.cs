@@ -16,11 +16,12 @@ using AdminDashboard.Models.SwaggerModels;
 using AdminDashboard.SwaggerClientHelpers;
 
 namespace AdminDashboard.SwaggerClient
+
 {
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-        public interface IAccountApi : IApiAccessor
+    public interface IAccountApi : IApiAccessor
     {
         #region Synchronous Operations
         /// <summary>
@@ -31,8 +32,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>AccountModel</returns>
-        AccountModel ApiAccountAddAccountPost (AddAccountModel body = null);
+        /// <returns>AddAccountModel</returns>
+        AddAccountModel ApiAccountAddAccountPost (AddAccountModel body = null);
 
         /// <summary>
         /// 
@@ -42,8 +43,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of AccountModel</returns>
-        ApiResponse<AccountModel> ApiAccountAddAccountPostWithHttpInfo (AddAccountModel body = null);
+        /// <returns>ApiResponse of AddAccountModel</returns>
+        ApiResponse<AddAccountModel> ApiAccountAddAccountPostWithHttpInfo (AddAccountModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -52,8 +53,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>List&lt;AccountRequestModel&gt;</returns>
-        List<AccountRequestModel> ApiAccountAddAccountRequestPost (AddAccountRequestModel body = null);
+        /// <returns>AccountRequestModel</returns>
+        AccountRequestModel ApiAccountAddAccountRequestPost (AddAccountRequestModel body = null);
 
         /// <summary>
         /// 
@@ -63,8 +64,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of List&lt;AccountRequestModel&gt;</returns>
-        ApiResponse<List<AccountRequestModel>> ApiAccountAddAccountRequestPostWithHttpInfo (AddAccountRequestModel body = null);
+        /// <returns>ApiResponse of AccountRequestModel</returns>
+        ApiResponse<AccountRequestModel> ApiAccountAddAccountRequestPostWithHttpInfo (AddAccountRequestModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -182,8 +183,8 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="status"></param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns></returns>
-        void ApiAccountGetAccountRequestByStatusStatusGet (AccountRequestStatus status, int? pageNumber = null, int? pageSize = null);
+        /// <returns>AccountRequestModelPagedResult</returns>
+        AccountRequestModelPagedResult ApiAccountGetAccountRequestByStatusStatusGet (AccountRequestStatus status, int? pageNumber = null, int? pageSize = null);
 
         /// <summary>
         /// 
@@ -195,8 +196,8 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="status"></param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ApiAccountGetAccountRequestByStatusStatusGetWithHttpInfo (AccountRequestStatus status, int? pageNumber = null, int? pageSize = null);
+        /// <returns>ApiResponse of AccountRequestModelPagedResult</returns>
+        ApiResponse<AccountRequestModelPagedResult> ApiAccountGetAccountRequestByStatusStatusGetWithHttpInfo (AccountRequestStatus status, int? pageNumber = null, int? pageSize = null);
         /// <summary>
         /// 
         /// </summary>
@@ -230,8 +231,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of AccountModel</returns>
-        System.Threading.Tasks.Task<AccountModel> ApiAccountAddAccountPostAsync (AddAccountModel body = null);
+        /// <returns>Task of AddAccountModel</returns>
+        System.Threading.Tasks.Task<AddAccountModel> ApiAccountAddAccountPostAsync (AddAccountModel body = null);
 
         /// <summary>
         /// 
@@ -241,8 +242,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse (AccountModel)</returns>
-        System.Threading.Tasks.Task<ApiResponse<AccountModel>> ApiAccountAddAccountPostAsyncWithHttpInfo (AddAccountModel body = null);
+        /// <returns>Task of ApiResponse (AddAccountModel)</returns>
+        System.Threading.Tasks.Task<ApiResponse<AddAccountModel>> ApiAccountAddAccountPostAsyncWithHttpInfo (AddAccountModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -251,8 +252,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of List&lt;AccountRequestModel&gt;</returns>
-        System.Threading.Tasks.Task<List<AccountRequestModel>> ApiAccountAddAccountRequestPostAsync (AddAccountRequestModel body = null);
+        /// <returns>Task of AccountRequestModel</returns>
+        System.Threading.Tasks.Task<AccountRequestModel> ApiAccountAddAccountRequestPostAsync (AddAccountRequestModel body = null);
 
         /// <summary>
         /// 
@@ -262,8 +263,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse (List&lt;AccountRequestModel&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<AccountRequestModel>>> ApiAccountAddAccountRequestPostAsyncWithHttpInfo (AddAccountRequestModel body = null);
+        /// <returns>Task of ApiResponse (AccountRequestModel)</returns>
+        System.Threading.Tasks.Task<ApiResponse<AccountRequestModel>> ApiAccountAddAccountRequestPostAsyncWithHttpInfo (AddAccountRequestModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -381,8 +382,8 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="status"></param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ApiAccountGetAccountRequestByStatusStatusGetAsync (AccountRequestStatus status, int? pageNumber = null, int? pageSize = null);
+        /// <returns>Task of AccountRequestModelPagedResult</returns>
+        System.Threading.Tasks.Task<AccountRequestModelPagedResult> ApiAccountGetAccountRequestByStatusStatusGetAsync (AccountRequestStatus status, int? pageNumber = null, int? pageSize = null);
 
         /// <summary>
         /// 
@@ -394,8 +395,8 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="status"></param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountGetAccountRequestByStatusStatusGetAsyncWithHttpInfo (AccountRequestStatus status, int? pageNumber = null, int? pageSize = null);
+        /// <returns>Task of ApiResponse (AccountRequestModelPagedResult)</returns>
+        System.Threading.Tasks.Task<ApiResponse<AccountRequestModelPagedResult>> ApiAccountGetAccountRequestByStatusStatusGetAsyncWithHttpInfo (AccountRequestStatus status, int? pageNumber = null, int? pageSize = null);
         /// <summary>
         /// 
         /// </summary>
@@ -535,10 +536,10 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>AccountModel</returns>
-        public AccountModel ApiAccountAddAccountPost (AddAccountModel body = null)
+        /// <returns>AddAccountModel</returns>
+        public AddAccountModel ApiAccountAddAccountPost (AddAccountModel body = null)
         {
-             ApiResponse<AccountModel> localVarResponse = ApiAccountAddAccountPostWithHttpInfo(body);
+             ApiResponse<AddAccountModel> localVarResponse = ApiAccountAddAccountPostWithHttpInfo(body);
              return localVarResponse.Data;
         }
 
@@ -547,8 +548,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of AccountModel</returns>
-        public ApiResponse< AccountModel > ApiAccountAddAccountPostWithHttpInfo (AddAccountModel body = null)
+        /// <returns>ApiResponse of AddAccountModel</returns>
+        public ApiResponse< AddAccountModel > ApiAccountAddAccountPostWithHttpInfo (AddAccountModel body = null)
         {
 
             var localVarPath = "/api/Account/AddAccount";
@@ -605,9 +606,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<AccountModel>(localVarStatusCode,
+            return new ApiResponse<AddAccountModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (AccountModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountModel)));
+                (AddAccountModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AddAccountModel)));
         }
 
         /// <summary>
@@ -615,10 +616,10 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of AccountModel</returns>
-        public async System.Threading.Tasks.Task<AccountModel> ApiAccountAddAccountPostAsync (AddAccountModel body = null)
+        /// <returns>Task of AddAccountModel</returns>
+        public async System.Threading.Tasks.Task<AddAccountModel> ApiAccountAddAccountPostAsync (AddAccountModel body = null)
         {
-             ApiResponse<AccountModel> localVarResponse = await ApiAccountAddAccountPostAsyncWithHttpInfo(body);
+             ApiResponse<AddAccountModel> localVarResponse = await ApiAccountAddAccountPostAsyncWithHttpInfo(body);
              return localVarResponse.Data;
 
         }
@@ -628,8 +629,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse (AccountModel)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<AccountModel>> ApiAccountAddAccountPostAsyncWithHttpInfo (AddAccountModel body = null)
+        /// <returns>Task of ApiResponse (AddAccountModel)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<AddAccountModel>> ApiAccountAddAccountPostAsyncWithHttpInfo (AddAccountModel body = null)
         {
 
             var localVarPath = "/api/Account/AddAccount";
@@ -686,9 +687,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<AccountModel>(localVarStatusCode,
+            return new ApiResponse<AddAccountModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (AccountModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountModel)));
+                (AddAccountModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AddAccountModel)));
         }
 
         /// <summary>
@@ -696,10 +697,10 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>List&lt;AccountRequestModel&gt;</returns>
-        public List<AccountRequestModel> ApiAccountAddAccountRequestPost (AddAccountRequestModel body = null)
+        /// <returns>AccountRequestModel</returns>
+        public AccountRequestModel ApiAccountAddAccountRequestPost (AddAccountRequestModel body = null)
         {
-             ApiResponse<List<AccountRequestModel>> localVarResponse = ApiAccountAddAccountRequestPostWithHttpInfo(body);
+             ApiResponse<AccountRequestModel> localVarResponse = ApiAccountAddAccountRequestPostWithHttpInfo(body);
              return localVarResponse.Data;
         }
 
@@ -708,8 +709,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of List&lt;AccountRequestModel&gt;</returns>
-        public ApiResponse< List<AccountRequestModel> > ApiAccountAddAccountRequestPostWithHttpInfo (AddAccountRequestModel body = null)
+        /// <returns>ApiResponse of AccountRequestModel</returns>
+        public ApiResponse< AccountRequestModel > ApiAccountAddAccountRequestPostWithHttpInfo (AddAccountRequestModel body = null)
         {
 
             var localVarPath = "/api/Account/AddAccountRequest";
@@ -766,9 +767,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<List<AccountRequestModel>>(localVarStatusCode,
+            return new ApiResponse<AccountRequestModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (List<AccountRequestModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<AccountRequestModel>)));
+                (AccountRequestModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountRequestModel)));
         }
 
         /// <summary>
@@ -776,10 +777,10 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of List&lt;AccountRequestModel&gt;</returns>
-        public async System.Threading.Tasks.Task<List<AccountRequestModel>> ApiAccountAddAccountRequestPostAsync (AddAccountRequestModel body = null)
+        /// <returns>Task of AccountRequestModel</returns>
+        public async System.Threading.Tasks.Task<AccountRequestModel> ApiAccountAddAccountRequestPostAsync (AddAccountRequestModel body = null)
         {
-             ApiResponse<List<AccountRequestModel>> localVarResponse = await ApiAccountAddAccountRequestPostAsyncWithHttpInfo(body);
+             ApiResponse<AccountRequestModel> localVarResponse = await ApiAccountAddAccountRequestPostAsyncWithHttpInfo(body);
              return localVarResponse.Data;
 
         }
@@ -789,8 +790,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse (List&lt;AccountRequestModel&gt;)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<List<AccountRequestModel>>> ApiAccountAddAccountRequestPostAsyncWithHttpInfo (AddAccountRequestModel body = null)
+        /// <returns>Task of ApiResponse (AccountRequestModel)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<AccountRequestModel>> ApiAccountAddAccountRequestPostAsyncWithHttpInfo (AddAccountRequestModel body = null)
         {
 
             var localVarPath = "/api/Account/AddAccountRequest";
@@ -847,9 +848,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<List<AccountRequestModel>>(localVarStatusCode,
+            return new ApiResponse<AccountRequestModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (List<AccountRequestModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<AccountRequestModel>)));
+                (AccountRequestModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountRequestModel)));
         }
 
         /// <summary>
@@ -1596,10 +1597,11 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="status"></param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns></returns>
-        public void ApiAccountGetAccountRequestByStatusStatusGet (AccountRequestStatus status, int? pageNumber = null, int? pageSize = null)
+        /// <returns>AccountRequestModelPagedResult</returns>
+        public AccountRequestModelPagedResult ApiAccountGetAccountRequestByStatusStatusGet (AccountRequestStatus status, int? pageNumber = null, int? pageSize = null)
         {
-             ApiAccountGetAccountRequestByStatusStatusGetWithHttpInfo(status, pageNumber, pageSize);
+             ApiResponse<AccountRequestModelPagedResult> localVarResponse = ApiAccountGetAccountRequestByStatusStatusGetWithHttpInfo(status, pageNumber, pageSize);
+             return localVarResponse.Data;
         }
 
         /// <summary>
@@ -1609,8 +1611,8 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="status"></param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ApiAccountGetAccountRequestByStatusStatusGetWithHttpInfo (AccountRequestStatus status, int? pageNumber = null, int? pageSize = null)
+        /// <returns>ApiResponse of AccountRequestModelPagedResult</returns>
+        public ApiResponse< AccountRequestModelPagedResult > ApiAccountGetAccountRequestByStatusStatusGetWithHttpInfo (AccountRequestStatus status, int? pageNumber = null, int? pageSize = null)
         {
             // verify the required parameter 'status' is set
             if (status == null)
@@ -1631,6 +1633,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -1658,9 +1663,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<AccountRequestModelPagedResult>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (AccountRequestModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountRequestModelPagedResult)));
         }
 
         /// <summary>
@@ -1670,10 +1675,11 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="status"></param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ApiAccountGetAccountRequestByStatusStatusGetAsync (AccountRequestStatus status, int? pageNumber = null, int? pageSize = null)
+        /// <returns>Task of AccountRequestModelPagedResult</returns>
+        public async System.Threading.Tasks.Task<AccountRequestModelPagedResult> ApiAccountGetAccountRequestByStatusStatusGetAsync (AccountRequestStatus status, int? pageNumber = null, int? pageSize = null)
         {
-             await ApiAccountGetAccountRequestByStatusStatusGetAsyncWithHttpInfo(status, pageNumber, pageSize);
+             ApiResponse<AccountRequestModelPagedResult> localVarResponse = await ApiAccountGetAccountRequestByStatusStatusGetAsyncWithHttpInfo(status, pageNumber, pageSize);
+             return localVarResponse.Data;
 
         }
 
@@ -1684,8 +1690,8 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="status"></param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountGetAccountRequestByStatusStatusGetAsyncWithHttpInfo (AccountRequestStatus status, int? pageNumber = null, int? pageSize = null)
+        /// <returns>Task of ApiResponse (AccountRequestModelPagedResult)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<AccountRequestModelPagedResult>> ApiAccountGetAccountRequestByStatusStatusGetAsyncWithHttpInfo (AccountRequestStatus status, int? pageNumber = null, int? pageSize = null)
         {
             // verify the required parameter 'status' is set
             if (status == null)
@@ -1706,6 +1712,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -1733,9 +1742,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<AccountRequestModelPagedResult>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (AccountRequestModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountRequestModelPagedResult)));
         }
 
         /// <summary>
