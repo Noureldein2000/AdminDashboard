@@ -32,8 +32,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>AddAccountModel</returns>
-        AddAccountModel ApiAccountAddAccountPost (AddAccountModel body = null);
+        /// <returns>AccountModel</returns>
+        AccountModel ApiAccountAddAccountPost (AddAccountModel body = null);
 
         /// <summary>
         /// 
@@ -43,8 +43,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of AddAccountModel</returns>
-        ApiResponse<AddAccountModel> ApiAccountAddAccountPostWithHttpInfo (AddAccountModel body = null);
+        /// <returns>ApiResponse of AccountModel</returns>
+        ApiResponse<AccountModel> ApiAccountAddAccountPostWithHttpInfo (AddAccountModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -231,8 +231,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of AddAccountModel</returns>
-        System.Threading.Tasks.Task<AddAccountModel> ApiAccountAddAccountPostAsync (AddAccountModel body = null);
+        /// <returns>Task of AccountModel</returns>
+        System.Threading.Tasks.Task<AccountModel> ApiAccountAddAccountPostAsync (AddAccountModel body = null);
 
         /// <summary>
         /// 
@@ -242,8 +242,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse (AddAccountModel)</returns>
-        System.Threading.Tasks.Task<ApiResponse<AddAccountModel>> ApiAccountAddAccountPostAsyncWithHttpInfo (AddAccountModel body = null);
+        /// <returns>Task of ApiResponse (AccountModel)</returns>
+        System.Threading.Tasks.Task<ApiResponse<AccountModel>> ApiAccountAddAccountPostAsyncWithHttpInfo (AddAccountModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -536,10 +536,10 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>AddAccountModel</returns>
-        public AddAccountModel ApiAccountAddAccountPost (AddAccountModel body = null)
+        /// <returns>AccountModel</returns>
+        public AccountModel ApiAccountAddAccountPost (AddAccountModel body = null)
         {
-             ApiResponse<AddAccountModel> localVarResponse = ApiAccountAddAccountPostWithHttpInfo(body);
+             ApiResponse<AccountModel> localVarResponse = ApiAccountAddAccountPostWithHttpInfo(body);
              return localVarResponse.Data;
         }
 
@@ -548,8 +548,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of AddAccountModel</returns>
-        public ApiResponse< AddAccountModel > ApiAccountAddAccountPostWithHttpInfo (AddAccountModel body = null)
+        /// <returns>ApiResponse of AccountModel</returns>
+        public ApiResponse< AccountModel > ApiAccountAddAccountPostWithHttpInfo (AddAccountModel body = null)
         {
 
             var localVarPath = "/api/Account/AddAccount";
@@ -606,9 +606,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<AddAccountModel>(localVarStatusCode,
+            return new ApiResponse<AccountModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (AddAccountModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AddAccountModel)));
+                (AccountModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountModel)));
         }
 
         /// <summary>
@@ -616,10 +616,10 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of AddAccountModel</returns>
-        public async System.Threading.Tasks.Task<AddAccountModel> ApiAccountAddAccountPostAsync (AddAccountModel body = null)
+        /// <returns>Task of AccountModel</returns>
+        public async System.Threading.Tasks.Task<AccountModel> ApiAccountAddAccountPostAsync (AddAccountModel body = null)
         {
-             ApiResponse<AddAccountModel> localVarResponse = await ApiAccountAddAccountPostAsyncWithHttpInfo(body);
+             ApiResponse<AccountModel> localVarResponse = await ApiAccountAddAccountPostAsyncWithHttpInfo(body);
              return localVarResponse.Data;
 
         }
@@ -629,8 +629,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse (AddAccountModel)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<AddAccountModel>> ApiAccountAddAccountPostAsyncWithHttpInfo (AddAccountModel body = null)
+        /// <returns>Task of ApiResponse (AccountModel)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<AccountModel>> ApiAccountAddAccountPostAsyncWithHttpInfo (AddAccountModel body = null)
         {
 
             var localVarPath = "/api/Account/AddAccount";
@@ -687,9 +687,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<AddAccountModel>(localVarStatusCode,
+            return new ApiResponse<AccountModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (AddAccountModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AddAccountModel)));
+                (AccountModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountModel)));
         }
 
         /// <summary>
