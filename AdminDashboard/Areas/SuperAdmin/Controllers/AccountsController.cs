@@ -181,6 +181,15 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     Value = s.Id.ToString()
                 }).ToList();
             }
+            if (model.ParentID.HasValue)
+            {
+                var accounts = accountTypeProfileApi.ApiAccountTypeProfileGetParentAccountsIdGet(model.AccountTypeProfileID);
+                viewModel.ParentAccounts = accounts.Select(s => new SelectListItem
+                {
+                    Text = s.AccountName,
+                    Value = s.Id.ToString()
+                }).ToList();
+            }
 
             return View(viewModel);
         }

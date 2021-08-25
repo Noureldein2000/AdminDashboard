@@ -40,5 +40,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public List<SelectListItem> Governerates { get; set; }
         public List<SelectListItem> Regions { get; set; }
         public List<SelectListItem> AccountTypeProfiles { get; set; }
+        public List<SelectListItem> ParentAccounts { get; set; }
     }
 }

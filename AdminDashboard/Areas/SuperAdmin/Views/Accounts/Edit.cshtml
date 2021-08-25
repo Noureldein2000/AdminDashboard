@@ -92,10 +92,10 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">Account Related to (Parent Id) </label>
-                            <select asp-for="ParentAccountID" class="form-control" data-style="select-with-transition" title="Choose a parent" data-size="7">
+                            <select asp-for="ParentAccountID" asp-items="Model.ParentAccounts" class="form-control" data-style="select-with-transition" title="Choose a parent" data-size="7">
                                 <option disabled> Choose</option>
                             </select>
-                            <span class="" asp-validation-for="ParentAccountID" class="text-danger"></span>
+                            <span asp-validation-for="ParentAccountID" class="text-danger"></span>
                         </div>
 
                     </div>
