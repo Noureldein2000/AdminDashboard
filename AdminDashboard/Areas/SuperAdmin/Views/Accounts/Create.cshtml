@@ -110,31 +110,31 @@
 
 @section Scripts{
     <script>
-        $('#GovernerateId').on("change", function () {
+        $('#GovernerateID').on("change", function () {
             var goveId = $(this).val();
-            $('#CityId').attr("disabled", false)
+            $('#RegionID').attr("disabled", false)
             $.ajax({
                 type: "GET",
                 url: "@Url.Action("GetCities")",
                 data: { id: goveId},
                 dataType: "text",
                 success: function (msg) {
-                    $('#CityId').prop('disabled', true);
-                    $('#CityId').html('');
+                    $('#RegionID').prop('disabled', true);
+                    $('#RegionID').html('');
                     $.each(JSON.parse(msg), function (i, state) {
-                        $('#CityId').append('<option value="' + state.id + '">' +
+                        $('#RegionID').append('<option value="' + state.id + '">' +
                             state.name + '</option>');
                     });
-                    $('#CityId').prop('disabled', false);
+                    $('#RegionID').prop('disabled', false);
                 },
                 error: function (req, status, error) {
                     console.log(msg);
                 }
             });
         });
-        $('#AccountTypeProfileId').on("change", function () {
+        $('#AccountTypeProfileID').on("change", function () {
             var Id = $(this).val();
-            $('#ParentAccountId').attr("disabled", false)
+            $('#ParentAccountID').attr("disabled", false)
             $.ajax({
                 type: "GET",
                 url: "@Url.Action("GetAccountTypesByParentId")",
@@ -142,14 +142,14 @@
                 dataType: "text",
                 success: function (msg) {
               
-                    $('#ParentAccountId').prop('disabled', true);
-                    $('#ParentAccountId').html('');
+                    $('#ParentAccountID').prop('disabled', true);
+                    $('#ParentAccountID').html('');
                     $.each(JSON.parse(msg), function (i, state) {
               
-                        $('#ParentAccountId').append('<option value="' + state.id + '">' +
+                        $('#ParentAccountID').append('<option value="' + state.id + '">' +
                             state.accountName + '</option>');
                     });
-                    $('#ParentAccountId').prop('disabled', false);
+                    $('#ParentAccountID').prop('disabled', false);
                 },
                 error: function (req, status, error) {
                     console.log(msg);
