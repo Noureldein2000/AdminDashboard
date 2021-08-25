@@ -38,10 +38,12 @@ namespace AdminDashboard.Controllers
             //var idToken = await HttpContext.GetTokenAsync("id_token");
             //var _idToken = new JwtSecurityTokenHandler().ReadJwtToken(idToken);
             //var _accessToken = new JwtSecurityTokenHandler().ReadJwtToken(accessToken);
+            System.Security.Claims.ClaimsPrincipal currentUser = User;
+            bool IsAdmin = currentUser.IsInRole("SuperAdmin");
+            if(!IsAdmin)
+                return RedirectToAction("Index", "Home", new { area = "SuperAdmin" });
 
-            return RedirectToAction("Index", "Home", new { area = "SuperAdmin" });
-
-            //return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Logout()

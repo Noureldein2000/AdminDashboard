@@ -1,0 +1,53 @@
+﻿@model RolesPermissionsViewModel
+@{
+    ViewData["Title"] = "Permission Roles";
+}
+
+<h1>Permission Roles</h1>
+<hr />
+
+<form asp-action="ManagePermissions" method="post">
+    <div class="card mt-4">
+        <div class="card-header">
+            <h2>@Model.RoleName</h2>
+            Add/Remove Role Claims
+        </div>
+        <div class="card-body">
+            <input type="hidden" asp-for="RoleId" />
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Module</th>
+                        <th>Permission</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for (int i = 0; i < Model.RoleClaims.Count(); i++)
+                    {
+                        <tr>
+                            <td>
+                                <div class="form-check m-1">
+                                    <input type="hidden" asp-for="@Model.RoleClaims[i].DisplayName" />
+                                    <input class="form-check-input" asp-for="@Model.RoleClaims[i].IsSelected" />
+                                    @*<label class="form-check-label" asp-for="@Model.RoleClaims[i].IsSelected">
+                                            @Model.RoleClaims[i].DisplayName
+                                        </label>*@
+                                </div>
+                            </td>
+                            <td>@Model.RoleClaims[i].DisplayName.Split('.')[1]</td>
+                            <td>@Model.RoleClaims[i].DisplayName.Split('.')[2]</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div asp-validation-summary="All" class="text-danger"></div>
+        </div>
+        <div class="card-footer">
+            <input type="submit" class="btn btn-primary" value="Submit" />
+            <a class="btn btn-secondary" asp-action="Index" asp-area="SuperAdmin" asp-controller="Roles">Cancel</a>
+        </div>
+    </div>
+</form>
+

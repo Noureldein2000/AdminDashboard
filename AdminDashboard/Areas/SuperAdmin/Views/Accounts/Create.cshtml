@@ -17,84 +17,84 @@
                         <div class="form-group">
                             <label class="control-label">Owner Name</label>
                             <input asp-for="OwnerName" class="form-control" />
-                            <span asp-validation-for="OwnerName"></span>
+                            <span asp-validation-for="OwnerName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Account Name</label>
                             <input asp-for="AccountName" class="form-control" />
-                            <span asp-validation-for="AccountName"></span>
+                            <span asp-validation-for="AccountName" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Mobile</label>
                             <input asp-for="Mobile" class="form-control" />
-                            <span asp-validation-for="Mobile"></span>
+                            <span asp-validation-for="Mobile" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Address</label>
                             <input asp-for="Address" class="form-control" />
-                            <span asp-validation-for="Address"></span>
+                            <span asp-validation-for="Address" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Email</label>
                             <input asp-for="Email" class="form-control" />
-                            <span asp-validation-for="Email"></span>
+                            <span asp-validation-for="Email" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">National ID</label>
                             <input asp-for="NationalID" class="form-control" />
-                            <span asp-validation-for="NationalID"></span>
+                            <span asp-validation-for="NationalID" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Commercial Registration No</label>
                             <input asp-for="CommercialRegistrationNo" class="form-control" />
-                            <span asp-validation-for="CommercialRegistrationNo"></span>
+                            <span asp-validation-for="CommercialRegistrationNo" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Tax No</label>
                             <input asp-for="TaxNo" class="form-control" />
-                            <span asp-validation-for="TaxNo"></span>
+                            <span asp-validation-for="TaxNo" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Governerate</label>
                             <select asp-for="GovernerateID" asp-items="Model.Governerates" class="form-control" data-style="select-with-transition" title="Choose a governerate" data-size="7">
                                 <option disabled> Choose</option>
                             </select>
-                            <span asp-validation-for="GovernerateID"></span>
+                            <span asp-validation-for="GovernerateID" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Cites</label>
                             <select disabled asp-for="RegionID" class="form-control" data-style="select-with-transition" title="Choose a governerate" data-size="7">
                                 <option disabled> Choose</option>
                             </select>
-                            <span asp-validation-for="RegionID"></span>
+                            <span asp-validation-for="RegionID" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Activity</label>
                             <select asp-for="ActivityID" asp-items="Model.Activities" class="form-control" data-style="select-with-transition" title="Choose an actitviy" data-size="7">
                                 <option disabled> Choose</option>
                             </select>
-                            <span asp-validation-for="ActivityID"></span>
+                            <span asp-validation-for="ActivityID" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Entity</label>
                             <select asp-for="EntityID" asp-items="Model.Entities" class="form-control" data-style="select-with-transition" title="Choose an entity" data-size="7">
                                 <option disabled> Choose</option>
                             </select>
-                            <span asp-validation-for="EntityID"></span>
+                            <span asp-validation-for="EntityID" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Account Type Profile</label>
                             <select asp-for="AccountTypeProfileID" asp-items="Model.AccountTypeProfiles" class="form-control" data-style="select-with-transition" title="Choose an account type profile" data-size="7">
                                 <option disabled> Choose</option>
                             </select>
-                            <span asp-validation-for="AccountTypeProfileID"></span>
+                            <span asp-validation-for="AccountTypeProfileID" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Account Related to (Parent Id) </label>
                             <select asp-for="ParentAccountID" class="form-control" data-style="select-with-transition" title="Choose a parent" data-size="7">
                                 <option disabled> Choose</option>
                             </select>
-                            <span asp-validation-for="ParentAccountID"></span>
+                            <span asp-validation-for="ParentAccountID" class="text-danger"></span>
                         </div>
                     </div>
                     <div class="card-footer">
