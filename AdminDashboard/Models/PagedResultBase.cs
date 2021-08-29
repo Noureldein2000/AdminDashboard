@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -12,6 +14,7 @@ namespace AdminDashboard.Models
         public int PageSize { get; set; }
         public int RowCount { get; set; }
         public string SearchKey { get; set; }
+        public int? DropDownFilter { get; set; }
 
         public int FirstRowOnPage
         {

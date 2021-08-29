@@ -72,8 +72,8 @@ namespace AdminDashboard.SwaggerClient
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <returns>List&lt;AccountTypeProfileLstModel&gt;</returns>
-        List<AccountTypeProfileLstModel> ApiAccountTypeProfileGetAccountTypesAndProfilesGet ();
+        /// <returns>AccountTypeProfileLstModel</returns>
+        AccountTypeProfileLstModel ApiAccountTypeProfileGetAccountTypesAndProfilesGet ();
 
         /// <summary>
         /// 
@@ -82,8 +82,8 @@ namespace AdminDashboard.SwaggerClient
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of List&lt;AccountTypeProfileLstModel&gt;</returns>
-        ApiResponse<List<AccountTypeProfileLstModel>> ApiAccountTypeProfileGetAccountTypesAndProfilesGetWithHttpInfo ();
+        /// <returns>ApiResponse of AccountTypeProfileLstModel</returns>
+        ApiResponse<AccountTypeProfileLstModel> ApiAccountTypeProfileGetAccountTypesAndProfilesGetWithHttpInfo ();
         /// <summary>
         /// 
         /// </summary>
@@ -179,8 +179,8 @@ namespace AdminDashboard.SwaggerClient
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of List&lt;AccountTypeProfileLstModel&gt;</returns>
-        System.Threading.Tasks.Task<List<AccountTypeProfileLstModel>> ApiAccountTypeProfileGetAccountTypesAndProfilesGetAsync ();
+        /// <returns>Task of AccountTypeProfileLstModel</returns>
+        System.Threading.Tasks.Task<AccountTypeProfileLstModel> ApiAccountTypeProfileGetAccountTypesAndProfilesGetAsync ();
 
         /// <summary>
         /// 
@@ -189,8 +189,8 @@ namespace AdminDashboard.SwaggerClient
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (List&lt;AccountTypeProfileLstModel&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<AccountTypeProfileLstModel>>> ApiAccountTypeProfileGetAccountTypesAndProfilesGetAsyncWithHttpInfo ();
+        /// <returns>Task of ApiResponse (AccountTypeProfileLstModel)</returns>
+        System.Threading.Tasks.Task<ApiResponse<AccountTypeProfileLstModel>> ApiAccountTypeProfileGetAccountTypesAndProfilesGetAsyncWithHttpInfo ();
         /// <summary>
         /// 
         /// </summary>
@@ -648,10 +648,10 @@ namespace AdminDashboard.SwaggerClient
         ///  
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <returns>List&lt;AccountTypeProfileLstModel&gt;</returns>
-        public List<AccountTypeProfileLstModel> ApiAccountTypeProfileGetAccountTypesAndProfilesGet ()
+        /// <returns>AccountTypeProfileLstModel</returns>
+        public AccountTypeProfileLstModel ApiAccountTypeProfileGetAccountTypesAndProfilesGet ()
         {
-             ApiResponse<List<AccountTypeProfileLstModel>> localVarResponse = ApiAccountTypeProfileGetAccountTypesAndProfilesGetWithHttpInfo();
+             ApiResponse<AccountTypeProfileLstModel> localVarResponse = ApiAccountTypeProfileGetAccountTypesAndProfilesGetWithHttpInfo();
              return localVarResponse.Data;
         }
 
@@ -659,8 +659,8 @@ namespace AdminDashboard.SwaggerClient
         ///  
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of List&lt;AccountTypeProfileLstModel&gt;</returns>
-        public ApiResponse< List<AccountTypeProfileLstModel> > ApiAccountTypeProfileGetAccountTypesAndProfilesGetWithHttpInfo ()
+        /// <returns>ApiResponse of AccountTypeProfileLstModel</returns>
+        public ApiResponse< AccountTypeProfileLstModel > ApiAccountTypeProfileGetAccountTypesAndProfilesGetWithHttpInfo ()
         {
 
             var localVarPath = "/api/AccountTypeProfile/GetAccountTypesAndProfiles";
@@ -705,19 +705,19 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<List<AccountTypeProfileLstModel>>(localVarStatusCode,
+            return new ApiResponse<AccountTypeProfileLstModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (List<AccountTypeProfileLstModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<AccountTypeProfileLstModel>)));
+                (AccountTypeProfileLstModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountTypeProfileLstModel)));
         }
 
         /// <summary>
         ///  
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of List&lt;AccountTypeProfileLstModel&gt;</returns>
-        public async System.Threading.Tasks.Task<List<AccountTypeProfileLstModel>> ApiAccountTypeProfileGetAccountTypesAndProfilesGetAsync ()
+        /// <returns>Task of AccountTypeProfileLstModel</returns>
+        public async System.Threading.Tasks.Task<AccountTypeProfileLstModel> ApiAccountTypeProfileGetAccountTypesAndProfilesGetAsync ()
         {
-             ApiResponse<List<AccountTypeProfileLstModel>> localVarResponse = await ApiAccountTypeProfileGetAccountTypesAndProfilesGetAsyncWithHttpInfo();
+             ApiResponse<AccountTypeProfileLstModel> localVarResponse = await ApiAccountTypeProfileGetAccountTypesAndProfilesGetAsyncWithHttpInfo();
              return localVarResponse.Data;
 
         }
@@ -726,8 +726,8 @@ namespace AdminDashboard.SwaggerClient
         ///  
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <returns>Task of ApiResponse (List&lt;AccountTypeProfileLstModel&gt;)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<List<AccountTypeProfileLstModel>>> ApiAccountTypeProfileGetAccountTypesAndProfilesGetAsyncWithHttpInfo ()
+        /// <returns>Task of ApiResponse (AccountTypeProfileLstModel)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<AccountTypeProfileLstModel>> ApiAccountTypeProfileGetAccountTypesAndProfilesGetAsyncWithHttpInfo ()
         {
 
             var localVarPath = "/api/AccountTypeProfile/GetAccountTypesAndProfiles";
@@ -772,9 +772,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<List<AccountTypeProfileLstModel>>(localVarStatusCode,
+            return new ApiResponse<AccountTypeProfileLstModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (List<AccountTypeProfileLstModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<AccountTypeProfileLstModel>)));
+                (AccountTypeProfileLstModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountTypeProfileLstModel)));
         }
 
         /// <summary>

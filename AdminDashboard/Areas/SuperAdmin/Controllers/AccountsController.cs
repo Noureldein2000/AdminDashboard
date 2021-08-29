@@ -46,10 +46,34 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             channelTypeApi = new ChannelTypeApi(url);
         }
         [HttpGet]
-        public IActionResult Index(int page = 1)
+        public IActionResult Index()
         {
-            var data = api.ApiAccountGetAccountsGet(page, 10);
+            //var data = api.ApiAccountGetAccountsGet(page, 10);
+            //var dd = data.Results.Select(account => Map(account)).ToList();
+            //var viewModel = new PagedResult<AccountViewModel>
+            //{
+            //    Results = dd,
+            //    PageCount = (int)data.PageCount,
+            //    CurrentPage = page,
+            //    PageSize = 10
+            //};
+            var data = accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet();
+
+            ViewBag.AccountTypeList = data.LstAccountType.Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = a.Id.ToString()
+            }).ToList();
+
+            return View(new PagedResult<AccountViewModel>());
+        }
+        [HttpGet]
+        public IActionResult SearchAccounts(int? dropDownFilter, string searchKey, int page = 1)
+        {
+            var data = api.ApiAccountGetAccountsBySearchKeyGet(dropDownFilter,searchKey,page);
+
             var dd = data.Results.Select(account => Map(account)).ToList();
+
             var viewModel = new PagedResult<AccountViewModel>
             {
                 Results = dd,
@@ -58,7 +82,15 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 PageSize = 10
             };
 
-            return View(viewModel);
+            var accoutTypes = accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet();
+
+            ViewBag.AccountTypeList = accoutTypes.LstAccountType.Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = a.Id.ToString()
+            }).ToList();
+
+            return View("Index", viewModel);
         }
         [HttpGet]
         public IActionResult Create(int id)
@@ -246,7 +278,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     accountTypeProfileID: model.AccountTypeProfileID,
                     regionID: model.RegionID,
                     entityID: model.EntityID,
-                    parentID:model.ParentAccountID
+                    parentID: model.ParentAccountID
                     ));
                 return RedirectToAction(nameof(Index));
             }
