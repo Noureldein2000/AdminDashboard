@@ -41,7 +41,7 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="createdBy">createdBy.</param>
         /// <param name="createdName">createdName.</param>
         /// <param name="updatedBy">updatedBy.</param>
-        public AccountChannelModel(int? id = default(int?), int? accountID = default(int?), int? channelID = default(int?), string channelName = default(string), string serial = default(string), bool? status = default(bool?), int? createdBy = default(int?), string createdName = default(string), int? updatedBy = default(int?))
+        public AccountChannelModel(int? id = default(int?), int? accountID = default(int?), int? channelID = default(int?), string channelName = default(string), string serial = default(string), AccountChannelStatus status = default(AccountChannelStatus), int? createdBy = default(int?), string createdName = default(string), int? updatedBy = default(int?))
         {
             this.Id = id;
             this.AccountID = accountID;
@@ -88,7 +88,7 @@ namespace AdminDashboard.Models.SwaggerModels
         /// Gets or Sets Status
         /// </summary>
         [DataMember(Name="status", EmitDefaultValue=false)]
-        public bool? Status { get; set; }
+        public AccountChannelStatus Status { get; set; }
 
         /// <summary>
         /// Gets or Sets CreatedBy

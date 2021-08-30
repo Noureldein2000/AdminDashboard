@@ -70,7 +70,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult SearchAccounts(int? dropDownFilter, string searchKey, int page = 1)
         {
-            var data = api.ApiAccountGetAccountsBySearchKeyGet(dropDownFilter,searchKey,page);
+            var data = api.ApiAccountGetAccountsBySearchKeyGet(dropDownFilter, searchKey, page);
 
             var dd = data.Results.Select(account => Map(account)).ToList();
 
@@ -357,10 +357,17 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 ChannelID = d.ChannelID,
                 ChannelName = d.ChannelName,
                 Serial = d.Serial,
-                Status = (bool)d.Status,
+                Status = d.Status,
                 CreatedBy = (int)d.CreatedBy,
                 CreatedName = d.CreatedName
             });
+
+            var status = new List<AccountChannelStatus>();
+            ViewBag.Status = status.Select(a => new SelectListItem
+            {
+                Text = a.ToString(),
+                Value = ((int)a).ToString()
+            }).ToList();
 
             return View(viewModel);
         }
@@ -393,15 +400,15 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return RedirectToAction(actionName: "ViewChannelsTypes", new { id = result.AccountID });
         }
         [HttpGet]
-        public IActionResult ChangeAccountChannel(int id)
+        public IActionResult ChangeAccountChannel(int id, AccountChannelStatus status)
         {
-            var result = accountChannelApi.ApiAccountChannelChangeStatusIdPut(id);
+            var result = accountChannelApi.ApiAccountChannelChangeStatusIdPut(id, status);
             return RedirectToAction(actionName: "ViewChannels", new { id = result.AccountID });
         }
         [HttpGet]
         public IActionResult CreateAccountChannel(int accountId, int channelId)
         {
-            accountChannelApi.ApiAccountChannelAddPost(new AccountChannelModel(accountID: accountId, channelID: channelId));
+            accountChannelApi.ApiAccountChannelAddPost(new AccountChannelModel(accountID: accountId, channelID: channelId,status:AccountChannelStatus.InActive));
             return RedirectToAction(actionName: "ViewChannels", new { id = accountId });
         }
         [HttpGet]

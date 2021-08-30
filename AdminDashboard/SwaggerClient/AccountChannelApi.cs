@@ -52,8 +52,9 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
+        /// <param name="status"> (optional)</param>
         /// <returns>AccountChannelModel</returns>
-        AccountChannelModel ApiAccountChannelChangeStatusIdPut (int? id);
+        AccountChannelModel ApiAccountChannelChangeStatusIdPut (int? id, AccountChannelStatus status);
 
         /// <summary>
         /// 
@@ -63,8 +64,9 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
+        /// <param name="status"> (optional)</param>
         /// <returns>ApiResponse of AccountChannelModel</returns>
-        ApiResponse<AccountChannelModel> ApiAccountChannelChangeStatusIdPutWithHttpInfo (int? id);
+        ApiResponse<AccountChannelModel> ApiAccountChannelChangeStatusIdPutWithHttpInfo (int? id, AccountChannelStatus status);
         /// <summary>
         /// 
         /// </summary>
@@ -138,8 +140,9 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
+        /// <param name="status"> (optional)</param>
         /// <returns>Task of AccountChannelModel</returns>
-        System.Threading.Tasks.Task<AccountChannelModel> ApiAccountChannelChangeStatusIdPutAsync (int? id);
+        System.Threading.Tasks.Task<AccountChannelModel> ApiAccountChannelChangeStatusIdPutAsync(int? id, AccountChannelStatus status);
 
         /// <summary>
         /// 
@@ -149,8 +152,9 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
+        /// <param name="status"> (optional)</param>
         /// <returns>Task of ApiResponse (AccountChannelModel)</returns>
-        System.Threading.Tasks.Task<ApiResponse<AccountChannelModel>> ApiAccountChannelChangeStatusIdPutAsyncWithHttpInfo (int? id);
+        System.Threading.Tasks.Task<ApiResponse<AccountChannelModel>> ApiAccountChannelChangeStatusIdPutAsyncWithHttpInfo (int? id, AccountChannelStatus status);
         /// <summary>
         /// 
         /// </summary>
@@ -470,10 +474,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
+        /// <param name="status"> (optional)</param>
         /// <returns>AccountChannelModel</returns>
-        public AccountChannelModel ApiAccountChannelChangeStatusIdPut (int? id)
+        public AccountChannelModel ApiAccountChannelChangeStatusIdPut (int? id, AccountChannelStatus status)
         {
-             ApiResponse<AccountChannelModel> localVarResponse = ApiAccountChannelChangeStatusIdPutWithHttpInfo(id);
+             ApiResponse<AccountChannelModel> localVarResponse = ApiAccountChannelChangeStatusIdPutWithHttpInfo(id, status);
              return localVarResponse.Data;
         }
 
@@ -482,8 +487,9 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
+        /// <param name="status"> (optional)</param>
         /// <returns>ApiResponse of AccountChannelModel</returns>
-        public ApiResponse< AccountChannelModel > ApiAccountChannelChangeStatusIdPutWithHttpInfo (int? id)
+        public ApiResponse< AccountChannelModel > ApiAccountChannelChangeStatusIdPutWithHttpInfo (int? id, AccountChannelStatus status)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -513,6 +519,7 @@ namespace AdminDashboard.SwaggerClient
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
             if (id != null) localVarPathParams.Add("id", this.Configuration.ApiClient.ParameterToString(id)); // path parameter
+            if (status != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "status", status)); // query parameter
             // authentication (Bearer) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
             {
@@ -542,10 +549,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
+        /// <param name="status"> (optional)</param>
         /// <returns>Task of AccountChannelModel</returns>
-        public async System.Threading.Tasks.Task<AccountChannelModel> ApiAccountChannelChangeStatusIdPutAsync (int? id)
+        public async System.Threading.Tasks.Task<AccountChannelModel> ApiAccountChannelChangeStatusIdPutAsync (int? id, AccountChannelStatus status)
         {
-             ApiResponse<AccountChannelModel> localVarResponse = await ApiAccountChannelChangeStatusIdPutAsyncWithHttpInfo(id);
+             ApiResponse<AccountChannelModel> localVarResponse = await ApiAccountChannelChangeStatusIdPutAsyncWithHttpInfo(id, status);
              return localVarResponse.Data;
 
         }
@@ -555,8 +563,9 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
+        /// <param name="status"> (optional)</param>
         /// <returns>Task of ApiResponse (AccountChannelModel)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<AccountChannelModel>> ApiAccountChannelChangeStatusIdPutAsyncWithHttpInfo (int? id)
+        public async System.Threading.Tasks.Task<ApiResponse<AccountChannelModel>> ApiAccountChannelChangeStatusIdPutAsyncWithHttpInfo (int? id, AccountChannelStatus status)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -586,6 +595,7 @@ namespace AdminDashboard.SwaggerClient
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
             if (id != null) localVarPathParams.Add("id", this.Configuration.ApiClient.ParameterToString(id)); // path parameter
+            if (status != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "status", status)); // query parameter
             // authentication (Bearer) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
             {

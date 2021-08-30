@@ -1,4 +1,6 @@
 ﻿@model IEnumerable<AccountChannelViewModel>
+@using AdminDashboard.Models.SwaggerModels
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -33,9 +35,21 @@
                                     <td>@channel.CreatedName</td>
                                     <td>
                                         @*<a asp-action="DeleteAccountChannel" asp-route-id="@channel.Id" class="btn btn-danger">Delete</a>*@
-                                        <a asp-action="ChangeAccountChannel" asp-route-id="@channel.Id" class="btn @(channel.Status ? "btn-danger": "btn-success")">
-                                            @(channel.Status ? "Deactive" : "Active")
-                                        </a>
+                                        @*<a asp-action="ChangeAccountChannel" asp-route-id="@channel.Id" class="btn @(channel.Status ? "btn-danger": "btn-success")">
+                                                @(channel.Status ? "Deactive" : "Active")
+                                            </a>*@
+                                        @*@{var exceptedLst = new SelectListItem()
+                                            {
+                                                Text = channel.Status.ToString(),
+                                                Value = ((int)channel.Status).ToString()
+                                            };
+                                        }*@
+                                        <select id="drpStatus" asp-items="Html.GetEnumSelectList<AccountChannelStatus>().Where(t=>!((int)channel.Status).ToString().Contains(t.Value))" class="form-control" data-style="select-with-transition" title="Choose an AccountType" data-size="7"
+                                                onchange="document.location.href = '../ChangeAccountChannel?id=' +@channel.Id+'&status='+this.options[this.selectedIndex].value;">
+                                            @*onchange="changeStatus('@channel.Id')">*@
+                                            <option>Choose an AccountType</option>
+                                        </select>
+
                                     </td>
                                 </tr>
                             }
@@ -56,6 +70,7 @@
 
 @section Scripts{
     <script>
+
         $('#btnSearch').on("click", function () {
             console.log('entred action');
             debugger;
@@ -79,6 +94,29 @@
                 }
             });
         });
+
+        function changeStatus(id) {
+
+            var ddlFruits = $("[id*=drpStatus]");
+            var selectedText = ddlFruits.find("option:selected").text();
+            var selectedValue = ddlFruits.val();
+
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("ChangeAccountChannel")",
+                data: {
+                    id:id,
+                     status: selectedValue
+                },
+                dataType: "text",
+                success: function (msg) {
+                    console.log(' change success');
+                },
+                error: function (req, status, error) {
+                    console.log(msg);
+                }
+         });
+        }
 
     </script>
 }
