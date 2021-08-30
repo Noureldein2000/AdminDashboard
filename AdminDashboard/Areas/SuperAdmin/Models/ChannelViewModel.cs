@@ -9,6 +9,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
     public class ChannelViewModel
     {
         public int Id { get; set; }
+        public int AccountChannelId { get; set; }
         public string Name { get; set; }
         public int ChannelTypeID { get; set; }
         public string ChannelTypeName { get; set; }

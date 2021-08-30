@@ -406,9 +406,10 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return RedirectToAction(actionName: "ViewChannels", new { id = result.AccountID });
         }
         [HttpGet]
-        public IActionResult CreateAccountChannel(int accountId, int channelId)
+        public IActionResult CreateAccountChannel(int accountChannelId, int accountId, int channelId)
         {
-            accountChannelApi.ApiAccountChannelAddPost(new AccountChannelModel(accountID: accountId, channelID: channelId,status:AccountChannelStatus.Inactive));
+            accountChannelApi.ApiAccountChannelDeleteIdDelete(accountChannelId);
+            accountChannelApi.ApiAccountChannelAddPost(new AccountChannelModel(accountID: accountId, channelID: channelId, status: AccountChannelStatus.Inactive));
             return RedirectToAction(actionName: "ViewChannels", new { id = accountId });
         }
         [HttpGet]
@@ -467,8 +468,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public JsonResult GetChannels(string serial, int page = 1)
         {
-            var data = channelApi.ApiChannelSearchChannelBySerialSearchKeyGet(serial, page, 1000);
-            return Json(data.Results.Select(account => Map(account)).ToList());
+            var data = channelApi.ApiChannelSearchSpecificChannelBySerialSearchKeyGet(serial, page, 1000);
+            return Json(data.Results.Select(chnel => Map(chnel)).ToList());
         }
         private AccountViewModel Map(AccountModel model)
         {
@@ -498,7 +499,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             return new ChannelViewModel
             {
+
                 Id = (int)model.ChannelID,
+                AccountChannelId = (int)model.AccountChannelID,
                 Name = model.Name,
                 ChannelTypeID = (int)model.ChannelTypeID,
                 ChannelTypeName = model.ChannelTypeName,

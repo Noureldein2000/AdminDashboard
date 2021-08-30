@@ -176,6 +176,31 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="pageSize"> (optional, default to 10)</param>
         /// <returns>ApiResponse of ChannelResponseModelPagedResult</returns>
         ApiResponse<ChannelResponseModelPagedResult> ApiChannelSearchChannelBySerialSearchKeyGetWithHttpInfo (string searchKey, int? pageNumber = null, int? pageSize = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="searchKey"></param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <returns>ChannelResponseModelPagedResult</returns>
+        ChannelResponseModelPagedResult ApiChannelSearchSpecificChannelBySerialSearchKeyGet (string searchKey, int? pageNumber = null, int? pageSize = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="searchKey"></param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <returns>ApiResponse of ChannelResponseModelPagedResult</returns>
+        ApiResponse<ChannelResponseModelPagedResult> ApiChannelSearchSpecificChannelBySerialSearchKeyGetWithHttpInfo (string searchKey, int? pageNumber = null, int? pageSize = null);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -331,6 +356,31 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="pageSize"> (optional, default to 10)</param>
         /// <returns>Task of ApiResponse (ChannelResponseModelPagedResult)</returns>
         System.Threading.Tasks.Task<ApiResponse<ChannelResponseModelPagedResult>> ApiChannelSearchChannelBySerialSearchKeyGetAsyncWithHttpInfo (string searchKey, int? pageNumber = null, int? pageSize = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="searchKey"></param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <returns>Task of ChannelResponseModelPagedResult</returns>
+        System.Threading.Tasks.Task<ChannelResponseModelPagedResult> ApiChannelSearchSpecificChannelBySerialSearchKeyGetAsync (string searchKey, int? pageNumber = null, int? pageSize = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="searchKey"></param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <returns>Task of ApiResponse (ChannelResponseModelPagedResult)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ChannelResponseModelPagedResult>> ApiChannelSearchSpecificChannelBySerialSearchKeyGetAsyncWithHttpInfo (string searchKey, int? pageNumber = null, int? pageSize = null);
         #endregion Asynchronous Operations
     }
 
@@ -1477,6 +1527,163 @@ namespace AdminDashboard.SwaggerClient
             if (ExceptionFactory != null)
             {
                 Exception exception = ExceptionFactory("ApiChannelSearchChannelBySerialSearchKeyGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<ChannelResponseModelPagedResult>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (ChannelResponseModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ChannelResponseModelPagedResult)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="searchKey"></param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <returns>ChannelResponseModelPagedResult</returns>
+        public ChannelResponseModelPagedResult ApiChannelSearchSpecificChannelBySerialSearchKeyGet (string searchKey, int? pageNumber = null, int? pageSize = null)
+        {
+             ApiResponse<ChannelResponseModelPagedResult> localVarResponse = ApiChannelSearchSpecificChannelBySerialSearchKeyGetWithHttpInfo(searchKey, pageNumber, pageSize);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="searchKey"></param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <returns>ApiResponse of ChannelResponseModelPagedResult</returns>
+        public ApiResponse< ChannelResponseModelPagedResult > ApiChannelSearchSpecificChannelBySerialSearchKeyGetWithHttpInfo (string searchKey, int? pageNumber = null, int? pageSize = null)
+        {
+            // verify the required parameter 'searchKey' is set
+            if (searchKey == null)
+                throw new ApiException(400, "Missing required parameter 'searchKey' when calling ChannelApi->ApiChannelSearchSpecificChannelBySerialSearchKeyGet");
+
+            var localVarPath = "/api/Channel/SearchSpecificChannelBySerial/{searchKey}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (searchKey != null) localVarPathParams.Add("searchKey", this.Configuration.ApiClient.ParameterToString(searchKey)); // path parameter
+            if (pageNumber != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageNumber", pageNumber)); // query parameter
+            if (pageSize != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageSize", pageSize)); // query parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiChannelSearchSpecificChannelBySerialSearchKeyGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<ChannelResponseModelPagedResult>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (ChannelResponseModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ChannelResponseModelPagedResult)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="searchKey"></param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <returns>Task of ChannelResponseModelPagedResult</returns>
+        public async System.Threading.Tasks.Task<ChannelResponseModelPagedResult> ApiChannelSearchSpecificChannelBySerialSearchKeyGetAsync (string searchKey, int? pageNumber = null, int? pageSize = null)
+        {
+             ApiResponse<ChannelResponseModelPagedResult> localVarResponse = await ApiChannelSearchSpecificChannelBySerialSearchKeyGetAsyncWithHttpInfo(searchKey, pageNumber, pageSize);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="searchKey"></param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <returns>Task of ApiResponse (ChannelResponseModelPagedResult)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<ChannelResponseModelPagedResult>> ApiChannelSearchSpecificChannelBySerialSearchKeyGetAsyncWithHttpInfo (string searchKey, int? pageNumber = null, int? pageSize = null)
+        {
+            // verify the required parameter 'searchKey' is set
+            if (searchKey == null)
+                throw new ApiException(400, "Missing required parameter 'searchKey' when calling ChannelApi->ApiChannelSearchSpecificChannelBySerialSearchKeyGet");
+
+            var localVarPath = "/api/Channel/SearchSpecificChannelBySerial/{searchKey}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (searchKey != null) localVarPathParams.Add("searchKey", this.Configuration.ApiClient.ParameterToString(searchKey)); // path parameter
+            if (pageNumber != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageNumber", pageNumber)); // query parameter
+            if (pageSize != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageSize", pageSize)); // query parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiChannelSearchSpecificChannelBySerialSearchKeyGet", localVarResponse);
                 if (exception != null) throw exception;
             }
 
