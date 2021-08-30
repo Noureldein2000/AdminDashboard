@@ -408,7 +408,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult CreateAccountChannel(int accountId, int channelId)
         {
-            accountChannelApi.ApiAccountChannelAddPost(new AccountChannelModel(accountID: accountId, channelID: channelId,status:AccountChannelStatus.InActive));
+            accountChannelApi.ApiAccountChannelAddPost(new AccountChannelModel(accountID: accountId, channelID: channelId,status:AccountChannelStatus.Inactive));
             return RedirectToAction(actionName: "ViewChannels", new { id = accountId });
         }
         [HttpGet]
