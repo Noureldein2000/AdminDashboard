@@ -158,11 +158,13 @@ namespace AdminDashboard.SwaggerClient
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="searchKey"></param>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="dropDownFilter2"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
         /// <returns>ChannelResponseModelPagedResult</returns>
-        ChannelResponseModelPagedResult ApiChannelSearchChannelBySerialSearchKeyGet (string searchKey, int? pageNumber = null, int? pageSize = null);
+        ChannelResponseModelPagedResult ApiChannelSearchChannelsGet (int? dropDownFilter = null, int? dropDownFilter2 = null, string searchKey = null, int? pageNumber = null, int? pageSize = null);
 
         /// <summary>
         /// 
@@ -171,11 +173,13 @@ namespace AdminDashboard.SwaggerClient
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="searchKey"></param>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="dropDownFilter2"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
         /// <returns>ApiResponse of ChannelResponseModelPagedResult</returns>
-        ApiResponse<ChannelResponseModelPagedResult> ApiChannelSearchChannelBySerialSearchKeyGetWithHttpInfo (string searchKey, int? pageNumber = null, int? pageSize = null);
+        ApiResponse<ChannelResponseModelPagedResult> ApiChannelSearchChannelsGetWithHttpInfo (int? dropDownFilter = null, int? dropDownFilter2 = null, string searchKey = null, int? pageNumber = null, int? pageSize = null);
         /// <summary>
         /// 
         /// </summary>
@@ -338,11 +342,13 @@ namespace AdminDashboard.SwaggerClient
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="searchKey"></param>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="dropDownFilter2"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
         /// <returns>Task of ChannelResponseModelPagedResult</returns>
-        System.Threading.Tasks.Task<ChannelResponseModelPagedResult> ApiChannelSearchChannelBySerialSearchKeyGetAsync (string searchKey, int? pageNumber = null, int? pageSize = null);
+        System.Threading.Tasks.Task<ChannelResponseModelPagedResult> ApiChannelSearchChannelsGetAsync (int? dropDownFilter = null, int? dropDownFilter2 = null, string searchKey = null, int? pageNumber = null, int? pageSize = null);
 
         /// <summary>
         /// 
@@ -351,11 +357,13 @@ namespace AdminDashboard.SwaggerClient
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="searchKey"></param>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="dropDownFilter2"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
         /// <returns>Task of ApiResponse (ChannelResponseModelPagedResult)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ChannelResponseModelPagedResult>> ApiChannelSearchChannelBySerialSearchKeyGetAsyncWithHttpInfo (string searchKey, int? pageNumber = null, int? pageSize = null);
+        System.Threading.Tasks.Task<ApiResponse<ChannelResponseModelPagedResult>> ApiChannelSearchChannelsGetAsyncWithHttpInfo (int? dropDownFilter = null, int? dropDownFilter2 = null, string searchKey = null, int? pageNumber = null, int? pageSize = null);
         /// <summary>
         /// 
         /// </summary>
@@ -1382,13 +1390,15 @@ namespace AdminDashboard.SwaggerClient
         ///  
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="searchKey"></param>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="dropDownFilter2"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
         /// <returns>ChannelResponseModelPagedResult</returns>
-        public ChannelResponseModelPagedResult ApiChannelSearchChannelBySerialSearchKeyGet (string searchKey, int? pageNumber = null, int? pageSize = null)
+        public ChannelResponseModelPagedResult ApiChannelSearchChannelsGet (int? dropDownFilter = null, int? dropDownFilter2 = null, string searchKey = null, int? pageNumber = null, int? pageSize = null)
         {
-             ApiResponse<ChannelResponseModelPagedResult> localVarResponse = ApiChannelSearchChannelBySerialSearchKeyGetWithHttpInfo(searchKey, pageNumber, pageSize);
+             ApiResponse<ChannelResponseModelPagedResult> localVarResponse = ApiChannelSearchChannelsGetWithHttpInfo(dropDownFilter, dropDownFilter2, searchKey, pageNumber, pageSize);
              return localVarResponse.Data;
         }
 
@@ -1396,17 +1406,16 @@ namespace AdminDashboard.SwaggerClient
         ///  
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="searchKey"></param>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="dropDownFilter2"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
         /// <returns>ApiResponse of ChannelResponseModelPagedResult</returns>
-        public ApiResponse< ChannelResponseModelPagedResult > ApiChannelSearchChannelBySerialSearchKeyGetWithHttpInfo (string searchKey, int? pageNumber = null, int? pageSize = null)
+        public ApiResponse< ChannelResponseModelPagedResult > ApiChannelSearchChannelsGetWithHttpInfo (int? dropDownFilter = null, int? dropDownFilter2 = null, string searchKey = null, int? pageNumber = null, int? pageSize = null)
         {
-            // verify the required parameter 'searchKey' is set
-            if (searchKey == null)
-                throw new ApiException(400, "Missing required parameter 'searchKey' when calling ChannelApi->ApiChannelSearchChannelBySerialSearchKeyGet");
 
-            var localVarPath = "/api/Channel/SearchChannelBySerial/{searchKey}";
+            var localVarPath = "/api/Channel/SearchChannels";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -1429,7 +1438,9 @@ namespace AdminDashboard.SwaggerClient
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (searchKey != null) localVarPathParams.Add("searchKey", this.Configuration.ApiClient.ParameterToString(searchKey)); // path parameter
+            if (dropDownFilter != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "dropDownFilter", dropDownFilter)); // query parameter
+            if (dropDownFilter2 != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "dropDownFilter2", dropDownFilter2)); // query parameter
+            if (searchKey != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "searchKey", searchKey)); // query parameter
             if (pageNumber != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageNumber", pageNumber)); // query parameter
             if (pageSize != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageSize", pageSize)); // query parameter
             // authentication (Bearer) required
@@ -1447,7 +1458,7 @@ namespace AdminDashboard.SwaggerClient
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ApiChannelSearchChannelBySerialSearchKeyGet", localVarResponse);
+                Exception exception = ExceptionFactory("ApiChannelSearchChannelsGet", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -1460,13 +1471,15 @@ namespace AdminDashboard.SwaggerClient
         ///  
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="searchKey"></param>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="dropDownFilter2"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
         /// <returns>Task of ChannelResponseModelPagedResult</returns>
-        public async System.Threading.Tasks.Task<ChannelResponseModelPagedResult> ApiChannelSearchChannelBySerialSearchKeyGetAsync (string searchKey, int? pageNumber = null, int? pageSize = null)
+        public async System.Threading.Tasks.Task<ChannelResponseModelPagedResult> ApiChannelSearchChannelsGetAsync (int? dropDownFilter = null, int? dropDownFilter2 = null, string searchKey = null, int? pageNumber = null, int? pageSize = null)
         {
-             ApiResponse<ChannelResponseModelPagedResult> localVarResponse = await ApiChannelSearchChannelBySerialSearchKeyGetAsyncWithHttpInfo(searchKey, pageNumber, pageSize);
+             ApiResponse<ChannelResponseModelPagedResult> localVarResponse = await ApiChannelSearchChannelsGetAsyncWithHttpInfo(dropDownFilter, dropDownFilter2, searchKey, pageNumber, pageSize);
              return localVarResponse.Data;
 
         }
@@ -1475,17 +1488,16 @@ namespace AdminDashboard.SwaggerClient
         ///  
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="searchKey"></param>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="dropDownFilter2"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
         /// <returns>Task of ApiResponse (ChannelResponseModelPagedResult)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<ChannelResponseModelPagedResult>> ApiChannelSearchChannelBySerialSearchKeyGetAsyncWithHttpInfo (string searchKey, int? pageNumber = null, int? pageSize = null)
+        public async System.Threading.Tasks.Task<ApiResponse<ChannelResponseModelPagedResult>> ApiChannelSearchChannelsGetAsyncWithHttpInfo (int? dropDownFilter = null, int? dropDownFilter2 = null, string searchKey = null, int? pageNumber = null, int? pageSize = null)
         {
-            // verify the required parameter 'searchKey' is set
-            if (searchKey == null)
-                throw new ApiException(400, "Missing required parameter 'searchKey' when calling ChannelApi->ApiChannelSearchChannelBySerialSearchKeyGet");
 
-            var localVarPath = "/api/Channel/SearchChannelBySerial/{searchKey}";
+            var localVarPath = "/api/Channel/SearchChannels";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -1508,7 +1520,9 @@ namespace AdminDashboard.SwaggerClient
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (searchKey != null) localVarPathParams.Add("searchKey", this.Configuration.ApiClient.ParameterToString(searchKey)); // path parameter
+            if (dropDownFilter != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "dropDownFilter", dropDownFilter)); // query parameter
+            if (dropDownFilter2 != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "dropDownFilter2", dropDownFilter2)); // query parameter
+            if (searchKey != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "searchKey", searchKey)); // query parameter
             if (pageNumber != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageNumber", pageNumber)); // query parameter
             if (pageSize != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageSize", pageSize)); // query parameter
             // authentication (Bearer) required
@@ -1526,7 +1540,7 @@ namespace AdminDashboard.SwaggerClient
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ApiChannelSearchChannelBySerialSearchKeyGet", localVarResponse);
+                Exception exception = ExceptionFactory("ApiChannelSearchChannelsGet", localVarResponse);
                 if (exception != null) throw exception;
             }
 

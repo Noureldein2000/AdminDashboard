@@ -15,6 +15,7 @@ namespace AdminDashboard.Models
         public int RowCount { get; set; }
         public string SearchKey { get; set; }
         public int? DropDownFilter { get; set; }
+        public int? DropDownFilter2 { get; set; }
 
         public int FirstRowOnPage
         {

@@ -42,6 +42,27 @@ namespace AdminDashboard.SwaggerClienti
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <returns>ApiResponse of List&lt;ChannelTypeModel&gt;</returns>
         ApiResponse<List<ChannelTypeModel>> ApiChannelTypeGetAllGetWithHttpInfo ();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"> (optional)</param>
+        /// <returns>List&lt;ChannelTypeModel&gt;</returns>
+        List<ChannelTypeModel> ApiChannelTypeGetByChannelCategoryIdGet (int? id = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"> (optional)</param>
+        /// <returns>ApiResponse of List&lt;ChannelTypeModel&gt;</returns>
+        ApiResponse<List<ChannelTypeModel>> ApiChannelTypeGetByChannelCategoryIdGetWithHttpInfo (int? id = null);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -63,6 +84,27 @@ namespace AdminDashboard.SwaggerClienti
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <returns>Task of ApiResponse (List&lt;ChannelTypeModel&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<ChannelTypeModel>>> ApiChannelTypeGetAllGetAsyncWithHttpInfo ();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"> (optional)</param>
+        /// <returns>Task of List&lt;ChannelTypeModel&gt;</returns>
+        System.Threading.Tasks.Task<List<ChannelTypeModel>> ApiChannelTypeGetByChannelCategoryIdGetAsync (int? id = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"> (optional)</param>
+        /// <returns>Task of ApiResponse (List&lt;ChannelTypeModel&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<ChannelTypeModel>>> ApiChannelTypeGetByChannelCategoryIdGetAsyncWithHttpInfo (int? id = null);
         #endregion Asynchronous Operations
     }
 
@@ -299,6 +341,145 @@ namespace AdminDashboard.SwaggerClienti
             if (ExceptionFactory != null)
             {
                 Exception exception = ExceptionFactory("ApiChannelTypeGetAllGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<List<ChannelTypeModel>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (List<ChannelTypeModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ChannelTypeModel>)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"> (optional)</param>
+        /// <returns>List&lt;ChannelTypeModel&gt;</returns>
+        public List<ChannelTypeModel> ApiChannelTypeGetByChannelCategoryIdGet (int? id = null)
+        {
+             ApiResponse<List<ChannelTypeModel>> localVarResponse = ApiChannelTypeGetByChannelCategoryIdGetWithHttpInfo(id);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"> (optional)</param>
+        /// <returns>ApiResponse of List&lt;ChannelTypeModel&gt;</returns>
+        public ApiResponse< List<ChannelTypeModel> > ApiChannelTypeGetByChannelCategoryIdGetWithHttpInfo (int? id = null)
+        {
+
+            var localVarPath = "/api/ChannelType/GetByChannelCategoryId";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (id != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "id", id)); // query parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiChannelTypeGetByChannelCategoryIdGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<List<ChannelTypeModel>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (List<ChannelTypeModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<ChannelTypeModel>)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"> (optional)</param>
+        /// <returns>Task of List&lt;ChannelTypeModel&gt;</returns>
+        public async System.Threading.Tasks.Task<List<ChannelTypeModel>> ApiChannelTypeGetByChannelCategoryIdGetAsync (int? id = null)
+        {
+             ApiResponse<List<ChannelTypeModel>> localVarResponse = await ApiChannelTypeGetByChannelCategoryIdGetAsyncWithHttpInfo(id);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"> (optional)</param>
+        /// <returns>Task of ApiResponse (List&lt;ChannelTypeModel&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<ChannelTypeModel>>> ApiChannelTypeGetByChannelCategoryIdGetAsyncWithHttpInfo (int? id = null)
+        {
+
+            var localVarPath = "/api/ChannelType/GetByChannelCategoryId";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (id != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "id", id)); // query parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiChannelTypeGetByChannelCategoryIdGet", localVarResponse);
                 if (exception != null) throw exception;
             }
 
