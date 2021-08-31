@@ -38,10 +38,11 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="channelName">channelName.</param>
         /// <param name="serial">serial.</param>
         /// <param name="status">status.</param>
+        /// <param name="reason">reason.</param>
         /// <param name="createdBy">createdBy.</param>
         /// <param name="createdName">createdName.</param>
         /// <param name="updatedBy">updatedBy.</param>
-        public AccountChannelModel(int? id = default(int?), int? accountID = default(int?), int? channelID = default(int?), string channelName = default(string), string serial = default(string), AccountChannelStatus status = default(AccountChannelStatus), int? createdBy = default(int?), string createdName = default(string), int? updatedBy = default(int?))
+        public AccountChannelModel(int? id = default(int?), int? accountID = default(int?), int? channelID = default(int?), string channelName = default(string), string serial = default(string), AccountChannelStatus status = default(AccountChannelStatus), string reason = default(string), int? createdBy = default(int?), string createdName = default(string), int? updatedBy = default(int?))
         {
             this.Id = id;
             this.AccountID = accountID;
@@ -49,6 +50,7 @@ namespace AdminDashboard.Models.SwaggerModels
             this.ChannelName = channelName;
             this.Serial = serial;
             this.Status = status;
+            this.Reason = reason;
             this.CreatedBy = createdBy;
             this.CreatedName = createdName;
             this.UpdatedBy = updatedBy;
@@ -91,6 +93,12 @@ namespace AdminDashboard.Models.SwaggerModels
         public AccountChannelStatus Status { get; set; }
 
         /// <summary>
+        /// Gets or Sets Reason
+        /// </summary>
+        [DataMember(Name="reason", EmitDefaultValue=false)]
+        public string Reason { get; set; }
+
+        /// <summary>
         /// Gets or Sets CreatedBy
         /// </summary>
         [DataMember(Name="createdBy", EmitDefaultValue=false)]
@@ -122,6 +130,7 @@ namespace AdminDashboard.Models.SwaggerModels
             sb.Append("  ChannelName: ").Append(ChannelName).Append("\n");
             sb.Append("  Serial: ").Append(Serial).Append("\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
+            sb.Append("  Reason: ").Append(Reason).Append("\n");
             sb.Append("  CreatedBy: ").Append(CreatedBy).Append("\n");
             sb.Append("  CreatedName: ").Append(CreatedName).Append("\n");
             sb.Append("  UpdatedBy: ").Append(UpdatedBy).Append("\n");
@@ -190,6 +199,11 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.Status.Equals(input.Status))
                 ) && 
                 (
+                    this.Reason == input.Reason ||
+                    (this.Reason != null &&
+                    this.Reason.Equals(input.Reason))
+                ) && 
+                (
                     this.CreatedBy == input.CreatedBy ||
                     (this.CreatedBy != null &&
                     this.CreatedBy.Equals(input.CreatedBy))
@@ -227,6 +241,8 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.Serial.GetHashCode();
                 if (this.Status != null)
                     hashCode = hashCode * 59 + this.Status.GetHashCode();
+                if (this.Reason != null)
+                    hashCode = hashCode * 59 + this.Reason.GetHashCode();
                 if (this.CreatedBy != null)
                     hashCode = hashCode * 59 + this.CreatedBy.GetHashCode();
                 if (this.CreatedName != null)

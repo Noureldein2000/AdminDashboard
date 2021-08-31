@@ -15,6 +15,7 @@
                     <partial name="_CreateAccountChannel.cshtml" />
                 </div>
                 <div class="card-body">
+                    <input type="hidden" id="MyId" />
                     <table class="table table-striped">
                         <thead>
                             <tr>
@@ -34,21 +35,26 @@
                                     <td>@channel.Status</td>
                                     <td>@channel.CreatedName</td>
                                     <td>
-                                        @*<a asp-action="DeleteAccountChannel" asp-route-id="@channel.Id" class="btn btn-danger">Delete</a>*@
+                                        @if (channel.Status != AccountChannelStatus.Deleted)
+                                        {
+                                            <button type="button" class="pull-right btn btn-info" data-toggle="modal" data-target="#myChangeModal" onclick="getData(@channel.Id,@((int)channel.Status))">Change Status</button>
+                                        }
+
+                                        @*<a asp-action="DeleteAccountChannel" asp-route-id="@channel.Id" class="btn btn-info">Edit</a>*@
                                         @*<a asp-action="ChangeAccountChannel" asp-route-id="@channel.Id" class="btn @(channel.Status ? "btn-danger": "btn-success")">
                                                 @(channel.Status ? "Deactive" : "Active")
                                             </a>*@
                                         @*@{var exceptedLst = new SelectListItem()
-                                            {
-                                                Text = channel.Status.ToString(),
-                                                Value = ((int)channel.Status).ToString()
-                                            };
-                                        }*@
-                                        <select id="drpStatus" asp-items="Html.GetEnumSelectList<AccountChannelStatus>().Where(t=>!((int)channel.Status).ToString().Contains(t.Value))" class="form-control" data-style="select-with-transition" title="Choose an AccountType" data-size="7"
-                                                onchange="document.location.href = '../ChangeAccountChannel?id=' +@channel.Id+'&status='+this.options[this.selectedIndex].value;">
-                                            @*onchange="changeStatus('@channel.Id')">*@
-                                            <option>Choose an AccountType</option>
-                                        </select>
+                                                {
+                                                    Text = channel.Status.ToString(),
+                                                    Value = ((int)channel.Status).ToString()
+                                                };
+                                            }*@
+                                        <!--<select id="drpStatus" asp-items="Html.GetEnumSelectList<AccountChannelStatus>().Where(t=>!((int)channel.Status).ToString().Contains(t.Value))" class="form-control" data-style="select-with-transition" title="Choose an AccountType" data-size="7"
+                                        onchange="document.location.href = '../ChangeAccountChannel?id=' +'&status='+this.options[this.selectedIndex].value;">-->
+                                        @*onchange="changeStatus('@channel.Id')">*@
+                                        <!--<option>Choose an AccountType</option>
+                                        </select>-->
 
                                     </td>
                                 </tr>
@@ -56,24 +62,41 @@
                         </tbody>
                     </table>
                 </div>
-                @*<div class="card-footer text-center">
-                        <pager link-url="/SuperAdmin/Accounts/Index"
-                               page="Model.CurrentPage"
-                               page-size="Model.PageSize"
-                               total-items="Model.PageCount">
-                        </pager>
-                    </div>*@
             </div>
         </div>
     </div>
+    <input type="hidden" id="rowId" />
+    <input type="hidden" id="statusValue" />
 </div>
+<partial name="_ChangeAccountChannel.cshtml" />
+
+@{
+    var enumLst = (Html.GetEnumSelectList<AccountChannelStatus>().ToArray());
+}
 
 @section Scripts{
     <script>
 
+        $(function () {
+
+            $("#txtReason").keyup(function () {
+                //Reference the Button.
+                var btnSubmit = $("#btnSubmit");
+                debugger;
+                //Verify the TextBox value.
+                if ($(this).val().trim() != "" && $("#drpStatus").val() != null) {
+                    //Enable the TextBox when TextBox has value.
+                    btnSubmit.removeAttr("disabled");
+                } else {
+                    //Disable the TextBox when TextBox is empty.
+                    btnSubmit.attr("disabled", "disabled");
+                }
+            });
+        });
+
         $('#btnSearch').on("click", function () {
             console.log('entred action');
-            debugger;
+
             var searchKey = $("#txtSearchKey").val();
             var accountId = document.URL.substring(document.URL.lastIndexOf('/') + 1);
             $.ajax({
@@ -86,7 +109,7 @@
 
                     var x = $('#tblChannels tbody').empty();
                     $.each(JSON.parse(msg), function (i, data) {
-                        $('#tblChannels').append('<tr><td>' + data.serial + '</td><td>' + data.channelTypeName + '</td><td>' + data.channelOwnerName + '</td><td>' + data.paymentMethodName + '</td><td>' + data.createdBy + '</td><td> <a href="@Url.Action("CreateAccountChannel", "Accounts")?accountChannelId=' + data.accountChannelId + '&accountId=' + accountId + '&channelId=' + data.id + '" class="btn btn-info">Transfer</a></td></tr>');
+                        $('#tblChannels').append('<tr><td>' + data.serial + '</td><td>' + data.channelTypeName + '</td><td>' + data.channelOwnerName + '</td><td>' + data.paymentMethodName + '</td><td>' + data.createdBy + '</td><td> <a href="@Url.Action("CreateAccountChannel", "Accounts")?accountId=' + accountId + '&channelId=' + data.id + '" class="btn btn-info">Transfer</a></td></tr>');
                     });
                 },
                 error: function (req, status, error) {
@@ -95,27 +118,65 @@
             });
         });
 
-        function changeStatus(id) {
-
+        function changeStatus() {
+            debugger;
             var ddlFruits = $("[id*=drpStatus]");
             var selectedText = ddlFruits.find("option:selected").text();
             var selectedValue = ddlFruits.val();
+
+            var rowId = $('#rowId').val();
+            var txtReason = $('#txtReason').val();
 
             $.ajax({
                 type: "GET",
                 url: "@Url.Action("ChangeAccountChannel")",
                 data: {
-                    id:id,
-                     status: selectedValue
+                    id: rowId,
+                    status: selectedValue,
+                    reason: txtReason
                 },
                 dataType: "text",
                 success: function (msg) {
                     console.log(' change success');
+                    $("#myChangeModal").modal('hide');
+                    location.reload(true);
                 },
                 error: function (req, status, error) {
                     console.log(msg);
                 }
          });
+        }
+
+        function getData(val, statusValue) {
+            $('#rowId').val(val);
+            $('#statusValue').val(statusValue);
+            debugger;
+            var model = '@Html.Raw(Json.Serialize(enumLst))';
+            var lst = JSON.parse(model);
+
+            $('#drpStatus').empty();
+            $('#txtReason').val('');
+            $('#drpStatus').append('<option disabled selected>Choose an AccountType</option>');
+            for (i = 0; i < lst.length; i++) {
+
+                if (lst[i].value != @((int)AccountChannelStatus.Created) && lst[i].value != statusValue) {
+
+                    var data = '<option value=' + lst[i].value + '>' + lst[i].text + '</option>';
+                    $('#drpStatus').append(data);
+
+                }
+            }
+
+            //        $("#drpStatus option[value='2']").remove();
+            //console.log(lst);
+            //    $("#drpStatus option[value='" + statusValue + "']").each(function () {
+
+            //        $(this).remove();
+            //    });
+        }
+
+        function toggleButton(ref, bttnID) {
+            document.getElementById(bttnID).disabled = ((ref.value !== ref.defaultValue) ? false : true);
         }
 
     </script>

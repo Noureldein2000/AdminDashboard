@@ -362,12 +362,17 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 CreatedName = d.CreatedName
             });
 
-            var status = new List<AccountChannelStatus>();
-            ViewBag.Status = status.Select(a => new SelectListItem
-            {
-                Text = a.ToString(),
-                Value = ((int)a).ToString()
-            }).ToList();
+
+            //var statusCreated = new List<AccountChannelStatus>() { AccountChannelStatus.Created};
+
+            //var status = Enum.GetValues(typeof(AccountChannelStatus)).Cast<AccountChannelStatus>().Except(statusCreated);
+
+
+            //ViewBag.Status = status.Select(a => new SelectListItem
+            //{
+            //    Text = a.ToString(),
+            //    Value = ((int)a).ToString()
+            //}).ToList();
 
             return View(viewModel);
         }
@@ -387,12 +392,12 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
             return View(viewModel);
         }
-        [HttpGet]
-        public IActionResult DeleteAccountChannel(int id)
-        {
-            var result = accountChannelApi.ApiAccountChannelDeleteIdDelete(id);
-            return RedirectToAction(actionName: "ViewChannels", new { id = result.AccountID });
-        }
+        //[HttpGet]
+        //public IActionResult DeleteAccountChannel(int id)
+        //{
+        //    var result = accountChannelApi.ApiAccountChannelDeleteIdDelete(id);
+        //    return RedirectToAction(actionName: "ViewChannels", new { id = result.AccountID });
+        //}
         [HttpGet]
         public IActionResult DeleteAccountChannelType(int id)
         {
@@ -400,16 +405,15 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return RedirectToAction(actionName: "ViewChannelsTypes", new { id = result.AccountID });
         }
         [HttpGet]
-        public IActionResult ChangeAccountChannel(int id, AccountChannelStatus status)
+        public IActionResult ChangeAccountChannel(int id, AccountChannelStatus status,string reason)
         {
-            var result = accountChannelApi.ApiAccountChannelChangeStatusIdPut(id, status);
-            return RedirectToAction(actionName: "ViewChannels", new { id = result.AccountID });
+             accountChannelApi.ApiAccountChannelChangeStatusIdPut(id,status,reason);
+            return Ok();
         }
         [HttpGet]
-        public IActionResult CreateAccountChannel(int accountChannelId, int accountId, int channelId)
+        public IActionResult CreateAccountChannel(int accountId, int channelId)
         {
-            accountChannelApi.ApiAccountChannelDeleteIdDelete(accountChannelId);
-            accountChannelApi.ApiAccountChannelAddPost(new AccountChannelModel(accountID: accountId, channelID: channelId, status: AccountChannelStatus.Inactive));
+            accountChannelApi.ApiAccountChannelAddPost(new AccountChannelModel(accountID: accountId, channelID: channelId,reason:"Transfered"));
             return RedirectToAction(actionName: "ViewChannels", new { id = accountId });
         }
         [HttpGet]

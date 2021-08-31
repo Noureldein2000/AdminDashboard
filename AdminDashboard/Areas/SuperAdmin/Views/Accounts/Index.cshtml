@@ -16,16 +16,17 @@
                         <div class="form-group">
                             <div class="form-group">
                                 <label class="control-label">Filter by account type</label>
-                                <select asp-for="DropDownFilter" asp-items="ViewBag.AccountTypeList" class="form-control" data-style="select-with-transition" title="Choose an AccountType" data-size="7">
+                                <select id="DropDownFilter" asp-for="DropDownFilter" asp-items="ViewBag.AccountTypeList" class="form-control" data-style="select-with-transition" title="Choose an AccountType" data-size="7">
                                     <option>Choose an AccountType</option>
                                 </select>
                             </div>
                             <div class="row">
                                 <div class="col-md-10">
-                                    <input asp-for="@Model.SearchKey" class="form-control" placeholder="Search by Id or Name" />
+                                    <input id="SearchKey" asp-for="@Model.SearchKey" class="form-control" placeholder="Search by Id or Name" />
+                                    <span asp-validation-for="@Model.SearchKey" class="text-danger"></span>
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="submit" value="Search" class="btn btn-secondary" />
+                                    <input id="btnSearch" type="submit" value="Search" class="btn btn-warning" disabled />
                                 </div>
                             </div>
                         </div>
@@ -66,11 +67,44 @@
                     <pager link-url="/SuperAdmin/Accounts/SearchAccounts"
                            page="Model.CurrentPage"
                            page-size="Model.PageSize"
-                           total-items="Model.PageCount"
-                           >
+                           total-items="Model.PageCount">
                     </pager>
                 </div>
             </div>
         </div>
     </div>
 </div>
+@section Scripts{
+
+    <script>
+
+        $("#SearchKey").keyup(function () {
+            //Reference the Button.
+            var btnSubmit = $("#btnSearch");
+
+            //Verify the TextBox value.
+            if ($(this).val().trim() != "") {
+                //Enable the TextBox when TextBox has value.
+                btnSubmit.removeAttr("disabled");
+            } else {
+                //Disable the TextBox when TextBox is empty.
+                btnSubmit.attr("disabled", "disabled");
+            }
+        });
+
+        $("#DropDownFilter").on('change', function () {
+            var btnSubmit = $("#btnSearch");
+            
+            if ($(this).val() != "Choose an AccountType") {
+                //Enable the Button when Select has value.
+                btnSubmit.removeAttr("disabled");
+            } else {
+                //Disable the Button when Select is empty.
+                btnSubmit.attr("disabled", "disabled");
+            }
+
+        });
+
+    </script>
+
+}
