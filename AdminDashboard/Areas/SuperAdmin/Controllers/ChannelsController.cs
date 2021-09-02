@@ -102,6 +102,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpPost]
         public IActionResult Create(CreateChannelViewModel model)
         {
+
             if (!ModelState.IsValid)
             {
                 var channelTypes = channelTypeApi.ApiChannelTypeGetAllGet().Select(a => new SelectListItem
@@ -140,7 +141,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                       serial: model.Serial,
                       paymentMethodID: model.PaymentMethodID,
                       value: model.Value,
-                      status: model.Status
+                      status: model.Status,
+                      accountId:model.AccountId
                       ));
 
                 //save changes

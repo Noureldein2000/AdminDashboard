@@ -22,6 +22,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public string Value { get; set; }
         public bool Status { get; set; }
         public int? CreatedBy { get; set; }
+        public int? AccountId { get; set; }
         public int? UpdatedBy { get; set; }
         public DateTime? CreationDate { get; set; }
 

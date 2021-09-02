@@ -405,15 +405,15 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return RedirectToAction(actionName: "ViewChannelsTypes", new { id = result.AccountID });
         }
         [HttpGet]
-        public IActionResult ChangeAccountChannel(int id, AccountChannelStatus status,string reason)
+        public IActionResult ChangeAccountChannel(int id, AccountChannelStatus status, string reason)
         {
-             accountChannelApi.ApiAccountChannelChangeStatusIdPut(id,status,reason);
+            accountChannelApi.ApiAccountChannelChangeStatusIdPut(id, status, reason);
             return Ok();
         }
         [HttpGet]
         public IActionResult CreateAccountChannel(int accountId, int channelId)
         {
-            accountChannelApi.ApiAccountChannelAddPost(new AccountChannelModel(accountID: accountId, channelID: channelId,reason:"Transfered"));
+            accountChannelApi.ApiAccountChannelAddPost(new AccountChannelModel(accountID: accountId, channelID: channelId, reason: "Transfered"));
             return RedirectToAction(actionName: "ViewChannels", new { id = accountId });
         }
         [HttpGet]
@@ -474,6 +474,12 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             var data = channelApi.ApiChannelSearchSpecificChannelBySerialSearchKeyGet(serial, page, 1000);
             return Json(data.Results.Select(chnel => Map(chnel)).ToList());
+        }
+        [HttpGet]
+        public JsonResult GetAccountById(int accountId)
+        {
+            var data = api.ApiAccountGetAccountByIdIdGet(accountId);
+            return Json(data);
         }
         private AccountViewModel Map(AccountModel model)
         {
