@@ -142,12 +142,12 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                       paymentMethodID: model.PaymentMethodID,
                       value: model.Value,
                       status: model.Status,
-                      accountId:model.AccountId
+                      accountId: model.AccountId
                       ));
 
                 //save changes
                 if (result != null)
-                    return RedirectToAction(nameof(Index));
+                    return Ok();
 
                 return View(model);
 

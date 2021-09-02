@@ -67,11 +67,11 @@
                         <div class="card-body">
                             <div class="form-group row">
                                 <div class="col-md-10">
-                                    <input id="SearchKey" class="form-control" onkeyup="toggleButton(this,'btnSearch')" name="AccountId" placeholder="Search by Id" />
+                                    <input id="SearchKey" class="form-control" onkeyup="toggleButton(this,'btnSearch')" placeholder="Search by Id" />
                                     <span class="text-danger"></span>
                                 </div>
                                 <div class="col-md-2">
-                                    <input id="btnSearch" type="button" value="Search"  class="btn btn-secondary" disabled />
+                                    <input id="btnSearch" type="button" value="Search" class="btn btn-secondary" disabled />
                                 </div>
                             </div>
                             <table class="table table-striped" id="tblAccount">
@@ -136,47 +136,61 @@
         }
 
         function CreateChannel(id) {
-            //Serialize the form datas.
-            var model = $("#frmChannel").serialize();
-            
-            //to get alert popup
-            console.log(model);
+            //Second Solution PLan B
+
+            var AccountId =id;
+            var Name = $("#channelName").val();
+            var Serial = $("#serial").val();
+            var Value = $("#channelValue").val();
+            var ChannelTypeID = $("#drpChannelType").val();
+            var ChannelOwnerID = $("#drpChannelOwner").val();
+            var PaymentMethodID = $("#drpPaymentMethod").val();
+
+             $.ajax({
+                url: '@Url.Action("Create", "Channels")',
+                 type: 'POST',
+                 data: {
+                     AccountId: id,
+                     Name: Name,
+                     Serial: Serial,
+                     Value: Value,
+                     ChannelTypeID: ChannelTypeID,
+                     ChannelOwnerID: ChannelOwnerID,
+                     PaymentMethodID: PaymentMethodID
+                 },
+/*                 dataType: 'JSON',*/
+/*                 contentType: 'application/json;',*/
+/*                 traduitional: true,*/
+                success: function (data) {
+                    console.log('call successfully');
+                   window.location.href='@Url.Action("Index", "Channels")';
+                },
+                error: function (req, status, error) {
+                    console.log('call Failure');
+                    console.log(error);
+                }
+            });
 
 
-            //var formData = new FormData();
-            //formData.append("firstName", $("#txtFirstName").val());
-            //formData.append("lastName", $("#txtLastName").val());
-            //console.log(formData);
+            //First Solution PLan A
 
-            //alert('i entered ok.. ' + id);
-            //debugger;
-            //var searchKey = $("#SearchKey").val();
-            //var channelName = $("#channelName").val();
-            //var serial = $("#serial").val();
-            //var channelValue = $("#channelValue").val();
-            //var drpChannelType = $("#drpChannelType").val();
-            //var drpChannelOwner = $("#drpChannelOwner").val();
-            //var drpPaymentMethod = $("#drpPaymentMethod").val();
+            @*var formData = new FormData();
+            formData.append("Name", $("#channelName").val());
+            formData.append("Serial", $("#serial").val());
+            formData.append("AccountId", id);
+            formData.append("Value", $("#channelValue").val());
+            formData.append("ChannelTypeID", $("#drpChannelType").val());
+            formData.append("ChannelOwnerID", $("#drpChannelOwner").val());
+            formData.append("PaymentMethodID", $("#drpPaymentMethod").val());
 
-            //var viewmodel = {
-            //    Name: 'ADV',
-            //    Serial: 'sdsadsd',
-            //    Value: '123',
-            //    ChannelTypeID: 1214,
-            //    ChannelOwnerID: 1752,
-            //    PaymentMethodID: 4785,
-            //    AccountId: 6
-            //};
-
-            //var model = JSON.stringify(viewmodel);
-
-            //console.log(model);
+            console.log(formData);
 
                 $.ajax({
                 url: '@Url.Action("Create", "Channels")',
                 type: 'POST',
-                contentType: 'application/x-www-form-urlencoded; charset=UTF-8',
-                data: model,
+                data: formData,
+                processData: false,
+                contentType: false,
                 success: function (data) {
                     console.log('call successfully');
                 },
@@ -184,7 +198,7 @@
                     console.log('call Failure');
                     console.log(error);
                 }
-            });
+            });*@
         }
 
     </script>
