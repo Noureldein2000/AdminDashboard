@@ -100,27 +100,38 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
+
             var governerates = regionApi.ApiRegionGetGovernorateGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
+
             var entities = entityApi.ApiEntityGetAllGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
-            var accountTypes = accountTypeProfileApi.ApiAccountTypeProfileGetAllGet(1, 10000).Select(a => new SelectListItem
+
+            var accountTypes = accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstAccountType.Select(a => new SelectListItem
             {
-                Text = a.FullName,
+                Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
+
+            //var accountTypeProfiles = accountTypeProfileApi.ApiAccountTypeProfileGetAllGet(1, 10000).Select(a => new SelectListItem
+            //{
+            //    Text = a.FullName,
+            //    Value = a.Id.ToString()
+            //}).ToList();
+
             var model = new CreateAccountViewModel
             {
                 Activities = activities,
                 Governerates = governerates,
                 Entities = entities,
-                AccountTypeProfiles = accountTypes
+                AccountTypes = accountTypes,
+                //AccountTypeProfiles = accountTypeProfiles
             };
             return View(model);
         }
@@ -479,6 +490,12 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         public JsonResult GetAccountById(int accountId)
         {
             var data = api.ApiAccountGetAccountByIdIdGet(accountId);
+            return Json(data);
+        }
+        [HttpGet]
+        public JsonResult GetAccountProfilelByAcocuntTypeId(int id)
+        {
+            var data = accountTypeProfileApi.ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGet(id);
             return Json(data);
         }
         private AccountViewModel Map(AccountModel model)

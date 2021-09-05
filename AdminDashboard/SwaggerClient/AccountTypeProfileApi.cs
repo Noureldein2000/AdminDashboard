@@ -128,6 +128,27 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="id"></param>
         /// <returns>ApiResponse of List&lt;AccountModel&gt;</returns>
         ApiResponse<List<AccountModel>> ApiAccountTypeProfileGetParentAccountsIdGetWithHttpInfo (int? id);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>List&lt;AccountTypeProfileModel&gt;</returns>
+        List<AccountTypeProfileModel> ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGet (int? id);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>ApiResponse of List&lt;AccountTypeProfileModel&gt;</returns>
+        ApiResponse<List<AccountTypeProfileModel>> ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGetWithHttpInfo (int? id);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -235,6 +256,27 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="id"></param>
         /// <returns>Task of ApiResponse (List&lt;AccountModel&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<AccountModel>>> ApiAccountTypeProfileGetParentAccountsIdGetAsyncWithHttpInfo (int? id);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>Task of List&lt;AccountTypeProfileModel&gt;</returns>
+        System.Threading.Tasks.Task<List<AccountTypeProfileModel>> ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGetAsync (int? id);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>Task of ApiResponse (List&lt;AccountTypeProfileModel&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<AccountTypeProfileModel>>> ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGetAsyncWithHttpInfo (int? id);
         #endregion Asynchronous Operations
     }
 
@@ -1065,6 +1107,151 @@ namespace AdminDashboard.SwaggerClient
             return new ApiResponse<List<AccountModel>>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
                 (List<AccountModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<AccountModel>)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>List&lt;AccountTypeProfileModel&gt;</returns>
+        public List<AccountTypeProfileModel> ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGet (int? id)
+        {
+             ApiResponse<List<AccountTypeProfileModel>> localVarResponse = ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGetWithHttpInfo(id);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>ApiResponse of List&lt;AccountTypeProfileModel&gt;</returns>
+        public ApiResponse< List<AccountTypeProfileModel> > ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGetWithHttpInfo (int? id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new ApiException(400, "Missing required parameter 'id' when calling AccountTypeProfileApi->ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGet");
+
+            var localVarPath = "/api/AccountTypeProfile/GetProfilesByAccountTypeId/{id}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (id != null) localVarPathParams.Add("id", this.Configuration.ApiClient.ParameterToString(id)); // path parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<List<AccountTypeProfileModel>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (List<AccountTypeProfileModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<AccountTypeProfileModel>)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>Task of List&lt;AccountTypeProfileModel&gt;</returns>
+        public async System.Threading.Tasks.Task<List<AccountTypeProfileModel>> ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGetAsync (int? id)
+        {
+             ApiResponse<List<AccountTypeProfileModel>> localVarResponse = await ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGetAsyncWithHttpInfo(id);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>Task of ApiResponse (List&lt;AccountTypeProfileModel&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<AccountTypeProfileModel>>> ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGetAsyncWithHttpInfo (int? id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new ApiException(400, "Missing required parameter 'id' when calling AccountTypeProfileApi->ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGet");
+
+            var localVarPath = "/api/AccountTypeProfile/GetProfilesByAccountTypeId/{id}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (id != null) localVarPathParams.Add("id", this.Configuration.ApiClient.ParameterToString(id)); // path parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<List<AccountTypeProfileModel>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (List<AccountTypeProfileModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<AccountTypeProfileModel>)));
         }
 
     }

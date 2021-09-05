@@ -36,6 +36,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public List<SelectListItem> Activities { get; set; }
         public List<SelectListItem> Entities { get; set; }
         public List<SelectListItem> Governerates { get; set; }
+        public List<SelectListItem> AccountTypes { get; set; }
         public List<SelectListItem> AccountTypeProfiles { get; set; }
     }
 }
