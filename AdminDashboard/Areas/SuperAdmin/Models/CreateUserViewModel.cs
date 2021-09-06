@@ -18,8 +18,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public string Password { get; set; }
         [Required, Compare("Password"), DataType(DataType.Password)]
         public string ConfirmPassword { get; set; }
-        //[JsonProperty("UserRole")]
-        //[JsonProperty(Required = Required.Always)]
         [Required]
         [EnumDataType(typeof(Roles), ErrorMessage = "You must choose a role")]
         public Roles UserRole { get; set; }

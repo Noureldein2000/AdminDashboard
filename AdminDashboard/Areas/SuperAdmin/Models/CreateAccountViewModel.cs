@@ -1,4 +1,5 @@
 ﻿using AdminDashboard.Models;
+using AdminDashboard.Models.SwaggerModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -33,6 +34,17 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public int? AccountTypeProfileID { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
+
+        [Required]
+        public string Username { get; set; }
+        public string UserEmail { get; set; }
+        [Required, DataType(DataType.Password)]
+        public string Password { get; set; }
+        [Required, Compare("Password"), DataType(DataType.Password)]
+        public string ConfirmPassword { get; set; }
+        [Required]
+        [EnumDataType(typeof(Roles), ErrorMessage = "You must choose a role")]
+        public Roles UserRole { get; set; }
         public List<SelectListItem> Activities { get; set; }
         public List<SelectListItem> Entities { get; set; }
         public List<SelectListItem> Governerates { get; set; }

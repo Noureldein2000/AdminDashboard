@@ -57,8 +57,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         public IActionResult Create(CreateUserViewModel model)
         {
             if (!ModelState.IsValid)
-                return View(new CreateUserViewModel());
-
+                return View(model);
+            try
+            {
             _usersApi.ApiUsersCreateUserPost(new CreateUserModel(
                 username: model.Username,
                 password: model.Password,
@@ -66,6 +67,14 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 email: model.Email,
                 userRole: model.UserRole
                 ));
+
+            }
+            catch (Exception ex)
+            {
+
+                ModelState.AddModelError("1",ex.Message);
+                return View(model);
+            }
 
             return RedirectToAction(nameof(Index));
         }

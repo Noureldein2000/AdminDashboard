@@ -29,6 +29,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         private readonly IChannelApi channelApi;
         private readonly IAccountChannelTypeApi accountChannelTypesApi;
         private readonly IChannelTypeApi channelTypeApi;
+        private readonly IUsersApi usersApi;
         public AccountsController(
             //ISwaggerClient swagerClient
             )
@@ -44,6 +45,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             channelApi = new ChannelApi(url);
             accountChannelTypesApi = new AccountChannelTypeApi(url);
             channelTypeApi = new ChannelTypeApi(url);
+            usersApi = new UsersApi(url);
         }
         [HttpGet]
         public IActionResult Index()
@@ -161,30 +163,41 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     Text = a.FullName,
                     Value = a.Id.ToString()
                 }).ToList();
+
                 model.Activities = activities;
                 model.Governerates = governerates;
                 model.Entities = entities;
                 model.AccountTypeProfiles = accountTypes;
+
                 return View(model);
             }
 
-            api.ApiAccountAddAccountPost(new AddAccountModel(
-                ownerName: model.OwnerName,
-                accountName: model.AccountName,
-                mobile: model.Mobile,
-                address: model.Address,
-                latitude: model.Latitude.ToString(),
-                longitude: model.Longitude.ToString(),
-                email: model.Email,
-                nationalID: model.NationalID,
-                commercialRegistrationNo: model.CommercialRegistrationNo,
-                taxNo: model.TaxNo,
-                activityID: model.ActivityID,
-                accountTypeProfileID: model.AccountTypeProfileID,
-                regionID: model.RegionID,
-                entityID: model.EntityID,
-                parentID: model.ParentAccountID
+            var result = api.ApiAccountAddAccountPost(new AddAccountModel(
+                 ownerName: model.OwnerName,
+                 accountName: model.AccountName,
+                 mobile: model.Mobile,
+                 address: model.Address,
+                 latitude: model.Latitude.ToString(),
+                 longitude: model.Longitude.ToString(),
+                 email: model.Email,
+                 nationalID: model.NationalID,
+                 commercialRegistrationNo: model.CommercialRegistrationNo,
+                 taxNo: model.TaxNo,
+                 activityID: model.ActivityID,
+                 accountTypeProfileID: model.AccountTypeProfileID,
+                 regionID: model.RegionID,
+                 entityID: model.EntityID,
+                 parentID: model.ParentAccountID
+                 ));
+            if (result != null)
+                usersApi.ApiUsersCreateUserPost(new CreateUserModel(
+                username: model.Username,
+                password: model.Password,
+                accountId: result.Id,
+                email: model.UserEmail,
+                userRole: model.UserRole
                 ));
+
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
