@@ -158,9 +158,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
-                var accountTypes = accountTypeProfileApi.ApiAccountTypeProfileGetAllGet(1, 10000).Select(a => new SelectListItem
+                var accountTypes = accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstAccountType.Select(a => new SelectListItem
                 {
-                    Text = a.FullName,
+                    Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
 
@@ -198,6 +198,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 userRole: model.UserRole
                 ));
 
+            TempData["result"] = true;
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
@@ -304,6 +305,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     entityID: model.EntityID,
                     parentID: model.ParentAccountID
                     ));
+
+                TempData["result"] = true;
                 return RedirectToAction(nameof(Index));
             }
             catch (Exception ex)

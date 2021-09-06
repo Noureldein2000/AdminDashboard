@@ -68,6 +68,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 userRole: model.UserRole
                 ));
 
+                TempData["result"] = true;
             }
             catch (Exception ex)
             {
@@ -138,6 +139,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 userId: model.UserId,
                 userClaims: model.UserClaims.Select(r => new CheckBoxModel(displayName: r.DisplayName, isSelected: r.IsSelected)).ToList()
                 ));
+
             return RedirectToAction(nameof(Index));
         }
         private UsersViewModel Map(UserModel model)

@@ -77,7 +77,17 @@
 @section Scripts{
 
     <script>
-
+        $(function () {
+            var msg = '@TempData["result"]';
+            if (msg != "") {
+                swal({
+                    title: "Good job!",
+                    text: "You Saved the Account Successfully!",
+                    icon: "success",
+                    button: "Ok",
+                });
+            }
+         });
         $("#SearchKey").keyup(function () {
             //Reference the Button.
             var btnSubmit = $("#btnSearch");
@@ -94,7 +104,7 @@
 
         $("#DropDownFilter").on('change', function () {
             var btnSubmit = $("#btnSearch");
-            
+
             if ($(this).val() != "Choose an AccountType") {
                 //Enable the Button when Select has value.
                 btnSubmit.removeAttr("disabled");
@@ -105,6 +115,13 @@
 
         });
 
+        function showSweet() {
+            swal({
+                title: "Good job!",
+                text: "You clicked the button!",
+                icon: "success",
+            });
+        }
     </script>
 
 }

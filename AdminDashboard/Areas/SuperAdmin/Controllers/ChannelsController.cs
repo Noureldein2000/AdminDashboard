@@ -100,6 +100,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return View(model);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(CreateChannelViewModel model)
         {
 
@@ -147,7 +148,11 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
                 //save changes
                 if (result != null)
-                    return Ok();
+                {
+                    TempData["result"] = true;
+                    //return Ok();
+                    return RedirectToAction(nameof(Index));
+                }
 
                 return View(model);
 
@@ -186,6 +191,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return View(viewModel);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(ChannelViewModel model)
         {
             if (!ModelState.IsValid)
@@ -229,7 +235,10 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                      ));
 
                 if (result != null)
+                {
+                    TempData["result"] = true;
                     return RedirectToAction(nameof(Index));
+                }
 
                 return View(model);
 

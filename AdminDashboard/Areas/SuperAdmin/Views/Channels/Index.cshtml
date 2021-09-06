@@ -58,7 +58,6 @@
                                     <td>@channel.PaymentMethodName</td>
                                     <td>
                                         <a asp-action="Edit" asp-route-id="@channel.Id" class="btn btn-primary">Edit</a>
-                                        @*<a asp-action="Delete" asp-route-id="@channel.Id" class="btn btn-danger">Delete</a>*@
                                         <a asp-action="ChangeStatus" asp-route-id="@channel.Id" class="btn @(channel.Status ? "btn-success": "btn-danger")">
                                             @(channel.Status ? "Active" : "Deactive")
                                         </a>
@@ -81,6 +80,17 @@
 </div>
 @section Scripts{
     <script>
+         $(function () {
+            var msg = '@TempData["result"]';
+            if (msg != "") {
+                swal({
+                    title: "Good job!",
+                    text: "You Saved the Channel Successfully!",
+                    icon: "success",
+                    button: "Ok",
+                });
+            }
+         });
 
         function toggleButton(ref, bttnID) {
             document.getElementById(bttnID).disabled = ((ref.value !== ref.defaultValue) ? false : true);
