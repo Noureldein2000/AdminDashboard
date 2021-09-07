@@ -1,115 +1,192 @@
 ﻿@model CreateAccountViewModel
+@using AdminDashboard.Models.SwaggerModels;
 @{
     ViewData["Title"] = "Create";
 }
-
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
-                <form asp-action="Create" method="post">
-                    @Html.AntiForgeryToken()
-                    <div class="card-header">
-                        <h2>Create Account</h2>
-                    </div>
-                    <div class="card-body">
-                        <div asp-validation-summary="All" class="text-danger"></div>
-                        <div class="form-group">
-                            <label class="control-label">Owner Name</label>
-                            <input asp-for="OwnerName" class="form-control" />
-                            <span asp-validation-for="OwnerName" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Account Name</label>
-                            <input asp-for="AccountName" class="form-control" />
-                            <span asp-validation-for="AccountName" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Mobile</label>
-                            <input asp-for="Mobile" class="form-control" />
-                            <span asp-validation-for="Mobile" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Address</label>
-                            <input asp-for="Address" class="form-control" />
-                            <span asp-validation-for="Address" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Email</label>
-                            <input asp-for="Email" class="form-control" />
-                            <span asp-validation-for="Email" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">National ID</label>
-                            <input asp-for="NationalID" class="form-control" />
-                            <span asp-validation-for="NationalID" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Commercial Registration No</label>
-                            <input asp-for="CommercialRegistrationNo" class="form-control" />
-                            <span asp-validation-for="CommercialRegistrationNo" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Tax No</label>
-                            <input asp-for="TaxNo" class="form-control" />
-                            <span asp-validation-for="TaxNo" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Governerate</label>
-                            <select asp-for="GovernerateID" asp-items="Model.Governerates" class="form-control" data-style="select-with-transition" title="Choose a governerate" data-size="7">
-                                <option disabled> Choose</option>
-                            </select>
-                            <span asp-validation-for="GovernerateID" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Cites</label>
-                            <select disabled asp-for="RegionID" class="form-control" data-style="select-with-transition" title="Choose a governerate" data-size="7">
-                                <option disabled> Choose</option>
-                            </select>
-                            <span asp-validation-for="RegionID" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Activity</label>
-                            <select asp-for="ActivityID" asp-items="Model.Activities" class="form-control" data-style="select-with-transition" title="Choose an actitviy" data-size="7">
-                                <option disabled> Choose</option>
-                            </select>
-                            <span asp-validation-for="ActivityID" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Entity</label>
-                            <select asp-for="EntityID" asp-items="Model.Entities" class="form-control" data-style="select-with-transition" title="Choose an entity" data-size="7">
-                                <option disabled> Choose</option>
-                            </select>
-                            <span asp-validation-for="EntityID" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Account Type Profile</label>
-                            <select asp-for="AccountTypeProfileID" asp-items="Model.AccountTypeProfiles" class="form-control" data-style="select-with-transition" title="Choose an account type profile" data-size="7">
-                                <option disabled> Choose</option>
-                            </select>
-                            <span asp-validation-for="AccountTypeProfileID" class="text-danger"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Account Related to (Parent Id) </label>
-                            <select asp-for="ParentAccountID" class="form-control" data-style="select-with-transition" title="Choose a parent" data-size="7">
-                                <option disabled> Choose</option>
-                            </select>
-                            <span asp-validation-for="ParentAccountID" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <input type="submit" value="Save" class="btn btn-success" />
-                    </div>
-                </form>
-            </div>
 
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Create Account</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Account Info</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Assign User</a>
+                </li>
+            </ul>
+
+            <form asp-action="Create" method="post" id="frmAccount">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        @Html.AntiForgeryToken()
+                        <div class="card-body">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <label class="control-label">Owner Name</label>
+                                <input asp-for="OwnerName" class="form-control" />
+                                <span asp-validation-for="OwnerName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Account Name</label>
+                                <input asp-for="AccountName" class="form-control" />
+                                <span asp-validation-for="AccountName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Mobile</label>
+                                <input asp-for="Mobile" class="form-control" />
+                                <span asp-validation-for="Mobile" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Address</label>
+                                <input asp-for="Address" class="form-control" />
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Email</label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">National ID</label>
+                                <input asp-for="NationalID" class="form-control" />
+                                <span asp-validation-for="NationalID" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Commercial Registration No</label>
+                                <input asp-for="CommercialRegistrationNo" class="form-control" />
+                                <span asp-validation-for="CommercialRegistrationNo" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Tax No</label>
+                                <input asp-for="TaxNo" class="form-control" />
+                                <span asp-validation-for="TaxNo" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <a class="btn btn-success btnNext float-right">Next</a>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="control-label">Governerate</label>
+                                <select asp-for="GovernerateID" asp-items="Model.Governerates" class="form-control" data-style="select-with-transition" title="Choose a governerate" data-size="7">
+                                    <option disabled> Choose</option>
+                                </select>
+                                <span asp-validation-for="GovernerateID" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Cites</label>
+                                <select disabled asp-for="RegionID" class="form-control" data-style="select-with-transition" title="Choose a governerate" data-size="7">
+                                    <option disabled> Choose</option>
+                                </select>
+                                <span asp-validation-for="RegionID" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Activity</label>
+                                <select asp-for="ActivityID" asp-items="Model.Activities" class="form-control" data-style="select-with-transition" title="Choose an actitviy" data-size="7">
+                                    <option disabled> Choose</option>
+                                </select>
+                                <span asp-validation-for="ActivityID" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Entity</label>
+                                <select asp-for="EntityID" asp-items="Model.Entities" class="form-control" data-style="select-with-transition" title="Choose an entity" data-size="7">
+                                    <option disabled> Choose</option>
+                                </select>
+                                <span asp-validation-for="EntityID" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Account Type</label>
+                                <select id="drpAccountType" asp-items="Model.AccountTypes" class="form-control" data-style="select-with-transition" title="Choose an AccountType" data-size="7">
+                                    <option disabled selected>Choose an AccountType</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">AccountType Profile</label>
+                                <select asp-for="AccountTypeProfileID" id="drpAccountTypeProfile" class="form-control" data-style="select-with-transition" title="Choose an account type profile" data-size="7">
+                                    <option disabled selected> Choose Profile</option>
+                                </select>
+                                <span asp-validation-for="AccountTypeProfileID" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label d-block">Account Related to (Parent Id)</label>
+                                <select asp-for="ParentAccountID" id="ParentAccountID" class="js-example-basic-single js-states form-control" data-style="select-with-transition" data-show-subtext="true" data-live-search="true" data-size="7">
+                                    <option disabled selected> Choose Account Parent</option>
+                                </select>
+                                <span asp-validation-for="ParentAccountID" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <a class="btn btn-success btnNext float-right">Next</a>
+                            <a class="btn btn-danger btnPrevious float-right mr-1">Previous</a>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="control-label">User Name</label>
+                                <input asp-for="Username" class="form-control" />
+                                <span asp-validation-for="Username" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">User Email</label>
+                                <input asp-for="UserEmail" class="form-control" />
+                                <span asp-validation-for="UserEmail" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Password</label>
+                                <input asp-for="Password" class="form-control" />
+                                <span asp-validation-for="Password" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Confirm Password</label>
+                                <input asp-for="ConfirmPassword" class="form-control" />
+                                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">User Role</label>
+                                <select asp-for="UserRole" asp-items="Html.GetEnumSelectList<Roles>().TakeLast(2)" class="form-control" data-style="select-with-transition" title="Choose a Role" data-size="7">
+                                    <option disabled selected> Choose a Role</option>
+                                </select>
+                                <span asp-validation-for="UserRole" class="text-danger"></span>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="submit" value="Save" class="btn btn-success btnSubmit float-right" />
+                            <a class="btn btn-danger btnPrevious float-right mr-1">Previous</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
 
 @section Scripts{
+
     <script>
+
+        $(document).ready(function () {
+            $("#ParentAccountID").select2({
+                placeholder: 'Select an option',
+                width:1040
+            });
+
+            $('.btnNext').click(function () {
+                $('.nav-tabs .active').parent().next('li').find('a').trigger('click');
+            });
+
+            $('.btnPrevious').click(function () {
+                $('.nav-tabs .active').parent().prev('li').find('a').trigger('click');
+            });
+        });
+
         $('#GovernerateID').on("change", function () {
             var goveId = $(this).val();
             $('#RegionID').attr("disabled", false)
@@ -132,7 +209,34 @@
                 }
             });
         });
-        $('#AccountTypeProfileID').on("change", function () {
+
+        $('#drpAccountType').on("change", function () {
+            var Id = $(this).val();
+            $('#drpAccountTypeProfile').attr("disabled", false)
+            $('#ParentAccountID').empty();
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetAccountProfilelByAcocuntTypeId")",
+                data: { id: Id},
+                dataType: "text",
+                success: function (msg) {
+
+                    $('#drpAccountTypeProfile').prop('disabled', true);
+                    $('#drpAccountTypeProfile').html('');
+                    $.each(JSON.parse(msg), function (i, state) {
+
+                        $('#drpAccountTypeProfile').append('<option value="' + state.id + '">' +
+                            state.profile + '</option>');
+                    });
+                    $('#drpAccountTypeProfile').prop('disabled', false);
+                },
+                error: function (req, status, error) {
+                    console.log(msg);
+                }
+            });
+        });
+
+        $('#drpAccountTypeProfile').on("change", function () {
             var Id = $(this).val();
             $('#ParentAccountID').attr("disabled", false)
             $.ajax({
@@ -141,11 +245,11 @@
                 data: { id: Id},
                 dataType: "text",
                 success: function (msg) {
-              
+
                     $('#ParentAccountID').prop('disabled', true);
                     $('#ParentAccountID').html('');
                     $.each(JSON.parse(msg), function (i, state) {
-              
+
                         $('#ParentAccountID').append('<option value="' + state.id + '">' +
                             state.accountName + '</option>');
                     });
@@ -156,5 +260,29 @@
                 }
             });
         });
+
+        function toggleButton(ref, bttnID) {
+                document.getElementById(bttnID).disabled = ((ref.value !== ref.defaultValue) ? false : true);
+        }
+
+        function showSweetAlert() {
+            debugger;
+            swal({
+                title: "Are you sure?",
+                text: "Once Saved, you will be Redirect to another page!",
+                icon: "info",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                    if (willDelete) {
+                        swal("Save Succcefully", {
+                            icon: "success",
+                        });
+                        jQuery("#frmAccount").submit();
+                    } else {
+                        swal("Your imaginary file is safe!");
+                    }
+                });
+        }
     </script>
 }

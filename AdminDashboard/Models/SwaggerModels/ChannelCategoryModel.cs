@@ -24,26 +24,22 @@ using SwaggerDateConverter = AdminDashboard.SwaggerClientHelpers.SwaggerDateConv
 namespace AdminDashboard.Models.SwaggerModels
 {
     /// <summary>
-    /// AccountTypeProfileModel
+    /// ChannelCategoryModel
     /// </summary>
     [DataContract]
-        public partial class AccountTypeProfileModel :  IEquatable<AccountTypeProfileModel>, IValidatableObject
+        public partial class ChannelCategoryModel :  IEquatable<ChannelCategoryModel>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AccountTypeProfileModel" /> class.
+        /// Initializes a new instance of the <see cref="ChannelCategoryModel" /> class.
         /// </summary>
         /// <param name="id">id.</param>
-        /// <param name="accountTypeID">accountTypeID.</param>
-        /// <param name="profileID">profileID.</param>
-        /// <param name="profile">profile.</param>
-        /// <param name="fullName">fullName.</param>
-        public AccountTypeProfileModel(int? id = default(int?), int? accountTypeID = default(int?), int? profileID = default(int?), string profile = default(string), string fullName = default(string))
+        /// <param name="name">name.</param>
+        /// <param name="nameAr">nameAr.</param>
+        public ChannelCategoryModel(int? id = default(int?), string name = default(string), string nameAr = default(string))
         {
             this.Id = id;
-            this.AccountTypeID = accountTypeID;
-            this.ProfileID = profileID;
-            this.Profile = profile;
-            this.FullName = fullName;
+            this.Name = name;
+            this.NameAr = nameAr;
         }
         
         /// <summary>
@@ -53,28 +49,16 @@ namespace AdminDashboard.Models.SwaggerModels
         public int? Id { get; set; }
 
         /// <summary>
-        /// Gets or Sets AccountTypeID
+        /// Gets or Sets Name
         /// </summary>
-        [DataMember(Name="accountTypeID", EmitDefaultValue=false)]
-        public int? AccountTypeID { get; set; }
+        [DataMember(Name="name", EmitDefaultValue=false)]
+        public string Name { get; set; }
 
         /// <summary>
-        /// Gets or Sets ProfileID
+        /// Gets or Sets NameAr
         /// </summary>
-        [DataMember(Name="profileID", EmitDefaultValue=false)]
-        public int? ProfileID { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Profile
-        /// </summary>
-        [DataMember(Name="profile", EmitDefaultValue=false)]
-        public string Profile { get; set; }
-
-        /// <summary>
-        /// Gets or Sets FullName
-        /// </summary>
-        [DataMember(Name="fullName", EmitDefaultValue=false)]
-        public string FullName { get; set; }
+        [DataMember(Name="nameAr", EmitDefaultValue=false)]
+        public string NameAr { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -83,12 +67,10 @@ namespace AdminDashboard.Models.SwaggerModels
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class AccountTypeProfileModel {\n");
+            sb.Append("class ChannelCategoryModel {\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  AccountTypeID: ").Append(AccountTypeID).Append("\n");
-            sb.Append("  ProfileID: ").Append(ProfileID).Append("\n");
-            sb.Append("  Profile: ").Append(Profile).Append("\n");
-            sb.Append("  FullName: ").Append(FullName).Append("\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  NameAr: ").Append(NameAr).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -109,15 +91,15 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as AccountTypeProfileModel);
+            return this.Equals(input as ChannelCategoryModel);
         }
 
         /// <summary>
-        /// Returns true if AccountTypeProfileModel instances are equal
+        /// Returns true if ChannelCategoryModel instances are equal
         /// </summary>
-        /// <param name="input">Instance of AccountTypeProfileModel to be compared</param>
+        /// <param name="input">Instance of ChannelCategoryModel to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(AccountTypeProfileModel input)
+        public bool Equals(ChannelCategoryModel input)
         {
             if (input == null)
                 return false;
@@ -129,24 +111,14 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.Id.Equals(input.Id))
                 ) && 
                 (
-                    this.AccountTypeID == input.AccountTypeID ||
-                    (this.AccountTypeID != null &&
-                    this.AccountTypeID.Equals(input.AccountTypeID))
+                    this.Name == input.Name ||
+                    (this.Name != null &&
+                    this.Name.Equals(input.Name))
                 ) && 
                 (
-                    this.ProfileID == input.ProfileID ||
-                    (this.ProfileID != null &&
-                    this.ProfileID.Equals(input.ProfileID))
-                ) && 
-                (
-                    this.Profile == input.Profile ||
-                    (this.Profile != null &&
-                    this.Profile.Equals(input.Profile))
-                ) && 
-                (
-                    this.FullName == input.FullName ||
-                    (this.FullName != null &&
-                    this.FullName.Equals(input.FullName))
+                    this.NameAr == input.NameAr ||
+                    (this.NameAr != null &&
+                    this.NameAr.Equals(input.NameAr))
                 );
         }
 
@@ -161,14 +133,10 @@ namespace AdminDashboard.Models.SwaggerModels
                 int hashCode = 41;
                 if (this.Id != null)
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
-                if (this.AccountTypeID != null)
-                    hashCode = hashCode * 59 + this.AccountTypeID.GetHashCode();
-                if (this.ProfileID != null)
-                    hashCode = hashCode * 59 + this.ProfileID.GetHashCode();
-                if (this.Profile != null)
-                    hashCode = hashCode * 59 + this.Profile.GetHashCode();
-                if (this.FullName != null)
-                    hashCode = hashCode * 59 + this.FullName.GetHashCode();
+                if (this.Name != null)
+                    hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.NameAr != null)
+                    hashCode = hashCode * 59 + this.NameAr.GetHashCode();
                 return hashCode;
             }
         }

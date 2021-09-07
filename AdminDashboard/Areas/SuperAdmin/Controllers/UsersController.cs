@@ -43,16 +43,41 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 CurrentPage = page,
                 PageSize = 10
             };
+
+            ViewBag.AccountId = accountId;
             return View(viewModel);
         }
         [HttpGet]
-        public IActionResult Create()
+        public IActionResult Create(int? accountId)
         {
-            var viewModel = new CreateUserViewModel
+            return View(new CreateUserViewModel() { AccountID = accountId });
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(CreateUserViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+            try
+            {
+            _usersApi.ApiUsersCreateUserPost(new CreateUserModel(
+                username: model.Username,
+                password: model.Password,
+                accountId: model.AccountID,
+                email: model.Email,
+                userRole: model.UserRole
+                ));
+
+                TempData["result"] = true;
+            }
+            catch (Exception ex)
             {
 
-            };
-            return View(viewModel);
+                ModelState.AddModelError("1",ex.Message);
+                return View(model);
+            }
+
+            return RedirectToAction(nameof(Index));
         }
         [HttpGet]
         public async Task<IActionResult> ManageRoles(string userId)
@@ -114,6 +139,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 userId: model.UserId,
                 userClaims: model.UserClaims.Select(r => new CheckBoxModel(displayName: r.DisplayName, isSelected: r.IsSelected)).ToList()
                 ));
+
             return RedirectToAction(nameof(Index));
         }
         private UsersViewModel Map(UserModel model)

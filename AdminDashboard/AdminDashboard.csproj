@@ -5,15 +5,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Areas\SuperAdmin\Data\**" />
     <Compile Remove="C\**" />
+    <Content Remove="Areas\SuperAdmin\Data\**" />
     <Content Remove="C\**" />
+    <EmbeddedResource Remove="Areas\SuperAdmin\Data\**" />
     <EmbeddedResource Remove="C\**" />
+    <None Remove="Areas\SuperAdmin\Data\**" />
     <None Remove="C\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Areas\SuperAdmin\Data\" />
     <Folder Include="SwaggerClientHelpers\" />
+    <Folder Include="wwwroot\lib\select2\" />
   </ItemGroup>
 
   <ItemGroup>

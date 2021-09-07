@@ -20,6 +20,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     public class ChannelsController : Controller
     {
         private readonly IChannelApi api;
+        private readonly IChannelCategoryApi channelCategoryApi;
         private readonly IChannelTypeApi channelTypeApi;
         private readonly IChannelOwnerApi channelOwnerApi;
         private readonly IChannelPaymentMethodApi channelPaymentMethodApi;
@@ -27,6 +28,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             string url = "https://localhost:44303";
             api = new ChannelApi(url);
+            channelCategoryApi = new ChannelCategoryApi(url);
             channelTypeApi = new ChannelTypeApi(url);
             channelOwnerApi = new ChannelOwnerApi(url);
             channelPaymentMethodApi = new ChannelPaymentMethodApi(url);
@@ -34,15 +36,22 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         }
         // GET: ChannelsController
         [HttpGet]
-        public IActionResult Index(string searchKey, int page = 1)
+        public IActionResult Index()
         {
-            ChannelResponseModelPagedResult data;
+            var data = channelCategoryApi.ApiChannelCategoryGetAllGet();
 
-            if (!string.IsNullOrEmpty(searchKey))
-                data = api.ApiChannelSearchChannelBySerialSearchKeyGet(searchKey, page, 10);
-            else
-                data = api.ApiChannelGetChannelsGet(page, 10);
+            ViewBag.ChannelCategoryList = data.Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = a.Id.ToString()
+            }).ToList();
 
+            return View(new PagedResult<ChannelViewModel>());
+        }
+        [HttpGet]
+        public IActionResult SearchChannels(int? dropDownFilter, int? dropDownFilter2, string searchKey = null, int page = 1)
+        {
+            var data = api.ApiChannelSearchChannelsGet(dropDownFilter, dropDownFilter2, searchKey, page, 10);
             var dd = data.Results.Select(account => Map(account)).ToList();
             var viewModel = new PagedResult<ChannelViewModel>
             {
@@ -52,7 +61,16 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 PageSize = 10
             };
 
-            return View(viewModel);
+
+            var channelCategories = channelCategoryApi.ApiChannelCategoryGetAllGet();
+
+            ViewBag.ChannelCategoryList = channelCategories.Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = a.Id.ToString()
+            }).ToList();
+
+            return View("Index", viewModel);
         }
         [HttpGet]
         public IActionResult Create(int id)
@@ -82,8 +100,10 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return View(model);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(CreateChannelViewModel model)
         {
+
             if (!ModelState.IsValid)
             {
                 var channelTypes = channelTypeApi.ApiChannelTypeGetAllGet().Select(a => new SelectListItem
@@ -122,12 +142,17 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                       serial: model.Serial,
                       paymentMethodID: model.PaymentMethodID,
                       value: model.Value,
-                      status: model.Status
+                      status: model.Status,
+                      accountId: model.AccountId
                       ));
 
                 //save changes
                 if (result != null)
+                {
+                    TempData["result"] = true;
+                    //return Ok();
                     return RedirectToAction(nameof(Index));
+                }
 
                 return View(model);
 
@@ -166,6 +191,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return View(viewModel);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Edit(ChannelViewModel model)
         {
             if (!ModelState.IsValid)
@@ -209,7 +235,10 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                      ));
 
                 if (result != null)
+                {
+                    TempData["result"] = true;
                     return RedirectToAction(nameof(Index));
+                }
 
                 return View(model);
 
@@ -231,6 +260,12 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             api.ApiChannelChangeStatusIdGet(id);
             return RedirectToAction(nameof(Index));
+        }
+        [HttpGet]
+        public JsonResult GetChannelTypesByChannelCategoryId(int id)
+        {
+            var accounts = channelTypeApi.ApiChannelTypeGetByChannelCategoryIdGet(id);
+            return Json(accounts);
         }
         private ChannelViewModel Map(ChannelResponseModel model)
         {

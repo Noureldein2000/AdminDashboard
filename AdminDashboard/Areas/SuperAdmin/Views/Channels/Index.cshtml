@@ -12,14 +12,26 @@
                     <a asp-action="Create" class="pull-right btn btn-outline-primary">Create</a>
                 </div>
                 <div class="card-body">
-                    <form asp-controller="Channels" asp-action="Index" method="get">
+                    <form asp-controller="Channels" asp-action="SearchChannels" method="get">
                         <div class="form-group">
+                            <div class="form-group">
+                                <label class="control-label">Filter by Category</label>
+                                <select id="drpChannelCategory" asp-for="DropDownFilter" asp-items="ViewBag.ChannelCategoryList" class="form-control" data-style="select-with-transition" title="Choose an Channel Category" data-size="7">
+                                    <option disabled selected>Choose an Channel Category</option>
+                                </select>
+                                <div class="mt-1">
+                                    <label class="control-label">Filter by Type</label>
+                                    <select id="drpChannelType" asp-for="DropDownFilter2" asp-items="ViewBag.ChannelTypesList" class="form-control" data-style="select-with-transition" title="Choose an Channel Type" data-size="7" disabled>
+                                        <option>Choose an Channel Type</option>
+                                    </select>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-md-10">
-                                    <input asp-for="@Model.SearchKey" class="form-control" placeholder="Search by Serial" />
+                                    <input asp-for="@Model.SearchKey" onkeyup="toggleButton(this,'btnSearch')" class="form-control" placeholder="Search by Serial" />
                                 </div>
                                 <div class="col-md-2">
-                                    <input type="submit" value="Search" class="btn btn-secondary" />
+                                    <input id="btnSearch" type="submit" value="Search" class="btn btn-secondary" disabled />
                                 </div>
                             </div>
                         </div>
@@ -46,7 +58,6 @@
                                     <td>@channel.PaymentMethodName</td>
                                     <td>
                                         <a asp-action="Edit" asp-route-id="@channel.Id" class="btn btn-primary">Edit</a>
-                                        @*<a asp-action="Delete" asp-route-id="@channel.Id" class="btn btn-danger">Delete</a>*@
                                         <a asp-action="ChangeStatus" asp-route-id="@channel.Id" class="btn @(channel.Status ? "btn-success": "btn-danger")">
                                             @(channel.Status ? "Active" : "Deactive")
                                         </a>
@@ -57,7 +68,7 @@
                     </table>
                 </div>
                 <div class="card-footer d-flex justify-content-center">
-                    <pager link-url="/SuperAdmin/Channels/Index"
+                    <pager link-url="/SuperAdmin/Channels/SearchChannels"
                            page="Model.CurrentPage"
                            page-size="Model.PageSize"
                            total-items="Model.PageCount">
@@ -67,3 +78,50 @@
         </div>
     </div>
 </div>
+@section Scripts{
+    <script>
+         $(function () {
+            var msg = '@TempData["result"]';
+            if (msg != "") {
+                swal({
+                    title: "Good job!",
+                    text: "You Saved the Channel Successfully!",
+                    icon: "success",
+                    button: "Ok",
+                });
+            }
+         });
+
+        function toggleButton(ref, bttnID) {
+            document.getElementById(bttnID).disabled = ((ref.value !== ref.defaultValue) ? false : true);
+        }
+
+        $('#drpChannelCategory').on("change", function () {
+            var channelCategoryId = $(this).val();
+            $("#btnSearch").removeAttr("disabled");
+            $('#drpChannelType').attr("disabled", false)
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetChannelTypesByChannelCategoryId")",
+                data: { id: channelCategoryId},
+                dataType: "text",
+                success: function (msg) {
+                    $('#drpChannelType').prop('disabled', true);
+                    $('#drpChannelType').html('');
+                    $('#drpChannelType').append('<option value="">Choose an Channel Type</option>');
+                    $.each(JSON.parse(msg), function (i, state) {
+                        $('#drpChannelType').append('<option value="' + state.id + '">' +
+                            state.name + '</option>');
+                    });
+                    $('#drpChannelType').prop('disabled', false);
+                },
+                error: function (req, status, error) {
+                    console.log(msg);
+                }
+            });
+        });
+
+
+    </script>
+
+}

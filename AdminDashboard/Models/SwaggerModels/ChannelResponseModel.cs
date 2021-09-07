@@ -33,6 +33,7 @@ namespace AdminDashboard.Models.SwaggerModels
         /// Initializes a new instance of the <see cref="ChannelResponseModel" /> class.
         /// </summary>
         /// <param name="channelID">channelID.</param>
+        /// <param name="accountChannelID">accountChannelID.</param>
         /// <param name="name">name.</param>
         /// <param name="channelTypeID">channelTypeID.</param>
         /// <param name="channelTypeName">channelTypeName.</param>
@@ -46,9 +47,10 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="createdBy">createdBy.</param>
         /// <param name="updatedBy">updatedBy.</param>
         /// <param name="creationDate">creationDate.</param>
-        public ChannelResponseModel(int? channelID = default(int?), string name = default(string), int? channelTypeID = default(int?), string channelTypeName = default(string), int? channelOwnerID = default(int?), string channelOwnerName = default(string), string serial = default(string), int? paymentMethodID = default(int?), string paymentMethodName = default(string), string value = default(string), bool? status = default(bool?), int? createdBy = default(int?), int? updatedBy = default(int?), DateTime? creationDate = default(DateTime?))
+        public ChannelResponseModel(int? channelID = default(int?), int? accountChannelID = default(int?), string name = default(string), int? channelTypeID = default(int?), string channelTypeName = default(string), int? channelOwnerID = default(int?), string channelOwnerName = default(string), string serial = default(string), int? paymentMethodID = default(int?), string paymentMethodName = default(string), string value = default(string), bool? status = default(bool?), int? createdBy = default(int?), int? updatedBy = default(int?), DateTime? creationDate = default(DateTime?))
         {
             this.ChannelID = channelID;
+            this.AccountChannelID = accountChannelID;
             this.Name = name;
             this.ChannelTypeID = channelTypeID;
             this.ChannelTypeName = channelTypeName;
@@ -69,6 +71,12 @@ namespace AdminDashboard.Models.SwaggerModels
         /// </summary>
         [DataMember(Name="channelID", EmitDefaultValue=false)]
         public int? ChannelID { get; set; }
+
+        /// <summary>
+        /// Gets or Sets AccountChannelID
+        /// </summary>
+        [DataMember(Name="accountChannelID", EmitDefaultValue=false)]
+        public int? AccountChannelID { get; set; }
 
         /// <summary>
         /// Gets or Sets Name
@@ -157,6 +165,7 @@ namespace AdminDashboard.Models.SwaggerModels
             var sb = new StringBuilder();
             sb.Append("class ChannelResponseModel {\n");
             sb.Append("  ChannelID: ").Append(ChannelID).Append("\n");
+            sb.Append("  AccountChannelID: ").Append(AccountChannelID).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  ChannelTypeID: ").Append(ChannelTypeID).Append("\n");
             sb.Append("  ChannelTypeName: ").Append(ChannelTypeName).Append("\n");
@@ -208,6 +217,11 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.ChannelID == input.ChannelID ||
                     (this.ChannelID != null &&
                     this.ChannelID.Equals(input.ChannelID))
+                ) && 
+                (
+                    this.AccountChannelID == input.AccountChannelID ||
+                    (this.AccountChannelID != null &&
+                    this.AccountChannelID.Equals(input.AccountChannelID))
                 ) && 
                 (
                     this.Name == input.Name ||
@@ -287,6 +301,8 @@ namespace AdminDashboard.Models.SwaggerModels
                 int hashCode = 41;
                 if (this.ChannelID != null)
                     hashCode = hashCode * 59 + this.ChannelID.GetHashCode();
+                if (this.AccountChannelID != null)
+                    hashCode = hashCode * 59 + this.AccountChannelID.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
                 if (this.ChannelTypeID != null)

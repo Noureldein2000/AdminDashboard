@@ -19,10 +19,11 @@
 
                                     <div class="form-group row">
                                         <div class="col-md-10">
-                                            <input id="txtSearchKey" class="form-control" placeholder="Search by Serial" />
+                                            <input id="txtSearchKey" class="form-control" placeholder="Search by Serial"
+                                                   onkeyup="toggleButton(this,'btnSearch')" />
                                         </div>
                                         <div class="col-md-2">
-                                            <input id="btnSearch" type="submit" value="Search" class="btn btn-secondary" />
+                                            <input id="btnSearch" type="submit" value="Search" class="btn btn-secondary" disabled />
                                         </div>
                                     </div>
                                     <table class="table table-striped" id="tblChannels">
