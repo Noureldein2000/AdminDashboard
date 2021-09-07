@@ -42,6 +42,7 @@ namespace AdminDashboard
             .AddCookie("Cookies")
             .AddOpenIdConnect("oidc", options =>
             {
+                options.SignInScheme = "Cookies";
                 options.Authority = "https://localhost:44303/";//Configuration["ISConfig:Url"];
                 options.RequireHttpsMetadata = false;
 
