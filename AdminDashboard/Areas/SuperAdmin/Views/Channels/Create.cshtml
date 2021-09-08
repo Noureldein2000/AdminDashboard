@@ -144,10 +144,9 @@
             var ChannelTypeID = $("#drpChannelType").val();
             var ChannelOwnerID = $("#drpChannelOwner").val();
             var PaymentMethodID = $("#drpPaymentMethod").val();
-
              $.ajax({
-                url: '@Url.Action("Create", "Channels")',
-                 type: 'POST',
+                 url: '@Url.Action("Create", "Channels")',
+                 type: 'post',
                  data: {
                      AccountId: id,
                      Name: Name,
@@ -157,11 +156,17 @@
                      ChannelOwnerID: ChannelOwnerID,
                      PaymentMethodID: PaymentMethodID
                  },
-/*                 dataType: 'JSON',*/
-/*                 contentType: 'application/json;',*/
-/*                 traduitional: true,*/
+/*                 dataType: "text",*/
+/*                 contentType: "application/json;",*/
+/*                 async: false,*/
+                 /* traduitional: true,*/
                 success: function (data) {
-                    console.log('call successfully');
+                    swal({
+                        title: "Good job!",
+                        text: "You Saved the Channel Successfully!",
+                        icon: "success",
+                        button: "Ok",
+                    });
                    window.location.href='@Url.Action("Index", "Channels")';
                 },
                 error: function (req, status, error) {

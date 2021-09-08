@@ -121,11 +121,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Value = a.Id.ToString()
             }).ToList();
 
-            //var accountTypeProfiles = accountTypeProfileApi.ApiAccountTypeProfileGetAllGet(1, 10000).Select(a => new SelectListItem
-            //{
-            //    Text = a.FullName,
-            //    Value = a.Id.ToString()
-            //}).ToList();
 
             var model = new CreateAccountViewModel
             {
@@ -133,8 +128,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Governerates = governerates,
                 Entities = entities,
                 AccountTypes = accountTypes,
-                //AccountTypeProfiles = accountTypeProfiles
             };
+
+           
             return View(model);
         }
         [HttpPost]
@@ -163,12 +159,37 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
+                ;
+                var accountTypeProfiles = accountTypeProfileApi.ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGet(model.AccountTypeID).Select(a => new SelectListItem
+                {
+                    Text = a.Profile,
+                    Value = a.Id.ToString()
+                }).ToList();
 
                 model.Activities = activities;
                 model.Governerates = governerates;
                 model.Entities = entities;
-                model.AccountTypeProfiles = accountTypes;
+                model.AccountTypes = accountTypes;
+                model.AccountTypeProfiles = accountTypeProfiles;
 
+                if (model.GovernerateID.HasValue)
+                {
+                    var cities = regionApi.ApiRegionGetRegionByGovernorateIdIdGet(model.GovernerateID).ToList();
+                    model.Regions = cities.Select(s => new SelectListItem
+                    {
+                        Text = s.Name,
+                        Value = s.Id.ToString()
+                    }).ToList();
+                }
+                if (model.ParentAccountID.HasValue)
+                {
+                    var accounts = accountTypeProfileApi.ApiAccountTypeProfileGetParentAccountsIdGet(model.AccountTypeProfileID);
+                    model.ParentAccounts = accounts.Select(s => new SelectListItem
+                    {
+                        Text = s.AccountName,
+                        Value = s.Id.ToString()
+                    }).ToList();
+                }
                 return View(model);
             }
 
@@ -219,17 +240,18 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
-            var accountTypes = accountTypeProfileApi.ApiAccountTypeProfileGetAllGet(1, 10000).Select(a => new SelectListItem
+            var accountTypes = accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstAccountType.Select(a => new SelectListItem
             {
-                Text = a.FullName,
+                Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
+
             var model = api.ApiAccountGetAccountByIdIdGet(id);
             var viewModel = Map(model);
             viewModel.Activities = activities;
             viewModel.Governerates = governerates;
             viewModel.Entities = entities;
-            viewModel.AccountTypeProfiles = accountTypes;
+            viewModel.AccountTypes = accountTypes;
             if (model.GovernerateID.HasValue)
             {
                 var cities = regionApi.ApiRegionGetRegionByGovernorateIdIdGet(model.GovernerateID).ToList();
@@ -272,15 +294,16 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
-                var accountTypes = accountTypeProfileApi.ApiAccountTypeProfileGetAllGet(1, 10000).Select(a => new SelectListItem
+                var accountTypes = accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstAccountType.Select(a => new SelectListItem
                 {
-                    Text = a.FullName,
+                    Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
+
                 model.Activities = activities;
                 model.Governerates = governerates;
                 model.Entities = entities;
-                model.AccountTypeProfiles = accountTypes;
+                model.AccountTypes = accountTypes;
                 return View(model);
             }
 

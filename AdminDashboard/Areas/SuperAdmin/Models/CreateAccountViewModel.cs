@@ -31,6 +31,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         [Required]
         public int? RegionID { get; set; }
         [Required]
+        public int? AccountTypeID { get; set; }
         public int? AccountTypeProfileID { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
@@ -50,5 +51,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public List<SelectListItem> Governerates { get; set; }
         public List<SelectListItem> AccountTypes { get; set; }
         public List<SelectListItem> AccountTypeProfiles { get; set; }
+        public List<SelectListItem> Regions { get; set; }
+        public List<SelectListItem> ParentAccounts { get; set; }
     }
 }

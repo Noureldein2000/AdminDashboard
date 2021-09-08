@@ -100,7 +100,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return View(model);
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Create(CreateChannelViewModel model)
         {
 
@@ -150,7 +149,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 if (result != null)
                 {
                     TempData["result"] = true;
-                    //return Ok();
                     return RedirectToAction(nameof(Index));
                 }
 
@@ -163,6 +161,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 return View(model);
             }
         }
+       
         [HttpGet]
         public IActionResult Edit(int id)
         {
