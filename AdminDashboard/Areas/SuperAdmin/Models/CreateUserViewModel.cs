@@ -14,14 +14,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         [Required]
         public string Username { get; set; }
         public string Email { get; set; }
-        [Required, DataType(DataType.Password)]
+        public string Phone { get; set; }
+        [Required, DataType(DataType.Password), RegularExpression(@"^(?=(.*\d){1})(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d]).{8,}$")]
         public string Password { get; set; }
-        [Required, Compare("Password"), DataType(DataType.Password)]
+        [Required, Compare("Password"), DataType(DataType.Password), RegularExpression(@"^(?=(.*\d){1})(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z\d]).{8,}$")]
         public string ConfirmPassword { get; set; }
         [Required]
         [EnumDataType(typeof(Roles), ErrorMessage = "You must choose a role")]
         public Roles UserRole { get; set; }
-
-
     }
 }
