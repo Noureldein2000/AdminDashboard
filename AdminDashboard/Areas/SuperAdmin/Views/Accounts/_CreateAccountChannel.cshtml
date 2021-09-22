@@ -1,4 +1,5 @@
 ﻿<!-- Modal -->
+
 <div id="myModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-xl">
 
@@ -11,38 +12,40 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-md-12">
-                            <div class="card">
-                                <div class="card-header">
+                            @*<div class="card">*@
+                            @*<div class="card-header">
                                     <h2>Channels</h2>
-                                </div>
-                                <div class="card-body">
+                                </div>*@
+                            @*<div class="card-body">*@
 
-                                    <div class="form-group row">
-                                        <div class="col-md-10">
-                                            <input id="txtSearchKey" class="form-control" placeholder="Search by Serial"
-                                                   onkeyup="toggleButton(this,'btnSearch')" />
-                                        </div>
-                                        <div class="col-md-2">
-                                            <input id="btnSearch" type="submit" value="Search" class="btn btn-secondary" disabled />
-                                        </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <input id="txtSearchKey" class="form-control" placeholder="Search by Serial"
+                                               onkeyup="toggleButton(this,'btnSearch')" />
                                     </div>
-                                    <table class="table table-striped" id="tblChannels">
-                                        <thead>
-                                            <tr>
-                                                <th>Serial</th>
-                                                <th>Channel Type</th>
-                                                <th>Channel Owner</th>
-                                                <th>Payment Method</th>
-                                                <th>Created by</th>
-                                                <th>Actions</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        </tbody>
-                                    </table>
+                                    <div class="col-md-3">
+                                        <input id="btnSearch" type="submit" value="Search" class="btn btn-secondary" disabled />
+                                        <button id="btnCreate" type="button" class="pull-right btn btn-primary" data-toggle="modal" data-target="#channelModal">Create</button>
+                                    </div>
                                 </div>
-
                             </div>
+                            <table class="table table-str iped" id="tblChannels">
+                                <thead>
+                                    <tr>
+                                        <th>Serial</th>
+                                        <th>Channel Type</th>
+                                        <th>Channel Owner</th>
+                                        <th>Payment Method</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                            @*</div>*@
+
+                            @*</div>*@
                         </div>
                     </div>
                 </div>

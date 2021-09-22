@@ -15,6 +15,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         [Required]
         public string AccountName { get; set; }
         [Required]
+        [RegularExpression(@"^[0-9]{11}$", ErrorMessage = "Mobile number not correct")]
         public string Mobile { get; set; }
         public string Address { get; set; }
         public string Email { get; set; }
@@ -39,12 +40,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         [Required]
         public string Username { get; set; }
         public string UserEmail { get; set; }
-        [Required, DataType(DataType.Password)]
-        public string Password { get; set; }
-        [Required, Compare("Password"), DataType(DataType.Password)]
-        public string ConfirmPassword { get; set; }
-        [Required]
-        [EnumDataType(typeof(Roles), ErrorMessage = "You must choose a role")]
+        [RegularExpression(@"^[0-9]{11}$", ErrorMessage = "Mobile number not correct")]
+        public string MobileAccountOwner { get; set; }
+        //[Required, DataType(DataType.Password)]
+        //public string Password { get; set; }
+        //[Required, Compare("Password"), DataType(DataType.Password)]
+        //public string ConfirmPassword { get; set; }
+        //[EnumDataType(typeof(Roles), ErrorMessage = "You must choose a role")]
         public Roles UserRole { get; set; }
         public List<SelectListItem> Activities { get; set; }
         public List<SelectListItem> Entities { get; set; }
@@ -52,6 +54,16 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public List<SelectListItem> AccountTypes { get; set; }
         public List<SelectListItem> AccountTypeProfiles { get; set; }
         public List<SelectListItem> Regions { get; set; }
-        public List<SelectListItem> ParentAccounts { get; set; }
+        //public List<SelectListItem> ParentAccounts { get; set; }
+        public ConsumerUser ConsumerUser { get; set; }
+    }
+
+    public class ConsumerUser
+    {
+        public string Username { get; set; }
+        public string UserEmail { get; set; }
+        public string Mobile { get; set; }
+        //[EnumDataType(typeof(Roles), ErrorMessage = "You must choose a role")]
+        public Roles UserRole { get; set; }
     }
 }

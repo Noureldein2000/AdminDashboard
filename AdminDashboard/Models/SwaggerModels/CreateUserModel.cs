@@ -32,18 +32,36 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <summary>
         /// Initializes a new instance of the <see cref="CreateUserModel" /> class.
         /// </summary>
-        /// <param name="username">username.</param>
+        /// <param name="username">username (required).</param>
         /// <param name="password">password.</param>
+        /// <param name="mobile">mobile.</param>
         /// <param name="accountId">accountId.</param>
         /// <param name="email">email.</param>
-        /// <param name="userRole">userRole.</param>
-        public CreateUserModel(string username = default(string), string password = default(string), int? accountId = default(int?), string email = default(string), Roles userRole = default(Roles))
+        /// <param name="userRole">userRole (required).</param>
+        public CreateUserModel(string username = default(string), string password = default(string), string mobile = default(string), int? accountId = default(int?), string email = default(string), Roles userRole = default(Roles))
         {
-            this.Username = username;
+            // to ensure "username" is required (not null)
+            if (username == null)
+            {
+                throw new InvalidDataException("username is a required property for CreateUserModel and cannot be null");
+            }
+            else
+            {
+                this.Username = username;
+            }
+            // to ensure "userRole" is required (not null)
+            if (userRole == null)
+            {
+                throw new InvalidDataException("userRole is a required property for CreateUserModel and cannot be null");
+            }
+            else
+            {
+                this.UserRole = userRole;
+            }
             this.Password = password;
+            this.Mobile = mobile;
             this.AccountId = accountId;
             this.Email = email;
-            this.UserRole = userRole;
         }
         
         /// <summary>
@@ -57,6 +75,12 @@ namespace AdminDashboard.Models.SwaggerModels
         /// </summary>
         [DataMember(Name="password", EmitDefaultValue=false)]
         public string Password { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Mobile
+        /// </summary>
+        [DataMember(Name="mobile", EmitDefaultValue=false)]
+        public string Mobile { get; set; }
 
         /// <summary>
         /// Gets or Sets AccountId
@@ -86,6 +110,7 @@ namespace AdminDashboard.Models.SwaggerModels
             sb.Append("class CreateUserModel {\n");
             sb.Append("  Username: ").Append(Username).Append("\n");
             sb.Append("  Password: ").Append(Password).Append("\n");
+            sb.Append("  Mobile: ").Append(Mobile).Append("\n");
             sb.Append("  AccountId: ").Append(AccountId).Append("\n");
             sb.Append("  Email: ").Append(Email).Append("\n");
             sb.Append("  UserRole: ").Append(UserRole).Append("\n");
@@ -134,6 +159,11 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.Password.Equals(input.Password))
                 ) && 
                 (
+                    this.Mobile == input.Mobile ||
+                    (this.Mobile != null &&
+                    this.Mobile.Equals(input.Mobile))
+                ) && 
+                (
                     this.AccountId == input.AccountId ||
                     (this.AccountId != null &&
                     this.AccountId.Equals(input.AccountId))
@@ -163,6 +193,8 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.Username.GetHashCode();
                 if (this.Password != null)
                     hashCode = hashCode * 59 + this.Password.GetHashCode();
+                if (this.Mobile != null)
+                    hashCode = hashCode * 59 + this.Mobile.GetHashCode();
                 if (this.AccountId != null)
                     hashCode = hashCode * 59 + this.AccountId.GetHashCode();
                 if (this.Email != null)

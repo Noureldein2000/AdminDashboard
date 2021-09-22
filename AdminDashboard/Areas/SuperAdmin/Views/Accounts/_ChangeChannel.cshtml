@@ -1,0 +1,82 @@
+﻿@using AdminDashboard.Areas.SuperAdmin.Models;
+@model CreateChannelAccountViewModel
+<div id="channelModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-xl">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Create channel:</h2>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <input asp-for="AccountId" type="hidden" />
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Channel Name</label>
+                                                <input id="channelName" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Serial </label>
+                                                <input id="serial" class="form-control" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Value</label>
+                                                <input id="channelValue" class="form-control" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Channel Types</label>
+                                                <select asp-items="Model.ChannelTypes" id="drpChannelType" class="form-control" data-style="select-with-transition" title="Choose a Channel Type" data-size="7">
+                                                    <option disabled> Choose</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Channel Owner</label>
+                                                <select asp-items="Model.ChannelOwners" id="drpChannelOwner" class="form-control" data-style="select-with-transition" title="Choose a Channel Owner" data-size="7">
+                                                    <option disabled> Choose</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="form-group">
+                                                <label class="control-label">Payment Method</label>
+                                                <select asp-items="Model.PaymentMethods" id="drpPaymentMethod" class="form-control" data-style="select-with-transition" title="Choose a Method" data-size="7">
+                                                    <option disabled> Choose</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <input id="btnSubmit" onclick="saveAccountChannle()" type="button" value="Save" class="btn btn-success float-md-right" />
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+

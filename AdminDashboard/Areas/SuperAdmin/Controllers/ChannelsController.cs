@@ -266,6 +266,30 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             var accounts = channelTypeApi.ApiChannelTypeGetByChannelCategoryIdGet(id);
             return Json(accounts);
         }
+        [HttpPost]
+        public JsonResult CreateChannelJson(CreateChannelViewModel model)
+        {
+            try
+            {
+                var result = api.ApiChannelAddPost(new AddChannelModel
+                      (
+                      name: model.Name,
+                      channelTypeID: model.ChannelTypeID,
+                      channelOwnerID: model.ChannelOwnerID,
+                      serial: model.Serial,
+                      paymentMethodID: model.PaymentMethodID,
+                      value: model.Value,
+                      status: model.Status,
+                      accountId: model.AccountId
+                      ));
+                return Json(result);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
         private ChannelViewModel Map(ChannelResponseModel model)
         {
             return new ChannelViewModel

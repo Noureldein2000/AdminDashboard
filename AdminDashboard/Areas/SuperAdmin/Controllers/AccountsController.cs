@@ -30,6 +30,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         private readonly IAccountChannelTypeApi accountChannelTypesApi;
         private readonly IChannelTypeApi channelTypeApi;
         private readonly IUsersApi usersApi;
+        private readonly IChannelOwnerApi channelOwnerApi;
+        private readonly IChannelPaymentMethodApi channelPaymentMethodApi;
         public AccountsController(
             //ISwaggerClient swagerClient
             )
@@ -46,6 +48,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             accountChannelTypesApi = new AccountChannelTypeApi(url);
             channelTypeApi = new ChannelTypeApi(url);
             usersApi = new UsersApi(url);
+            channelOwnerApi = new ChannelOwnerApi(url);
+            channelPaymentMethodApi = new ChannelPaymentMethodApi(url);
         }
         [HttpGet]
         public IActionResult Index()
@@ -130,7 +134,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 AccountTypes = accountTypes,
             };
 
-           
+
             return View(model);
         }
         [HttpPost]
@@ -160,17 +164,22 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     Value = a.Id.ToString()
                 }).ToList();
                 ;
-                var accountTypeProfiles = accountTypeProfileApi.ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGet(model.AccountTypeID).Select(a => new SelectListItem
+                if (model.AccountTypeID.HasValue)
                 {
-                    Text = a.Profile,
-                    Value = a.Id.ToString()
-                }).ToList();
+                    var accountTypeProfiles = accountTypeProfileApi.ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGet(model.AccountTypeID).Select(a => new SelectListItem
+                    {
+                        Text = a.Profile,
+                        Value = a.Id.ToString()
+                    }).ToList();
+                    model.AccountTypeProfiles = accountTypeProfiles;
+                }
+
 
                 model.Activities = activities;
                 model.Governerates = governerates;
                 model.Entities = entities;
                 model.AccountTypes = accountTypes;
-                model.AccountTypeProfiles = accountTypeProfiles;
+
 
                 if (model.GovernerateID.HasValue)
                 {
@@ -181,15 +190,15 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                         Value = s.Id.ToString()
                     }).ToList();
                 }
-                if (model.ParentAccountID.HasValue)
-                {
-                    var accounts = accountTypeProfileApi.ApiAccountTypeProfileGetParentAccountsIdGet(model.AccountTypeProfileID);
-                    model.ParentAccounts = accounts.Select(s => new SelectListItem
-                    {
-                        Text = s.AccountName,
-                        Value = s.Id.ToString()
-                    }).ToList();
-                }
+                //if (model.ParentAccountID.HasValue)
+                //{
+                //    var accounts = accountTypeProfileApi.ApiAccountTypeProfileGetParentAccountsIdGet(model.AccountTypeProfileID);
+                //    model.ParentAccounts = accounts.Select(s => new SelectListItem
+                //    {
+                //        Text = s.AccountName,
+                //        Value = s.Id.ToString()
+                //    }).ToList();
+                //}
                 return View(model);
             }
 
@@ -210,14 +219,30 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                  entityID: model.EntityID,
                  parentID: model.ParentAccountID
                  ));
+            model.UserRole = Roles.AccountAdmin;
+            model.ConsumerUser.UserRole = Roles.Consumer;
             if (result != null)
+            {
                 usersApi.ApiUsersCreateUserPost(new CreateUserModel(
-                username: model.Username,
-                password: model.Password,
-                accountId: result.Id,
-                email: model.UserEmail,
-                userRole: model.UserRole
-                ));
+                                username: model.Username,
+                                mobile: model.Mobile,
+                                //password: model.Password,
+                                accountId: result.Id,
+                                email: model.UserEmail,
+                                userRole: model.UserRole
+                                ));
+
+                if (model.ConsumerUser.Mobile != null && model.ConsumerUser.UserEmail != null && model.ConsumerUser.Username != null)
+                    usersApi.ApiUsersCreateUserPost(new CreateUserModel(
+                                   username: model.ConsumerUser.Username,
+                                   mobile: model.ConsumerUser.Mobile,
+                                   //password: model.Password,
+                                   accountId: result.Id,
+                                   email: model.ConsumerUser.UserEmail,
+                                   userRole: model.ConsumerUser.UserRole
+                                   ));
+            }
+
 
             TempData["result"] = true;
             return RedirectToAction(nameof(Index));
@@ -261,15 +286,15 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     Value = s.Id.ToString()
                 }).ToList();
             }
-            if (model.ParentID.HasValue)
-            {
-                var accounts = accountTypeProfileApi.ApiAccountTypeProfileGetParentAccountsIdGet(model.AccountTypeProfileID);
-                viewModel.ParentAccounts = accounts.Select(s => new SelectListItem
-                {
-                    Text = s.AccountName,
-                    Value = s.Id.ToString()
-                }).ToList();
-            }
+            //if (model.ParentID.HasValue)
+            //{
+            //    var accounts = accountTypeProfileApi.ApiAccountTypeProfileGetParentAccountsIdGet(model.AccountTypeProfileID);
+            //    viewModel.ParentAccounts = accounts.Select(s => new SelectListItem
+            //    {
+            //        Text = s.AccountName,
+            //        Value = s.Id.ToString()
+            //    }).ToList();
+            //}
 
             return View(viewModel);
         }
@@ -407,6 +432,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 ChannelID = d.ChannelID,
                 ChannelName = d.ChannelName,
                 Serial = d.Serial,
+                Value = d.Value,
                 Status = d.Status,
                 CreatedBy = (int)d.CreatedBy,
                 CreatedName = d.CreatedName
@@ -423,8 +449,33 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             //    Text = a.ToString(),
             //    Value = ((int)a).ToString()
             //}).ToList();
+            var channelTypes = channelTypeApi.ApiChannelTypeGetAllGet().Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = a.Id.ToString()
+            }).ToList();
+            var channelOwners = channelOwnerApi.ApiChannelOwnerGetAllGet().Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = a.Id.ToString()
+            }).ToList();
+            var channelPaymentMethods = channelPaymentMethodApi.ApiChannelPaymentMethodGetAllGet().Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = a.Id.ToString()
+            }).ToList();
 
-            return View(viewModel);
+            return View(new AccountChannelModelViewModel
+            {
+                AccountChannels = viewModel.ToList(),
+                CreateChannelAccount = new CreateChannelAccountViewModel
+                {
+                    AccountId = id,
+                    ChannelOwners = channelOwners,
+                    ChannelTypes = channelTypes,
+                    PaymentMethods = channelPaymentMethods
+                }
+            });
         }
         [HttpGet]
         public IActionResult ViewChannelsTypes(int id)
@@ -514,10 +565,10 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return Json(cities);
         }
         [HttpGet]
-        public JsonResult GetAccountTypesByParentId(int id)
+        public JsonResult GetAccountTypesByParentId(int id, int accountId)
         {
-            var accounts = accountTypeProfileApi.ApiAccountTypeProfileGetParentAccountsIdGet(id);
-            return Json(accounts);
+            var account = accountTypeProfileApi.ApiAccountTypeProfileGetParentAccountsIdAccountIdGet(id, accountId);
+            return Json(account);
         }
         [HttpGet]
         public JsonResult GetChannels(string serial, int page = 1)
@@ -536,6 +587,42 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             var data = accountTypeProfileApi.ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGet(id);
             return Json(data);
+        }
+        [HttpGet]
+        public JsonResult GetAccountMappingValidation(int id)
+        {
+            var account = accountTypeProfileApi.ApiAccountTypeProfileGetAccountMappingValidationIdGet(id);
+            return Json(account);
+        }
+        [HttpGet]
+        public IActionResult AccountChannelsHistory()
+        {
+            return View(new PagedResult<AccountChannelsHistoryViewModel>());
+        }
+        [HttpPost]
+        public IActionResult AccountChannelsHistory(string searchKey, int page = 1)
+        {
+            var accounts = accountChannelApi.ApiAccountChannelGetAccountChannelsHistorySearchKeyGet(searchKey);
+
+            return View(new PagedResult<AccountChannelsHistoryViewModel>
+            {
+                Results = accounts.Select(s => Map(s)).ToList(),
+                PageCount = 0,
+                CurrentPage = page,
+                PageSize = 10
+            });
+        }
+        private AccountChannelsHistoryViewModel Map(AccountChannelHistoryModel model)
+        {
+            return new AccountChannelsHistoryViewModel
+            {
+                AccountName = model.AccountName,
+                Reason = model.Reason,
+                CreatedBy = model.CreatedBy,
+                ChannelValue = model.ChannelValue,
+                ChannelName = model.ChannelName,
+                Status = model.Status
+            };
         }
         private AccountViewModel Map(AccountModel model)
         {

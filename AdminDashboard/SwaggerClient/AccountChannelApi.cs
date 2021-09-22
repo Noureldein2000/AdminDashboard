@@ -76,6 +76,27 @@ namespace AdminDashboard.SwaggerClient
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="searchKey"></param>
+        /// <returns>List&lt;AccountChannelHistoryModel&gt;</returns>
+        List<AccountChannelHistoryModel> ApiAccountChannelGetAccountChannelsHistorySearchKeyGet (string searchKey);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="searchKey"></param>
+        /// <returns>ApiResponse of List&lt;AccountChannelHistoryModel&gt;</returns>
+        ApiResponse<List<AccountChannelHistoryModel>> ApiAccountChannelGetAccountChannelsHistorySearchKeyGetWithHttpInfo (string searchKey);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="accountId"></param>
         /// <returns>List&lt;AccountChannelModel&gt;</returns>
         List<AccountChannelModel> ApiAccountChannelGetChannelsByAccountIdAccountIdGet (int? accountId);
@@ -137,7 +158,28 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="status"> (optional)</param>
         /// <param name="reason"> (optional)</param>
         /// <returns>Task of ApiResponse (AccountChannelModel)</returns>
-        System.Threading.Tasks.Task<ApiResponse<AccountChannelModel>> ApiAccountChannelChangeStatusIdPutAsyncWithHttpInfo (int? id, AccountChannelStatus status , string reason = null);
+        System.Threading.Tasks.Task<ApiResponse<AccountChannelModel>> ApiAccountChannelChangeStatusIdPutAsyncWithHttpInfo (int? id, AccountChannelStatus status, string reason = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="searchKey"></param>
+        /// <returns>Task of List&lt;AccountChannelHistoryModel&gt;</returns>
+        System.Threading.Tasks.Task<List<AccountChannelHistoryModel>> ApiAccountChannelGetAccountChannelsHistorySearchKeyGetAsync (string searchKey);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="searchKey"></param>
+        /// <returns>Task of ApiResponse (List&lt;AccountChannelHistoryModel&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<AccountChannelHistoryModel>>> ApiAccountChannelGetAccountChannelsHistorySearchKeyGetAsyncWithHttpInfo (string searchKey);
         /// <summary>
         /// 
         /// </summary>
@@ -439,7 +481,7 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="status"> (optional)</param>
         /// <param name="reason"> (optional)</param>
         /// <returns>AccountChannelModel</returns>
-        public AccountChannelModel ApiAccountChannelChangeStatusIdPut (int? id, AccountChannelStatus status , string reason = null)
+        public AccountChannelModel ApiAccountChannelChangeStatusIdPut (int? id, AccountChannelStatus status, string reason = null)
         {
              ApiResponse<AccountChannelModel> localVarResponse = ApiAccountChannelChangeStatusIdPutWithHttpInfo(id, status, reason);
              return localVarResponse.Data;
@@ -453,7 +495,7 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="status"> (optional)</param>
         /// <param name="reason"> (optional)</param>
         /// <returns>ApiResponse of AccountChannelModel</returns>
-        public ApiResponse< AccountChannelModel > ApiAccountChannelChangeStatusIdPutWithHttpInfo (int? id, AccountChannelStatus status , string reason = null)
+        public ApiResponse< AccountChannelModel > ApiAccountChannelChangeStatusIdPutWithHttpInfo (int? id, AccountChannelStatus status, string reason = null)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -517,7 +559,7 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="status"> (optional)</param>
         /// <param name="reason"> (optional)</param>
         /// <returns>Task of AccountChannelModel</returns>
-        public async System.Threading.Tasks.Task<AccountChannelModel> ApiAccountChannelChangeStatusIdPutAsync (int? id, AccountChannelStatus status , string reason = null)
+        public async System.Threading.Tasks.Task<AccountChannelModel> ApiAccountChannelChangeStatusIdPutAsync (int? id, AccountChannelStatus status, string reason = null)
         {
              ApiResponse<AccountChannelModel> localVarResponse = await ApiAccountChannelChangeStatusIdPutAsyncWithHttpInfo(id, status, reason);
              return localVarResponse.Data;
@@ -532,7 +574,7 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="status"> (optional)</param>
         /// <param name="reason"> (optional)</param>
         /// <returns>Task of ApiResponse (AccountChannelModel)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<AccountChannelModel>> ApiAccountChannelChangeStatusIdPutAsyncWithHttpInfo (int? id, AccountChannelStatus status , string reason = null)
+        public async System.Threading.Tasks.Task<ApiResponse<AccountChannelModel>> ApiAccountChannelChangeStatusIdPutAsyncWithHttpInfo (int? id, AccountChannelStatus status, string reason = null)
         {
             // verify the required parameter 'id' is set
             if (id == null)
@@ -586,6 +628,151 @@ namespace AdminDashboard.SwaggerClient
             return new ApiResponse<AccountChannelModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
                 (AccountChannelModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountChannelModel)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="searchKey"></param>
+        /// <returns>List&lt;AccountChannelHistoryModel&gt;</returns>
+        public List<AccountChannelHistoryModel> ApiAccountChannelGetAccountChannelsHistorySearchKeyGet (string searchKey)
+        {
+             ApiResponse<List<AccountChannelHistoryModel>> localVarResponse = ApiAccountChannelGetAccountChannelsHistorySearchKeyGetWithHttpInfo(searchKey);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="searchKey"></param>
+        /// <returns>ApiResponse of List&lt;AccountChannelHistoryModel&gt;</returns>
+        public ApiResponse< List<AccountChannelHistoryModel> > ApiAccountChannelGetAccountChannelsHistorySearchKeyGetWithHttpInfo (string searchKey)
+        {
+            // verify the required parameter 'searchKey' is set
+            if (searchKey == null)
+                throw new ApiException(400, "Missing required parameter 'searchKey' when calling AccountChannelApi->ApiAccountChannelGetAccountChannelsHistorySearchKeyGet");
+
+            var localVarPath = "/api/AccountChannel/GetAccountChannelsHistory/{searchKey}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (searchKey != null) localVarPathParams.Add("searchKey", this.Configuration.ApiClient.ParameterToString(searchKey)); // path parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiAccountChannelGetAccountChannelsHistorySearchKeyGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<List<AccountChannelHistoryModel>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (List<AccountChannelHistoryModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<AccountChannelHistoryModel>)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="searchKey"></param>
+        /// <returns>Task of List&lt;AccountChannelHistoryModel&gt;</returns>
+        public async System.Threading.Tasks.Task<List<AccountChannelHistoryModel>> ApiAccountChannelGetAccountChannelsHistorySearchKeyGetAsync (string searchKey)
+        {
+             ApiResponse<List<AccountChannelHistoryModel>> localVarResponse = await ApiAccountChannelGetAccountChannelsHistorySearchKeyGetAsyncWithHttpInfo(searchKey);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="searchKey"></param>
+        /// <returns>Task of ApiResponse (List&lt;AccountChannelHistoryModel&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<AccountChannelHistoryModel>>> ApiAccountChannelGetAccountChannelsHistorySearchKeyGetAsyncWithHttpInfo (string searchKey)
+        {
+            // verify the required parameter 'searchKey' is set
+            if (searchKey == null)
+                throw new ApiException(400, "Missing required parameter 'searchKey' when calling AccountChannelApi->ApiAccountChannelGetAccountChannelsHistorySearchKeyGet");
+
+            var localVarPath = "/api/AccountChannel/GetAccountChannelsHistory/{searchKey}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (searchKey != null) localVarPathParams.Add("searchKey", this.Configuration.ApiClient.ParameterToString(searchKey)); // path parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiAccountChannelGetAccountChannelsHistorySearchKeyGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<List<AccountChannelHistoryModel>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (List<AccountChannelHistoryModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<AccountChannelHistoryModel>)));
         }
 
         /// <summary>
