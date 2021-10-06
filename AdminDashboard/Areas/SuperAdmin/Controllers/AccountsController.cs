@@ -647,7 +647,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Status = (bool)model.Status
             };
         }
-
         private ChannelViewModel Map(ChannelResponseModel model)
         {
             return new ChannelViewModel
