@@ -60,6 +60,7 @@
                                                 <a asp-action="ViewChannelsTypes" asp-route-id="@account.Id" class="btn btn-info">ChannelTypes</a>
                                                 <a asp-action="Index" asp-controller="Users" asp-route-accountId="@account.Id" class="btn btn-info">Users</a>
                                                 <a asp-action="Index" asp-controller="AccountFees" asp-route-accountId="@account.Id" class="btn btn-info">Fees</a>
+                                                <a asp-action="Index" asp-controller="AccountCommission" asp-route-accountId="@account.Id" class="btn btn-info">Commissions</a>
                                                 <a asp-action="Edit" asp-route-id="@account.Id" class="btn btn-primary">Edit</a>
                                                 <a asp-action="ChangeStatus" asp-route-id="@account.Id" class="btn @(account.Status ? "btn-danger" : "btn-success")">
                                                     @(account.Status ? "Deactive" : "Active")

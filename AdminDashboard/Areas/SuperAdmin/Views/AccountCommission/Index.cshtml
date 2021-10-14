@@ -1,4 +1,4 @@
-﻿@model PagedResult<AccountFeesViewModel>
+﻿@model PagedResult<AccountCommissionViewModel>
 @{
     ViewData["Title"] = "Index";
 }
@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2>All Fees</h2>
+                    <h2>All Commissions</h2>
                     <a asp-action="Create" asp-route-accountId="@ViewBag.AccountId" class="pull-right btn btn-outline-primary">Add</a>
                 </div>
                 <div class="card-body">
@@ -24,24 +24,24 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var fee in Model.Results)
+                            @foreach (var com in Model.Results)
                             {
-                                <tr>
-                                    <td>@fee.DenomiinationId</td>
-                                    <td>@fee.DenominationFullName</td>
-                                    <td>@fee.FeesValue</td>
-                                    <td>@fee.FeesTypeName</td>
-                                    <td>@fee.PaymentMode</td>
-                                    <td>
-                                        <a asp-action="DeleteAccountFee" asp-route-id="@fee.Id" asp-route-accountId="@ViewBag.AccountId" class="btn btn-danger">Delete</a>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>@com.DenomiinationId</td>
+                                <td>@com.DenominationFullName</td>
+                                <td>@com.CommissionValue</td>
+                                <td>@com.CommissionTypeName</td>
+                                <td>@com.PaymentMode</td>
+                                <td>
+                                    <a asp-action="DeleteAccountCommission" asp-route-id="@com.Id" asp-route-accountId="@ViewBag.AccountId" class="btn btn-danger">Delete</a>
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>
                 </div>
                 <div class="card-footer d-flex justify-content-center">
-                    <pager link-url="/SuperAdmin/AccountFees/Index"
+                    <pager link-url="/SuperAdmin/AccountCommission/Index"
                            page="Model.CurrentPage"
                            page-size="Model.PageSize"
                            total-items="Model.PageCount">
