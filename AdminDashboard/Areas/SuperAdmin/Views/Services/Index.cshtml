@@ -1,0 +1,138 @@
+﻿@model PagedResult<AdminServiceViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Services</h2>
+                    <a asp-action="Create" class="pull-right btn btn-outline-primary">Create</a>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form asp-controller="Accounts" asp-action="SearchAccounts" method="get">
+                                <div class="form-group">
+                                    <div class="form-group">
+                                        <label class="control-label">Filter by account type</label>
+                                        <select id="DropDownFilter" asp-for="DropDownFilter" asp-items="ViewBag.AccountTypeList" class="form-control" data-style="select-with-transition" title="Choose an AccountType" data-size="7">
+                                            <option>Choose an AccountType</option>
+                                        </select>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <input id="SearchKey" asp-for="@Model.SearchKey" class="form-control" placeholder="Search by Id or Name" />
+                                            <span asp-validation-for="@Model.SearchKey" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-2">
+                                            @*<input id="btnSearch" type="submit" value="Search" class="btn btn-secondary" disabled />*@
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Category</th>
+                                        <th>Entity</th>
+                                        <th>Code</th>
+                                        <th>Class Type</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var service in Model.Results)
+                                    {
+                                        <tr>
+                                            <td>@service.Name</td>
+                                            <td>@service.ServiceTypeName</td>
+                                            <td>@service.ServiceCategoryName</td>
+                                            <td>@service.ServiceEntityName</td>
+                                            <td>@service.Code</td>
+                                            <td>@service.ClassType</td>
+                                            <td>
+                                                <a asp-action="Edit" asp-route-id="@service.Id" class="btn btn-info">
+                                                    Edit
+                                                </a>
+                                                <a asp-action="ChangeStatus" asp-route-id="@service.Id" class="btn @(service.Status ? "btn-danger" : "btn-success")">
+                                                    @(service.Status ? "Deactive" : "Active")
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-center">
+                    <pager link-url="/SuperAdmin/Services/Index"
+                           page="Model.CurrentPage"
+                           page-size="Model.PageSize"
+                           total-items="Model.PageCount">
+                    </pager>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+
+    <script>
+        $(function () {
+            var msg = '@TempData["result"]';
+            if (msg != "") {
+                swal({
+                    title: "success!",
+                    text: "You Saved the Account Successfully!",
+                    icon: "success",
+                    button: "Ok",
+                });
+            }
+         });
+        $("#SearchKey").keyup(function () {
+            //Reference the Button.
+            var btnSubmit = $("#btnSearch");
+
+            //Verify the TextBox value.
+            if ($(this).val().trim() != "") {
+                //Enable the TextBox when TextBox has value.
+                btnSubmit.removeAttr("disabled");
+            } else {
+                //Disable the TextBox when TextBox is empty.
+                btnSubmit.attr("disabled", "disabled");
+            }
+        });
+
+        $("#DropDownFilter").on('change', function () {
+            var btnSubmit = $("#btnSearch");
+
+            if ($(this).val() != "Choose an AccountType") {
+                //Enable the Button when Select has value.
+                btnSubmit.removeAttr("disabled");
+            } else {
+                //Disable the Button when Select is empty.
+                btnSubmit.attr("disabled", "disabled");
+            }
+
+        });
+
+        function showSweet() {
+            swal({
+                title: "Good job!",
+                text: "You clicked the button!",
+                icon: "success",
+            });
+        }
+    </script>
+
+}
