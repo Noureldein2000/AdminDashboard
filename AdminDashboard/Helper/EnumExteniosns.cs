@@ -18,4 +18,25 @@ namespace AdminDashboard.Helper
         Susppened = 3,
         Deleted = 4
     }
+
+    public enum PaymentMode : short
+    {
+        Fixed = 1,
+        Percentage = 2,
+        Other = 3,
+    }
+
+    public enum BillPaymentMode : short
+    {
+        OnlyOne = 1,
+        MustAll = 2,
+        Multiple = 3,
+    }
+
+    public enum Currency : short
+    {
+        EGP = 1,
+        USD = 2,
+        UAE = 3,
+    }
 }

@@ -1,0 +1,77 @@
+﻿@model ServiceConfigerationViewModel
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label class="control-label">URL</label>
+                            <input id="txtUrl" asp-for="URL" type="text" class="form-control enableBtn" />
+                            <span asp-validation-for="URL" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="control-label">Time out</label>
+                            <input id="txtTimeOut" asp-for="TimeOut" type="number" min="10000" onkeypress="return isNumberKey(event)" class="form-control enableBtn" />
+                            <span asp-validation-for="TimeOut" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-md-6">
+                            <label class="control-label">Username</label>
+                            <input id="txtUsername" asp-for="UserName" type="text" class="form-control enableBtn" />
+                            <span asp-validation-for="UserName" class="text-danger"></span>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="control-label">Password</label>
+                            <div class="input-group mb-3">
+                                <input id="txtPassword" asp-for="UserPassword" type="text" class="form-control pe-4 col-11 enableBtn" />
+                                <div class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="far fa-eye" id="togglePassword" style="cursor: pointer;" onclick="togglePassword('#togglePassword','#txtPassword')"></i>
+                                    </span>
+                                </div>
+                            </div>
+                            <span asp-validation-for="UserPassword" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-2">
+                <div class="card-header">
+                    <h4>Add Service Configuaration Params:</h4>
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-5">
+                            <label class="control-label">Name</label>
+                            <input type="text" class="form-control enableAddParam" id="serviceConfigParamName" />
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="col-md-5">
+                            <label class="control-label">Value</label>
+                            <input type="text" class="form-control enableAddParam" id="serviceConfigParamValue" />
+                            <span class="text-danger"></span>
+                        </div>
+                        <div class="col-md-2" style="margin-top: 30px;">
+                            <input type="button" id="addConfigParams" value="Add" class="btn btn-info float-right" onclick="addRowParam()" disabled />
+                        </div>
+                        <table id="tblParams" class="table table-striped mt-2">
+                            <thead>
+                                <tr>
+                                    <th>No.</th>
+                                    <th>Name</th>
+                                    <th>Value</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

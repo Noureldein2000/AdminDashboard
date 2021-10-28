@@ -38,11 +38,22 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="serviceID">serviceID.</param>
         /// <param name="oldDenominationID">oldDenominationID.</param>
         /// <param name="status">status.</param>
+        /// <param name="currencyID">currencyID.</param>
+        /// <param name="apiValue">apiValue.</param>
+        /// <param name="minValue">minValue.</param>
+        /// <param name="maxValue">maxValue.</param>
+        /// <param name="interval">interval.</param>
         /// <param name="serviceCategoryID">serviceCategoryID.</param>
+        /// <param name="classType">classType.</param>
         /// <param name="serviceProviderId">serviceProviderId.</param>
         /// <param name="serviceEntity">serviceEntity.</param>
+        /// <param name="pathClass">pathClass.</param>
+        /// <param name="inquirable">inquirable.</param>
+        /// <param name="billPaymentModeID">billPaymentModeID.</param>
+        /// <param name="billPaymentModeName">billPaymentModeName.</param>
         /// <param name="paymentModeID">paymentModeID.</param>
-        public DenominationModel(int? id = default(int?), string name = default(string), double? value = default(double?), int? serviceID = default(int?), string oldDenominationID = default(string), bool? status = default(bool?), int? serviceCategoryID = default(int?), int? serviceProviderId = default(int?), string serviceEntity = default(string), int? paymentModeID = default(int?))
+        /// <param name="paymentModeName">paymentModeName.</param>
+        public DenominationModel(int? id = default(int?), string name = default(string), double? value = default(double?), int? serviceID = default(int?), string oldDenominationID = default(string), bool? status = default(bool?), int? currencyID = default(int?), double? apiValue = default(double?), double? minValue = default(double?), double? maxValue = default(double?), int? interval = default(int?), int? serviceCategoryID = default(int?), DenominationClassType classType = default(DenominationClassType), int? serviceProviderId = default(int?), string serviceEntity = default(string), string pathClass = default(string), bool? inquirable = default(bool?), int? billPaymentModeID = default(int?), string billPaymentModeName = default(string), int? paymentModeID = default(int?), string paymentModeName = default(string))
         {
             this.Id = id;
             this.Name = name;
@@ -50,10 +61,21 @@ namespace AdminDashboard.Models.SwaggerModels
             this.ServiceID = serviceID;
             this.OldDenominationID = oldDenominationID;
             this.Status = status;
+            this.CurrencyID = currencyID;
+            this.ApiValue = apiValue;
+            this.MinValue = minValue;
+            this.MaxValue = maxValue;
+            this.Interval = interval;
             this.ServiceCategoryID = serviceCategoryID;
+            this.ClassType = classType;
             this.ServiceProviderId = serviceProviderId;
             this.ServiceEntity = serviceEntity;
+            this.PathClass = pathClass;
+            this.Inquirable = inquirable;
+            this.BillPaymentModeID = billPaymentModeID;
+            this.BillPaymentModeName = billPaymentModeName;
             this.PaymentModeID = paymentModeID;
+            this.PaymentModeName = paymentModeName;
         }
         
         /// <summary>
@@ -93,10 +115,46 @@ namespace AdminDashboard.Models.SwaggerModels
         public bool? Status { get; set; }
 
         /// <summary>
+        /// Gets or Sets CurrencyID
+        /// </summary>
+        [DataMember(Name="currencyID", EmitDefaultValue=false)]
+        public int? CurrencyID { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ApiValue
+        /// </summary>
+        [DataMember(Name="apiValue", EmitDefaultValue=false)]
+        public double? ApiValue { get; set; }
+
+        /// <summary>
+        /// Gets or Sets MinValue
+        /// </summary>
+        [DataMember(Name="minValue", EmitDefaultValue=false)]
+        public double? MinValue { get; set; }
+
+        /// <summary>
+        /// Gets or Sets MaxValue
+        /// </summary>
+        [DataMember(Name="maxValue", EmitDefaultValue=false)]
+        public double? MaxValue { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Interval
+        /// </summary>
+        [DataMember(Name="interval", EmitDefaultValue=false)]
+        public int? Interval { get; set; }
+
+        /// <summary>
         /// Gets or Sets ServiceCategoryID
         /// </summary>
         [DataMember(Name="serviceCategoryID", EmitDefaultValue=false)]
         public int? ServiceCategoryID { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ClassType
+        /// </summary>
+        [DataMember(Name="classType", EmitDefaultValue=false)]
+        public DenominationClassType ClassType { get; set; }
 
         /// <summary>
         /// Gets or Sets ServiceProviderId
@@ -111,10 +169,40 @@ namespace AdminDashboard.Models.SwaggerModels
         public string ServiceEntity { get; set; }
 
         /// <summary>
+        /// Gets or Sets PathClass
+        /// </summary>
+        [DataMember(Name="pathClass", EmitDefaultValue=false)]
+        public string PathClass { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Inquirable
+        /// </summary>
+        [DataMember(Name="inquirable", EmitDefaultValue=false)]
+        public bool? Inquirable { get; set; }
+
+        /// <summary>
+        /// Gets or Sets BillPaymentModeID
+        /// </summary>
+        [DataMember(Name="billPaymentModeID", EmitDefaultValue=false)]
+        public int? BillPaymentModeID { get; set; }
+
+        /// <summary>
+        /// Gets or Sets BillPaymentModeName
+        /// </summary>
+        [DataMember(Name="billPaymentModeName", EmitDefaultValue=false)]
+        public string BillPaymentModeName { get; set; }
+
+        /// <summary>
         /// Gets or Sets PaymentModeID
         /// </summary>
         [DataMember(Name="paymentModeID", EmitDefaultValue=false)]
         public int? PaymentModeID { get; set; }
+
+        /// <summary>
+        /// Gets or Sets PaymentModeName
+        /// </summary>
+        [DataMember(Name="paymentModeName", EmitDefaultValue=false)]
+        public string PaymentModeName { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -130,10 +218,21 @@ namespace AdminDashboard.Models.SwaggerModels
             sb.Append("  ServiceID: ").Append(ServiceID).Append("\n");
             sb.Append("  OldDenominationID: ").Append(OldDenominationID).Append("\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
+            sb.Append("  CurrencyID: ").Append(CurrencyID).Append("\n");
+            sb.Append("  ApiValue: ").Append(ApiValue).Append("\n");
+            sb.Append("  MinValue: ").Append(MinValue).Append("\n");
+            sb.Append("  MaxValue: ").Append(MaxValue).Append("\n");
+            sb.Append("  Interval: ").Append(Interval).Append("\n");
             sb.Append("  ServiceCategoryID: ").Append(ServiceCategoryID).Append("\n");
+            sb.Append("  ClassType: ").Append(ClassType).Append("\n");
             sb.Append("  ServiceProviderId: ").Append(ServiceProviderId).Append("\n");
             sb.Append("  ServiceEntity: ").Append(ServiceEntity).Append("\n");
+            sb.Append("  PathClass: ").Append(PathClass).Append("\n");
+            sb.Append("  Inquirable: ").Append(Inquirable).Append("\n");
+            sb.Append("  BillPaymentModeID: ").Append(BillPaymentModeID).Append("\n");
+            sb.Append("  BillPaymentModeName: ").Append(BillPaymentModeName).Append("\n");
             sb.Append("  PaymentModeID: ").Append(PaymentModeID).Append("\n");
+            sb.Append("  PaymentModeName: ").Append(PaymentModeName).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -199,9 +298,39 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.Status.Equals(input.Status))
                 ) && 
                 (
+                    this.CurrencyID == input.CurrencyID ||
+                    (this.CurrencyID != null &&
+                    this.CurrencyID.Equals(input.CurrencyID))
+                ) && 
+                (
+                    this.ApiValue == input.ApiValue ||
+                    (this.ApiValue != null &&
+                    this.ApiValue.Equals(input.ApiValue))
+                ) && 
+                (
+                    this.MinValue == input.MinValue ||
+                    (this.MinValue != null &&
+                    this.MinValue.Equals(input.MinValue))
+                ) && 
+                (
+                    this.MaxValue == input.MaxValue ||
+                    (this.MaxValue != null &&
+                    this.MaxValue.Equals(input.MaxValue))
+                ) && 
+                (
+                    this.Interval == input.Interval ||
+                    (this.Interval != null &&
+                    this.Interval.Equals(input.Interval))
+                ) && 
+                (
                     this.ServiceCategoryID == input.ServiceCategoryID ||
                     (this.ServiceCategoryID != null &&
                     this.ServiceCategoryID.Equals(input.ServiceCategoryID))
+                ) && 
+                (
+                    this.ClassType == input.ClassType ||
+                    (this.ClassType != null &&
+                    this.ClassType.Equals(input.ClassType))
                 ) && 
                 (
                     this.ServiceProviderId == input.ServiceProviderId ||
@@ -214,9 +343,34 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.ServiceEntity.Equals(input.ServiceEntity))
                 ) && 
                 (
+                    this.PathClass == input.PathClass ||
+                    (this.PathClass != null &&
+                    this.PathClass.Equals(input.PathClass))
+                ) && 
+                (
+                    this.Inquirable == input.Inquirable ||
+                    (this.Inquirable != null &&
+                    this.Inquirable.Equals(input.Inquirable))
+                ) && 
+                (
+                    this.BillPaymentModeID == input.BillPaymentModeID ||
+                    (this.BillPaymentModeID != null &&
+                    this.BillPaymentModeID.Equals(input.BillPaymentModeID))
+                ) && 
+                (
+                    this.BillPaymentModeName == input.BillPaymentModeName ||
+                    (this.BillPaymentModeName != null &&
+                    this.BillPaymentModeName.Equals(input.BillPaymentModeName))
+                ) && 
+                (
                     this.PaymentModeID == input.PaymentModeID ||
                     (this.PaymentModeID != null &&
                     this.PaymentModeID.Equals(input.PaymentModeID))
+                ) && 
+                (
+                    this.PaymentModeName == input.PaymentModeName ||
+                    (this.PaymentModeName != null &&
+                    this.PaymentModeName.Equals(input.PaymentModeName))
                 );
         }
 
@@ -241,14 +395,36 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.OldDenominationID.GetHashCode();
                 if (this.Status != null)
                     hashCode = hashCode * 59 + this.Status.GetHashCode();
+                if (this.CurrencyID != null)
+                    hashCode = hashCode * 59 + this.CurrencyID.GetHashCode();
+                if (this.ApiValue != null)
+                    hashCode = hashCode * 59 + this.ApiValue.GetHashCode();
+                if (this.MinValue != null)
+                    hashCode = hashCode * 59 + this.MinValue.GetHashCode();
+                if (this.MaxValue != null)
+                    hashCode = hashCode * 59 + this.MaxValue.GetHashCode();
+                if (this.Interval != null)
+                    hashCode = hashCode * 59 + this.Interval.GetHashCode();
                 if (this.ServiceCategoryID != null)
                     hashCode = hashCode * 59 + this.ServiceCategoryID.GetHashCode();
+                if (this.ClassType != null)
+                    hashCode = hashCode * 59 + this.ClassType.GetHashCode();
                 if (this.ServiceProviderId != null)
                     hashCode = hashCode * 59 + this.ServiceProviderId.GetHashCode();
                 if (this.ServiceEntity != null)
                     hashCode = hashCode * 59 + this.ServiceEntity.GetHashCode();
+                if (this.PathClass != null)
+                    hashCode = hashCode * 59 + this.PathClass.GetHashCode();
+                if (this.Inquirable != null)
+                    hashCode = hashCode * 59 + this.Inquirable.GetHashCode();
+                if (this.BillPaymentModeID != null)
+                    hashCode = hashCode * 59 + this.BillPaymentModeID.GetHashCode();
+                if (this.BillPaymentModeName != null)
+                    hashCode = hashCode * 59 + this.BillPaymentModeName.GetHashCode();
                 if (this.PaymentModeID != null)
                     hashCode = hashCode * 59 + this.PaymentModeID.GetHashCode();
+                if (this.PaymentModeName != null)
+                    hashCode = hashCode * 59 + this.PaymentModeName.GetHashCode();
                 return hashCode;
             }
         }

@@ -1,0 +1,308 @@
+﻿@model CreateDenominationViewModel
+@using AdminDashboard.Models.SwaggerModels
+@using AdminDashboard.Helper
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+
+            <ul class="nav nav-tabs progressbar" id="myTab" role="tablist">
+                <li class="nav-item active disabled">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Denomination</a>
+                </li>
+                <li class="nav-item disabled">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Denomination Service Provider</a>
+                </li>
+                @*<li class="nav-item disabled">
+                        <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Service Configuaration</a>
+                    </li>*@
+            </ul>
+
+            <form asp-action="Create" asp-controller="Denominations" method="post" id="frmDenomination">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="card">
+                            <partial name="_Denomination" for="@Model.Denomination"  />
+                            <div class="card-footer mt-2">
+                                <input type="button" class="btn btn-success btnNext float-right" value="Next" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        <div class="card">
+                            <partial name="_DenominationServiceProviders" for="@Model.DenominationServiceProviders" />
+                            <hr />
+                            <partial name="_ServiceConfigurationPopUp" for="@Model.ServiceConfigeration" />
+                            <div class="card-footer mb-3">
+                                <input type="submit" value="Save" class="btn btn-success btnSubmit float-right" />
+                                <a class="btn btn-danger btnPrevious float-right mr-1">Previous</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    @{ TempData.Keep("serviceId");}
+    <script>
+        var rowIdx = 0;
+
+        $(document).ready(function () {
+
+            $('.js-example-basic-single').select2({
+                width: '850px',
+                theme: "classic",
+            });
+
+            $('.btnNext').click(function () {
+                $('.nav-tabs .active').parent().next('li').find('a').trigger('click');
+                $('#myTab li:not(.active):first').addClass('active');
+            });
+
+            $('.btnPrevious').click(function () {
+                $('.nav-tabs .active').parent().prev('li').find('a').trigger('click');
+                $('#myTab li.active:last').removeClass('active');
+            });
+
+        });
+
+        $("input.enableBtn").keyup(function () {
+            var empty = false;
+
+            $("input.enableBtn").each(function () {
+                if ($(this).val() == '') {
+                    empty = true;
+                }
+            });
+
+            if (empty)
+                $('#SaveServiceConfig').attr('disabled', 'disabled');
+            else
+                $('#SaveServiceConfig').removeAttr('disabled');
+        });
+
+        $("input.enableAddParam").keyup(function () {
+            var empty = false;
+
+            $("input.enableAddParam").each(function () {
+                if ($(this).val() == '') {
+                    empty = true;
+                }
+            });
+
+            if (empty)
+                $('#addConfigParams').attr('disabled', 'disabled');
+            else
+                $('#addConfigParams').removeAttr('disabled');
+        });
+
+        $("input.enableAddProviderParam").keyup(function () {
+            var empty = false;
+
+            $("input.enableAddProviderParam").each(function () {
+                if ($(this).val() == '') {
+                    empty = true;
+                }
+            });
+
+            if (empty)
+                $('#addProviderConfigParams').attr('disabled', 'disabled');
+            else
+                $('#addProviderConfigParams').removeAttr('disabled');
+        });
+
+        $('#tblParams tbody').on('click', '.remove', function () {
+
+            // Getting all the rows next to the
+            // row containing the clicked button
+            var child = $(this).closest('tr').nextAll();
+
+            // Iterating across all the rows
+            // obtained to change the index
+            child.each(function () {
+
+                // Getting <tr> id.
+                var id = $(this).attr('id');
+
+                // Getting the <p> inside the .row-index class.
+                var idx = $(this).children('.row-index').children('p');
+
+                // Gets the row number from <tr> id.
+                var dig = parseInt(id.substring(1));
+
+                // Modifying row index.
+                idx.html(`Row ${dig - 1}`);
+
+                // Modifying row id.
+                $(this).attr('id', `R${dig - 1}`);
+            });
+
+            // Removing the current row.
+            $(this).closest('tr').remove();
+
+            // Decreasing the total number of rows by 1.
+            rowIdx--;
+        });
+
+        $('#tblProviderParams tbody').on('click', '.remove', function () {
+
+            // Getting all the rows next to the
+            // row containing the clicked button
+            var child = $(this).closest('tr').nextAll();
+
+            // Iterating across all the rows
+            // obtained to change the index
+            child.each(function () {
+
+                // Getting <tr> id.
+                var id = $(this).attr('id');
+
+                // Getting the <p> inside the .row-index class.
+                var idx = $(this).children('.row-index').children('p');
+
+                // Gets the row number from <tr> id.
+                var dig = parseInt(id.substring(1));
+
+                // Modifying row index.
+                idx.html(`Row ${dig - 1}`);
+
+                // Modifying row id.
+                $(this).attr('id', `R${dig - 1}`);
+            });
+
+            // Removing the current row.
+            $(this).closest('tr').remove();
+
+            // Decreasing the total number of rows by 1.
+            rowIdx--;
+        });
+
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+        function toggleButton(ref, bttnID) {
+            document.getElementById(bttnID).disabled = ((ref.value !== ref.defaultValue) ? false : true);
+        }
+
+        function addRowParam() {
+
+            var name = $("#serviceConfigParamName").val();
+            var value = $("#serviceConfigParamValue").val();
+
+            var markup = `<tr id="R${++rowIdx}">
+                              <td class="row-index"> ${rowIdx}</td>
+                            <td>${name}</td>
+                            <td>${value}</td>
+                               <td>
+                                <button class="btn btn-danger remove"
+                                    type="button">Remove</button>
+                                </td>
+                               </tr>`;
+
+            $("#tblParams tbody").append(markup);
+        }
+
+        function addRowProviderParam() {
+
+            var name = $("#providerConfigParamName").val();
+            var value = $("#providerConfigParamValue").val();
+
+            var markup = `<tr id="R${++rowIdx}">
+                              <td class="row-index"> ${rowIdx}</td>
+                            <td>${name}</td>
+                            <td>${value}</td>
+                               <td>
+                                <button class="btn btn-danger remove"
+                                    type="button">Remove</button>
+                                </td>
+                               </tr>`;
+
+            $("#tblProviderParams tbody").append(markup);
+        }
+
+        function CreateServiceConfiguaration() {
+
+            var url = $("#txtUrl").val();
+            var timeOut = $("#txtTimeOut").val();
+            var username = $("#txtUsername").val();
+            var password = $("#txtPassword").val();
+            var dataParams = getParams("#tblParams tbody tr");
+
+             $.ajax({
+                type: "POST",
+                 url: "@Url.Action("CreateServiceConfiguartion")",
+                 data: {
+                     URL: url,
+                     TimeOut: timeOut,
+                     UserName: username,
+                     UserPassword: password,
+                     ServiceConfigParms: dataParams
+                 },
+                dataType: "json",
+                 success: function (state) {
+/*                     console.log('success data response ' + state);*/
+                         $('#drpServiceConfig').append('<option value="' + state.id + '" selected>' +
+                             state.url + '</option>');
+                },
+                 error: function (req, status, error) {
+                     console.log(error);
+                }
+            });
+        }
+
+        function getParams(selectorElement)
+        {
+            debugger;
+
+            var arrData = [];
+            // loop over each table row (tr)
+            
+            $(selectorElement).each(function () {
+                var currentRow = $(this);
+
+                var col2_value = currentRow.find("td:eq(1)").text();
+                var col3_value = currentRow.find("td:eq(2)").text();
+
+                var obj = {};
+                obj.Name = col2_value;
+                obj.Value = col3_value;
+
+                arrData.push(obj);
+            });
+
+            console.log(arrData);
+
+            return arrData;
+        }
+
+        function togglePassword(toggleId,txtPasswordId) {
+
+            const togglePassword = document.querySelector(toggleId);
+            const password = document.querySelector(txtPasswordId);
+
+            togglePassword.addEventListener('click', function (e) {
+                // toggle the type attribute
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                // toggle the eye slash icon
+                this.classList.toggle('fa-eye-slash');
+            });
+        }
+
+    </script>
+}

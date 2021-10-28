@@ -1,0 +1,240 @@
+﻿@model EditDenominationViewModel
+@using AdminDashboard.Models.SwaggerModels
+@using AdminDashboard.Helper
+@{
+    ViewData["Title"] = "Edit";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item active disabled">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Denomination</a>
+                </li>
+                <li class="nav-item disabled">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Denomination Service Provider</a>
+                </li>
+            </ul>
+
+            <div class="tab-content mt-2" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <form asp-action="Edit" method="post" id="frmDenomination">
+                        @Html.AntiForgeryToken()
+                        <div class="card">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <partial name="_Denomination" for="@Model.Denomination" />
+                            <div class="card-footer mt-2">
+                                <input type="submit" class="btn btn-success float-right" value="Save" />
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>No.</th>
+                                                <th>Provider Name</th>
+                                                <th>Balance</th>
+                                                <th>Code</th>
+                                                <th>Amount</th>
+                                                <th>Has Fees</th>
+                                                <th>Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var item in Model.DenominationServiceProvidersViewModels)
+                                            {
+                                                <tr>
+                                                    <td>@item.Id</td>
+                                                    <td>@item.ServiceProviderName</td>
+                                                    <td>@item.Balance</td>
+                                                    <td>@item.ProviderCode</td>
+                                                    <td>@item.ProviderAmount</td>
+                                                    <td>@item.ProviderHasFees</td>
+                                                    <td>
+                                                        <a asp-action="EditDenominationServiceProvider" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
+                                                        <a asp-action="ChangeStatusDenominationServiceProvider" asp-route-id="@item.Id" asp-route-denominationId="@item.DenominationID" class="btn @(item.Status ? "btn-danger" : "btn-success")">
+                                                            @(item.Status ? "Deactive" : "Active")
+                                                        </a>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        @*<div class="card-footer mt-2">
+                            <input type="button" id="next-account-info" class="btn btn-success btnNext float-right" value="Next" />
+                            <a class="btn btn-danger btnPrevious float-right mr-1">Previous</a>
+                        </div>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+
+    <script>
+
+        $(document).ready(function () {
+            $('.js-example-basic-single').select2({
+                width: '800px',
+                theme: "classic",
+            });
+
+            $('.btnNext').click(function () {
+                $('.nav-tabs .active').parent().next('li').find('a').trigger('click');
+                $('#myTab li:not(.active):first').addClass('active');
+            });
+
+            $('.btnPrevious').click(function () {
+                $('.nav-tabs .active').parent().prev('li').find('a').trigger('click');
+                $('#myTab li.active:last').removeClass('active');
+            });
+        });
+
+        $("input.enableBtn").keyup(function () {
+            var empty = false;
+
+            $("input.enableBtn").each(function () {
+                if ($(this).val() == '') {
+                    empty = true;
+                }
+            });
+
+            if (empty)
+                $('#SaveServiceConfig').attr('disabled', 'disabled');
+             else
+                $('#SaveServiceConfig').removeAttr('disabled');
+        });
+
+        $('#GovernerateID').on("change", function () {
+            var goveId = $(this).val();
+            $('#RegionID').attr("disabled", false)
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetCities")",
+                data: { id: goveId},
+                dataType: "text",
+                success: function (msg) {
+                    $('#RegionID').prop('disabled', true);
+                    $('#RegionID').html('');
+                    $.each(JSON.parse(msg), function (i, state) {
+                        $('#RegionID').append('<option value="' + state.id + '">' +
+                            state.name + '</option>');
+                    });
+                    $('#RegionID').prop('disabled', false);
+                },
+                error: function (req, status, error) {
+                    //console.log(msg);
+                }
+            });
+        });
+
+        $('#drpAccountType').on("change", function () {
+            var Id = $(this).val();
+            $('#drpAccountTypeProfile').attr("disabled", false)
+            //$('#ParentAccountID').empty();
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetAccountProfilelByAcocuntTypeId")",
+                data: { id: Id},
+                dataType: "text",
+                success: function (msg) {
+
+                    $('#drpAccountTypeProfile').prop('disabled', true);
+                    $('#drpAccountTypeProfile').html('');
+                    $.each(JSON.parse(msg), function (i, state) {
+
+                        $('#drpAccountTypeProfile').append('<option value="' + state.id + '">' +
+                            state.profile + '</option>');
+                    });
+                    $('#drpAccountTypeProfile').prop('disabled', false);
+                },
+                error: function (req, status, error) {
+                    console.log(msg);
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetAccountMappingValidation")",
+                data: { id: Id},
+                dataType: "text",
+               success: function (msg) {
+                   $("#myChangeModal").modal('show');
+                   $('#ul-list').html('');
+                    $.each(JSON.parse(msg), function (i, data) {
+                        $('#ul-list').append(`<li>${data}</li>`);
+                    });
+                },
+                error: function (req, status, error) {
+                    console.log(msg);
+                }
+            });
+        });
+
+        function showAccountRelationMapping() {
+            $("#myChangeModal").modal('show');
+        }
+
+        function toggleButton(ref, bttnID) {
+                document.getElementById(bttnID).disabled = ((ref.value !== ref.defaultValue) ? false : true);
+        }
+
+        function showSweetAlert() {
+            swal({
+                title: "Are you sure?",
+                text: "Once Saved, you will be Redirect to another page!",
+                icon: "info",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                    if (willDelete) {
+                        swal("Save Succcefully", {
+                            icon: "success",
+                        });
+                        jQuery("#frmDenomination").submit();
+                    } else {
+                        swal("Your imaginary file is safe!");
+                    }
+                });
+        }
+
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+        $("#ParentAccountID").keyup(function () {
+            var btnSubmit = $("#btnSearch");
+
+            if ($(this).val().trim() != "") {
+                btnSubmit.removeAttr("disabled");
+            } else {
+                btnSubmit.attr("disabled", "disabled");
+            }
+            $('#next-account-info').attr("disabled", "disabled");
+        });
+
+        function toggleButton(ref, bttnID) {
+            document.getElementById(bttnID).disabled = ((ref.value !== ref.defaultValue) ? false : true);
+        }
+
+    </script>
+}

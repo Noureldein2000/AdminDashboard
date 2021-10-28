@@ -20,6 +20,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         private readonly IAccountApi api;
         private readonly IFeesApi apiFees;
         private readonly IDenominationApi apiDenomination;
+        private readonly IAdminServiceApi apiService;
         public AccountFeesController(
             )
         {
@@ -28,6 +29,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             api = new AccountApi(url);
             apiFees = new FeesApi(urlTms);
             apiDenomination = new DenominationApi(urlTms);
+            apiService = new AdminServiceApi(urlTms);
         }
         [HttpGet]
         public async Task<IActionResult> Index(int? accountId = null, int page = 1)
@@ -55,7 +57,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Value = a.Id.ToString()
             }).ToList();
 
-            var services = apiDenomination.ApiDenominationGetServicesGet().Select(a => new SelectListItem
+            var services = apiService.ApiAdminServiceGetServicesGet(1, 1000, "ar").Results.Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
@@ -83,7 +85,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     Value = a.Id.ToString()
                 }).ToList();
 
-                var services = apiDenomination.ApiDenominationGetServicesGet().Select(a => new SelectListItem
+                var services = apiService.ApiAdminServiceGetServicesGet(1, 1000, "ar").Results.Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
@@ -114,7 +116,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public JsonResult GetDenomoinationsByServiceId(int serviceId)
         {
-            var denominations = apiDenomination.ApiDenominationGetDenominationsByServiceIdServiceIdGet(serviceId);
+            var denominations = apiDenomination.ApiDenominationGetDenominationsByServiceIdServiceIdGet(serviceId, 1, 100, "ar").Results;
             return Json(denominations);
         }
         private AccountFeesViewModel Map(AccountFeesModel x)
