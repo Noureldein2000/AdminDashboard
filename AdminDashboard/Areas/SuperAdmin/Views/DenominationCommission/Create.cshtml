@@ -1,0 +1,40 @@
+﻿@model CreateDenominationCommissionViewModel
+@using AdminDashboard.Models.SwaggerModels;
+@{
+    ViewData["Title"] = "CreateAccountFee";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <form asp-action="Create" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="card-header">
+                        <h2>Create Denomination Commission</h2>
+                    </div>
+                    <div class="card-body">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <input type="hidden" asp-for="DenominationId" />
+                        <div class="form-group">
+                            <label class="control-label">Commission Value</label>
+                            <select asp-for="CommissionId" asp-items="Model.Commissions" class="form-control" data-style="select-with-transition" title="Choose a Fee Value" data-size="7">
+                                <option disabled selected> Choose a Commission </option>
+                            </select>
+                            <span asp-validation-for="CommissionId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+    </script>
+}

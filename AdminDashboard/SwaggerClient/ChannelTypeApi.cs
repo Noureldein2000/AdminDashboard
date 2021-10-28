@@ -15,7 +15,7 @@ using RestSharp;
 using AdminDashboard.Models.SwaggerModels;
 using AdminDashboard.SwaggerClientHelpers;
 
-namespace AdminDashboard.SwaggerClienti
+namespace AdminDashboard.SwaggerClient
 {
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints

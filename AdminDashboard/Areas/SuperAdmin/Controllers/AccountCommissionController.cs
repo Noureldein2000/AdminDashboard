@@ -19,6 +19,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     {
         private readonly IAccountApi api;
         private readonly ICommissionApi apiCommission;
+        private readonly IAccountCommissionApi apiAccountCommission;
         private readonly IDenominationApi apiDenomination;
         private readonly IAdminServiceApi apiService;
         public AccountCommissionController(
@@ -28,6 +29,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             string urlTms = "https://localhost:44321";
             api = new AccountApi(url);
             apiCommission = new CommissionApi(urlTms);
+            apiAccountCommission = new AccountCommissionApi(urlTms);
             apiDenomination = new DenominationApi(urlTms);
             apiService = new AdminServiceApi(urlTms);
         }
@@ -35,7 +37,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(int? accountId = null, int page = 1)
         {
-            var data = await apiCommission.ApiCommissionGetAccountCommissionByAccountIdAccountIdGetAsync(accountId, page, 10);
+            var data = await apiAccountCommission.ApiAccountCommissionGetAccountCommissionByAccountIdAccountIdGetAsync(accountId, page, 10);
 
             var viewModel = new PagedResult<AccountCommissionViewModel>
             {
@@ -97,7 +99,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 return View(model);
             }
 
-            apiCommission.ApiCommissionAddAccountCommissionPost(new AddAccountCommissionModel(
+            apiAccountCommission.ApiAccountCommissionAddAccountCommissionPost(new AddAccountCommissionModel(
                 accountId: model.AccountId,
                 denominationId: model.DenominationId,
                 commissionId: model.CommissionId));
@@ -108,7 +110,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult DeleteAccountCommission(int id, int accountId)
         {
-            apiCommission.ApiCommissionDeleteAccountCommissionIdDelete(id: id);
+            apiAccountCommission.ApiAccountCommissionDeleteAccountCommissionIdDelete(id: id);
 
             return RedirectToAction(nameof(Index), new { accountId = accountId });
         }

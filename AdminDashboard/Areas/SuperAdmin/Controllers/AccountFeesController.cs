@@ -19,6 +19,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     {
         private readonly IAccountApi api;
         private readonly IFeesApi apiFees;
+        private readonly IAccountFeesApi apiAccountFees;
         private readonly IDenominationApi apiDenomination;
         private readonly IAdminServiceApi apiService;
         public AccountFeesController(
@@ -28,13 +29,14 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             string urlTms = "https://localhost:44321";
             api = new AccountApi(url);
             apiFees = new FeesApi(urlTms);
+            apiAccountFees = new AccountFeesApi(urlTms);
             apiDenomination = new DenominationApi(urlTms);
             apiService = new AdminServiceApi(urlTms);
         }
         [HttpGet]
         public async Task<IActionResult> Index(int? accountId = null, int page = 1)
         {
-            var data = await apiFees.ApiFeesGetAccountFeesByAccountIdAccountIdGetAsync(accountId, page, 10);
+            var data = await apiAccountFees.ApiAccountFeesGetAccountFeesByAccountIdAccountIdGetAsync(accountId, page, 10);
 
             var viewModel = new PagedResult<AccountFeesViewModel>
             {
@@ -97,7 +99,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 return View(model);
             }
 
-            apiFees.ApiFeesAddAccountFeePost(new AddAccountFeeModel(
+            apiAccountFees.ApiAccountFeesAddAccountFeesPost(new AddAccountFeeModel(
                 accountId: model.AccountId,
                 denominationId: model.DenominationId,
                 feeId: model.FeesId));
@@ -108,7 +110,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult DeleteAccountFee(int id, int accountId)
         {
-            apiFees.ApiFeesDeleteAccountFeeIdDelete(id: id);
+            apiAccountFees.ApiAccountFeesDeleteAccountFeeIdDelete(id: id);
 
             return RedirectToAction(nameof(Index), new { accountId = accountId });
         }
