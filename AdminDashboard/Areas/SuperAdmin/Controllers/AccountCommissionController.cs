@@ -53,7 +53,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult Create(int accountId)
         {
-            var commissions = apiCommission.ApiCommissionGetCommissionsGet().Select(a => new SelectListItem
+            var commissions = apiCommission.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
             {
                 Text = a.CommissionRange.ToString(),
                 Value = a.Id.ToString()
@@ -81,7 +81,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var commissions = apiCommission.ApiCommissionGetCommissionsGet().Select(a => new SelectListItem
+                var commissions = apiCommission.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
                 {
                     Text = a.Value.ToString(),
                     Value = a.Id.ToString()

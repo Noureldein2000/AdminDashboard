@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="~/lib/select2/select2.min.css" rel="stylesheet" />
     <link href="~/font-awesome/css/all.css" rel="stylesheet" />
+    <link href="~/bootstrap-datepicker/css/bootstrap-datepicker.css" rel="stylesheet" />
     <style>
 
 
@@ -109,6 +110,8 @@
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" asp-area="SuperAdmin" asp-controller="ServiceProvider" asp-action="Index">Service Provider</a>
                                 <a class="dropdown-item" asp-area="SuperAdmin" asp-controller="ServiceConfiguaration" asp-action="Index">Service Configuration</a>
+                                <a class="dropdown-item" asp-area="SuperAdmin" asp-controller="Fees" asp-action="Index">Fees</a>
+                                <a class="dropdown-item" asp-area="SuperAdmin" asp-controller="Commission" asp-action="Index">Commission</a>
                                 <div class="dropdown-divider"></div>
                             </div>
                         </li>
@@ -138,6 +141,7 @@
     @*<script src="~/font-awesome/js/fontawesome.js"></script>*@
     <script src="~/sweetalert/sweetalert.min.js"></script>
     <script src="~/lib/select2/select2.full.min.js"></script>
+    <script src="~/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

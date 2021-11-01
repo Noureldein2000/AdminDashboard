@@ -1,4 +1,4 @@
-﻿@model PagedResult<AccountFeesViewModel>
+﻿@model PagedResult<FeesViewModel>
 @{
     ViewData["Title"] = "Index";
 }
@@ -9,18 +9,20 @@
             <div class="card">
                 <div class="card-header">
                     <h2>All Fees</h2>
-                    <a asp-action="Create" asp-route-accountId="@ViewBag.AccountId" class="pull-right btn btn-outline-primary">Add</a>
+                    <a asp-action="Create" class="pull-right btn btn-outline-primary">Add</a>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>FeeID</th>
-                                <th>Denomination</th>
+                                <th>From</th>
+                                <th>To</th>
                                 <th>Value</th>
-                                <th>Type Name</th>
                                 <th>Payment Mode</th>
+                                <th>Type Name</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -28,14 +30,20 @@
                             @foreach (var fee in Model.Results)
                             {
                                 <tr>
-                                    <td>@fee.Id</td>
-                                    <td>@fee.FeesId</td>
-                                    <td>@fee.DenominationFullName</td>
-                                    <td>@fee.FeesValue</td>
+                                    <td>@fee.ID</td>
+                                    <td>@fee.AmountFrom</td>
+                                    <td>@fee.AmountTo</td>
+                                    <td>@fee.Value</td>
+                                    <td>@fee.PaymentModeName</td>
                                     <td>@fee.FeesTypeName</td>
-                                    <td>@fee.PaymentMode</td>
+                                    <td>@fee.StartDate.Value.ToShortDateString()</td>
+                                    <td>@fee.EndDate.Value.ToShortDateString()</td>
                                     <td>
-                                        <a asp-action="ManagePermissions" asp-route-userId="@fee.Id" class="btn btn-danger">Delete</a>
+                                        <a asp-action="ChangeStatus" asp-route-id="@fee.ID" class="btn @(fee.Status ? "btn-danger" : "btn-success")">
+                                            @(fee.Status ? "Deactive" : "Active")
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@fee.ID" class="btn btn-info">Edit</a>
+                                        @*<a asp-action="Delete" asp-route-id="@fee.ID" class="btn btn-danger">Delete</a>*@
                                     </td>
                                 </tr>
                             }
@@ -43,7 +51,7 @@
                     </table>
                 </div>
                 <div class="card-footer d-flex justify-content-center">
-                    <pager link-url="/SuperAdmin/Users/Index"
+                    <pager link-url="/SuperAdmin/Fees/Index"
                            page="Model.CurrentPage"
                            page-size="Model.PageSize"
                            total-items="Model.PageCount">

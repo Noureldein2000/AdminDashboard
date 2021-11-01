@@ -53,7 +53,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult Create(int accountId)
         {
-            var fees = apiFees.ApiFeesGetFeesGet().Select(a => new SelectListItem
+            var fees = apiFees.ApiFeesGetFeesGet(1, 100).Results.Select(a => new SelectListItem
             {
                 Text = a.FeeRange.ToString(),
                 Value = a.Id.ToString()
@@ -81,7 +81,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var fees = apiFees.ApiFeesGetFeesGet().Select(a => new SelectListItem
+                var fees = apiFees.ApiFeesGetFeesGet(1, 100).Results.Select(a => new SelectListItem
                 {
                     Text = a.Value.ToString(),
                     Value = a.Id.ToString()

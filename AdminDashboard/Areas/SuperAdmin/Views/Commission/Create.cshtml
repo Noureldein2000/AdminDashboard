@@ -1,0 +1,111 @@
+﻿@model CommissionViewModel
+@using AdminDashboard.Helper
+@{
+    ViewData["Title"] = "Create Commission";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <form asp-action="Create" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="card-header">
+                        <h2>Create Commission</h2>
+                    </div>
+                    <div class="card-body">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        @*<input type="hidden" asp-for="AccountId" />*@
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label class="control-label">From</label>
+                                <input asp-for="AmountFrom" type="text" onkeypress="return isNumberKey(event)" class="form-control" />
+                                <span asp-validation-for="AmountFrom" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label">To</label>
+                                <input asp-for="AmountTo" type="text" onkeypress="return isNumberKey(event)" class="form-control" />
+                                <span asp-validation-for="AmountTo" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Value</label>
+                            <input asp-for="Value" type="text" onkeypress="return isNumberKey(event)" class="form-control" />
+                            <span asp-validation-for="Value" class="text-danger"></span>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-6">
+                                <label class="control-label">Start Date</label>
+                                <div class="input-group date mb-3">
+                                    <input asp-for="StartDate" id="startDateFee" class="datepicker form-control" type="text" value="@DateTime.Now.ToShortDateString()">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="StartDate" class="text-danger"></span>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="control-label">End Date</label>
+                                <div class="input-group date mb-3">
+                                    <input asp-for="EndDate" id="endDateFee" class="datepicker form-control" type="text">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">
+                                            <i class="far fa-calendar" aria-hidden="true"></i>
+                                        </span>
+                                    </div>
+                                </div>
+                                <span asp-validation-for="EndDate" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Commission Type</label>
+                            <select asp-for="CommissionTypeID" asp-items="@Html.GetEnumSelectList<CommissionType>()" class="form-control" data-style="select-with-transition" title="Choose a Commission Type" data-size="7">
+                                <option disabled selected> Choose a Type</option>
+                            </select>
+                            <span asp-validation-for="CommissionTypeID" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Payment Mode</label>
+                            <select asp-for="PaymentModeID" asp-items="@Html.GetEnumSelectList<PaymentMode>()" class="form-control" data-style="select-with-transition" title="Choose a Paymend Mode" data-size="7">
+                                <option disabled selected> Choose a Mode</option>
+                            </select>
+                            <span asp-validation-for="PaymentModeID" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+  $(document).ready(function () {
+
+            $('.datepicker').datepicker({
+                 startDate: '@DateTime.Now.ToShortDateString()',
+                 autoclose: true,
+            });
+
+            $("#startDateFee").on('changeDate', function () {
+                var st = $(this).datepicker("getDate");
+                var end = st;
+                $('#endDateFee').val('').datepicker('setStartDate', end);
+            });
+        });
+
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+    </script>
+}

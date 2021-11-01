@@ -25,6 +25,16 @@ namespace AdminDashboard.Helper
         Percentage = 2,
         Other = 3,
     }
+    public enum FeesType: short
+    {
+        ServiceFees = 1,
+        Tax = 2,
+        AddedValue = 3,
+    }
+    public enum CommissionType : short
+    {
+        Commission = 1,
+    }
 
     public enum BillPaymentMode : short
     {

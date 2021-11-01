@@ -40,9 +40,13 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="amountFrom">amountFrom.</param>
         /// <param name="amountTo">amountTo.</param>
         /// <param name="paymentModeID">paymentModeID.</param>
+        /// <param name="createdBy">createdBy.</param>
+        /// <param name="paymentModeName">paymentModeName.</param>
         /// <param name="value">value.</param>
         /// <param name="status">status.</param>
-        public CommissionModel(int? id = default(int?), int? commissionTypeID = default(int?), string commissionTypeName = default(string), string commissionRange = default(string), double? commission = default(double?), double? amountFrom = default(double?), double? amountTo = default(double?), int? paymentModeID = default(int?), double? value = default(double?), bool? status = default(bool?))
+        /// <param name="startDate">startDate.</param>
+        /// <param name="endDate">endDate.</param>
+        public CommissionModel(int? id = default(int?), int? commissionTypeID = default(int?), string commissionTypeName = default(string), string commissionRange = default(string), double? commission = default(double?), double? amountFrom = default(double?), double? amountTo = default(double?), int? paymentModeID = default(int?), int? createdBy = default(int?), string paymentModeName = default(string), double? value = default(double?), bool? status = default(bool?), DateTime? startDate = default(DateTime?), DateTime? endDate = default(DateTime?))
         {
             this.Id = id;
             this.CommissionTypeID = commissionTypeID;
@@ -52,8 +56,12 @@ namespace AdminDashboard.Models.SwaggerModels
             this.AmountFrom = amountFrom;
             this.AmountTo = amountTo;
             this.PaymentModeID = paymentModeID;
+            this.CreatedBy = createdBy;
+            this.PaymentModeName = paymentModeName;
             this.Value = value;
             this.Status = status;
+            this.StartDate = startDate;
+            this.EndDate = endDate;
         }
         
         /// <summary>
@@ -105,6 +113,18 @@ namespace AdminDashboard.Models.SwaggerModels
         public int? PaymentModeID { get; set; }
 
         /// <summary>
+        /// Gets or Sets CreatedBy
+        /// </summary>
+        [DataMember(Name="createdBy", EmitDefaultValue=false)]
+        public int? CreatedBy { get; set; }
+
+        /// <summary>
+        /// Gets or Sets PaymentModeName
+        /// </summary>
+        [DataMember(Name="paymentModeName", EmitDefaultValue=false)]
+        public string PaymentModeName { get; set; }
+
+        /// <summary>
         /// Gets or Sets Value
         /// </summary>
         [DataMember(Name="value", EmitDefaultValue=false)]
@@ -115,6 +135,18 @@ namespace AdminDashboard.Models.SwaggerModels
         /// </summary>
         [DataMember(Name="status", EmitDefaultValue=false)]
         public bool? Status { get; set; }
+
+        /// <summary>
+        /// Gets or Sets StartDate
+        /// </summary>
+        [DataMember(Name="startDate", EmitDefaultValue=false)]
+        public DateTime? StartDate { get; set; }
+
+        /// <summary>
+        /// Gets or Sets EndDate
+        /// </summary>
+        [DataMember(Name="endDate", EmitDefaultValue=false)]
+        public DateTime? EndDate { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -132,8 +164,12 @@ namespace AdminDashboard.Models.SwaggerModels
             sb.Append("  AmountFrom: ").Append(AmountFrom).Append("\n");
             sb.Append("  AmountTo: ").Append(AmountTo).Append("\n");
             sb.Append("  PaymentModeID: ").Append(PaymentModeID).Append("\n");
+            sb.Append("  CreatedBy: ").Append(CreatedBy).Append("\n");
+            sb.Append("  PaymentModeName: ").Append(PaymentModeName).Append("\n");
             sb.Append("  Value: ").Append(Value).Append("\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
+            sb.Append("  StartDate: ").Append(StartDate).Append("\n");
+            sb.Append("  EndDate: ").Append(EndDate).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -209,6 +245,16 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.PaymentModeID.Equals(input.PaymentModeID))
                 ) && 
                 (
+                    this.CreatedBy == input.CreatedBy ||
+                    (this.CreatedBy != null &&
+                    this.CreatedBy.Equals(input.CreatedBy))
+                ) && 
+                (
+                    this.PaymentModeName == input.PaymentModeName ||
+                    (this.PaymentModeName != null &&
+                    this.PaymentModeName.Equals(input.PaymentModeName))
+                ) && 
+                (
                     this.Value == input.Value ||
                     (this.Value != null &&
                     this.Value.Equals(input.Value))
@@ -217,6 +263,16 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.Status == input.Status ||
                     (this.Status != null &&
                     this.Status.Equals(input.Status))
+                ) && 
+                (
+                    this.StartDate == input.StartDate ||
+                    (this.StartDate != null &&
+                    this.StartDate.Equals(input.StartDate))
+                ) && 
+                (
+                    this.EndDate == input.EndDate ||
+                    (this.EndDate != null &&
+                    this.EndDate.Equals(input.EndDate))
                 );
         }
 
@@ -245,10 +301,18 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.AmountTo.GetHashCode();
                 if (this.PaymentModeID != null)
                     hashCode = hashCode * 59 + this.PaymentModeID.GetHashCode();
+                if (this.CreatedBy != null)
+                    hashCode = hashCode * 59 + this.CreatedBy.GetHashCode();
+                if (this.PaymentModeName != null)
+                    hashCode = hashCode * 59 + this.PaymentModeName.GetHashCode();
                 if (this.Value != null)
                     hashCode = hashCode * 59 + this.Value.GetHashCode();
                 if (this.Status != null)
                     hashCode = hashCode * 59 + this.Status.GetHashCode();
+                if (this.StartDate != null)
+                    hashCode = hashCode * 59 + this.StartDate.GetHashCode();
+                if (this.EndDate != null)
+                    hashCode = hashCode * 59 + this.EndDate.GetHashCode();
                 return hashCode;
             }
         }
