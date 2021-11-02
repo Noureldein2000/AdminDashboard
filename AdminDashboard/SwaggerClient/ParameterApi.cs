@@ -20,7 +20,7 @@ namespace AdminDashboard.SwaggerClient
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-        public interface IServiceProviderApi : IApiAccessor
+        public interface IParameterApi : IApiAccessor
     {
         #region Synchronous Operations
         /// <summary>
@@ -32,7 +32,7 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
         /// <returns></returns>
-        void ApiServiceProviderAddServiceProviderPost (ServiceProviderModel body = null);
+        void ApiParameterAddParameterPost (ParametersModel body = null);
 
         /// <summary>
         /// 
@@ -43,7 +43,7 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ApiServiceProviderAddServiceProviderPostWithHttpInfo (ServiceProviderModel body = null);
+        ApiResponse<Object> ApiParameterAddParameterPostWithHttpInfo (ParametersModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -53,7 +53,7 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
         /// <returns></returns>
-        void ApiServiceProviderDeleteServiceProviderIdDelete (int? id);
+        void ApiParameterDeleteParameterIdDelete (int? id);
 
         /// <summary>
         /// 
@@ -64,7 +64,7 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
         /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ApiServiceProviderDeleteServiceProviderIdDeleteWithHttpInfo (int? id);
+        ApiResponse<Object> ApiParameterDeleteParameterIdDeleteWithHttpInfo (int? id);
         /// <summary>
         /// 
         /// </summary>
@@ -74,7 +74,7 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
         /// <returns></returns>
-        void ApiServiceProviderEditServiceProviderPut (ServiceProviderModel body = null);
+        void ApiParameterEditParameterPut (ParametersModel body = null);
 
         /// <summary>
         /// 
@@ -85,7 +85,7 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ApiServiceProviderEditServiceProviderPutWithHttpInfo (ServiceProviderModel body = null);
+        ApiResponse<Object> ApiParameterEditParameterPutWithHttpInfo (ParametersModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -94,8 +94,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>ServiceProviderModel</returns>
-        ServiceProviderModel ApiServiceProviderGetServiceProviderByIdIdGet (int? id);
+        /// <returns>ParametersModel</returns>
+        ParametersModel ApiParameterGetParamterByIdIdGet (int? id);
 
         /// <summary>
         /// 
@@ -105,8 +105,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>ApiResponse of ServiceProviderModel</returns>
-        ApiResponse<ServiceProviderModel> ApiServiceProviderGetServiceProviderByIdIdGetWithHttpInfo (int? id);
+        /// <returns>ApiResponse of ParametersModel</returns>
+        ApiResponse<ParametersModel> ApiParameterGetParamterByIdIdGetWithHttpInfo (int? id);
         /// <summary>
         /// 
         /// </summary>
@@ -116,8 +116,9 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>ServiceProviderModelPagedResult</returns>
-        ServiceProviderModelPagedResult ApiServiceProviderGetServiceProviderGet (int? pageNumber = null, int? pageSize = null);
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>ParametersModelPagedResult</returns>
+        ParametersModelPagedResult ApiParameterGetParamtersGet (int? pageNumber = null, int? pageSize = null, string language = null);
 
         /// <summary>
         /// 
@@ -128,8 +129,9 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>ApiResponse of ServiceProviderModelPagedResult</returns>
-        ApiResponse<ServiceProviderModelPagedResult> ApiServiceProviderGetServiceProviderGetWithHttpInfo (int? pageNumber = null, int? pageSize = null);
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>ApiResponse of ParametersModelPagedResult</returns>
+        ApiResponse<ParametersModelPagedResult> ApiParameterGetParamtersGetWithHttpInfo (int? pageNumber = null, int? pageSize = null, string language = null);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -141,7 +143,7 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
         /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ApiServiceProviderAddServiceProviderPostAsync (ServiceProviderModel body = null);
+        System.Threading.Tasks.Task ApiParameterAddParameterPostAsync (ParametersModel body = null);
 
         /// <summary>
         /// 
@@ -152,7 +154,7 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
         /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ApiServiceProviderAddServiceProviderPostAsyncWithHttpInfo (ServiceProviderModel body = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> ApiParameterAddParameterPostAsyncWithHttpInfo (ParametersModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -162,7 +164,7 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
         /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ApiServiceProviderDeleteServiceProviderIdDeleteAsync (int? id);
+        System.Threading.Tasks.Task ApiParameterDeleteParameterIdDeleteAsync (int? id);
 
         /// <summary>
         /// 
@@ -173,7 +175,7 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
         /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ApiServiceProviderDeleteServiceProviderIdDeleteAsyncWithHttpInfo (int? id);
+        System.Threading.Tasks.Task<ApiResponse<Object>> ApiParameterDeleteParameterIdDeleteAsyncWithHttpInfo (int? id);
         /// <summary>
         /// 
         /// </summary>
@@ -183,7 +185,7 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
         /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ApiServiceProviderEditServiceProviderPutAsync (ServiceProviderModel body = null);
+        System.Threading.Tasks.Task ApiParameterEditParameterPutAsync (ParametersModel body = null);
 
         /// <summary>
         /// 
@@ -194,7 +196,7 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
         /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ApiServiceProviderEditServiceProviderPutAsyncWithHttpInfo (ServiceProviderModel body = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> ApiParameterEditParameterPutAsyncWithHttpInfo (ParametersModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -203,8 +205,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>Task of ServiceProviderModel</returns>
-        System.Threading.Tasks.Task<ServiceProviderModel> ApiServiceProviderGetServiceProviderByIdIdGetAsync (int? id);
+        /// <returns>Task of ParametersModel</returns>
+        System.Threading.Tasks.Task<ParametersModel> ApiParameterGetParamterByIdIdGetAsync (int? id);
 
         /// <summary>
         /// 
@@ -214,8 +216,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>Task of ApiResponse (ServiceProviderModel)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ServiceProviderModel>> ApiServiceProviderGetServiceProviderByIdIdGetAsyncWithHttpInfo (int? id);
+        /// <returns>Task of ApiResponse (ParametersModel)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ParametersModel>> ApiParameterGetParamterByIdIdGetAsyncWithHttpInfo (int? id);
         /// <summary>
         /// 
         /// </summary>
@@ -225,8 +227,9 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of ServiceProviderModelPagedResult</returns>
-        System.Threading.Tasks.Task<ServiceProviderModelPagedResult> ApiServiceProviderGetServiceProviderGetAsync (int? pageNumber = null, int? pageSize = null);
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>Task of ParametersModelPagedResult</returns>
+        System.Threading.Tasks.Task<ParametersModelPagedResult> ApiParameterGetParamtersGetAsync (int? pageNumber = null, int? pageSize = null, string language = null);
 
         /// <summary>
         /// 
@@ -237,23 +240,24 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of ApiResponse (ServiceProviderModelPagedResult)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ServiceProviderModelPagedResult>> ApiServiceProviderGetServiceProviderGetAsyncWithHttpInfo (int? pageNumber = null, int? pageSize = null);
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>Task of ApiResponse (ParametersModelPagedResult)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ParametersModelPagedResult>> ApiParameterGetParamtersGetAsyncWithHttpInfo (int? pageNumber = null, int? pageSize = null, string language = null);
         #endregion Asynchronous Operations
     }
 
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-        public partial class ServiceProviderApi : IServiceProviderApi
+        public partial class ParameterApi : IParameterApi
     {
         private ExceptionFactory _exceptionFactory = (name, response) => null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ServiceProviderApi"/> class.
+        /// Initializes a new instance of the <see cref="ParameterApi"/> class.
         /// </summary>
         /// <returns></returns>
-        public ServiceProviderApi(String basePath)
+        public ParameterApi(String basePath)
         {
             this.Configuration = new Configuration { BasePath = basePath };
 
@@ -261,10 +265,10 @@ namespace AdminDashboard.SwaggerClient
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ServiceProviderApi"/> class
+        /// Initializes a new instance of the <see cref="ParameterApi"/> class
         /// </summary>
         /// <returns></returns>
-        public ServiceProviderApi()
+        public ParameterApi()
         {
             this.Configuration = Configuration.Default;
 
@@ -272,12 +276,12 @@ namespace AdminDashboard.SwaggerClient
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ServiceProviderApi"/> class
+        /// Initializes a new instance of the <see cref="ParameterApi"/> class
         /// using Configuration object
         /// </summary>
         /// <param name="configuration">An instance of Configuration</param>
         /// <returns></returns>
-        public ServiceProviderApi(Configuration configuration = null)
+        public ParameterApi(Configuration configuration = null)
         {
             if (configuration == null) // use the default one in Configuration
                 this.Configuration = Configuration.Default;
@@ -356,9 +360,9 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
         /// <returns></returns>
-        public void ApiServiceProviderAddServiceProviderPost (ServiceProviderModel body = null)
+        public void ApiParameterAddParameterPost (ParametersModel body = null)
         {
-             ApiServiceProviderAddServiceProviderPostWithHttpInfo(body);
+             ApiParameterAddParameterPostWithHttpInfo(body);
         }
 
         /// <summary>
@@ -367,10 +371,10 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ApiServiceProviderAddServiceProviderPostWithHttpInfo (ServiceProviderModel body = null)
+        public ApiResponse<Object> ApiParameterAddParameterPostWithHttpInfo (ParametersModel body = null)
         {
 
-            var localVarPath = "/api/ServiceProvider/AddServiceProvider";
+            var localVarPath = "/api/Parameter/AddParameter";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -416,7 +420,7 @@ namespace AdminDashboard.SwaggerClient
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ApiServiceProviderAddServiceProviderPost", localVarResponse);
+                Exception exception = ExceptionFactory("ApiParameterAddParameterPost", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -431,9 +435,9 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
         /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ApiServiceProviderAddServiceProviderPostAsync (ServiceProviderModel body = null)
+        public async System.Threading.Tasks.Task ApiParameterAddParameterPostAsync (ParametersModel body = null)
         {
-             await ApiServiceProviderAddServiceProviderPostAsyncWithHttpInfo(body);
+             await ApiParameterAddParameterPostAsyncWithHttpInfo(body);
 
         }
 
@@ -443,10 +447,10 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
         /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiServiceProviderAddServiceProviderPostAsyncWithHttpInfo (ServiceProviderModel body = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiParameterAddParameterPostAsyncWithHttpInfo (ParametersModel body = null)
         {
 
-            var localVarPath = "/api/ServiceProvider/AddServiceProvider";
+            var localVarPath = "/api/Parameter/AddParameter";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -492,7 +496,7 @@ namespace AdminDashboard.SwaggerClient
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ApiServiceProviderAddServiceProviderPost", localVarResponse);
+                Exception exception = ExceptionFactory("ApiParameterAddParameterPost", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -507,9 +511,9 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
         /// <returns></returns>
-        public void ApiServiceProviderDeleteServiceProviderIdDelete (int? id)
+        public void ApiParameterDeleteParameterIdDelete (int? id)
         {
-             ApiServiceProviderDeleteServiceProviderIdDeleteWithHttpInfo(id);
+             ApiParameterDeleteParameterIdDeleteWithHttpInfo(id);
         }
 
         /// <summary>
@@ -518,13 +522,13 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
         /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ApiServiceProviderDeleteServiceProviderIdDeleteWithHttpInfo (int? id)
+        public ApiResponse<Object> ApiParameterDeleteParameterIdDeleteWithHttpInfo (int? id)
         {
             // verify the required parameter 'id' is set
             if (id == null)
-                throw new ApiException(400, "Missing required parameter 'id' when calling ServiceProviderApi->ApiServiceProviderDeleteServiceProviderIdDelete");
+                throw new ApiException(400, "Missing required parameter 'id' when calling ParameterApi->ApiParameterDeleteParameterIdDelete");
 
-            var localVarPath = "/api/ServiceProvider/DeleteServiceProvider/{id}";
+            var localVarPath = "/api/Parameter/DeleteParameter/{id}";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -560,7 +564,7 @@ namespace AdminDashboard.SwaggerClient
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ApiServiceProviderDeleteServiceProviderIdDelete", localVarResponse);
+                Exception exception = ExceptionFactory("ApiParameterDeleteParameterIdDelete", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -575,9 +579,9 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
         /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ApiServiceProviderDeleteServiceProviderIdDeleteAsync (int? id)
+        public async System.Threading.Tasks.Task ApiParameterDeleteParameterIdDeleteAsync (int? id)
         {
-             await ApiServiceProviderDeleteServiceProviderIdDeleteAsyncWithHttpInfo(id);
+             await ApiParameterDeleteParameterIdDeleteAsyncWithHttpInfo(id);
 
         }
 
@@ -587,13 +591,13 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
         /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiServiceProviderDeleteServiceProviderIdDeleteAsyncWithHttpInfo (int? id)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiParameterDeleteParameterIdDeleteAsyncWithHttpInfo (int? id)
         {
             // verify the required parameter 'id' is set
             if (id == null)
-                throw new ApiException(400, "Missing required parameter 'id' when calling ServiceProviderApi->ApiServiceProviderDeleteServiceProviderIdDelete");
+                throw new ApiException(400, "Missing required parameter 'id' when calling ParameterApi->ApiParameterDeleteParameterIdDelete");
 
-            var localVarPath = "/api/ServiceProvider/DeleteServiceProvider/{id}";
+            var localVarPath = "/api/Parameter/DeleteParameter/{id}";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -629,7 +633,7 @@ namespace AdminDashboard.SwaggerClient
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ApiServiceProviderDeleteServiceProviderIdDelete", localVarResponse);
+                Exception exception = ExceptionFactory("ApiParameterDeleteParameterIdDelete", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -644,9 +648,9 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
         /// <returns></returns>
-        public void ApiServiceProviderEditServiceProviderPut (ServiceProviderModel body = null)
+        public void ApiParameterEditParameterPut (ParametersModel body = null)
         {
-             ApiServiceProviderEditServiceProviderPutWithHttpInfo(body);
+             ApiParameterEditParameterPutWithHttpInfo(body);
         }
 
         /// <summary>
@@ -655,10 +659,10 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ApiServiceProviderEditServiceProviderPutWithHttpInfo (ServiceProviderModel body = null)
+        public ApiResponse<Object> ApiParameterEditParameterPutWithHttpInfo (ParametersModel body = null)
         {
 
-            var localVarPath = "/api/ServiceProvider/EditServiceProvider";
+            var localVarPath = "/api/Parameter/EditParameter";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -704,7 +708,7 @@ namespace AdminDashboard.SwaggerClient
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ApiServiceProviderEditServiceProviderPut", localVarResponse);
+                Exception exception = ExceptionFactory("ApiParameterEditParameterPut", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -719,9 +723,9 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
         /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ApiServiceProviderEditServiceProviderPutAsync (ServiceProviderModel body = null)
+        public async System.Threading.Tasks.Task ApiParameterEditParameterPutAsync (ParametersModel body = null)
         {
-             await ApiServiceProviderEditServiceProviderPutAsyncWithHttpInfo(body);
+             await ApiParameterEditParameterPutAsyncWithHttpInfo(body);
 
         }
 
@@ -731,10 +735,10 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
         /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiServiceProviderEditServiceProviderPutAsyncWithHttpInfo (ServiceProviderModel body = null)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiParameterEditParameterPutAsyncWithHttpInfo (ParametersModel body = null)
         {
 
-            var localVarPath = "/api/ServiceProvider/EditServiceProvider";
+            var localVarPath = "/api/Parameter/EditParameter";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -780,7 +784,7 @@ namespace AdminDashboard.SwaggerClient
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ApiServiceProviderEditServiceProviderPut", localVarResponse);
+                Exception exception = ExceptionFactory("ApiParameterEditParameterPut", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -794,10 +798,10 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>ServiceProviderModel</returns>
-        public ServiceProviderModel ApiServiceProviderGetServiceProviderByIdIdGet (int? id)
+        /// <returns>ParametersModel</returns>
+        public ParametersModel ApiParameterGetParamterByIdIdGet (int? id)
         {
-             ApiResponse<ServiceProviderModel> localVarResponse = ApiServiceProviderGetServiceProviderByIdIdGetWithHttpInfo(id);
+             ApiResponse<ParametersModel> localVarResponse = ApiParameterGetParamterByIdIdGetWithHttpInfo(id);
              return localVarResponse.Data;
         }
 
@@ -806,14 +810,14 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>ApiResponse of ServiceProviderModel</returns>
-        public ApiResponse< ServiceProviderModel > ApiServiceProviderGetServiceProviderByIdIdGetWithHttpInfo (int? id)
+        /// <returns>ApiResponse of ParametersModel</returns>
+        public ApiResponse< ParametersModel > ApiParameterGetParamterByIdIdGetWithHttpInfo (int? id)
         {
             // verify the required parameter 'id' is set
             if (id == null)
-                throw new ApiException(400, "Missing required parameter 'id' when calling ServiceProviderApi->ApiServiceProviderGetServiceProviderByIdIdGet");
+                throw new ApiException(400, "Missing required parameter 'id' when calling ParameterApi->ApiParameterGetParamterByIdIdGet");
 
-            var localVarPath = "/api/ServiceProvider/GetServiceProviderById/{id}";
+            var localVarPath = "/api/Parameter/GetParamterById/{id}";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -852,13 +856,13 @@ namespace AdminDashboard.SwaggerClient
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ApiServiceProviderGetServiceProviderByIdIdGet", localVarResponse);
+                Exception exception = ExceptionFactory("ApiParameterGetParamterByIdIdGet", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<ServiceProviderModel>(localVarStatusCode,
+            return new ApiResponse<ParametersModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (ServiceProviderModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ServiceProviderModel)));
+                (ParametersModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ParametersModel)));
         }
 
         /// <summary>
@@ -866,10 +870,10 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>Task of ServiceProviderModel</returns>
-        public async System.Threading.Tasks.Task<ServiceProviderModel> ApiServiceProviderGetServiceProviderByIdIdGetAsync (int? id)
+        /// <returns>Task of ParametersModel</returns>
+        public async System.Threading.Tasks.Task<ParametersModel> ApiParameterGetParamterByIdIdGetAsync (int? id)
         {
-             ApiResponse<ServiceProviderModel> localVarResponse = await ApiServiceProviderGetServiceProviderByIdIdGetAsyncWithHttpInfo(id);
+             ApiResponse<ParametersModel> localVarResponse = await ApiParameterGetParamterByIdIdGetAsyncWithHttpInfo(id);
              return localVarResponse.Data;
 
         }
@@ -879,14 +883,14 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <returns>Task of ApiResponse (ServiceProviderModel)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<ServiceProviderModel>> ApiServiceProviderGetServiceProviderByIdIdGetAsyncWithHttpInfo (int? id)
+        /// <returns>Task of ApiResponse (ParametersModel)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<ParametersModel>> ApiParameterGetParamterByIdIdGetAsyncWithHttpInfo (int? id)
         {
             // verify the required parameter 'id' is set
             if (id == null)
-                throw new ApiException(400, "Missing required parameter 'id' when calling ServiceProviderApi->ApiServiceProviderGetServiceProviderByIdIdGet");
+                throw new ApiException(400, "Missing required parameter 'id' when calling ParameterApi->ApiParameterGetParamterByIdIdGet");
 
-            var localVarPath = "/api/ServiceProvider/GetServiceProviderById/{id}";
+            var localVarPath = "/api/Parameter/GetParamterById/{id}";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -925,13 +929,13 @@ namespace AdminDashboard.SwaggerClient
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ApiServiceProviderGetServiceProviderByIdIdGet", localVarResponse);
+                Exception exception = ExceptionFactory("ApiParameterGetParamterByIdIdGet", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<ServiceProviderModel>(localVarStatusCode,
+            return new ApiResponse<ParametersModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (ServiceProviderModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ServiceProviderModel)));
+                (ParametersModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ParametersModel)));
         }
 
         /// <summary>
@@ -940,10 +944,11 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>ServiceProviderModelPagedResult</returns>
-        public ServiceProviderModelPagedResult ApiServiceProviderGetServiceProviderGet (int? pageNumber = null, int? pageSize = null)
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>ParametersModelPagedResult</returns>
+        public ParametersModelPagedResult ApiParameterGetParamtersGet (int? pageNumber = null, int? pageSize = null, string language = null)
         {
-             ApiResponse<ServiceProviderModelPagedResult> localVarResponse = ApiServiceProviderGetServiceProviderGetWithHttpInfo(pageNumber, pageSize);
+             ApiResponse<ParametersModelPagedResult> localVarResponse = ApiParameterGetParamtersGetWithHttpInfo(pageNumber, pageSize, language);
              return localVarResponse.Data;
         }
 
@@ -953,11 +958,12 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>ApiResponse of ServiceProviderModelPagedResult</returns>
-        public ApiResponse< ServiceProviderModelPagedResult > ApiServiceProviderGetServiceProviderGetWithHttpInfo (int? pageNumber = null, int? pageSize = null)
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>ApiResponse of ParametersModelPagedResult</returns>
+        public ApiResponse< ParametersModelPagedResult > ApiParameterGetParamtersGetWithHttpInfo (int? pageNumber = null, int? pageSize = null, string language = null)
         {
 
-            var localVarPath = "/api/ServiceProvider/GetServiceProvider";
+            var localVarPath = "/api/Parameter/GetParamters";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -982,6 +988,7 @@ namespace AdminDashboard.SwaggerClient
 
             if (pageNumber != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageNumber", pageNumber)); // query parameter
             if (pageSize != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageSize", pageSize)); // query parameter
+            if (language != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
             // authentication (Bearer) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
             {
@@ -997,13 +1004,13 @@ namespace AdminDashboard.SwaggerClient
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ApiServiceProviderGetServiceProviderGet", localVarResponse);
+                Exception exception = ExceptionFactory("ApiParameterGetParamtersGet", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<ServiceProviderModelPagedResult>(localVarStatusCode,
+            return new ApiResponse<ParametersModelPagedResult>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (ServiceProviderModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ServiceProviderModelPagedResult)));
+                (ParametersModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ParametersModelPagedResult)));
         }
 
         /// <summary>
@@ -1012,10 +1019,11 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of ServiceProviderModelPagedResult</returns>
-        public async System.Threading.Tasks.Task<ServiceProviderModelPagedResult> ApiServiceProviderGetServiceProviderGetAsync (int? pageNumber = null, int? pageSize = null)
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>Task of ParametersModelPagedResult</returns>
+        public async System.Threading.Tasks.Task<ParametersModelPagedResult> ApiParameterGetParamtersGetAsync (int? pageNumber = null, int? pageSize = null, string language = null)
         {
-             ApiResponse<ServiceProviderModelPagedResult> localVarResponse = await ApiServiceProviderGetServiceProviderGetAsyncWithHttpInfo(pageNumber, pageSize);
+             ApiResponse<ParametersModelPagedResult> localVarResponse = await ApiParameterGetParamtersGetAsyncWithHttpInfo(pageNumber, pageSize, language);
              return localVarResponse.Data;
 
         }
@@ -1026,11 +1034,12 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of ApiResponse (ServiceProviderModelPagedResult)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<ServiceProviderModelPagedResult>> ApiServiceProviderGetServiceProviderGetAsyncWithHttpInfo (int? pageNumber = null, int? pageSize = null)
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>Task of ApiResponse (ParametersModelPagedResult)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<ParametersModelPagedResult>> ApiParameterGetParamtersGetAsyncWithHttpInfo (int? pageNumber = null, int? pageSize = null, string language = null)
         {
 
-            var localVarPath = "/api/ServiceProvider/GetServiceProvider";
+            var localVarPath = "/api/Parameter/GetParamters";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -1055,6 +1064,7 @@ namespace AdminDashboard.SwaggerClient
 
             if (pageNumber != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageNumber", pageNumber)); // query parameter
             if (pageSize != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageSize", pageSize)); // query parameter
+            if (language != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
             // authentication (Bearer) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
             {
@@ -1070,13 +1080,13 @@ namespace AdminDashboard.SwaggerClient
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ApiServiceProviderGetServiceProviderGet", localVarResponse);
+                Exception exception = ExceptionFactory("ApiParameterGetParamtersGet", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<ServiceProviderModelPagedResult>(localVarStatusCode,
+            return new ApiResponse<ParametersModelPagedResult>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (ServiceProviderModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ServiceProviderModelPagedResult)));
+                (ParametersModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ParametersModelPagedResult)));
         }
 
     }

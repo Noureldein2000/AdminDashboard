@@ -1,0 +1,40 @@
+﻿@model ServiceProviderViewModel
+@using AdminDashboard.Models.SwaggerModels
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <form asp-action="Create" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="card-header">
+                        <h2>Add Service Provider</h2>
+                    </div>
+                    <div class="card-body">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        @*<input type="hidden" asp-for="Id" />*@
+                        <div class="form-group">
+                            <label class="control-label">Name</label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+    </script>
+}
