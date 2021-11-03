@@ -36,14 +36,14 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="denominationServiceProviders">denominationServiceProviders.</param>
         /// <param name="denominationProviderConfigeration">denominationProviderConfigeration.</param>
         /// <param name="serviceConfigeration">serviceConfigeration.</param>
-        /// <param name="serviceConfigParms">serviceConfigParms.</param>
-        public AddDenominationModel(DenominationModel denomination = default(DenominationModel), DenominationServiceProvidersModel denominationServiceProviders = default(DenominationServiceProvidersModel), DenominationProviderConfigerationModel denominationProviderConfigeration = default(DenominationProviderConfigerationModel), ServiceConfigerationModel serviceConfigeration = default(ServiceConfigerationModel), ServiceConfigParmsModel serviceConfigParms = default(ServiceConfigParmsModel))
+        /// <param name="denominationParameter">denominationParameter.</param>
+        public AddDenominationModel(DenominationModel denomination = default(DenominationModel), DenominationServiceProvidersModel denominationServiceProviders = default(DenominationServiceProvidersModel), DenominationProviderConfigerationModel denominationProviderConfigeration = default(DenominationProviderConfigerationModel), ServiceConfigerationModel serviceConfigeration = default(ServiceConfigerationModel), DenominationParameterModel denominationParameter = default(DenominationParameterModel))
         {
             this.Denomination = denomination;
             this.DenominationServiceProviders = denominationServiceProviders;
             this.DenominationProviderConfigeration = denominationProviderConfigeration;
             this.ServiceConfigeration = serviceConfigeration;
-            this.ServiceConfigParms = serviceConfigParms;
+            this.DenominationParameter = denominationParameter;
         }
         
         /// <summary>
@@ -71,10 +71,10 @@ namespace AdminDashboard.Models.SwaggerModels
         public ServiceConfigerationModel ServiceConfigeration { get; set; }
 
         /// <summary>
-        /// Gets or Sets ServiceConfigParms
+        /// Gets or Sets DenominationParameter
         /// </summary>
-        [DataMember(Name="serviceConfigParms", EmitDefaultValue=false)]
-        public ServiceConfigParmsModel ServiceConfigParms { get; set; }
+        [DataMember(Name="denominationParameter", EmitDefaultValue=false)]
+        public DenominationParameterModel DenominationParameter { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -88,7 +88,7 @@ namespace AdminDashboard.Models.SwaggerModels
             sb.Append("  DenominationServiceProviders: ").Append(DenominationServiceProviders).Append("\n");
             sb.Append("  DenominationProviderConfigeration: ").Append(DenominationProviderConfigeration).Append("\n");
             sb.Append("  ServiceConfigeration: ").Append(ServiceConfigeration).Append("\n");
-            sb.Append("  ServiceConfigParms: ").Append(ServiceConfigParms).Append("\n");
+            sb.Append("  DenominationParameter: ").Append(DenominationParameter).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -144,9 +144,9 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.ServiceConfigeration.Equals(input.ServiceConfigeration))
                 ) && 
                 (
-                    this.ServiceConfigParms == input.ServiceConfigParms ||
-                    (this.ServiceConfigParms != null &&
-                    this.ServiceConfigParms.Equals(input.ServiceConfigParms))
+                    this.DenominationParameter == input.DenominationParameter ||
+                    (this.DenominationParameter != null &&
+                    this.DenominationParameter.Equals(input.DenominationParameter))
                 );
         }
 
@@ -167,8 +167,8 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.DenominationProviderConfigeration.GetHashCode();
                 if (this.ServiceConfigeration != null)
                     hashCode = hashCode * 59 + this.ServiceConfigeration.GetHashCode();
-                if (this.ServiceConfigParms != null)
-                    hashCode = hashCode * 59 + this.ServiceConfigParms.GetHashCode();
+                if (this.DenominationParameter != null)
+                    hashCode = hashCode * 59 + this.DenominationParameter.GetHashCode();
                 return hashCode;
             }
         }

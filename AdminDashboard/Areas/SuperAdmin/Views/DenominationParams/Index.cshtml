@@ -1,0 +1,74 @@
+﻿@model PagedResult<DenominationParamViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2>All Denomination Params</h2>
+                    <a asp-action="Create" class="pull-right btn btn-outline-primary">Add</a>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Label</th>
+                                <th>Title</th>
+                                <th>Param Key</th>
+                                <th>Value Type</th>
+                                <th>Value Mode</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var deno in Model.Results)
+                            {
+                                <tr>
+                                    <td>@deno.Id</td>
+                                    <td>@deno.Label</td>
+                                    <td>@deno.Title</td>
+                                    <td>@deno.ParamKey</td>
+                                    <td>@deno.ValueTypeName</td>
+                                    <td>@deno.ValueModeName</td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@deno.Id" class="btn btn-info">Edit</a>
+                                        <a asp-action="Delete" asp-route-id="@deno.Id" class="btn btn-danger">Delete</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer d-flex justify-content-center">
+                    <pager link-url="/SuperAdmin/DenominationParams/Index"
+                           page="Model.CurrentPage"
+                           page-size="Model.PageSize"
+                           total-items="Model.PageCount">
+                    </pager>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+
+        @*$(function () {
+            var msg = '@TempData["result"]';
+            if (msg != "") {
+                swal({
+                    title: "Good job!",
+                    text: "You Saved the User Successfully!",
+                    icon: "success",
+                    button: "Ok",
+                });
+            }
+         });*@
+
+    </script>
+}
+

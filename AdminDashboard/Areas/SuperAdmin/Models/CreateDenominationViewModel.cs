@@ -10,6 +10,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public DenominationViewModel Denomination { get; set; }
         public DenominationServiceProvidersViewModel DenominationServiceProviders { get; set; }
         public ServiceConfigerationViewModel ServiceConfigeration { get; set; }
+        public DenominationParameterViewModel DenominationParameter { get; set; }
 
     }
 }
