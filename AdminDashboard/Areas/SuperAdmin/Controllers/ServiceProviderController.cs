@@ -17,16 +17,12 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     [Authorize]
     public class ServiceProviderController : Controller
     {
-        private readonly IAdminServiceApi apiAdminService;
-        private readonly IDenominationApi apiDenomination;
         private readonly IServiceProviderApi apiServiceProvider;
         public ServiceProviderController(
             )
         {
             //string urlIdentity = "https://localhost:44303";
             string urlTms = "https://localhost:44321";
-            apiAdminService = new AdminServiceApi(urlTms);
-            apiDenomination = new DenominationApi(urlTms);
             apiServiceProvider = new ServiceProviderApi(urlTms);
         }
 
@@ -45,13 +41,57 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return View(viewModel);
         }
 
+        public IActionResult Create()
+        {
+            return View(new ServiceProviderViewModel());
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Create(ServiceProviderViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
 
-        private ServiceProviderViewModel MapToViewModel(ServiceProviderModel denomination)
+            apiServiceProvider.ApiServiceProviderAddServiceProviderPost(MapToModel(model));
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Edit(int id)
+        {
+            var model = apiServiceProvider.ApiServiceProviderGetServiceProviderByIdIdGet(id);
+            return View(MapToViewModel(model));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Edit(ServiceProviderViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            apiServiceProvider.ApiServiceProviderEditServiceProviderPut(MapToModel(model));
+            return RedirectToAction(nameof(Index));
+        }
+        public IActionResult Delete(int id)
+        {
+            apiServiceProvider.ApiServiceProviderDeleteServiceProviderIdDelete(id);
+            return RedirectToAction(nameof(Index));
+        }
+
+
+        private ServiceProviderViewModel MapToViewModel(ServiceProviderModel model)
         {
             return new ServiceProviderViewModel
             {
-                Id = (int)denomination.Id,
-                Name = denomination.Name
+                Id = (int)model.Id,
+                Name = model.Name
+            };
+        }
+        private ServiceProviderModel MapToModel(ServiceProviderViewModel model)
+        {
+            return new ServiceProviderModel
+            {
+                Id = model.Id,
+                Name = model.Name
             };
         }
     }

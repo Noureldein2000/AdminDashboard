@@ -34,10 +34,12 @@ namespace AdminDashboard.Models.SwaggerModels
         /// </summary>
         /// <param name="denomination">denomination.</param>
         /// <param name="denominationServiceProviders">denominationServiceProviders.</param>
-        public EditDenominationModel(DenominationModel denomination = default(DenominationModel), List<DenominationServiceProvidersModel> denominationServiceProviders = default(List<DenominationServiceProvidersModel>))
+        /// <param name="denominationParameters">denominationParameters.</param>
+        public EditDenominationModel(DenominationModel denomination = default(DenominationModel), List<DenominationServiceProvidersModel> denominationServiceProviders = default(List<DenominationServiceProvidersModel>), List<DenominationParameterModel> denominationParameters = default(List<DenominationParameterModel>))
         {
             this.Denomination = denomination;
             this.DenominationServiceProviders = denominationServiceProviders;
+            this.DenominationParameters = denominationParameters;
         }
         
         /// <summary>
@@ -53,6 +55,12 @@ namespace AdminDashboard.Models.SwaggerModels
         public List<DenominationServiceProvidersModel> DenominationServiceProviders { get; set; }
 
         /// <summary>
+        /// Gets or Sets DenominationParameters
+        /// </summary>
+        [DataMember(Name="denominationParameters", EmitDefaultValue=false)]
+        public List<DenominationParameterModel> DenominationParameters { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -62,6 +70,7 @@ namespace AdminDashboard.Models.SwaggerModels
             sb.Append("class EditDenominationModel {\n");
             sb.Append("  Denomination: ").Append(Denomination).Append("\n");
             sb.Append("  DenominationServiceProviders: ").Append(DenominationServiceProviders).Append("\n");
+            sb.Append("  DenominationParameters: ").Append(DenominationParameters).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -106,6 +115,12 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.DenominationServiceProviders != null &&
                     input.DenominationServiceProviders != null &&
                     this.DenominationServiceProviders.SequenceEqual(input.DenominationServiceProviders)
+                ) && 
+                (
+                    this.DenominationParameters == input.DenominationParameters ||
+                    this.DenominationParameters != null &&
+                    input.DenominationParameters != null &&
+                    this.DenominationParameters.SequenceEqual(input.DenominationParameters)
                 );
         }
 
@@ -122,6 +137,8 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.Denomination.GetHashCode();
                 if (this.DenominationServiceProviders != null)
                     hashCode = hashCode * 59 + this.DenominationServiceProviders.GetHashCode();
+                if (this.DenominationParameters != null)
+                    hashCode = hashCode * 59 + this.DenominationParameters.GetHashCode();
                 return hashCode;
             }
         }

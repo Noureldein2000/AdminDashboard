@@ -1,4 +1,4 @@
-﻿@model PagedResult<CommissionViewModel>
+﻿@model PagedResult<ParameterViewModel>
 @{
     ViewData["Title"] = "Index";
 }
@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2>All Commissions</h2>
+                    <h2>All Parameters</h2>
                     <a asp-action="Create" class="pull-right btn btn-outline-primary">Add</a>
                 </div>
                 <div class="card-body">
@@ -16,34 +16,27 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>From</th>
-                                <th>To</th>
-                                <th>Value</th>
-                                <th>Payment Mode</th>
-                                <th>Type Name</th>
-                                <th>Start Date</th>
-                                <th>End Date</th>
+                                <th>Name</th>
+                                <th>NameAr</th>
+                                <th>Provider Name</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var com in Model.Results)
+                            @foreach (var deno in Model.Results)
                             {
                                 <tr>
-                                    <td>@com.ID</td>
-                                    <td>@com.AmountFrom</td>
-                                    <td>@com.AmountTo</td>
-                                    <td>@com.Value</td>
-                                    <td>@com.PaymentModeName</td>
-                                    <td>@com.CommissionTypeName</td>
-                                    <td>@com.StartDate.Value.ToShortDateString()</td>
-                                    <td>@com.EndDate.Value.ToShortDateString()</td>
+                                    <td>@deno.Id</td>
+                                    <td>@deno.Name</td>
+                                    <td>@deno.NameAr</td>
+                                    <td>@deno.ProviderName</td>
                                     <td>
-                                        <a asp-action="ChangeStatus" asp-route-id="@com.ID" class="btn @(com.Status ? "btn-danger" : "btn-success")">
-                                            @(com.Status ? "Deactive" : "Active")
+                                        <a asp-action="Edit" asp-route-id="@deno.Id" class="btn btn-info">
+                                            Edit
                                         </a>
-                                        <a asp-action="Edit" asp-route-id="@com.ID" class="btn btn-info">Edit</a>
-                                        @*<a asp-action="Delete" asp-route-id="@fee.ID" class="btn btn-danger">Delete</a>*@
+                                        <a asp-action="Delete" asp-route-id="@deno.Id" class="btn btn-danger">
+                                            Delete
+                                        </a>
                                     </td>
                                 </tr>
                             }
@@ -51,7 +44,7 @@
                     </table>
                 </div>
                 <div class="card-footer d-flex justify-content-center">
-                    <pager link-url="/SuperAdmin/Commission/Index"
+                    <pager link-url="/SuperAdmin/Parameter/Index"
                            page="Model.CurrentPage"
                            page-size="Model.PageSize"
                            total-items="Model.PageCount">
@@ -64,7 +57,7 @@
 @section Scripts{
     <script>
 
-        $(function () {
+        @*$(function () {
             var msg = '@TempData["result"]';
             if (msg != "") {
                 swal({
@@ -74,7 +67,7 @@
                     button: "Ok",
                 });
             }
-         });
+         });*@
 
     </script>
 }

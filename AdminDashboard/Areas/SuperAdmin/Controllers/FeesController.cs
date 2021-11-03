@@ -16,11 +16,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     [Authorize]
     public class FeesController : Controller
     {
-
         private readonly IAccountApi api;
         private readonly IFeesApi apiFees;
-        public FeesController(
-            )
+        public FeesController()
         {
             string url = "https://localhost:44303";
             string urlTms = "https://localhost:44321";

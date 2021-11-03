@@ -6,10 +6,14 @@ using System.Threading.Tasks;
 
 namespace AdminDashboard.Areas.SuperAdmin.Models
 {
-    public class ServiceProviderViewModel
+    public class ParameterViewModel
     {
         public int Id { get; set; }
         [Required]
         public string Name { get; set; }
+        [Required]
+        public string NameAr { get; set; }
+        [Required]
+        public string ProviderName { get; set; }
     }
 }
