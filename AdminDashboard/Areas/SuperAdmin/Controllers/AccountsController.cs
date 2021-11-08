@@ -5,6 +5,7 @@ using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
 using PagedList.Core;
 using System;
 using System.Collections.Generic;
@@ -31,12 +32,11 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         private readonly IUsersApi usersApi;
         private readonly IChannelOwnerApi channelOwnerApi;
         private readonly IChannelPaymentMethodApi channelPaymentMethodApi;
-        public AccountsController(
-            //ISwaggerClient swagerClient
-            )
+        private readonly IConfiguration _configuration;
+        public AccountsController(IConfiguration configuration)
         {
-            //_swagerClient = swagerClient;
-            string url = "https://localhost:44303";
+            _configuration = configuration;
+            string url = _configuration.GetValue<string>("Urls:Authority");
             api = new AccountApi(url);
             regionApi = new RegionApi(url);
             activityApi = new ActivityApi(url);

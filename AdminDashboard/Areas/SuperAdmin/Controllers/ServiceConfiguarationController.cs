@@ -4,6 +4,7 @@ using AdminDashboard.Models.SwaggerModels;
 using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +22,12 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         private readonly IDenominationApi apiDenomination;
         private readonly IServiceProviderApi apiServiceProvider;
         private readonly IServiceConfigurationApi apiServiceConfiguration;
-        public ServiceConfiguarationController(
-            )
+        private readonly IConfiguration _configuration;
+        public ServiceConfiguarationController(IConfiguration configuration)
         {
-            //string urlIdentity = "https://localhost:44303";
-            string urlTms = "https://localhost:44321";
+            _configuration = configuration;
+            string url = _configuration.GetValue<string>("Urls:Authority");
+            string urlTms = _configuration.GetValue<string>("Urls:TMS");
             api = new AdminServiceApi(urlTms);
             apiDenomination = new DenominationApi(urlTms);
             apiServiceProvider = new ServiceProviderApi(urlTms);

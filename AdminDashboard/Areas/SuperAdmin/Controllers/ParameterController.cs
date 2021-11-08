@@ -4,6 +4,7 @@ using AdminDashboard.Models.SwaggerModels;
 using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +18,12 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     public class ParameterController : Controller
     {
         private readonly IParameterApi apiParameter;
-        public ParameterController(
-            )
+        private readonly IConfiguration _configuration;
+        public ParameterController(IConfiguration configuration)
         {
-            //string url = "https://localhost:44303";
-            string urlTms = "https://localhost:44321";
+            _configuration = configuration;
+            string url = _configuration.GetValue<string>("Urls:Authority");
+            string urlTms = _configuration.GetValue<string>("Urls:TMS");
             apiParameter = new ParameterApi(urlTms);
         }
 

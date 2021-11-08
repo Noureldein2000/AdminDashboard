@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,11 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         private readonly IChannelTypeApi channelTypeApi;
         private readonly IChannelOwnerApi channelOwnerApi;
         private readonly IChannelPaymentMethodApi channelPaymentMethodApi;
-        public ChannelsController()
+        private readonly IConfiguration _configuration;
+        public ChannelsController(IConfiguration configuration)
         {
-            string url = "https://localhost:44303";
+            _configuration = configuration;
+            string url = _configuration.GetValue<string>("Urls:Authority");
             api = new ChannelApi(url);
             channelCategoryApi = new ChannelCategoryApi(url);
             channelTypeApi = new ChannelTypeApi(url);

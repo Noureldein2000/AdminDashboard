@@ -6,6 +6,7 @@ using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,11 +19,12 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     {
         private readonly IAccountApi api;
         private readonly ICommissionApi apiCommission;
-        public CommissionController(
-            )
+        private readonly IConfiguration _configuration;
+        public CommissionController(IConfiguration configuration)
         {
-            string url = "https://localhost:44303";
-            string urlTms = "https://localhost:44321";
+            _configuration = configuration;
+            string url = _configuration.GetValue<string>("Urls:Authority");
+            string urlTms = _configuration.GetValue<string>("Urls:TMS");
             api = new AccountApi(url);
             apiCommission = new CommissionApi(urlTms);
         }

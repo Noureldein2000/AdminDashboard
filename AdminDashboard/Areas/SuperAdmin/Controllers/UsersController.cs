@@ -4,6 +4,7 @@ using AdminDashboard.Models.SwaggerModels;
 using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,11 +18,11 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     public class UsersController : Controller
     {
         private readonly IUsersApi _usersApi;
-        public UsersController(
-            //IUsersApi usersApi
-            )
+        private readonly IConfiguration _configuration;
+        public UsersController(IConfiguration configuration)
         {
-            string url = "https://localhost:44303/";
+            _configuration = configuration;
+            string url = _configuration.GetValue<string>("Urls:Authority");
             _usersApi = new UsersApi(url);
         }
         [HttpGet]

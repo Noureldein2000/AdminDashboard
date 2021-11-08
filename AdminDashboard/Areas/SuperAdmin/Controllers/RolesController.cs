@@ -3,6 +3,7 @@ using AdminDashboard.Models.SwaggerModels;
 using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +17,12 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     public class RolesController : Controller
     {
         private readonly IRolesApi _rolesApi;
-        public RolesController(
-            //IRolesApi rolesApi
-            )
+        private readonly IConfiguration _configuration;
+        public RolesController(IConfiguration configuration)
         {
-            string url = "https://localhost:44303";
+            _configuration = configuration;
+            string url = _configuration.GetValue<string>("Urls:Authority");
+            string urlTms = _configuration.GetValue<string>("Urls:TMS");
             _rolesApi = new RolesApi(url);
         }
         public async Task<IActionResult> Index()

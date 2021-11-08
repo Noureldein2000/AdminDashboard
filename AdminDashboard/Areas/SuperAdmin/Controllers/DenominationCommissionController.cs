@@ -5,6 +5,7 @@ using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,11 +20,11 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     {
         private readonly ICommissionApi apiCommissions;
         private readonly IDenominationCommissionApi apiDenominationCommission;
-        public DenominationCommissionController(
-            )
+        private readonly IConfiguration _configuration;
+        public DenominationCommissionController(IConfiguration configuration)
         {
-            //string url = "https://localhost:44303";
-            string urlTms = "https://localhost:44321";
+            _configuration = configuration;
+            string urlTms = _configuration.GetValue<string>("Urls:TMS");
             apiCommissions = new CommissionApi(urlTms);
             apiDenominationCommission = new DenominationCommissionApi(urlTms);
         }

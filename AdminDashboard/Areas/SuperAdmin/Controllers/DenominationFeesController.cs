@@ -5,6 +5,7 @@ using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,12 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         private readonly IFeesApi apiFees;
         private readonly IDenominationFeesApi apiDenominationFees;
         private readonly IDenominationApi apiDenomination;
-        public DenominationFeesController(
-            )
+        private readonly IConfiguration _configuration;
+        public DenominationFeesController(IConfiguration configuration)
         {
-            //string url = "https://localhost:44303";
-            string urlTms = "https://localhost:44321";
+            _configuration = configuration;
+            string url = _configuration.GetValue<string>("Urls:Authority");
+            string urlTms = _configuration.GetValue<string>("Urls:TMS");
             apiFees = new FeesApi(urlTms);
             apiDenominationFees = new DenominationFeesApi(urlTms);
             apiDenomination = new DenominationApi(urlTms);
