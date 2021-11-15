@@ -31,8 +31,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns></returns>
-        void ApiDenominationParamAddParamPost (DenominationParamModel body = null);
+        /// <returns>DenominationParamModel</returns>
+        DenominationParamModel ApiDenominationParamAddParamPost (DenominationParamModel body = null);
 
         /// <summary>
         /// 
@@ -42,8 +42,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ApiDenominationParamAddParamPostWithHttpInfo (DenominationParamModel body = null);
+        /// <returns>ApiResponse of DenominationParamModel</returns>
+        ApiResponse<DenominationParamModel> ApiDenominationParamAddParamPostWithHttpInfo (DenominationParamModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -142,8 +142,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ApiDenominationParamAddParamPostAsync (DenominationParamModel body = null);
+        /// <returns>Task of DenominationParamModel</returns>
+        System.Threading.Tasks.Task<DenominationParamModel> ApiDenominationParamAddParamPostAsync (DenominationParamModel body = null);
 
         /// <summary>
         /// 
@@ -153,8 +153,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ApiDenominationParamAddParamPostAsyncWithHttpInfo (DenominationParamModel body = null);
+        /// <returns>Task of ApiResponse (DenominationParamModel)</returns>
+        System.Threading.Tasks.Task<ApiResponse<DenominationParamModel>> ApiDenominationParamAddParamPostAsyncWithHttpInfo (DenominationParamModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -359,10 +359,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns></returns>
-        public void ApiDenominationParamAddParamPost (DenominationParamModel body = null)
+        /// <returns>DenominationParamModel</returns>
+        public DenominationParamModel ApiDenominationParamAddParamPost (DenominationParamModel body = null)
         {
-             ApiDenominationParamAddParamPostWithHttpInfo(body);
+             ApiResponse<DenominationParamModel> localVarResponse = ApiDenominationParamAddParamPostWithHttpInfo(body);
+             return localVarResponse.Data;
         }
 
         /// <summary>
@@ -370,8 +371,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ApiDenominationParamAddParamPostWithHttpInfo (DenominationParamModel body = null)
+        /// <returns>ApiResponse of DenominationParamModel</returns>
+        public ApiResponse< DenominationParamModel > ApiDenominationParamAddParamPostWithHttpInfo (DenominationParamModel body = null)
         {
 
             var localVarPath = "/api/DenominationParam/AddParam";
@@ -392,6 +393,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -424,9 +428,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<DenominationParamModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (DenominationParamModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(DenominationParamModel)));
         }
 
         /// <summary>
@@ -434,10 +438,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ApiDenominationParamAddParamPostAsync (DenominationParamModel body = null)
+        /// <returns>Task of DenominationParamModel</returns>
+        public async System.Threading.Tasks.Task<DenominationParamModel> ApiDenominationParamAddParamPostAsync (DenominationParamModel body = null)
         {
-             await ApiDenominationParamAddParamPostAsyncWithHttpInfo(body);
+             ApiResponse<DenominationParamModel> localVarResponse = await ApiDenominationParamAddParamPostAsyncWithHttpInfo(body);
+             return localVarResponse.Data;
 
         }
 
@@ -446,8 +451,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiDenominationParamAddParamPostAsyncWithHttpInfo (DenominationParamModel body = null)
+        /// <returns>Task of ApiResponse (DenominationParamModel)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<DenominationParamModel>> ApiDenominationParamAddParamPostAsyncWithHttpInfo (DenominationParamModel body = null)
         {
 
             var localVarPath = "/api/DenominationParam/AddParam";
@@ -468,6 +473,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -500,9 +508,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<DenominationParamModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (DenominationParamModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(DenominationParamModel)));
         }
 
         /// <summary>

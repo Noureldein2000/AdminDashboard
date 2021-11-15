@@ -72,27 +72,6 @@ namespace AdminDashboard.SwaggerClient
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="id"></param>
-        /// <returns>List&lt;string&gt;</returns>
-        List<string> ApiAccountTypeProfileGetAccountMappingValidationIdGet (int? id);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="id"></param>
-        /// <returns>ApiResponse of List&lt;string&gt;</returns>
-        ApiResponse<List<string>> ApiAccountTypeProfileGetAccountMappingValidationIdGetWithHttpInfo (int? id);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <returns>AccountTypeProfileLstModel</returns>
         AccountTypeProfileLstModel ApiAccountTypeProfileGetAccountTypesAndProfilesGet ();
 
@@ -114,8 +93,8 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>List&lt;AccountTypeProfileModel&gt;</returns>
-        List<AccountTypeProfileModel> ApiAccountTypeProfileGetAllGet (int? pageNumber = null, int? pageSize = null);
+        /// <returns>AccountTypeProfileModelPagedResult</returns>
+        AccountTypeProfileModelPagedResult ApiAccountTypeProfileGetAllGet (int? pageNumber = null, int? pageSize = null);
 
         /// <summary>
         /// 
@@ -126,8 +105,8 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>ApiResponse of List&lt;AccountTypeProfileModel&gt;</returns>
-        ApiResponse<List<AccountTypeProfileModel>> ApiAccountTypeProfileGetAllGetWithHttpInfo (int? pageNumber = null, int? pageSize = null);
+        /// <returns>ApiResponse of AccountTypeProfileModelPagedResult</returns>
+        ApiResponse<AccountTypeProfileModelPagedResult> ApiAccountTypeProfileGetAllGetWithHttpInfo (int? pageNumber = null, int? pageSize = null);
         /// <summary>
         /// 
         /// </summary>
@@ -136,9 +115,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <param name="accountId"></param>
-        /// <returns>AccountModel</returns>
-        AccountModel ApiAccountTypeProfileGetParentAccountsIdAccountIdGet (int? id, int? accountId);
+        /// <returns>List&lt;AccountModel&gt;</returns>
+        List<AccountModel> ApiAccountTypeProfileGetParentAccountsIdGet (int? id);
 
         /// <summary>
         /// 
@@ -148,9 +126,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <param name="accountId"></param>
-        /// <returns>ApiResponse of AccountModel</returns>
-        ApiResponse<AccountModel> ApiAccountTypeProfileGetParentAccountsIdAccountIdGetWithHttpInfo (int? id, int? accountId);
+        /// <returns>ApiResponse of List&lt;AccountModel&gt;</returns>
+        ApiResponse<List<AccountModel>> ApiAccountTypeProfileGetParentAccountsIdGetWithHttpInfo (int? id);
         /// <summary>
         /// 
         /// </summary>
@@ -223,27 +200,6 @@ namespace AdminDashboard.SwaggerClient
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="id"></param>
-        /// <returns>Task of List&lt;string&gt;</returns>
-        System.Threading.Tasks.Task<List<string>> ApiAccountTypeProfileGetAccountMappingValidationIdGetAsync (int? id);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="id"></param>
-        /// <returns>Task of ApiResponse (List&lt;string&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<string>>> ApiAccountTypeProfileGetAccountMappingValidationIdGetAsyncWithHttpInfo (int? id);
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <remarks>
-        /// 
-        /// </remarks>
-        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <returns>Task of AccountTypeProfileLstModel</returns>
         System.Threading.Tasks.Task<AccountTypeProfileLstModel> ApiAccountTypeProfileGetAccountTypesAndProfilesGetAsync ();
 
@@ -265,8 +221,8 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of List&lt;AccountTypeProfileModel&gt;</returns>
-        System.Threading.Tasks.Task<List<AccountTypeProfileModel>> ApiAccountTypeProfileGetAllGetAsync (int? pageNumber = null, int? pageSize = null);
+        /// <returns>Task of AccountTypeProfileModelPagedResult</returns>
+        System.Threading.Tasks.Task<AccountTypeProfileModelPagedResult> ApiAccountTypeProfileGetAllGetAsync (int? pageNumber = null, int? pageSize = null);
 
         /// <summary>
         /// 
@@ -277,8 +233,8 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of ApiResponse (List&lt;AccountTypeProfileModel&gt;)</returns>
-        System.Threading.Tasks.Task<ApiResponse<List<AccountTypeProfileModel>>> ApiAccountTypeProfileGetAllGetAsyncWithHttpInfo (int? pageNumber = null, int? pageSize = null);
+        /// <returns>Task of ApiResponse (AccountTypeProfileModelPagedResult)</returns>
+        System.Threading.Tasks.Task<ApiResponse<AccountTypeProfileModelPagedResult>> ApiAccountTypeProfileGetAllGetAsyncWithHttpInfo (int? pageNumber = null, int? pageSize = null);
         /// <summary>
         /// 
         /// </summary>
@@ -287,9 +243,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <param name="accountId"></param>
-        /// <returns>Task of AccountModel</returns>
-        System.Threading.Tasks.Task<AccountModel> ApiAccountTypeProfileGetParentAccountsIdAccountIdGetAsync (int? id, int? accountId);
+        /// <returns>Task of List&lt;AccountModel&gt;</returns>
+        System.Threading.Tasks.Task<List<AccountModel>> ApiAccountTypeProfileGetParentAccountsIdGetAsync (int? id);
 
         /// <summary>
         /// 
@@ -299,9 +254,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <param name="accountId"></param>
-        /// <returns>Task of ApiResponse (AccountModel)</returns>
-        System.Threading.Tasks.Task<ApiResponse<AccountModel>> ApiAccountTypeProfileGetParentAccountsIdAccountIdGetAsyncWithHttpInfo (int? id, int? accountId);
+        /// <returns>Task of ApiResponse (List&lt;AccountModel&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<AccountModel>>> ApiAccountTypeProfileGetParentAccountsIdGetAsyncWithHttpInfo (int? id);
         /// <summary>
         /// 
         /// </summary>
@@ -736,151 +690,6 @@ namespace AdminDashboard.SwaggerClient
         ///  
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="id"></param>
-        /// <returns>List&lt;string&gt;</returns>
-        public List<string> ApiAccountTypeProfileGetAccountMappingValidationIdGet (int? id)
-        {
-             ApiResponse<List<string>> localVarResponse = ApiAccountTypeProfileGetAccountMappingValidationIdGetWithHttpInfo(id);
-             return localVarResponse.Data;
-        }
-
-        /// <summary>
-        ///  
-        /// </summary>
-        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="id"></param>
-        /// <returns>ApiResponse of List&lt;string&gt;</returns>
-        public ApiResponse< List<string> > ApiAccountTypeProfileGetAccountMappingValidationIdGetWithHttpInfo (int? id)
-        {
-            // verify the required parameter 'id' is set
-            if (id == null)
-                throw new ApiException(400, "Missing required parameter 'id' when calling AccountTypeProfileApi->ApiAccountTypeProfileGetAccountMappingValidationIdGet");
-
-            var localVarPath = "/api/AccountTypeProfile/GetAccountMappingValidation/{id}";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-            };
-            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "text/plain",
-                "application/json",
-                "text/json"
-            };
-            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-            if (id != null) localVarPathParams.Add("id", this.Configuration.ApiClient.ParameterToString(id)); // path parameter
-            // authentication (Bearer) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
-            {
-                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
-            }
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("ApiAccountTypeProfileGetAccountMappingValidationIdGet", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<List<string>>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (List<string>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<string>)));
-        }
-
-        /// <summary>
-        ///  
-        /// </summary>
-        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="id"></param>
-        /// <returns>Task of List&lt;string&gt;</returns>
-        public async System.Threading.Tasks.Task<List<string>> ApiAccountTypeProfileGetAccountMappingValidationIdGetAsync (int? id)
-        {
-             ApiResponse<List<string>> localVarResponse = await ApiAccountTypeProfileGetAccountMappingValidationIdGetAsyncWithHttpInfo(id);
-             return localVarResponse.Data;
-
-        }
-
-        /// <summary>
-        ///  
-        /// </summary>
-        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="id"></param>
-        /// <returns>Task of ApiResponse (List&lt;string&gt;)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<List<string>>> ApiAccountTypeProfileGetAccountMappingValidationIdGetAsyncWithHttpInfo (int? id)
-        {
-            // verify the required parameter 'id' is set
-            if (id == null)
-                throw new ApiException(400, "Missing required parameter 'id' when calling AccountTypeProfileApi->ApiAccountTypeProfileGetAccountMappingValidationIdGet");
-
-            var localVarPath = "/api/AccountTypeProfile/GetAccountMappingValidation/{id}";
-            var localVarPathParams = new Dictionary<String, String>();
-            var localVarQueryParams = new List<KeyValuePair<String, String>>();
-            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
-            var localVarFormParams = new Dictionary<String, String>();
-            var localVarFileParams = new Dictionary<String, FileParameter>();
-            Object localVarPostBody = null;
-
-            // to determine the Content-Type header
-            String[] localVarHttpContentTypes = new String[] {
-            };
-            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
-
-            // to determine the Accept header
-            String[] localVarHttpHeaderAccepts = new String[] {
-                "text/plain",
-                "application/json",
-                "text/json"
-            };
-            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
-            if (localVarHttpHeaderAccept != null)
-                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-
-            if (id != null) localVarPathParams.Add("id", this.Configuration.ApiClient.ParameterToString(id)); // path parameter
-            // authentication (Bearer) required
-            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
-            {
-                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
-            }
-
-            // make the HTTP request
-            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
-                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
-                localVarPathParams, localVarHttpContentType);
-
-            int localVarStatusCode = (int) localVarResponse.StatusCode;
-
-            if (ExceptionFactory != null)
-            {
-                Exception exception = ExceptionFactory("ApiAccountTypeProfileGetAccountMappingValidationIdGet", localVarResponse);
-                if (exception != null) throw exception;
-            }
-
-            return new ApiResponse<List<string>>(localVarStatusCode,
-                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (List<string>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<string>)));
-        }
-
-        /// <summary>
-        ///  
-        /// </summary>
-        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <returns>AccountTypeProfileLstModel</returns>
         public AccountTypeProfileLstModel ApiAccountTypeProfileGetAccountTypesAndProfilesGet ()
         {
@@ -1016,10 +825,10 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>List&lt;AccountTypeProfileModel&gt;</returns>
-        public List<AccountTypeProfileModel> ApiAccountTypeProfileGetAllGet (int? pageNumber = null, int? pageSize = null)
+        /// <returns>AccountTypeProfileModelPagedResult</returns>
+        public AccountTypeProfileModelPagedResult ApiAccountTypeProfileGetAllGet (int? pageNumber = null, int? pageSize = null)
         {
-             ApiResponse<List<AccountTypeProfileModel>> localVarResponse = ApiAccountTypeProfileGetAllGetWithHttpInfo(pageNumber, pageSize);
+             ApiResponse<AccountTypeProfileModelPagedResult> localVarResponse = ApiAccountTypeProfileGetAllGetWithHttpInfo(pageNumber, pageSize);
              return localVarResponse.Data;
         }
 
@@ -1029,8 +838,8 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>ApiResponse of List&lt;AccountTypeProfileModel&gt;</returns>
-        public ApiResponse< List<AccountTypeProfileModel> > ApiAccountTypeProfileGetAllGetWithHttpInfo (int? pageNumber = null, int? pageSize = null)
+        /// <returns>ApiResponse of AccountTypeProfileModelPagedResult</returns>
+        public ApiResponse< AccountTypeProfileModelPagedResult > ApiAccountTypeProfileGetAllGetWithHttpInfo (int? pageNumber = null, int? pageSize = null)
         {
 
             var localVarPath = "/api/AccountTypeProfile/GetAll";
@@ -1077,9 +886,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<List<AccountTypeProfileModel>>(localVarStatusCode,
+            return new ApiResponse<AccountTypeProfileModelPagedResult>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (List<AccountTypeProfileModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<AccountTypeProfileModel>)));
+                (AccountTypeProfileModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountTypeProfileModelPagedResult)));
         }
 
         /// <summary>
@@ -1088,10 +897,10 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of List&lt;AccountTypeProfileModel&gt;</returns>
-        public async System.Threading.Tasks.Task<List<AccountTypeProfileModel>> ApiAccountTypeProfileGetAllGetAsync (int? pageNumber = null, int? pageSize = null)
+        /// <returns>Task of AccountTypeProfileModelPagedResult</returns>
+        public async System.Threading.Tasks.Task<AccountTypeProfileModelPagedResult> ApiAccountTypeProfileGetAllGetAsync (int? pageNumber = null, int? pageSize = null)
         {
-             ApiResponse<List<AccountTypeProfileModel>> localVarResponse = await ApiAccountTypeProfileGetAllGetAsyncWithHttpInfo(pageNumber, pageSize);
+             ApiResponse<AccountTypeProfileModelPagedResult> localVarResponse = await ApiAccountTypeProfileGetAllGetAsyncWithHttpInfo(pageNumber, pageSize);
              return localVarResponse.Data;
 
         }
@@ -1102,8 +911,8 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of ApiResponse (List&lt;AccountTypeProfileModel&gt;)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<List<AccountTypeProfileModel>>> ApiAccountTypeProfileGetAllGetAsyncWithHttpInfo (int? pageNumber = null, int? pageSize = null)
+        /// <returns>Task of ApiResponse (AccountTypeProfileModelPagedResult)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<AccountTypeProfileModelPagedResult>> ApiAccountTypeProfileGetAllGetAsyncWithHttpInfo (int? pageNumber = null, int? pageSize = null)
         {
 
             var localVarPath = "/api/AccountTypeProfile/GetAll";
@@ -1150,9 +959,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<List<AccountTypeProfileModel>>(localVarStatusCode,
+            return new ApiResponse<AccountTypeProfileModelPagedResult>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (List<AccountTypeProfileModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<AccountTypeProfileModel>)));
+                (AccountTypeProfileModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountTypeProfileModelPagedResult)));
         }
 
         /// <summary>
@@ -1160,11 +969,10 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <param name="accountId"></param>
-        /// <returns>AccountModel</returns>
-        public AccountModel ApiAccountTypeProfileGetParentAccountsIdAccountIdGet (int? id, int? accountId)
+        /// <returns>List&lt;AccountModel&gt;</returns>
+        public List<AccountModel> ApiAccountTypeProfileGetParentAccountsIdGet (int? id)
         {
-             ApiResponse<AccountModel> localVarResponse = ApiAccountTypeProfileGetParentAccountsIdAccountIdGetWithHttpInfo(id, accountId);
+             ApiResponse<List<AccountModel>> localVarResponse = ApiAccountTypeProfileGetParentAccountsIdGetWithHttpInfo(id);
              return localVarResponse.Data;
         }
 
@@ -1173,18 +981,14 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <param name="accountId"></param>
-        /// <returns>ApiResponse of AccountModel</returns>
-        public ApiResponse< AccountModel > ApiAccountTypeProfileGetParentAccountsIdAccountIdGetWithHttpInfo (int? id, int? accountId)
+        /// <returns>ApiResponse of List&lt;AccountModel&gt;</returns>
+        public ApiResponse< List<AccountModel> > ApiAccountTypeProfileGetParentAccountsIdGetWithHttpInfo (int? id)
         {
             // verify the required parameter 'id' is set
             if (id == null)
-                throw new ApiException(400, "Missing required parameter 'id' when calling AccountTypeProfileApi->ApiAccountTypeProfileGetParentAccountsIdAccountIdGet");
-            // verify the required parameter 'accountId' is set
-            if (accountId == null)
-                throw new ApiException(400, "Missing required parameter 'accountId' when calling AccountTypeProfileApi->ApiAccountTypeProfileGetParentAccountsIdAccountIdGet");
+                throw new ApiException(400, "Missing required parameter 'id' when calling AccountTypeProfileApi->ApiAccountTypeProfileGetParentAccountsIdGet");
 
-            var localVarPath = "/api/AccountTypeProfile/GetParentAccounts/{id}/{accountId}";
+            var localVarPath = "/api/AccountTypeProfile/GetParentAccounts/{id}";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -1208,7 +1012,6 @@ namespace AdminDashboard.SwaggerClient
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
             if (id != null) localVarPathParams.Add("id", this.Configuration.ApiClient.ParameterToString(id)); // path parameter
-            if (accountId != null) localVarPathParams.Add("accountId", this.Configuration.ApiClient.ParameterToString(accountId)); // path parameter
             // authentication (Bearer) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
             {
@@ -1224,13 +1027,13 @@ namespace AdminDashboard.SwaggerClient
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ApiAccountTypeProfileGetParentAccountsIdAccountIdGet", localVarResponse);
+                Exception exception = ExceptionFactory("ApiAccountTypeProfileGetParentAccountsIdGet", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<AccountModel>(localVarStatusCode,
+            return new ApiResponse<List<AccountModel>>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (AccountModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountModel)));
+                (List<AccountModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<AccountModel>)));
         }
 
         /// <summary>
@@ -1238,11 +1041,10 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <param name="accountId"></param>
-        /// <returns>Task of AccountModel</returns>
-        public async System.Threading.Tasks.Task<AccountModel> ApiAccountTypeProfileGetParentAccountsIdAccountIdGetAsync (int? id, int? accountId)
+        /// <returns>Task of List&lt;AccountModel&gt;</returns>
+        public async System.Threading.Tasks.Task<List<AccountModel>> ApiAccountTypeProfileGetParentAccountsIdGetAsync (int? id)
         {
-             ApiResponse<AccountModel> localVarResponse = await ApiAccountTypeProfileGetParentAccountsIdAccountIdGetAsyncWithHttpInfo(id, accountId);
+             ApiResponse<List<AccountModel>> localVarResponse = await ApiAccountTypeProfileGetParentAccountsIdGetAsyncWithHttpInfo(id);
              return localVarResponse.Data;
 
         }
@@ -1252,18 +1054,14 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="id"></param>
-        /// <param name="accountId"></param>
-        /// <returns>Task of ApiResponse (AccountModel)</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<AccountModel>> ApiAccountTypeProfileGetParentAccountsIdAccountIdGetAsyncWithHttpInfo (int? id, int? accountId)
+        /// <returns>Task of ApiResponse (List&lt;AccountModel&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<AccountModel>>> ApiAccountTypeProfileGetParentAccountsIdGetAsyncWithHttpInfo (int? id)
         {
             // verify the required parameter 'id' is set
             if (id == null)
-                throw new ApiException(400, "Missing required parameter 'id' when calling AccountTypeProfileApi->ApiAccountTypeProfileGetParentAccountsIdAccountIdGet");
-            // verify the required parameter 'accountId' is set
-            if (accountId == null)
-                throw new ApiException(400, "Missing required parameter 'accountId' when calling AccountTypeProfileApi->ApiAccountTypeProfileGetParentAccountsIdAccountIdGet");
+                throw new ApiException(400, "Missing required parameter 'id' when calling AccountTypeProfileApi->ApiAccountTypeProfileGetParentAccountsIdGet");
 
-            var localVarPath = "/api/AccountTypeProfile/GetParentAccounts/{id}/{accountId}";
+            var localVarPath = "/api/AccountTypeProfile/GetParentAccounts/{id}";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -1287,7 +1085,6 @@ namespace AdminDashboard.SwaggerClient
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
             if (id != null) localVarPathParams.Add("id", this.Configuration.ApiClient.ParameterToString(id)); // path parameter
-            if (accountId != null) localVarPathParams.Add("accountId", this.Configuration.ApiClient.ParameterToString(accountId)); // path parameter
             // authentication (Bearer) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
             {
@@ -1303,13 +1100,13 @@ namespace AdminDashboard.SwaggerClient
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ApiAccountTypeProfileGetParentAccountsIdAccountIdGet", localVarResponse);
+                Exception exception = ExceptionFactory("ApiAccountTypeProfileGetParentAccountsIdGet", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<AccountModel>(localVarStatusCode,
+            return new ApiResponse<List<AccountModel>>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                (AccountModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountModel)));
+                (List<AccountModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<AccountModel>)));
         }
 
         /// <summary>

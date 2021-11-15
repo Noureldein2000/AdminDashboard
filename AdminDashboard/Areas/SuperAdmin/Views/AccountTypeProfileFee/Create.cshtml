@@ -1,0 +1,40 @@
+﻿@model CreateAccountTypeProfileFeeViewModel
+@using AdminDashboard.Models.SwaggerModels;
+@{
+    ViewData["Title"] = "CreateAccountTypeProfileFee";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <form asp-action="Create" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="card-header">
+                        <h2>Create AccountType Profile Fee</h2>
+                    </div>
+                    <div class="card-body">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <input type="hidden" asp-for="AccountTypeProfileDenominationID" />
+                        <div class="form-group">
+                            <label class="control-label">Fees </label>
+                            <select asp-for="FeeId" asp-items="Model.Fees" class="form-control" data-style="select-with-transition" title="Choose a Accout Type Profile " data-size="7">
+                                <option disabled selected> Choose a Fee</option>
+                            </select>
+                            <span asp-validation-for="FeeId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+    </script>
+}
