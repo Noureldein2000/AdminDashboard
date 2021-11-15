@@ -566,7 +566,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public JsonResult GetAccountTypesByParentId(int id, int accountId)
         {
-            var account = accountTypeProfileApi.ApiAccountTypeProfileGetParentAccountsIdAccountIdGet(id, accountId);
+            var account = accountTypeProfileApi.ApiAccountTypeProfileGetParentAccountsIdGet(id);
             return Json(account);
         }
         [HttpGet]
@@ -590,7 +590,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public JsonResult GetAccountMappingValidation(int id)
         {
-            var account = accountTypeProfileApi.ApiAccountTypeProfileGetAccountMappingValidationIdGet(id);
+            //var account = accountTypeProfileApi.ApiAccountTypeProfileGetAccountMappingValidationIdGet(id);
+            var account = new AccountChannelModel();
             return Json(account);
         }
         [HttpGet]

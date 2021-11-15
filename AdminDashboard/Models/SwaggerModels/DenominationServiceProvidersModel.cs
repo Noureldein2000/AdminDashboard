@@ -19,7 +19,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
-using SwaggerDateConverter = AdminDashboard.SwaggerClientHelpers.SwaggerDateConverter;
+using System.ComponentModel.DataAnnotations;
 
 namespace AdminDashboard.Models.SwaggerModels
 {
@@ -35,6 +35,7 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="id">id.</param>
         /// <param name="denominationId">denominationId.</param>
         /// <param name="serviceProviderId">serviceProviderId.</param>
+        /// <param name="serviceConfigerationId">serviceConfigerationId.</param>
         /// <param name="serviceProviderName">serviceProviderName.</param>
         /// <param name="balance">balance.</param>
         /// <param name="status">status.</param>
@@ -43,11 +44,12 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="oldServiceId">oldServiceId.</param>
         /// <param name="providerHasFees">providerHasFees.</param>
         /// <param name="denominationProviderConfigurationModel">denominationProviderConfigurationModel.</param>
-        public DenominationServiceProvidersModel(int? id = default(int?), int? denominationId = default(int?), int? serviceProviderId = default(int?), string serviceProviderName = default(string), double? balance = default(double?), bool? status = default(bool?), string providerCode = default(string), double? providerAmount = default(double?), int? oldServiceId = default(int?), bool? providerHasFees = default(bool?), List<DenominationProviderConfigerationModel> denominationProviderConfigurationModel = default(List<DenominationProviderConfigerationModel>))
+        public DenominationServiceProvidersModel(int? id = default(int?), int? denominationId = default(int?), int? serviceProviderId = default(int?), int? serviceConfigerationId = default(int?), string serviceProviderName = default(string), double? balance = default(double?), bool? status = default(bool?), string providerCode = default(string), double? providerAmount = default(double?), int? oldServiceId = default(int?), bool? providerHasFees = default(bool?), List<DenominationProviderConfigerationModel> denominationProviderConfigurationModel = default(List<DenominationProviderConfigerationModel>))
         {
             this.Id = id;
             this.DenominationId = denominationId;
             this.ServiceProviderId = serviceProviderId;
+            this.ServiceConfigerationId = serviceConfigerationId;
             this.ServiceProviderName = serviceProviderName;
             this.Balance = balance;
             this.Status = status;
@@ -75,6 +77,12 @@ namespace AdminDashboard.Models.SwaggerModels
         /// </summary>
         [DataMember(Name="serviceProviderId", EmitDefaultValue=false)]
         public int? ServiceProviderId { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ServiceConfigerationId
+        /// </summary>
+        [DataMember(Name="serviceConfigerationId", EmitDefaultValue=false)]
+        public int? ServiceConfigerationId { get; set; }
 
         /// <summary>
         /// Gets or Sets ServiceProviderName
@@ -135,6 +143,7 @@ namespace AdminDashboard.Models.SwaggerModels
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  DenominationId: ").Append(DenominationId).Append("\n");
             sb.Append("  ServiceProviderId: ").Append(ServiceProviderId).Append("\n");
+            sb.Append("  ServiceConfigerationId: ").Append(ServiceConfigerationId).Append("\n");
             sb.Append("  ServiceProviderName: ").Append(ServiceProviderName).Append("\n");
             sb.Append("  Balance: ").Append(Balance).Append("\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
@@ -191,6 +200,11 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.ServiceProviderId == input.ServiceProviderId ||
                     (this.ServiceProviderId != null &&
                     this.ServiceProviderId.Equals(input.ServiceProviderId))
+                ) && 
+                (
+                    this.ServiceConfigerationId == input.ServiceConfigerationId ||
+                    (this.ServiceConfigerationId != null &&
+                    this.ServiceConfigerationId.Equals(input.ServiceConfigerationId))
                 ) && 
                 (
                     this.ServiceProviderName == input.ServiceProviderName ||
@@ -250,6 +264,8 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.DenominationId.GetHashCode();
                 if (this.ServiceProviderId != null)
                     hashCode = hashCode * 59 + this.ServiceProviderId.GetHashCode();
+                if (this.ServiceConfigerationId != null)
+                    hashCode = hashCode * 59 + this.ServiceConfigerationId.GetHashCode();
                 if (this.ServiceProviderName != null)
                     hashCode = hashCode * 59 + this.ServiceProviderName.GetHashCode();
                 if (this.Balance != null)

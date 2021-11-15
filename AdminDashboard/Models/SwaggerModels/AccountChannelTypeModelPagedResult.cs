@@ -22,7 +22,7 @@ using System.ComponentModel.DataAnnotations;
 using SwaggerDateConverter = AdminDashboard.SwaggerClientHelpers.SwaggerDateConverter;
 using AdminDashboard.Models.SwaggerModels;
 
-namespace AdminDashboard.Models.SwaggerModelsel
+namespace AdminDashboard.Models.SwaggerModels
 {
     /// <summary>
     /// AccountChannelTypeModelPagedResult
