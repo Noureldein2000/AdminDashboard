@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2>All AccountType Profile</h2>
+                    <h2> AccountType Profile</h2>
                     <a asp-action="Create" class="pull-right btn btn-outline-primary">Add</a>
                 </div>
                 <div class="card-body">
@@ -29,7 +29,7 @@
                                     <td>@ATPD.AccountTypeName</td>
                                     <td>@ATPD.ProfileName</td>
                                     <td>
-                                        <a onclick="ConfirmDeleteAccountTypeProfile(@ATPD.Id,this)" class="btn btn-danger">Delete</a>
+                                        <button onclick="ConfirmDeleteAccountTypeProfile(@ATPD.Id,this)" class="btn btn-danger">Delete</button>
                                     </td>
                                 </tr>
                             }

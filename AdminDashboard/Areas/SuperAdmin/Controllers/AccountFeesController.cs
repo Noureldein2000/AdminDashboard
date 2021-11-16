@@ -110,11 +110,11 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         }
 
         [HttpGet]
-        public IActionResult DeleteAccountFee(int id, int accountId)
+        public JsonResult DeleteAccountFee(int id)
         {
             apiAccountFees.ApiAccountFeesDeleteAccountFeeIdDelete(id: id);
 
-            return RedirectToAction(nameof(Index), new { accountId = accountId });
+            return Json(id);
         }
 
         [HttpGet]

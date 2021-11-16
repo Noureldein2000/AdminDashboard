@@ -73,10 +73,10 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             apiServiceProvider.ApiServiceProviderEditServiceProviderPut(MapToModel(model));
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult Delete(int id)
+        public JsonResult Delete(int id)
         {
             apiServiceProvider.ApiServiceProviderDeleteServiceProviderIdDelete(id);
-            return RedirectToAction(nameof(Index));
+            return Json(id);
         }
 
 

@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2>All AccountType Profile Denomination</h2>
+                    <h2> AccountType Profile Denomination</h2>
                     <a asp-action="Create" class="pull-right btn btn-outline-primary">Add</a>
                 </div>
                 <div class="card-body">
@@ -34,9 +34,9 @@
                                         <a asp-action="ChangeStatus" asp-route-id="@ATPD.Id" class="btn @(ATPD.Status ? "btn-danger" : "btn-success")">
                                             @(ATPD.Status ? "Deactive" : "Active")
                                         </a>
-                                        <a asp-action="Index" asp-controller="AccountTypeProfileFee" asp-route-id="@ATPD.Id" class="btn btn-info">Fees</a>
-                                        <a asp-action="Index" asp-controller="AccountTypeProfileCommission" asp-route-id="@ATPD.Id" class="btn btn-info">Commission</a>
-                                        <a onclick="ConfirmDeleteAccountTypeProfileDenomintion(@ATPD.Id,this)" class="btn btn-danger">Delete</a>
+                                        <a asp-action="Index" asp-controller="AccountTypeProfileFee" asp-route-id="@ATPD.Id" asp-route-title="@ATPD.AccountTypeName - @ATPD.ProfileName" class="btn btn-info">Fees</a>
+                                        <a asp-action="Index" asp-controller="AccountTypeProfileCommission" asp-route-id="@ATPD.Id" asp-route-title="@ATPD.AccountTypeName - @ATPD.ProfileName" class="btn btn-info">Commission</a>
+                                        <button onclick="ConfirmDeleteAccountTypeProfileDenomintion(@ATPD.Id,this)" class="btn btn-danger">Delete</button>
                                     </td>
                                 </tr>
                             }

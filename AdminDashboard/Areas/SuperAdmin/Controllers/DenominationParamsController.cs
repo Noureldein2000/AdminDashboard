@@ -78,10 +78,10 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
-        public IActionResult Delete(int id)
+        public JsonResult Delete(int id)
         {
             apiDenominationParam.ApiDenominationParamDeleteParamIdDelete(id);
-            return RedirectToAction(nameof(Index));
+            return Json(id);
         }
 
 

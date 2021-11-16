@@ -75,9 +75,9 @@
                                                     <td>@item.ProviderHasFees</td>
                                                     <td>
                                                         <button onclick="EditDenominationServiceProvider(@item.Id,this)" class="btn btn-primary">Edit</button>
-                                                        <a onclick="ChangeStatusDenominationServiceProvider(@item.Id,this)" class="btn @(item.Status ? "btn-danger" : "btn-success")">
+                                                        <button onclick="ChangeStatusDenominationServiceProvider(@item.Id,this)" class="btn @(item.Status ? "btn-danger" : "btn-success")">
                                                             @(item.Status ? "Deactive" : "Active")
-                                                        </a>
+                                                        </button>
                                                     </td>
                                                 </tr>
                                             }
@@ -447,7 +447,7 @@
                         <td> ${dataTest.balance} </td><td>${dataTest.providerCode}</td>
                         <td>${dataTest.providerAmount}</td><td>${dataTest.providerHasFees}</td>
                         <td><button onclick="EditDenominationServiceProvider(${dataTest.id},this)" class="btn btn-primary mr-1">Edit</button>
-                        <a onclick="ChangeStatusDenominationServiceProvider(${dataTest.id},this)" class="${dataTest.status ? 'btn btn-danger' : 'btn btn-success'}">${dataTest.status ? 'Deactive' : 'Active'}</a></td>`;
+                        <button onclick="ChangeStatusDenominationServiceProvider(${dataTest.id},this)" class="${dataTest.status ? 'btn btn-danger' : 'btn btn-success'}">${dataTest.status ? 'Deactive' : 'Active'}</button></td>`;
 
                         if (IsEdited == "")
                             $('#table-DenominationServiceProvider').append(`<tr id="tr-dsp-' + dataTest.id+'">${html}</tr>`);
@@ -836,32 +836,5 @@
             return valid;
         }
 
-        function testAppendChangeStatuts(statusTest) {
-            
-            dataTest = {
-                id: 615,
-                serviceProviderName:"Testprovider",
-                balance:"TestBalance",
-                providerCode:"providerCode",
-                providerAmount: "providerAmount",
-                providerHasFees: "providerHasFees",
-                status: false,
-            }
-
-            dataTest.status = statusTest;
-
-            var row = '#tr-dsp-' + dataTest.id;
-
-            $(row).empty();
-
-            var html = `<td>${dataTest.id}</td><td> ${dataTest.serviceProviderName}</td>
-                        <td> ${dataTest.balance} </td><td>${dataTest.providerCode}</td>
-                        <td>${dataTest.providerAmount}</td><td>${ dataTest.providerHasFees }</td>
-                        <td><button onclick="EditDenominationServiceProvider(${ dataTest.id},this)" class="btn btn-primary mr-1">Edit</button>
-                        <a onclick="ChangeStatusDenominationServiceProvider(${dataTest.id},this)" class="${dataTest.status ? 'btn btn-danger' : 'btn btn-success'}">${dataTest.status ? 'Deactive' : 'Active'}</a></td>`;
-/*            (myBooleanFlag ? '<p>Some child element</p>' : '')*/
-/*            var d = `hi ${row}`;*/
-            $(row).append(html);
-        }
     </script>
 }

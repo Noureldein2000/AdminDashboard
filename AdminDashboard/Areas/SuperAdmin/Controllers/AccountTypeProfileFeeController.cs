@@ -34,7 +34,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             feesApi = new FeesApi(urlTms);
             accountTypeProfileFeeApi = new AccountTypeProfileFeeApi(urlTms);
         }
-        public async Task<IActionResult> Index(int id, int page = 1, int size = 10)
+        public async Task<IActionResult> Index(int id, string title, int page = 1, int size = 10)
         {
             var model = await accountTypeProfileFeeApi.ApiAccountTypeProfileFeeGetAccountTypeProfileFeesIdGetAsync(id, page, size, "ar");
 
@@ -46,6 +46,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 PageSize = size
             };
 
+            ViewBag.FullTitle = title;
             return View(viewModel);
         }
 
