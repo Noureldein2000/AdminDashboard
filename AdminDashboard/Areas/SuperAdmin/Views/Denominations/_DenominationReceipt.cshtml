@@ -23,21 +23,33 @@
         <span asp-validation-for="DenominationReceiptData.Footer" class="text-danger"></span>
     </div>
     <hr />
-    <div class="form-group">
-        <label class="control-label">Parameter</label>
-        <select asp-items="@ViewBag.Parameters" class="form-control" id="paramterId" data-style="select-with-transition" title="Choose an Param" data-size="7">
-            <option disabled selected> Choose Param</option>
-        </select>
-        <span class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label class="control-label">Alignment</label>
-        <input type="text" onkeypress="return isNumberKey(event)" id="alignment" class="form-control" />
-        <span class="text-danger"></span>
-    </div>
-    <div class="form-group">
-        <label class="control-label" id="bold">Is Bold?</label>
-        <input type="checkbox" />
+    <div class="card">
+        <div class="card-header">
+            <h4> Denomination Recepit Param</h4>
+        </div>
+        <div class="card-body" id="divCont">
+            <div class="form-group row">
+                <div class="col-md-4">
+                    <label class="control-label">Parameter</label>
+                    <select asp-items="@ViewBag.Parameters" class="form-control" id="paramterId" data-style="select-with-transition" title="Choose an Param" data-size="7">
+                        <option disabled selected> Choose Param</option>
+                    </select>
+                    <span class="text-danger"></span>
+                </div>
+                <div class="col-md-4">
+                    <label class="control-label">Alignment</label>
+                    <input type="text" onkeypress="return isNumberKey(event)" id="alignment" class="form-control" />
+                    <span class="text-danger"></span>
+                </div>
+                <div class="col-md-2 mt-5">
+                    <label class="control-label" id="bold">Is Bold?</label>
+                    <input type="checkbox" />
+                </div>
+                <div class="col-md-2" style="margin-top: 30px;">
+                    <input type="button" id="addProviderConfigParams" value="Add" class="btn btn-info float-right" onclick="AddTextBox()" disabled />
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
