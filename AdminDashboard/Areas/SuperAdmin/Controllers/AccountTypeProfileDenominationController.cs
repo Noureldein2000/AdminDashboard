@@ -5,6 +5,7 @@ using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +22,14 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         private readonly IAccountTypeProfileDenominationApi accountTypeProfileDenominationApi;
         private readonly IDenominationApi denominationApi;
         private readonly IAdminServiceApi adminServiceApi;
-        public AccountTypeProfileDenominationController(
-            )
+        private readonly IConfiguration _configuration;
+        public AccountTypeProfileDenominationController(IConfiguration configuration)
         {
-            string url = "https://localhost:44303";
-            string urlTms = "https://localhost:44321";
+            _configuration = configuration;
+            string url = _configuration.GetValue<string>("Urls:Authority");
+            string urlTms = _configuration.GetValue<string>("Urls:TMS");
+            //string url = "https://localhost:44303";
+            //string urlTms = "https://localhost:44321";
             accountTypeProfileApi = new AccountTypeProfileApi(url);
             accountTypeProfileDenominationApi = new AccountTypeProfileDenominationApi(urlTms);
             denominationApi = new DenominationApi(urlTms);

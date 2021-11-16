@@ -5,6 +5,7 @@ using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,11 +19,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     public class AccountTypeProfileController : Controller
     {
         private readonly IAccountTypeProfileApi accountTypeProfileApi;
+        private readonly IConfiguration _configuration;
         //private readonly IAccountTypeApi accountTypeProfileApi;
-        public AccountTypeProfileController(
-            )
+        public AccountTypeProfileController(IConfiguration configuration)
         {
-            string url = "https://localhost:44303";
+            _configuration = configuration;
+            string url = _configuration.GetValue<string>("Urls:Authority");
+            //string url = "https://localhost:44303";
             //string urlTms = "https://localhost:44321";
             accountTypeProfileApi = new AccountTypeProfileApi(url);
         }
@@ -117,7 +120,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
                 model.AccountTypes = accountTypes;
                 model.Profiles = profiles;
-                
+
                 return View(model);
             }
 

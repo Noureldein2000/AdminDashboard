@@ -32,14 +32,14 @@
                             <input asp-for="ParamKey" class="form-control" />
                             <span asp-validation-for="ParamKey" class="text-danger"></span>
                         </div>
-                        <div class="col-md-6">
+                        <div class="form-group">
                             <label class="control-label">Value Type</label>
                             <select asp-for="ValueTypeID" asp-items="@Html.GetEnumSelectList<DenominationParamsValueType>()" class="form-control" data-style="select-with-transition" title="Choose a Type" data-size="7">
                                 <option disabled selected> Choose a Type</option>
                             </select>
                             <span asp-validation-for="ValueTypeID" class="text-danger"></span>
                         </div>
-                        <div class="col-md-6">
+                        <div class="form-group">
                             <label class="control-label">Value Mode</label>
                             <select asp-for="ValueModeID" asp-items="@Html.GetEnumSelectList<DenominationParamsValueMode>()" class="form-control" data-style="select-with-transition" title="Choose a Mode" data-size="7">
                                 <option disabled selected> Choose a Mode</option>

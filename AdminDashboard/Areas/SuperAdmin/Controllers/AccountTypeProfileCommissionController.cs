@@ -5,6 +5,7 @@ using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,12 +22,11 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         private readonly ICommissionApi commissionApi;
         //private readonly IAccountTypeProfileDenominationApi accountTypeProfileDenominationApi;
         private readonly IAccountTypeProfileCommissionApi accountTypeProfileCommissionApi;
-        public AccountTypeProfileCommissionController(
-            )
+        private readonly IConfiguration _configuration;
+        public AccountTypeProfileCommissionController(IConfiguration configuration)
         {
-            string url = "https://localhost:44303";
-            string urlTms = "https://localhost:44321";
-            //accountTypeProfileDenominationApi = new AccountTypeProfileDenominationApi(urlTms);
+            _configuration = configuration;
+            string urlTms = _configuration.GetValue<string>("Urls:TMS");
             commissionApi = new CommissionApi(urlTms);
             accountTypeProfileCommissionApi = new AccountTypeProfileCommissionApi(urlTms);
         }
