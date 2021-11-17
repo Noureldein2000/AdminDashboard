@@ -235,44 +235,6 @@
                         </div>
                     </div>
                 </div>
-                @*<div class="tab-pane fade" id="receiptParam" role="tabpanel" aria-labelledby="receiptParam-tab">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <table class="table table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th>No.</th>
-                                                    <th>Paramter</th>
-                                                    <th>Bold</th>
-                                                    <th>Alignment</th>
-                                                    <th>Actions</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                @foreach (var item in Model.DenominationReceipt.DenominationReceiptParams)
-                                                {
-                                                    <tr>
-                                                        <td>@item.Id</td>
-                                                        <td>@item.ParameterName</td>
-                                                        <td>@item.Bold</td>
-                                                        <td>@item.Alignment</td>
-                                                        <td>
-                                                            <a asp-action="EditDenominationReceiptParam" asp-route-id="@item.Id" class="btn btn-primary">Edit</a>
-                                                            <a asp-action="ChangeStatusDenominationReceiptParam" asp-route-id="@item.Id" asp-route-denominationId="@item.DenominationID" class="btn @(item.Status ? "btn-danger" : "btn-success")">
-                                                                @(item.Status ? "Deactive" : "Active")
-                                                            </a>
-                                                        </td>
-                                                    </tr>
-                                                }
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>*@
             </div>
         </div>
     </div>

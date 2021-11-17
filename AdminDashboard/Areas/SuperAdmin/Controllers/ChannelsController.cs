@@ -54,19 +54,16 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         public IActionResult SearchChannels(int? dropDownFilter, int? dropDownFilter2, string searchKey = null, int page = 1)
         {
             var data = api.ApiChannelSearchChannelsGet(dropDownFilter, dropDownFilter2, searchKey, page, 10);
-            var dd = data.Results.Select(account => Map(account)).ToList();
+
             var viewModel = new PagedResult<ChannelViewModel>
             {
-                Results = dd,
+                Results = data.Results.Select(account => Map(account)).ToList(),
                 PageCount = (int)data.PageCount,
                 CurrentPage = page,
                 PageSize = 10
             };
 
-
-            var channelCategories = channelCategoryApi.ApiChannelCategoryGetAllGet();
-
-            ViewBag.ChannelCategoryList = channelCategories.Select(a => new SelectListItem
+            ViewBag.ChannelCategoryList = channelCategoryApi.ApiChannelCategoryGetAllGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
@@ -163,7 +160,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 return View(model);
             }
         }
-       
+
         [HttpGet]
         public IActionResult Edit(int id)
         {

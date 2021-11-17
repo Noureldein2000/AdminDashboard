@@ -39,11 +39,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             apiParameter = new ParameterApi(urlTms);
         }
 
-        public async Task<IActionResult> Index(int? id, int page = 1, int size = 10)
+        public async Task<IActionResult> Index(int? id, string title, int page = 1, int size = 10)
         {
             id ??= (int)TempData["serviceId"];
 
             var data = await apiDenomination.ApiDenominationGetDenominationsByServiceIdServiceIdGetAsync(id, page, size, "ar");
+
+            var FullTilte = title.Split('-');
 
             var viewModel = new PagedResult<DenominationViewModel>
             {
@@ -53,12 +55,14 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 PageSize = size
             };
 
+            ViewBag.FullTitle = FullTilte[0].ToString();
+            TempData["serviceTypeId"] = int.Parse(FullTilte[1].Trim());
             TempData["serviceId"] = id ?? data.Results.FirstOrDefault().ServiceID;
             return View(viewModel);
         }
 
         [HttpGet]
-        public IActionResult Create(int serviceId)
+        public IActionResult Create(int serviceId, int serviceTypeId)
         {
             ViewBag.ServicesProvider = apiServiceProvider.ApiServiceProviderGetServiceProviderGet(1, 100).Results.Select(a => new SelectListItem
             {
@@ -86,7 +90,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
             var model = new CreateDenominationViewModel
             {
-                Denomination = new DenominationViewModel() { ServiceID = serviceId },
+                Denomination = new DenominationViewModel() { ServiceID = serviceId, ServiceTypeID = serviceTypeId },
                 DenominationServiceProviders = new DenominationServiceProvidersViewModel(),
                 ServiceConfigeration = new ServiceConfigerationViewModel(),
                 DenominationParameter = new DenominationParameterViewModel(),
@@ -423,7 +427,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 ProviderHasFees = model.ProviderHasFees,
                 OldServiceId = (int)model.OldServiceID,
                 ServiceProviderId = model.ServiceProviderID,
-                ServiceConfigerationId=model.ServiceConfigerationID,
+                ServiceConfigerationId = model.ServiceConfigerationID,
                 Status = model.Status,
                 DenominationId = model.DenominationID,
                 //DenominationProviderConfigurationModel = model.DenominationProviderConfigeration.Select(x=> MapToModel(x)).ToList()
@@ -443,7 +447,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 ServiceProviderName = model.ServiceProviderName,
                 Status = (bool)model.Status,
                 DenominationID = (int)model.DenominationId,
-                ServiceConfigerationID=(int)model.ServiceConfigerationId, //Edit
+                ServiceConfigerationID = (int)model.ServiceConfigerationId, //Edit
                 DenominationProviderConfigeration = model.DenominationProviderConfigurationModel?.Select(x => MapToViewModel(x)).ToList()
             };
         }

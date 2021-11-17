@@ -17,14 +17,14 @@
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <input type="hidden" asp-for="Id" />
                         <div class="form-group">
-                            <label class="control-label">AccoutType</label>
+                            <label class="control-label">AccoutType <span class="validation-error">*</span></label>
                             <select asp-for="AccountTypeID" asp-items="Model.AccountTypes" class="form-control" data-style="select-with-transition" title="Choose a Accout Type " data-size="7">
                                 <option disabled selected> Choose a AccountType</option>
                             </select>
                             <span asp-validation-for="AccountTypeID" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Profiles</label>
+                            <label class="control-label">Profiles <span class="validation-error">*</span></label>
                             <select asp-for="ProfileID" asp-items="Model.Profiles" class="form-control" data-style="select-with-transition" title="Choose a Profile" data-size="7">
                                 <option disabled selected> Choose a Profile</option>
                             </select>

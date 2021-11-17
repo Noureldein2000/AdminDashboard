@@ -68,26 +68,26 @@
                                             <div class="card-body">
                                                 @*<input type="hidden" asp-for="Id" />*@
                                                 <div class="form-group">
-                                                    <label class="control-label">Label</label>
+                                                    <label class="control-label">Label <span class="validation-error">*</span></label>
                                                     <input class="form-control enableAddDenomintionParam" id="Label" />
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="control-label">Title</label>
+                                                    <label class="control-label">Title <span class="validation-error">*</span></label>
                                                     <input class="form-control enableAddDenomintionParam" id="Title" />
                                                 </div>
                                                 <div class="form-group">
-                                                    <label class="control-label">Params Key</label>
+                                                    <label class="control-label">Params Key <span class="validation-error">*</span></label>
                                                     <input class="form-control enableAddDenomintionParam" id="ParamsKey" />
                                                 </div>
                                                 <div class="form-group row">
                                                     <div class="col-md-6">
-                                                        <label class="control-label">Value Type</label>
+                                                        <label class="control-label">Value Type <span class="validation-error">*</span></label>
                                                         <select id="ValueTypeId" asp-items="@Html.GetEnumSelectList<DenominationParamsValueType>()" class="form-control enableAddDenomintionParam" data-style="select-with-transition" title="Choose a Type" data-size="7">
                                                             <option disabled selected> Choose a Type</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <label class="control-label">Value Mode</label>
+                                                        <label class="control-label">Value Mode <span class="validation-error">*</span></label>
                                                         <select id="ValueModeId" asp-items="@Html.GetEnumSelectList<DenominationParamsValueMode>()" class="form-control enableAddDenomintionParam" data-style="select-with-transition" title="Choose a Mode" data-size="7">
                                                             <option disabled selected> Choose a Mode</option>
                                                         </select>
@@ -128,7 +128,17 @@
         var arrayJson = [];
 
         $(document).ready(function () {
+            debugger;
+            var serviceTypeId = $("#Denomination_ServiceTypeID").val();
 
+            if (serviceTypeId === "3") {
+                $("#Denomination_Inquirable").prop('checked', true);
+                $("#Denomination_Inquirable").prop('disabled', false);
+            }
+            else {
+                $("#Denomination_Inquirable").prop('checked', false);
+                $("#Denomination_Inquirable").prop('disabled', true);
+            }
             $('.js-example-basic-single').select2({
                 width: '850px',
                 theme: "classic",
@@ -368,7 +378,7 @@
 
         function getParams(selectorElement)
         {
-            
+
 
             var arrData = [];
             // loop over each table row (tr)
@@ -457,7 +467,7 @@
                  },
                 dataType: "text",
                  success: function (msg) {
-                     
+
                      var state = JSON.parse(msg);
 /*                     console.log('success data response ' + state);*/
                      $('#DenominationParameter_DenominationParamID').append('<option value="' + state.id + '" selected>' +

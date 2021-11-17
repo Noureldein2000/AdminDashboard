@@ -22,12 +22,12 @@
                         <div class="card-body">
                             <div asp-validation-summary="All" class="text-danger"></div>
                             <div class="form-group">
-                                <label class="control-label">Channel Name</label>
+                                <label class="control-label">Channel Name <span class="validation-error">*</span></label>
                                 <input asp-for="Name" id="channelName" class="form-control" />
                                 <span asp-validation-for="Name"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Serial</label>
+                                <label class="control-label">Serial <span class="validation-error">*</span></label>
                                 <input asp-for="Serial" id="serial" class="form-control" />
                                 <span asp-validation-for="Serial"></span>
                             </div>
@@ -37,21 +37,21 @@
                                 <span asp-validation-for="Value"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Channel Types</label>
+                                <label class="control-label">Channel Types <span class="validation-error">*</span></label>
                                 <select asp-for="ChannelTypeID" asp-items="Model.ChannelTypes" id="drpChannelType" class="form-control" data-style="select-with-transition" title="Choose a Channel Type" data-size="7">
                                     <option disabled> Choose</option>
                                 </select>
                                 <span asp-validation-for="ChannelTypeID"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Channel Owner</label>
+                                <label class="control-label">Channel Owner <span class="validation-error">*</span></label>
                                 <select asp-for="ChannelOwnerID" asp-items="Model.ChannelOwners" id="drpChannelOwner" class="form-control" data-style="select-with-transition" title="Choose a Channel Owner" data-size="7">
                                     <option disabled> Choose</option>
                                 </select>
                                 <span asp-validation-for="ChannelOwnerID"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Payment Method</label>
+                                <label class="control-label">Payment Method <span class="validation-error">*</span></label>
                                 <select asp-for="PaymentMethodID" asp-items="Model.PaymentMethods" id="drpPaymentMethod" class="form-control" data-style="select-with-transition" title="Choose a Method" data-size="7">
                                     <option disabled> Choose</option>
                                 </select>

@@ -18,7 +18,7 @@
                             <input asp-for="AccountID" type="hidden" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Expiration Period </label>
+                            <label class="control-label">Expiration Period <span class="validation-error">*</span> </label>
                             <input type="text" asp-for="ExpirationPeriod" class="form-control" />
                             <span asp-validation-for="ExpirationPeriod"></span>
                         </div>

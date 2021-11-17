@@ -12,7 +12,7 @@
                             <span asp-validation-for="URL" class="text-danger"></span>
                         </div>
                         <div class="col-md-6">
-                            <label class="control-label">Time out</label>
+                            <label class="control-label">Time out <span class="validation-error">*</span></label>
                             <input id="txtTimeOut" asp-for="TimeOut" type="number" min="10000" onkeypress="return isNumberKey(event)" class="form-control enableBtn" />
                             <span asp-validation-for="TimeOut" class="text-danger"></span>
                         </div>

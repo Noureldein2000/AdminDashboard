@@ -35,6 +35,12 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             var data = await api.ApiAdminServiceGetServicesGetAsync(page, size);
 
+            ViewBag.ServiceTypes = api.ApiAdminServiceGetServiceTypesGet().Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = a.Id.ToString()
+            }).ToList();
+
             var viewModel = new PagedResult<AdminServiceViewModel>
             {
                 Results = data.Results.Select(u => Map(u)).ToList(),
@@ -44,6 +50,29 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             };
 
             return View(viewModel);
+        }
+        [HttpGet]
+        public async Task<IActionResult> SearchServices(int? dropDownFilter, string searchKey = null, int page = 1, int size = 10, string lang = "ar")
+        {
+            var data = await api.ApiAdminServiceSearchServicesGetAsync(dropDownFilter, searchKey, page, size, lang);
+
+            ViewBag.ServiceTypes = api.ApiAdminServiceGetServiceTypesGet().Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = a.Id.ToString()
+            }).ToList();
+
+            var viewModel = new PagedResult<AdminServiceViewModel>
+            {
+                Results = data.Results.Select(x => Map(x)).ToList(),
+                PageCount = (int)data.PageCount,
+                CurrentPage = page,
+                PageSize = size,
+                DropDownFilter = dropDownFilter,
+                SearchKey = searchKey
+            };
+
+            return View("Index", viewModel);
         }
 
         [HttpGet]
@@ -116,7 +145,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 serviceTypeID: model.ServiceTypeID,
                 code: model.Code,
                 serviceEntityID: model.ServiceEntityID,
-                serviceCategoryID: model.ServiceCategoryID,
+                //serviceCategoryID: model.ServiceCategoryID,
                 pathClass: model.PathClass,
                 classType: model.ClassType
                 ));
@@ -187,14 +216,14 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             }
 
             api.ApiAdminServiceEditServicePut(new EditServiceModel(
-                id:model.Id,
+                id: model.Id,
                 name: model.Name,
                 arName: model.ArName,
                 status: model.Status,
                 serviceTypeID: model.ServiceTypeID,
                 code: model.Code,
                 serviceEntityID: model.ServiceEntityID,
-                serviceCategoryID: model.ServiceCategoryID,
+                //serviceCategoryID: model.ServiceCategoryID,
                 pathClass: model.PathClass,
                 classType: model.ClassType
                 ));
@@ -217,7 +246,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 ArName = model.ArName,
                 ServiceTypeID = model.ServiceTypeID,
                 ServiceTypeName = model.ServiceTypeName,
-                ServiceCategoryID = model.ServiceCategoryID,
+                //ServiceCategoryID = model.ServiceCategoryID,
                 ServiceCategoryName = model.ServiceCategoryName,
                 Status = (bool)model.Status,
                 Code = model.Code,

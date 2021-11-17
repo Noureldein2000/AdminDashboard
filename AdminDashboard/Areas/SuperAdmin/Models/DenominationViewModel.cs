@@ -17,6 +17,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         [Range(1.0, Double.MaxValue, ErrorMessage = "The field {0} must be greater than {1}.")]
         public double Value { get; set; }
         public int ServiceID { get; set; }
+        public int ServiceTypeID { get; set; }
         public string OldDenominationID { get; set; }
         public bool Status { get; set; }
         [Required]

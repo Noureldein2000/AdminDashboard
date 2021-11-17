@@ -18,24 +18,24 @@
                         @*<input type="hidden" asp-for="AccountId" />*@
                         <div class="form-group row">
                             <div class="col-md-6">
-                                <label class="control-label">From</label>
+                                <label class="control-label">From <span class="validation-error">*</span></label>
                                 <input asp-for="AmountFrom" type="text" onkeypress="return isNumberKey(event)" class="form-control" />
                                 <span asp-validation-for="AmountFrom" class="text-danger"></span>
                             </div>
                             <div class="col-md-6">
-                                <label class="control-label">To</label>
+                                <label class="control-label">To <span class="validation-error">*</span></label>
                                 <input asp-for="AmountTo" type="text" onkeypress="return isNumberKey(event)" class="form-control" />
                                 <span asp-validation-for="AmountTo" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Value</label>
+                            <label class="control-label">Value <span class="validation-error">*</span></label>
                             <input asp-for="Value" type="text" onkeypress="return isNumberKey(event)" class="form-control" />
                             <span asp-validation-for="Value" class="text-danger"></span>
                         </div>
                         <div class="form-group row">
                             <div class="col-md-6">
-                                <label class="control-label">Start Date</label>
+                                <label class="control-label">Start Date <span class="validation-error">*</span></label>
                                 <div class="input-group date mb-3">
                                     <input asp-for="StartDate" id="startDateFee" class="datepicker form-control" type="text" value="@DateTime.Now.ToShortDateString()">
                                     <div class="input-group-append">
@@ -47,7 +47,7 @@
                                 <span asp-validation-for="StartDate" class="text-danger"></span>
                             </div>
                             <div class="col-md-6">
-                                <label class="control-label">End Date</label>
+                                <label class="control-label">End Date <span class="validation-error">*</span></label>
                                 <div class="input-group date mb-3">
                                     <input asp-for="EndDate"  id="endDateFee" class="datepicker form-control" type="text">
                                     <div class="input-group-append">
@@ -60,14 +60,14 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Fee Type</label>
+                            <label class="control-label">Fee Type <span class="validation-error">*</span></label>
                             <select asp-for="FeesTypeID" asp-items="@Html.GetEnumSelectList<FeesType>()" class="form-control" data-style="select-with-transition" title="Choose a Fees Type" data-size="7">
                                 <option disabled selected> Choose a Type</option>
                             </select>
                             <span asp-validation-for="FeesTypeID" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Payment Mode</label>
+                            <label class="control-label">Payment Mode <span class="validation-error">*</span></label>
                             <select asp-for="PaymentModeID" asp-items="@Html.GetEnumSelectList<PaymentMode>()" class="form-control" data-style="select-with-transition" title="Choose a Paymend Mode" data-size="7">
                                 <option disabled selected> Choose a Mode</option>
                             </select>

@@ -33,17 +33,17 @@
                         <div class="card-body">
                             <div asp-validation-summary="All" class="text-danger"></div>
                             <div class="form-group">
-                                <label class="control-label">Owner Name</label>
+                                <label class="control-label">Owner Name </label>
                                 <input asp-for="OwnerName" class="form-control" />
                                 <span asp-validation-for="OwnerName" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Account Name</label>
+                                <label class="control-label">Account Name <span class="validation-error">*</span></label>
                                 <input asp-for="AccountName" class="form-control" />
                                 <span asp-validation-for="AccountName" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Mobile</label>
+                                <label class="control-label">Mobile <span class="validation-error">*</span></label>
                                 <input asp-for="Mobile" class="form-control" />
                                 <span asp-validation-for="Mobile" class="text-danger"></span>
                             </div>
@@ -80,14 +80,14 @@
                     <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
                         <div class="card-body">
                             <div class="form-group">
-                                <label class="control-label">Governerate</label>
+                                <label class="control-label">Governerate <span class="validation-error">*</span></label>
                                 <select asp-for="GovernerateID" asp-items="Model.Governerates" class="form-control" data-style="select-with-transition" title="Choose a governerate" data-size="7">
                                     <option disabled> Choose</option>
                                 </select>
                                 <span asp-validation-for="GovernerateID" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Cites</label>
+                                <label class="control-label">Cites <span class="validation-error">*</span></label>
                                 <select disabled asp-for="RegionID" asp-items="Model.Regions" class="form-control" data-style="select-with-transition" title="Choose a governerate" data-size="7">
                                     <option disabled> Choose</option>
                                 </select>
@@ -101,14 +101,14 @@
                                 <span asp-validation-for="ActivityID" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Entity</label>
+                                <label class="control-label">Entity <span class="validation-error">*</span></label>
                                 <select asp-for="EntityID" asp-items="Model.Entities" class="form-control" data-style="select-with-transition" title="Choose an entity" data-size="7">
                                     <option disabled> Choose</option>
                                 </select>
                                 <span asp-validation-for="EntityID" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">Account Type</label>
+                                <label class="control-label">Account Type <span class="validation-error">*</span></label>
                                 <div class="row">
                                     <div class="col-md-10">
                                         <select asp-for="AccountTypeID" asp-items="Model.AccountTypes" id="drpAccountType" class="form-control" data-style="select-with-transition" title="Choose an AccountType" data-size="7">
@@ -128,7 +128,7 @@
                                 <span asp-validation-for="AccountTypeProfileID" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label d-block">Account Related to (Parent Id)</label>
+                                <label class="control-label d-block">Account Related to (Parent Id) <span class="validation-error">*</span></label>
 
                                 <div class="row">
                                     <div class="col-md-10">
@@ -153,7 +153,7 @@
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="card-body">
                             <div class="form-group">
-                                <label class="control-label">User Name</label>
+                                <label class="control-label">User Name <span class="validation-error">*</span></label>
                                 <input asp-for="Username" class="form-control" />
                                 <span asp-validation-for="Username" class="text-danger"></span>
                             </div>
@@ -220,7 +220,14 @@
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
-                <h2>انواع الحسابات</h2>
+                <div>
+                    <div>
+                        <h4 id="titleAccountTypeMsg"></h4>
+                    </div>
+                    <div class="float-right">
+                        <p>يجب اختيار نوع الحساب المسئول عنه  من أنواع الاتية</p>
+                    </div>
+                </div>
             </div>
             <div class="modal-body">
                 <div class="container-fluid">
@@ -322,7 +329,11 @@
                 url: "@Url.Action("GetAccountMappingValidation")",
                 data: { id: Id},
                 dataType: "text",
-               success: function (msg) {
+                success: function (msg) {
+                    debugger;
+                    var accountTypeName = $("#drpAccountType :selected").text();
+                    $("#titleAccountTypeMsg").empty();
+                    $("#titleAccountTypeMsg").append('لقد اخترت نوع الحساب (' + accountTypeName+')');
                    $("#myChangeModal").modal('show');
                    $('#ul-list').html('');
                     $.each(JSON.parse(msg), function (i, data) {
