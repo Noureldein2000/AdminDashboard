@@ -39,12 +39,7 @@ namespace AdminDashboard
                 options.DefaultScheme = "Cookies";
                 options.DefaultChallengeScheme = "oidc";
             })
-            .AddCookie("Cookies", config =>
-            {
-                config.Cookie.MaxAge = TimeSpan.FromDays(1);
-                config.Cookie.SameSite = SameSiteMode.Unspecified;
-                config.Cookie.Name = "Cookies";
-            })
+            .AddCookie("Cookies")
             .AddOpenIdConnect("oidc", options =>
             {
                 options.SignInScheme = "Cookies";
