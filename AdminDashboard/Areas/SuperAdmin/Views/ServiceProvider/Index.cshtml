@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2>All Servicer Providers</h2>
+                    <h2> Servicer Providers</h2>
                     <a asp-action="Create" class="pull-right btn btn-outline-primary">Add</a>
                 </div>
                 <div class="card-body">
@@ -30,28 +30,28 @@
                                         <a asp-action="Edit" asp-route-id="@deno.Id" class="btn btn-info">
                                             Edit
                                         </a>
-                                        <a asp-action="Delete" asp-route-id="@deno.Id" class="btn btn-danger">
+                                        <button onclick="ConfirmDelete(@deno.Id,this)" class="btn btn-danger">
                                             Delete
-                                        </a>
+                                        </button>
                                     </td>
                                 </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="card-footer d-flex justify-content-center">
-                        <pager link-url="/SuperAdmin/ServiceProvider/Index"
-                               page="Model.CurrentPage"
-                               page-size="Model.PageSize"
-                               total-items="Model.PageCount">
-                        </pager>
-                    </div>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer d-flex justify-content-center">
+                    <pager link-url="/SuperAdmin/ServiceProvider/Index"
+                           page="Model.CurrentPage"
+                           page-size="Model.PageSize"
+                           total-items="Model.PageCount">
+                    </pager>
                 </div>
             </div>
         </div>
     </div>
-    @section Scripts{
-        <script>
+</div>
+@section Scripts{
+    <script>
 
         @*$(function () {
             var msg = '@TempData["result"]';
@@ -65,6 +65,51 @@
             }
          });*@
 
-        </script>
-    }
+         function ConfirmDelete(id,row)
+        {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this record!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+
+                    DeleteServieProvider(id, row);
+                }
+            });
+        }
+
+        function DeleteServieProvider(id, row) {
+
+              $.ajax({
+                type: "GET",
+                url: "@Url.Action("Delete")",
+                  data: {
+                      id: id,
+                  },
+                 dataType: "text",
+                success: function (msg) {
+
+                    console.log("successs Deleted Data");
+
+                    swal("Poof! Your record has been deleted!", {
+                        icon: "success",
+                    });
+
+                    $(row).parents("tr").remove();
+/*                    var data = JSON.parse(msg);*/
+
+                },
+                 error: function (req, status, error) {
+                     console.log(error);
+                     swal("Ops! There is some error happened!", {
+                         icon: "error",
+                     });
+                }
+            });
+        }
+    </script>
+}
 

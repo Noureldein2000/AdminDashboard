@@ -83,7 +83,7 @@
             $("#txtReason").keyup(function () {
                 //Reference the Button.
                 var btnSubmit = $("#btnSubmit");
-                //debugger;
+                //
                 //Verify the TextBox value.
                 if ($(this).val().trim() != "" && $("#drpStatus").val() != null) {
                     //Enable the TextBox when TextBox has value.
@@ -149,7 +149,7 @@
         function getData(val, statusValue) {
             $('#rowId').val(val);
             $('#statusValue').val(statusValue);
-            //debugger;
+            //
             var model = '@Html.Raw(Json.Serialize(enumLst))';
             var lst = JSON.parse(model);
 

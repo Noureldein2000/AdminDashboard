@@ -17,6 +17,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public int DenominationID { get; set; }
         [Required]
         public int ServiceProviderID { get; set; }
+        [Required]
+        public int ServiceConfigerationID { get; set; }
         public string ServiceProviderName { get; set; }
         [Required]
         public double Balance { get; set; }
@@ -25,7 +27,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public double ProviderAmount { get; set; }
         public int? OldServiceID { get; set; }
         public bool ProviderHasFees { get; set; }
-        public ServiceConfigerationViewModel ServiceConfigeration{ get; set; }
+        public ServiceConfigerationViewModel ServiceConfigeration { get; set; }
         public List<DenominationProviderConfigerationViewModel> DenominationProviderConfigeration { get; set; }
     }
 }

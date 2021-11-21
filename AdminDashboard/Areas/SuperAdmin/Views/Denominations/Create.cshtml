@@ -18,6 +18,9 @@
                 <li class="nav-item disabled">
                     <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Denomination Parameter</a>
                 </li>
+                <li class="nav-item disabled">
+                    <a class="nav-link" id="Receipt-tab" data-toggle="tab" href="#Receipt" role="tab" aria-controls="Receipt" aria-selected="false">Denomination Receipt</a>
+                </li>
             </ul>
 
             <form asp-action="Create" asp-controller="Denominations" method="post" id="frmDenomination">
@@ -48,6 +51,62 @@
                     <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
                         <div class="card">
                             <partial name="_DenominationParameter" for="@Model.DenominationParameter" />
+                            <div class="card-footer mt-2">
+                                <input type="button" class="btn btn-success btnNext float-right" value="Next" />
+                                <a class="btn btn-danger btnPrevious float-right mr-1">Previous</a>
+                            </div>
+                        </div>
+                        <div id="modelParameter" class="modal fade" role="dialog" dir="ltr" tabindex="-1">
+                            <div class="modal-dialog modal-xl">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h2>Add Denomination Params</h2>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                @*<input type="hidden" asp-for="Id" />*@
+                                                <div class="form-group">
+                                                    <label class="control-label">Label</label>
+                                                    <input class="form-control enableAddDenomintionParam" id="Label" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Title</label>
+                                                    <input class="form-control enableAddDenomintionParam" id="Title" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Params Key</label>
+                                                    <input class="form-control enableAddDenomintionParam" id="ParamsKey" />
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label">Value Type</label>
+                                                        <select id="ValueTypeId" asp-items="@Html.GetEnumSelectList<DenominationParamsValueType>()" class="form-control enableAddDenomintionParam" data-style="select-with-transition" title="Choose a Type" data-size="7">
+                                                            <option disabled selected> Choose a Type</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="control-label">Value Mode</label>
+                                                        <select id="ValueModeId" asp-items="@Html.GetEnumSelectList<DenominationParamsValueMode>()" class="form-control enableAddDenomintionParam" data-style="select-with-transition" title="Choose a Mode" data-size="7">
+                                                            <option disabled selected> Choose a Mode</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="button" id="SaveDenominationParamter" value="Save" class="btn btn-success float-right" onclick="AddDenominationParams()" data-toggle="modal" data-target="myDenominationParameter" data-dismiss="modal" disabled />
+                                        <button type="button" class="btn btn-secondary float-left" data-toggle="modal" data-target="myDenominationParameter" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="Receipt" role="tabpanel" aria-labelledby="Receipt-tab">
+                        <div class="card">
+                            <partial name="_DenominationReceipt" for="@Model.DenominationReceipt" />
                             <div class="card-footer mt-2">
                                 <input type="submit" value="Save" class="btn btn-success btnSubmit float-right" />
                                 <a class="btn btn-danger btnPrevious float-right mr-1">Previous</a>
@@ -145,6 +204,21 @@
                 $('#addValueToList').attr('disabled', 'disabled');
             else
                 $('#addValueToList').removeAttr('disabled');
+        });
+
+        $("input.enableAddDenomintionParam").keyup(function () {
+            var empty = false;
+
+            $("input.enableAddDenomintionParam").each(function () {
+                if ($(this).val() == '') {
+                    empty = true;
+                }
+            });
+
+            if (empty || ($('#ValueTypeId').val() == null && $('#ValueModeId').val() == null))
+                $('#SaveDenominationParamter').attr('disabled', 'disabled');
+            else
+                $('#SaveDenominationParamter').removeAttr('disabled');
         });
 
         $('#tblParams tbody').on('click', '.remove', function () {
@@ -294,7 +368,7 @@
 
         function getParams(selectorElement)
         {
-            debugger;
+            
 
             var arrData = [];
             // loop over each table row (tr)
@@ -347,7 +421,7 @@
             const str = arrayJson.toString();
 
             $('#txtValueList').empty();
-            $('#txtValueList').append('[' + str + ']');
+            $('#txtValueList').val('[' + str + ']');
 
             $('#txtKeyValueList').val('');
             $('#txtvalueValueList').val('');
@@ -355,11 +429,44 @@
         }
 
         function ClearValueList() {
+            arrayJson = [];
             $('#txtKeyValueList').val('');
             $('#txtvalueValueList').val('');
             $('#txtValueList').val('');
             $('#addValueToList').attr('disabled', 'disabled');
             $('#clearValueToList').attr('disabled', 'disabled');
+        }
+
+        function AddDenominationParams() {
+
+            var Label = $("#Label").val();
+            var Title = $("#Title").val();
+            var ParamKey = $("#ParamsKey").val();
+            var ValueModeId = $("#ValueModeId").val();
+            var ValueTypeId = $("#ValueTypeId").val();
+
+             $.ajax({
+                type: "POST",
+                 url: "@Url.Action("AddDenominationParam")",
+                 data: {
+                    Label ,
+                    Title ,
+                    ParamKey,
+                    ValueModeId,
+                    ValueTypeId
+                 },
+                dataType: "text",
+                 success: function (msg) {
+                     
+                     var state = JSON.parse(msg);
+/*                     console.log('success data response ' + state);*/
+                     $('#DenominationParameter_DenominationParamID').append('<option value="' + state.id + '" selected>' +
+                         state.label + ' - ' + state.valueModeName + ' - ' + state.valueTypeName + ' - ' + state.paramKey+'</option>');
+                },
+                 error: function (req, status, error) {
+                     console.log(error);
+                }
+            });
         }
 
     </script>

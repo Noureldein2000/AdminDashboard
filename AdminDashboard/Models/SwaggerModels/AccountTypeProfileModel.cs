@@ -36,13 +36,15 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="accountTypeID">accountTypeID.</param>
         /// <param name="profileID">profileID.</param>
         /// <param name="profile">profile.</param>
+        /// <param name="accountType">accountType.</param>
         /// <param name="fullName">fullName.</param>
-        public AccountTypeProfileModel(int? id = default(int?), int? accountTypeID = default(int?), int? profileID = default(int?), string profile = default(string), string fullName = default(string))
+        public AccountTypeProfileModel(int? id = default(int?), int? accountTypeID = default(int?), int? profileID = default(int?), string profile = default(string), string accountType = default(string), string fullName = default(string))
         {
             this.Id = id;
             this.AccountTypeID = accountTypeID;
             this.ProfileID = profileID;
             this.Profile = profile;
+            this.AccountType = accountType;
             this.FullName = fullName;
         }
         
@@ -71,6 +73,12 @@ namespace AdminDashboard.Models.SwaggerModels
         public string Profile { get; set; }
 
         /// <summary>
+        /// Gets or Sets AccountType
+        /// </summary>
+        [DataMember(Name="accountType", EmitDefaultValue=false)]
+        public string AccountType { get; set; }
+
+        /// <summary>
         /// Gets or Sets FullName
         /// </summary>
         [DataMember(Name="fullName", EmitDefaultValue=false)]
@@ -88,6 +96,7 @@ namespace AdminDashboard.Models.SwaggerModels
             sb.Append("  AccountTypeID: ").Append(AccountTypeID).Append("\n");
             sb.Append("  ProfileID: ").Append(ProfileID).Append("\n");
             sb.Append("  Profile: ").Append(Profile).Append("\n");
+            sb.Append("  AccountType: ").Append(AccountType).Append("\n");
             sb.Append("  FullName: ").Append(FullName).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -144,6 +153,11 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.Profile.Equals(input.Profile))
                 ) && 
                 (
+                    this.AccountType == input.AccountType ||
+                    (this.AccountType != null &&
+                    this.AccountType.Equals(input.AccountType))
+                ) && 
+                (
                     this.FullName == input.FullName ||
                     (this.FullName != null &&
                     this.FullName.Equals(input.FullName))
@@ -167,6 +181,8 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.ProfileID.GetHashCode();
                 if (this.Profile != null)
                     hashCode = hashCode * 59 + this.Profile.GetHashCode();
+                if (this.AccountType != null)
+                    hashCode = hashCode * 59 + this.AccountType.GetHashCode();
                 if (this.FullName != null)
                     hashCode = hashCode * 59 + this.FullName.GetHashCode();
                 return hashCode;

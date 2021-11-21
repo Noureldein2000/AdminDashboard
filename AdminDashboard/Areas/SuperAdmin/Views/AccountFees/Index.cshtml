@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2>All Fees</h2>
+                    <h2> Fees</h2>
                     <a asp-action="Create" asp-route-accountId="@ViewBag.AccountId" class="pull-right btn btn-outline-primary">Add</a>
                 </div>
                 <div class="card-body">
@@ -33,7 +33,7 @@
                                     <td>@fee.FeesTypeName</td>
                                     <td>@fee.PaymentMode</td>
                                     <td>
-                                        <a asp-action="DeleteAccountFee" asp-route-id="@fee.Id" asp-route-accountId="@ViewBag.AccountId" class="btn btn-danger">Delete</a>
+                                        <button onclick="ConfirmDeleteAccountFee(@fee.Id,this)" class="btn btn-danger">Delete</button>
                                     </td>
                                 </tr>
                             }
@@ -64,7 +64,53 @@
                     button: "Ok",
                 });
             }
-         });
+        });
+
+        function ConfirmDeleteAccountFee(id,row)
+        {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this record!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+
+                    DeleteAccountFee(id, row);
+                }
+            });
+        }
+
+        function DeleteAccountFee(id, row) {
+
+              $.ajax({
+                type: "GET",
+                url: "@Url.Action("DeleteAccountFee")",
+                  data: {
+                      id: id,
+                  },
+                 dataType: "text",
+                success: function (msg) {
+
+                    console.log("successs Deleted Data");
+
+                    swal("Poof! Your record has been deleted!", {
+                        icon: "success",
+                    });
+
+                    $(row).parents("tr").remove();
+/*                    var data = JSON.parse(msg);*/
+
+                },
+                 error: function (req, status, error) {
+                     console.log(error);
+                     swal("Ops! There is some error happened!", {
+                         icon: "error",
+                     });
+                }
+            });
+        }
 
     </script>
 }

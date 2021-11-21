@@ -4,36 +4,36 @@
 
 <div class="card-body">
     <div class="form-group">
-        <input asp-for="Id" type="hidden" class="form-control" />
+        <input asp-for="Id" id ="denominationServieProviderId" type="hidden" class="form-control" />
         <input asp-for="DenominationID" type="hidden" class="form-control" />
     </div>
     <div class="form-group row">
         <div class="col-md-6">
             <label class="control-label">Balance</label>
-            <input asp-for="Balance" onkeypress="return isNumberKey(event)" class="form-control" />
+            <input asp-for="Balance" onkeypress="return isNumberKey(event)" class="form-control enableBtnSaveDenominationServiceProvider" />
             <span asp-validation-for="Balance" class="text-danger"></span>
         </div>
         <div class="col-md-6">
             <label class="control-label">Provider Code</label>
-            <input asp-for="ProviderCode" onkeypress="return isNumberKey(event)" type="text" class="form-control" />
+            <input asp-for="ProviderCode" onkeypress="return isNumberKey(event)" type="text" class="form-control enableBtnSaveDenominationServiceProvider" />
             <span asp-validation-for="ProviderCode" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row">
         <div class="col-md-6">
             <label class="control-label">Provider Amount</label>
-            <input asp-for="ProviderAmount" onkeypress="return isNumberKey(event)" class="form-control" />
+            <input asp-for="ProviderAmount" onkeypress="return isNumberKey(event)" class="form-control enableBtnSaveDenominationServiceProvider" />
             <span asp-validation-for="ProviderAmount" class="text-danger"></span>
         </div>
         <div class="col-md-6">
             <label class="control-label">Old ServiceId</label>
-            <input asp-for="OldServiceID" onkeypress="return isNumberKey(event)" type="text" class="form-control" />
+            <input asp-for="OldServiceID" onkeypress="return isNumberKey(event)" class="form-control" />
             <span asp-validation-for="OldServiceID" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group">
         <label class="control-label">Service Provider</label>
-        <select asp-for="ServiceProviderID" asp-items="@ViewBag.ServicesProvider" class="form-control" data-style="select-with-transition" title="Choose an Servider Provider" data-size="7">
+        <select asp-for="ServiceProviderID" asp-items="@ViewBag.ServicesProvider" class="form-control" data-style="select-with-transition" title="Choose an Servicer Provider" data-size="7">
             <option disabled selected> Choose Provdier</option>
         </select>
         <span asp-validation-for="ServiceProviderID" class="text-danger"></span>
@@ -61,19 +61,6 @@
                 <div class="col-md-2" style="margin-top: 30px;">
                     <input type="button" id="addProviderConfigParams" value="Add" class="btn btn-info float-right" onclick="AddTextBox()"  disabled/>
                 </div>
-
-                @*<table id="tblProviderParams" class="table table-striped mt-2">
-                        <thead>
-                            <tr>
-                                <th>No.</th>
-                                <th>Name</th>
-                                <th>Value</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>*@
             </div>
         </div>
     </div>

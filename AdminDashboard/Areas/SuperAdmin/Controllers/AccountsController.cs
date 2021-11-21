@@ -581,7 +581,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             var data = api.ApiAccountGetAccountByIdIdGet(accountId);
             return Json(data);
         }
-        [HttpGet]
+        [HttpGet]   
         public JsonResult GetAccountProfilelByAcocuntTypeId(int id)
         {
             var data = accountTypeProfileApi.ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGet(id);

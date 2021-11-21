@@ -44,7 +44,7 @@
 
         $("#frmDSP").submit(function (e)
         {
-            debugger;
+            
 
             var valid = checkValidation();
             if (!valid)
@@ -151,7 +151,7 @@
         }
 
         function CreateServiceConfiguaration() {
-            debugger;
+            
             var url = $("#txtUrl").val();
             var timeOut = $("#txtTimeOut").val();
             var username = $("#txtUsername").val();
@@ -173,7 +173,7 @@
                  },
                 dataType: "json",
                  success: function (state) {
-                     debugger;
+                     
 /*                     console.log('success data response ' + state);*/
                          $('#drpServiceConfig').append('<option value="' + state.id + '" selected>' +
                              state.url + '</option>');
@@ -242,7 +242,7 @@
         }
 
         function RemoveTextBox(div) {
-            debugger;
+            
 /*            var classes =div.par .parent().parent();*/
             var x = div.pa;
             var x1 = div.parentNode.parentNode;

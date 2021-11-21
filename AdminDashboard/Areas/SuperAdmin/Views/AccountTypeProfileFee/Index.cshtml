@@ -1,0 +1,111 @@
+﻿@model PagedResult<AccountTypeProfileFeeViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Fees >> @ViewBag.FullTitle</h2>
+                    <a asp-action="Create" asp-route-id="@Context.Request.RouteValues["id"]" class="pull-right btn btn-outline-primary">Add</a>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Sevice</th>
+                                <th>Denomination</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Value</th>
+                                <th>Payment Mode</th>
+                                <th>Type Name</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ATPF in Model.Results)
+                            {
+                                <tr>
+                                    <td>@ATPF.Id</td>
+                                    <td>@ATPF.ServiceName</td>
+                                    <td>@ATPF.DenomintionName</td>
+                                    <td>@ATPF.AmountFrom</td>
+                                    <td>@ATPF.AmountTo</td>
+                                    <td>@ATPF.FeesValue</td>
+                                    <td>@ATPF.PaymentModeName</td>
+                                    <td>@ATPF.FeesTypeName</td>
+                                    <td>
+                                        <button onclick="ConfirmDeleteAccountTypeProfileFee(@ATPF.Id,this)" class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer d-flex justify-content-center">
+                    <pager link-url="/SuperAdmin/AccountTypeProfileFee/Index"
+                           page="Model.CurrentPage"
+                           page-size="Model.PageSize"
+                           total-items="Model.PageCount">
+                    </pager>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+
+        function ConfirmDeleteAccountTypeProfileFee(id,row)
+        {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this record!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+
+                    DeleteAccountTypeProfileFee(id, row);
+                }
+            });
+        }
+
+        function DeleteAccountTypeProfileFee(id, row) {
+
+              $.ajax({
+                type: "GET",
+                url: "@Url.Action("Delete")",
+                  data: {
+                      id: id,
+                  },
+                 dataType: "text",
+                success: function (msg) {
+
+                    console.log("successs Deleted Data");
+
+                    swal("Poof! Your record has been deleted!", {
+                        icon: "success",
+                    });
+
+                    $(row).parents("tr").remove();
+/*                    var data = JSON.parse(msg);*/
+
+                },
+                 error: function (req, status, error) {
+                     console.log(error);
+                     swal("Ops! There is some error happened!", {
+                         icon: "error",
+                     });
+                }
+            });
+        }
+
+    </script>
+}
+

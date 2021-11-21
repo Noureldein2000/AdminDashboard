@@ -8,7 +8,7 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2>All Fees</h2>
+                    <h2> Fees</h2>
                     <a asp-action="Create" asp-route-id="@Model.Select(x=>x.DenominationId).FirstOrDefault()" class="pull-right btn btn-outline-primary">Add</a>
                 </div>
                 <div class="card-body">
@@ -31,7 +31,7 @@
                                     <td>@fee.FeesTypeName</td>
                                     <td>@fee.PaymentMode</td>
                                     <td>
-                                        <a asp-action="Delete" asp-controller="DenominationFees" asp-route-id="@fee.Id" asp-route-denominationId="@fee.DenominationId" class="btn btn-danger">Delete</a>
+                                        <button onclick="ConfirmDelete(@fee.Id,this)" class="btn btn-danger">Delete</button>
                                     </td>
                                 </tr>
                             }
@@ -55,7 +55,53 @@
                     button: "Ok",
                 });
             }
-         });
+        });
+
+        function ConfirmDelete(id,row)
+        {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this record!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+
+                    DeleteDenominationFee(id, row);
+                }
+            });
+        }
+
+        function DeleteDenominationFee(id, row) {
+
+              $.ajax({
+                type: "GET",
+                url: "@Url.Action("Delete")",
+                  data: {
+                      id: id,
+                  },
+                 dataType: "text",
+                success: function (msg) {
+
+                    console.log("successs Deleted Data");
+
+                    swal("Poof! Your record has been deleted!", {
+                        icon: "success",
+                    });
+
+                    $(row).parents("tr").remove();
+/*                    var data = JSON.parse(msg);*/
+
+                },
+                 error: function (req, status, error) {
+                     console.log(error);
+                     swal("Ops! There is some error happened!", {
+                         icon: "error",
+                     });
+                }
+            });
+        }
 
     </script>
 }

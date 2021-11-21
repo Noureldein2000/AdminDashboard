@@ -1,0 +1,112 @@
+﻿@model PagedResult<AccountTypeProfileViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2> AccountType Profile</h2>
+                    <a asp-action="Create" class="pull-right btn btn-outline-primary">Add</a>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Account Type</th>
+                                <th>Profile</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ATPD in Model.Results)
+                            {
+                                <tr>
+                                    <td>@ATPD.Id</td>
+                                    <td>@ATPD.AccountTypeName</td>
+                                    <td>@ATPD.ProfileName</td>
+                                    <td>
+                                        <button onclick="ConfirmDeleteAccountTypeProfile(@ATPD.Id,this)" class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer d-flex justify-content-center">
+                    <pager link-url="/SuperAdmin/AccountTypeProfile/Index"
+                           page="Model.CurrentPage"
+                           page-size="Model.PageSize"
+                           total-items="Model.PageCount">
+                    </pager>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+
+        $(function () {
+            
+            var msg = '@TempData["result"]';
+            if (msg == "True") {
+                swal({
+                    title: "Good job!",
+                    text: "You Saved Successfully!",
+                    icon: "success",
+                    button: "Ok",
+                });
+            }
+         });
+
+        function ConfirmDeleteAccountTypeProfile(id,row)
+        {
+            
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this record!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    DeleteAccountTypeProfile(id, row);
+                }
+            });
+        }
+
+        function DeleteAccountTypeProfile(id, row) {
+
+              $.ajax({
+                type: "GET",
+                url: "@Url.Action("Delete")",
+                  data: {
+                      id: id,
+                  },
+                 dataType: "text",
+                success: function (msg) {
+
+                    console.log("successs Deleted Data");
+
+                    swal("Poof! Your record has been deleted!", {
+                        icon: "success",
+                    });
+
+                    $(row).parents("tr").remove();
+                },
+                 error: function (req, status, error) {
+                     console.log(error);
+                     swal("Ops! There is some error happened!", {
+                         icon: "error",
+                     });
+                }
+            });
+        }
+
+    </script>
+}
+

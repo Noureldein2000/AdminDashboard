@@ -1,0 +1,110 @@
+﻿@model PagedResult<AccountTypeProfileDenominationViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2> AccountType Profile Denomination</h2>
+                    <a asp-action="Create" class="pull-right btn btn-outline-primary">Add</a>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Denomination</th>
+                                <th>Account Type</th>
+                                <th>Profile</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ATPD in Model.Results)
+                            {
+                                <tr>
+                                    <td>@ATPD.Id</td>
+                                    <td>@ATPD.DenominationName</td>
+                                    <td>@ATPD.AccountTypeName</td>
+                                    <td>@ATPD.ProfileName</td>
+                                    <td>
+                                        <a asp-action="ChangeStatus" asp-route-id="@ATPD.Id" class="btn @(ATPD.Status ? "btn-danger" : "btn-success")">
+                                            @(ATPD.Status ? "Deactive" : "Active")
+                                        </a>
+                                        <a asp-action="Index" asp-controller="AccountTypeProfileFee" asp-route-id="@ATPD.Id" asp-route-title="@ATPD.AccountTypeName - @ATPD.ProfileName" class="btn btn-info">Fees</a>
+                                        <a asp-action="Index" asp-controller="AccountTypeProfileCommission" asp-route-id="@ATPD.Id" asp-route-title="@ATPD.AccountTypeName - @ATPD.ProfileName" class="btn btn-info">Commission</a>
+                                        <button onclick="ConfirmDeleteAccountTypeProfileDenomintion(@ATPD.Id,this)" class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer d-flex justify-content-center">
+                    <pager link-url="/SuperAdmin/AccountTypeProfileDenomination/Index"
+                           page="Model.CurrentPage"
+                           page-size="Model.PageSize"
+                           total-items="Model.PageCount">
+                    </pager>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+
+
+
+        function ConfirmDeleteAccountTypeProfileDenomintion(id,row)
+        {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this record!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+
+                    DeleteAccountTypeProfileDenomintion(id, row);
+                }
+            });
+        }
+
+        function DeleteAccountTypeProfileDenomintion(id, row) {
+
+              $.ajax({
+                type: "GET",
+                url: "@Url.Action("Delete")",
+                  data: {
+                      id: id,
+                  },
+                 dataType: "text",
+                success: function (msg) {
+
+                    console.log("successs Deleted Data");
+
+                    swal("Poof! Your record has been deleted!", {
+                        icon: "success",
+                    });
+
+                    $(row).parents("tr").remove();
+/*                    var data = JSON.parse(msg);*/
+
+                },
+                 error: function (req, status, error) {
+                     console.log(error);
+                     swal("Ops! There is some error happened!", {
+                         icon: "error",
+                     });
+                }
+            });
+        }
+
+    </script>
+}
+

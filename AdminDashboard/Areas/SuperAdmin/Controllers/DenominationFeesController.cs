@@ -81,11 +81,11 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Delete(int id, int denominationId)
+        public JsonResult Delete(int id)
         {
             apiDenominationFees.ApiDenominationFeesDeleteDenominationFeeIdDelete(id: id);
 
-            return RedirectToAction(nameof(Index), new { denominationId = denominationId });
+            return Json(id);
         }
 
         private DenominationFeesViewModel Map(DenominationFeesModel x)
