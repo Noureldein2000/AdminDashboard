@@ -17,7 +17,7 @@
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <input type="hidden" asp-for="DenominationId" />
                         <div class="form-group">
-                            <label class="control-label">Commission Value</label>
+                            <label class="control-label">Commission Value <span class="validation-error">*</span></label>
                             <select asp-for="CommissionId" asp-items="Model.Commissions" class="form-control" data-style="select-with-transition" title="Choose a Fee Value" data-size="7">
                                 <option disabled selected> Choose a Commission </option>
                             </select>

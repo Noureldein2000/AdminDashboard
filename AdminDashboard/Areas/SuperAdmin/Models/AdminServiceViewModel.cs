@@ -23,8 +23,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         [Required]
         public int? ServiceEntityID { get; set; }
         public string ServiceEntityName { get; set; }
-        [Required]
-        public int? ServiceCategoryID { get; set; }
         public string ServiceCategoryName { get; set; }
         public string PathClass { get; set; }
         [Required]

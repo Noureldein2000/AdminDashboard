@@ -189,6 +189,35 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="language"> (optional, default to ar)</param>
         /// <returns>ApiResponse of AdminServiceModelPagedResult</returns>
         ApiResponse<AdminServiceModelPagedResult> ApiAdminServiceGetServicesGetWithHttpInfo (int? pageNumber = null, int? pageSize = null, string language = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>AdminServiceModelPagedResult</returns>
+        AdminServiceModelPagedResult ApiAdminServiceSearchServicesGet (int? dropDownFilter = null, string searchKey = null, int? pageNumber = null, int? pageSize = null, string language = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>ApiResponse of AdminServiceModelPagedResult</returns>
+        ApiResponse<AdminServiceModelPagedResult> ApiAdminServiceSearchServicesGetWithHttpInfo (int? dropDownFilter = null, string searchKey = null, int? pageNumber = null, int? pageSize = null, string language = null);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -357,6 +386,35 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="language"> (optional, default to ar)</param>
         /// <returns>Task of ApiResponse (AdminServiceModelPagedResult)</returns>
         System.Threading.Tasks.Task<ApiResponse<AdminServiceModelPagedResult>> ApiAdminServiceGetServicesGetAsyncWithHttpInfo (int? pageNumber = null, int? pageSize = null, string language = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>Task of AdminServiceModelPagedResult</returns>
+        System.Threading.Tasks.Task<AdminServiceModelPagedResult> ApiAdminServiceSearchServicesGetAsync (int? dropDownFilter = null, string searchKey = null, int? pageNumber = null, int? pageSize = null, string language = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>Task of ApiResponse (AdminServiceModelPagedResult)</returns>
+        System.Threading.Tasks.Task<ApiResponse<AdminServiceModelPagedResult>> ApiAdminServiceSearchServicesGetAsyncWithHttpInfo (int? dropDownFilter = null, string searchKey = null, int? pageNumber = null, int? pageSize = null, string language = null);
         #endregion Asynchronous Operations
     }
 
@@ -1588,6 +1646,169 @@ namespace AdminDashboard.SwaggerClient
             if (ExceptionFactory != null)
             {
                 Exception exception = ExceptionFactory("ApiAdminServiceGetServicesGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<AdminServiceModelPagedResult>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (AdminServiceModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AdminServiceModelPagedResult)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>AdminServiceModelPagedResult</returns>
+        public AdminServiceModelPagedResult ApiAdminServiceSearchServicesGet (int? dropDownFilter = null, string searchKey = null, int? pageNumber = null, int? pageSize = null, string language = null)
+        {
+             ApiResponse<AdminServiceModelPagedResult> localVarResponse = ApiAdminServiceSearchServicesGetWithHttpInfo(dropDownFilter, searchKey, pageNumber, pageSize, language);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>ApiResponse of AdminServiceModelPagedResult</returns>
+        public ApiResponse< AdminServiceModelPagedResult > ApiAdminServiceSearchServicesGetWithHttpInfo (int? dropDownFilter = null, string searchKey = null, int? pageNumber = null, int? pageSize = null, string language = null)
+        {
+
+            var localVarPath = "/api/AdminService/SearchServices";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (dropDownFilter != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "dropDownFilter", dropDownFilter)); // query parameter
+            if (searchKey != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "searchKey", searchKey)); // query parameter
+            if (pageNumber != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageNumber", pageNumber)); // query parameter
+            if (pageSize != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageSize", pageSize)); // query parameter
+            if (language != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiAdminServiceSearchServicesGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<AdminServiceModelPagedResult>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (AdminServiceModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AdminServiceModelPagedResult)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>Task of AdminServiceModelPagedResult</returns>
+        public async System.Threading.Tasks.Task<AdminServiceModelPagedResult> ApiAdminServiceSearchServicesGetAsync (int? dropDownFilter = null, string searchKey = null, int? pageNumber = null, int? pageSize = null, string language = null)
+        {
+             ApiResponse<AdminServiceModelPagedResult> localVarResponse = await ApiAdminServiceSearchServicesGetAsyncWithHttpInfo(dropDownFilter, searchKey, pageNumber, pageSize, language);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>Task of ApiResponse (AdminServiceModelPagedResult)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<AdminServiceModelPagedResult>> ApiAdminServiceSearchServicesGetAsyncWithHttpInfo (int? dropDownFilter = null, string searchKey = null, int? pageNumber = null, int? pageSize = null, string language = null)
+        {
+
+            var localVarPath = "/api/AdminService/SearchServices";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (dropDownFilter != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "dropDownFilter", dropDownFilter)); // query parameter
+            if (searchKey != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "searchKey", searchKey)); // query parameter
+            if (pageNumber != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageNumber", pageNumber)); // query parameter
+            if (pageSize != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageSize", pageSize)); // query parameter
+            if (language != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiAdminServiceSearchServicesGet", localVarResponse);
                 if (exception != null) throw exception;
             }
 

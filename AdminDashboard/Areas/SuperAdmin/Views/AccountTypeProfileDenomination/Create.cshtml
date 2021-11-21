@@ -17,7 +17,7 @@
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <input type="hidden" asp-for="Id" />
                         <div class="form-group">
-                            <label class="control-label">AccoutType Profile </label>
+                            <label class="control-label">AccoutType Profile <span class="validation-error">*</span></label>
                             <select asp-for="AccountTypeProfileID" asp-items="Model.AcountTypeProfiles" class="form-control" data-style="select-with-transition" title="Choose a Accout Type Profile " data-size="7">
                                 <option disabled selected> Choose a Accout Type Profile </option>
                             </select>
@@ -30,7 +30,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Denomination</label>
+                            <label class="control-label">Denomination <span class="validation-error">*</span></label>
                             <select asp-for="DenominationID" disabled class="form-control" data-style="select-with-transition" title="Choose a Denommination" data-size="7">
                                 <option disabled selected> Choose a Denomination </option>
                             </select>

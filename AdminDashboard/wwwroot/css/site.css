@@ -77,4 +77,7 @@ body {
     border: 1px solid #ff0000;
     background-color: #ffeeee;
 }*/
+span.validation-error{
+    color:red;
+}
 

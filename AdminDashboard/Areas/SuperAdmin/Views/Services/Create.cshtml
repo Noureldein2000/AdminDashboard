@@ -12,18 +12,18 @@
                 <form asp-action="Create" method="post">
                     @Html.AntiForgeryToken()
                     <div class="card-header">
-                        <h2>Create Account</h2>
+                        <h2>Create Service</h2>
                     </div>
                     <div class="card-body">
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <input type="hidden" asp-for="Id" />
                         <div class="form-group">
-                            <label class="control-label">Name</label>
+                            <label class="control-label">Name <span class="validation-error">*</span></label>
                             <input asp-for="Name" class="form-control" />
                             <span asp-validation-for="Name" class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Name Ar</label>
+                            <label class="control-label">Name Ar <span class="validation-error">*</span></label>
                             <input asp-for="ArName" class="form-control" />
                             <span asp-validation-for="ArName" class="text-danger"></span>
                         </div>
@@ -32,27 +32,27 @@
                             <input asp-for="Code" class="form-control" />
                             <span asp-validation-for="Code" class="text-danger"></span>
                         </div>
-                        <div class="form-group">
+                        @*<div class="form-group">
                             <label class="control-label">Path Class</label>
                             <input asp-for="PathClass" class="form-control" />
                             <span asp-validation-for="PathClass" class="text-danger"></span>
-                        </div>
+                        </div>*@
                         <div class="form-group">
-                            <label class="control-label">Type</label>
+                            <label class="control-label">Service Type <span class="validation-error">*</span></label>
                             <select asp-for="ServiceTypeID" asp-items="Model.ServiceTypes" class="form-control" data-style="select-with-transition" title="Choose a governerate" data-size="7">
                                 <option disabled selected>Choose Type</option>
                             </select>
                             <span asp-validation-for="ServiceTypeID" class="text-danger"></span>
                         </div>
-                        <div class="form-group">
+                        @*<div class="form-group">
                             <label class="control-label">Catgory</label>
                             <select asp-for="ServiceCategoryID" asp-items="Model.ServicesCategories" class="form-control" data-style="select-with-transition" title="Choose a governerate" data-size="7">
                                 <option disabled selected> Choose Category</option>
                             </select>
                             <span asp-validation-for="ServiceCategoryID" class="text-danger"></span>
-                        </div>
+                        </div>*@
                         <div class="form-group">
-                            <label class="control-label">Entity</label>
+                            <label class="control-label">Entity <span class="validation-error">*</span></label>
                             <select asp-for="ServiceEntityID" asp-items="Model.ServiceEntities" class="form-control" data-style="select-with-transition" title="Choose a governerate" data-size="7">
                                 <option disabled selected> Choose Entity</option>
                             </select>
@@ -60,9 +60,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label">Class Type</label>
+                            <label class="control-label">Service Category <span class="validation-error">*</span></label>
                             <select asp-for="ClassType" asp-items="@Html.GetEnumSelectList<ServiceClassType>()" class="form-control" data-style="select-with-transition" title="Choose a Role" data-size="7">
-                                <option disabled selected> Choose a Class</option>
+                                <option disabled selected> Choose a Category</option>
                             </select>
                             <span asp-validation-for="ClassType" class="text-danger"></span>
                         </div>

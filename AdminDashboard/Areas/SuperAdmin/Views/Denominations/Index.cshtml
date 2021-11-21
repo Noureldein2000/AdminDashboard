@@ -8,13 +8,14 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2> Denominations</h2>
-                    <a asp-action="Create" asp-route-serviceId="@TempData["serviceId"]" class="pull-right btn btn-outline-primary">Add</a>
+                    <h2> Denomination >> @ViewBag.FullTitle</h2>
+                    <a asp-action="Create" asp-route-serviceId="@TempData["serviceId"]" asp-route-serviceTypeId="@TempData["serviceTypeId"]" class="pull-right btn btn-outline-primary">Add</a>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
                         <thead>
                             <tr>
+                                <th>No.</th>
                                 <th>Name</th>
                                 <th>Value</th>
                                 <th>Inquirable</th>
@@ -28,6 +29,7 @@
                             @foreach (var deno in Model.Results)
                             {
                                 <tr>
+                                    <td>@deno.Id</td>
                                     <td>@deno.Name</td>
                                     <td>@deno.Value</td>
                                     <td>@deno.Inquirable</td>

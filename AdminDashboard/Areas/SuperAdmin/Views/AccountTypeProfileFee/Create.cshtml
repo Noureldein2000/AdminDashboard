@@ -17,7 +17,7 @@
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <input type="hidden" asp-for="AccountTypeProfileDenominationID" />
                         <div class="form-group">
-                            <label class="control-label">Fees </label>
+                            <label class="control-label">Fees <span class="validation-error">*</span></label>
                             <select asp-for="FeeId" asp-items="Model.Fees" class="form-control" data-style="select-with-transition" title="Choose a Accout Type Profile " data-size="7">
                                 <option disabled selected> Choose a Fee</option>
                             </select>
