@@ -428,6 +428,39 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="language"> (optional, default to ar)</param>
         /// <returns>ApiResponse of DenominationModelPagedResult</returns>
         ApiResponse<DenominationModelPagedResult> ApiDenominationGetDenominationsByServiceIdServiceIdGetWithHttpInfo (int? serviceId, int? pageNumber = null, int? pageSize = null, string language = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="serviceName"> (optional)</param>
+        /// <param name="serviceCode"> (optional)</param>
+        /// <param name="denomninationName"> (optional)</param>
+        /// <param name="denomniationCode"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>DenominationModelPagedResult</returns>
+        DenominationModelPagedResult ApiDenominationSearchDenominationsGet (string serviceName = null, string serviceCode = null, string denomninationName = null, string denomniationCode = null, int? pageNumber = null, int? pageSize = null, string language = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="serviceName"> (optional)</param>
+        /// <param name="serviceCode"> (optional)</param>
+        /// <param name="denomninationName"> (optional)</param>
+        /// <param name="denomniationCode"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>ApiResponse of DenominationModelPagedResult</returns>
+        ApiResponse<DenominationModelPagedResult> ApiDenominationSearchDenominationsGetWithHttpInfo (string serviceName = null, string serviceCode = null, string denomninationName = null, string denomniationCode = null, int? pageNumber = null, int? pageSize = null, string language = null);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -835,6 +868,39 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="language"> (optional, default to ar)</param>
         /// <returns>Task of ApiResponse (DenominationModelPagedResult)</returns>
         System.Threading.Tasks.Task<ApiResponse<DenominationModelPagedResult>> ApiDenominationGetDenominationsByServiceIdServiceIdGetAsyncWithHttpInfo (int? serviceId, int? pageNumber = null, int? pageSize = null, string language = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="serviceName"> (optional)</param>
+        /// <param name="serviceCode"> (optional)</param>
+        /// <param name="denomninationName"> (optional)</param>
+        /// <param name="denomniationCode"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>Task of DenominationModelPagedResult</returns>
+        System.Threading.Tasks.Task<DenominationModelPagedResult> ApiDenominationSearchDenominationsGetAsync (string serviceName = null, string serviceCode = null, string denomninationName = null, string denomniationCode = null, int? pageNumber = null, int? pageSize = null, string language = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="serviceName"> (optional)</param>
+        /// <param name="serviceCode"> (optional)</param>
+        /// <param name="denomninationName"> (optional)</param>
+        /// <param name="denomniationCode"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>Task of ApiResponse (DenominationModelPagedResult)</returns>
+        System.Threading.Tasks.Task<ApiResponse<DenominationModelPagedResult>> ApiDenominationSearchDenominationsGetAsyncWithHttpInfo (string serviceName = null, string serviceCode = null, string denomninationName = null, string denomniationCode = null, int? pageNumber = null, int? pageSize = null, string language = null);
         #endregion Asynchronous Operations
     }
 
@@ -3739,6 +3805,181 @@ namespace AdminDashboard.SwaggerClient
             if (ExceptionFactory != null)
             {
                 Exception exception = ExceptionFactory("ApiDenominationGetDenominationsByServiceIdServiceIdGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<DenominationModelPagedResult>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (DenominationModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(DenominationModelPagedResult)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="serviceName"> (optional)</param>
+        /// <param name="serviceCode"> (optional)</param>
+        /// <param name="denomninationName"> (optional)</param>
+        /// <param name="denomniationCode"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>DenominationModelPagedResult</returns>
+        public DenominationModelPagedResult ApiDenominationSearchDenominationsGet (string serviceName = null, string serviceCode = null, string denomninationName = null, string denomniationCode = null, int? pageNumber = null, int? pageSize = null, string language = null)
+        {
+             ApiResponse<DenominationModelPagedResult> localVarResponse = ApiDenominationSearchDenominationsGetWithHttpInfo(serviceName, serviceCode, denomninationName, denomniationCode, pageNumber, pageSize, language);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="serviceName"> (optional)</param>
+        /// <param name="serviceCode"> (optional)</param>
+        /// <param name="denomninationName"> (optional)</param>
+        /// <param name="denomniationCode"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>ApiResponse of DenominationModelPagedResult</returns>
+        public ApiResponse< DenominationModelPagedResult > ApiDenominationSearchDenominationsGetWithHttpInfo (string serviceName = null, string serviceCode = null, string denomninationName = null, string denomniationCode = null, int? pageNumber = null, int? pageSize = null, string language = null)
+        {
+
+            var localVarPath = "/api/Denomination/SearchDenominations";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (serviceName != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "serviceName", serviceName)); // query parameter
+            if (serviceCode != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "serviceCode", serviceCode)); // query parameter
+            if (denomninationName != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "denomninationName", denomninationName)); // query parameter
+            if (denomniationCode != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "denomniationCode", denomniationCode)); // query parameter
+            if (pageNumber != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageNumber", pageNumber)); // query parameter
+            if (pageSize != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageSize", pageSize)); // query parameter
+            if (language != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiDenominationSearchDenominationsGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<DenominationModelPagedResult>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (DenominationModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(DenominationModelPagedResult)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="serviceName"> (optional)</param>
+        /// <param name="serviceCode"> (optional)</param>
+        /// <param name="denomninationName"> (optional)</param>
+        /// <param name="denomniationCode"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>Task of DenominationModelPagedResult</returns>
+        public async System.Threading.Tasks.Task<DenominationModelPagedResult> ApiDenominationSearchDenominationsGetAsync (string serviceName = null, string serviceCode = null, string denomninationName = null, string denomniationCode = null, int? pageNumber = null, int? pageSize = null, string language = null)
+        {
+             ApiResponse<DenominationModelPagedResult> localVarResponse = await ApiDenominationSearchDenominationsGetAsyncWithHttpInfo(serviceName, serviceCode, denomninationName, denomniationCode, pageNumber, pageSize, language);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="serviceName"> (optional)</param>
+        /// <param name="serviceCode"> (optional)</param>
+        /// <param name="denomninationName"> (optional)</param>
+        /// <param name="denomniationCode"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>Task of ApiResponse (DenominationModelPagedResult)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<DenominationModelPagedResult>> ApiDenominationSearchDenominationsGetAsyncWithHttpInfo (string serviceName = null, string serviceCode = null, string denomninationName = null, string denomniationCode = null, int? pageNumber = null, int? pageSize = null, string language = null)
+        {
+
+            var localVarPath = "/api/Denomination/SearchDenominations";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (serviceName != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "serviceName", serviceName)); // query parameter
+            if (serviceCode != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "serviceCode", serviceCode)); // query parameter
+            if (denomninationName != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "denomninationName", denomninationName)); // query parameter
+            if (denomniationCode != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "denomniationCode", denomniationCode)); // query parameter
+            if (pageNumber != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageNumber", pageNumber)); // query parameter
+            if (pageSize != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageSize", pageSize)); // query parameter
+            if (language != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiDenominationSearchDenominationsGet", localVarResponse);
                 if (exception != null) throw exception;
             }
 

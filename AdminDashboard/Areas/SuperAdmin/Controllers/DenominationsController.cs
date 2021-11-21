@@ -396,6 +396,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Id = (int)denomination.Id,
                 Name = denomination.Name,
                 ServiceID = (int)denomination.ServiceID,
+                ServiceName = denomination.ServiceName,
                 Status = (bool)denomination.Status,
                 //ServiceProviderId = (int)denomination.ServiceProviderId,
                 PaymentModeID = (PaymentMode)denomination.PaymentModeID,

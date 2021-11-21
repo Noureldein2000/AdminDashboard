@@ -14,6 +14,10 @@ namespace AdminDashboard.Models
         public int PageSize { get; set; }
         public int RowCount { get; set; }
         public string SearchKey { get; set; }
+        public string ServiceName { get; set; }
+        public string ServiceCode { get; set; }
+        public string DenomninationName { get; set; }
+        public string DenomniationCode { get; set; }
         public int? DropDownFilter { get; set; }
         public int? DropDownFilter2 { get; set; }
 

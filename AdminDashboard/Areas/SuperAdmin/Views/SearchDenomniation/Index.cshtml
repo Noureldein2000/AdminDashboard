@@ -1,0 +1,129 @@
+﻿@model PagedResult<DenominationViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Search Denomninations</h2>
+                </div>
+                <div class="card-body">
+                    <form asp-action="SearchByKeysDenomination" asp-controller="SearchDenomniation" method="get" id="searchForm">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label class="control-label">Filter by Service</label>
+                                    <input asp-for="ServiceName" onkeyup="toggleButton(this,'btnSearch')" class="form-control" placeholder="Service Name" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="control-label">Filter by Service Code</label>
+                                    <input asp-for="ServiceCode" onkeyup="toggleButton(this,'btnSearch')" onkeypress="return isNumberKey(event)" class="form-control" placeholder="Service Code" />
+                                </div>
+                            </div>
+                            <div class="row mt-2">
+                                <div class="col-md-6">
+                                    <label class="control-label">Filter by Denomination Name</label>
+                                    <input asp-for="DenomninationName" onkeyup="toggleButton(this,'btnSearch')" class="form-control" placeholder="Denomination Name" />
+                                </div>
+                                <div class="col-md-6">
+                                    <label class="control-label">Filter by Denomination Code</label>
+                                    <input asp-for="DenomniationCode" onkeyup="toggleButton(this,'btnSearch')" onkeypress="return isNumberKey(event)" class="form-control" placeholder="Denomination Code" />
+                                </div>
+                            </div>
+                            <div class="row float-right mt-2 mb-2">
+                                <input id="btnSearch" type="submit" value="Search" class="btn btn-secondary" disabled />
+                            </div>
+                        </div>
+                    </form>
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Service.</th>
+                                <th>Name</th>
+                                <th>Value</th>
+                                <th>Inquirable</th>
+                                <th>ServiceType</th>
+                                <th>PaymentMode</th>
+                                <th>Bill PaymentMode</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var deno in Model.Results)
+                            {
+                                <tr>
+                                    <td>@deno.Id</td>
+                                    <td>@deno.ServiceName</td>
+                                    <td>@deno.Name</td>
+                                    <td>@deno.Value</td>
+                                    <td>@deno.Inquirable</td>
+                                    <td>@deno.ClassType</td>
+                                    <td>@deno.PaymentModeName</td>
+                                    <td>@deno.BillPaymentModeName</td>
+                                    <td>
+                                        <a asp-action="Index" asp-controller="DenominationFees" asp-route-denominationId="@deno.Id" class="btn btn-info">Fees</a>
+                                        <a asp-action="Index" asp-controller="DenominationCommission" asp-route-denominationId="@deno.Id" class="btn btn-info">Commissions</a>
+                                        <a asp-action="Edit" asp-controller="Denominations" asp-route-id="@deno.Id" class="btn btn-info">Edit</a>
+                                        @*<a asp-action="ChangeStatus" asp-controller="Denominations" asp-route-id="@deno.Id" asp-route-serviceId="@deno.ServiceID" class="btn @(deno.Status ? "btn-danger" : "btn-success")">
+                                            @(deno.Status ? "Deactive" : "Active")
+                                        </a>*@
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer d-flex justify-content-center">
+                    <pager link-url="/SuperAdmin/SearchDenomniation/SearchByKeysDenomination"
+                           page="Model.CurrentPage"
+                           page-size="Model.PageSize"
+                           total-items="Model.PageCount">
+                    </pager>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+
+        @*$("form").on("submit", function (event) {
+/*            event.preventDefault();*/
+            var form =($(this).serialize());
+
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("SearchByKeysDenomination")",
+                data: form,
+                dataType: "text",
+                 success: function (state) {
+/*                     console.log('success data response ' + state);*/
+                         $('#drpServiceConfig').append('<option value="' + state.id + '" selected>' +
+                             state.url + '</option>');
+                },
+                 error: function (req, status, error) {
+                     console.log(error);
+                }
+            });
+        });*@
+
+        function toggleButton(ref, bttnID) {
+            document.getElementById(bttnID).disabled = ((ref.value !== ref.defaultValue) ? false : true);
+        }
+
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+    </script>
+}
+

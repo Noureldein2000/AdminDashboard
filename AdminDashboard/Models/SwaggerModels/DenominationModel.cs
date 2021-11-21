@@ -36,6 +36,7 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="name">name.</param>
         /// <param name="value">value.</param>
         /// <param name="serviceID">serviceID.</param>
+        /// <param name="serviceName">serviceName.</param>
         /// <param name="oldDenominationID">oldDenominationID.</param>
         /// <param name="status">status.</param>
         /// <param name="currencyID">currencyID.</param>
@@ -53,12 +54,13 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="billPaymentModeName">billPaymentModeName.</param>
         /// <param name="paymentModeID">paymentModeID.</param>
         /// <param name="paymentModeName">paymentModeName.</param>
-        public DenominationModel(int? id = default(int?), string name = default(string), double? value = default(double?), int? serviceID = default(int?), string oldDenominationID = default(string), bool? status = default(bool?), int? currencyID = default(int?), double? apiValue = default(double?), double? minValue = default(double?), double? maxValue = default(double?), int? interval = default(int?), int? serviceCategoryID = default(int?), DenominationClassType classType = default(DenominationClassType), int? serviceProviderId = default(int?), string serviceEntity = default(string), string pathClass = default(string), bool? inquirable = default(bool?), int? billPaymentModeID = default(int?), string billPaymentModeName = default(string), int? paymentModeID = default(int?), string paymentModeName = default(string))
+        public DenominationModel(int? id = default(int?), string name = default(string), double? value = default(double?), int? serviceID = default(int?), string serviceName = default(string), string oldDenominationID = default(string), bool? status = default(bool?), int? currencyID = default(int?), double? apiValue = default(double?), double? minValue = default(double?), double? maxValue = default(double?), int? interval = default(int?), int? serviceCategoryID = default(int?), DenominationClassType classType = default(DenominationClassType), int? serviceProviderId = default(int?), string serviceEntity = default(string), string pathClass = default(string), bool? inquirable = default(bool?), int? billPaymentModeID = default(int?), string billPaymentModeName = default(string), int? paymentModeID = default(int?), string paymentModeName = default(string))
         {
             this.Id = id;
             this.Name = name;
             this.Value = value;
             this.ServiceID = serviceID;
+            this.ServiceName = serviceName;
             this.OldDenominationID = oldDenominationID;
             this.Status = status;
             this.CurrencyID = currencyID;
@@ -101,6 +103,12 @@ namespace AdminDashboard.Models.SwaggerModels
         /// </summary>
         [DataMember(Name="serviceID", EmitDefaultValue=false)]
         public int? ServiceID { get; set; }
+
+        /// <summary>
+        /// Gets or Sets ServiceName
+        /// </summary>
+        [DataMember(Name="serviceName", EmitDefaultValue=false)]
+        public string ServiceName { get; set; }
 
         /// <summary>
         /// Gets or Sets OldDenominationID
@@ -216,6 +224,7 @@ namespace AdminDashboard.Models.SwaggerModels
             sb.Append("  Name: ").Append(Name).Append("\n");
             sb.Append("  Value: ").Append(Value).Append("\n");
             sb.Append("  ServiceID: ").Append(ServiceID).Append("\n");
+            sb.Append("  ServiceName: ").Append(ServiceName).Append("\n");
             sb.Append("  OldDenominationID: ").Append(OldDenominationID).Append("\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
             sb.Append("  CurrencyID: ").Append(CurrencyID).Append("\n");
@@ -286,6 +295,11 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.ServiceID == input.ServiceID ||
                     (this.ServiceID != null &&
                     this.ServiceID.Equals(input.ServiceID))
+                ) && 
+                (
+                    this.ServiceName == input.ServiceName ||
+                    (this.ServiceName != null &&
+                    this.ServiceName.Equals(input.ServiceName))
                 ) && 
                 (
                     this.OldDenominationID == input.OldDenominationID ||
@@ -391,6 +405,8 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.Value.GetHashCode();
                 if (this.ServiceID != null)
                     hashCode = hashCode * 59 + this.ServiceID.GetHashCode();
+                if (this.ServiceName != null)
+                    hashCode = hashCode * 59 + this.ServiceName.GetHashCode();
                 if (this.OldDenominationID != null)
                     hashCode = hashCode * 59 + this.OldDenominationID.GetHashCode();
                 if (this.Status != null)

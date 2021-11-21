@@ -18,6 +18,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public double Value { get; set; }
         public int ServiceID { get; set; }
         public int ServiceTypeID { get; set; }
+        public string ServiceName { get; set; }
         public string OldDenominationID { get; set; }
         public bool Status { get; set; }
         [Required]
