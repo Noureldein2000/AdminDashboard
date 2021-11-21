@@ -34,7 +34,7 @@ namespace AdminDashboard.Models.SwaggerModels
         /// </summary>
         /// <param name="lstProfile">lstProfile.</param>
         /// <param name="lstAccountType">lstAccountType.</param>
-        public AccountTypeProfileLstModel(List<ProfileDTO> lstProfile = default(List<ProfileDTO>), List<AccountTypeDTO> lstAccountType = default(List<AccountTypeDTO>))
+        public AccountTypeProfileLstModel(List<ProfileDTO> lstProfile = default(List<ProfileDTO>), List<AccountTypeModel> lstAccountType = default(List<AccountTypeModel>))
         {
             this.LstProfile = lstProfile;
             this.LstAccountType = lstAccountType;
@@ -50,7 +50,7 @@ namespace AdminDashboard.Models.SwaggerModels
         /// Gets or Sets LstAccountType
         /// </summary>
         [DataMember(Name="lstAccountType", EmitDefaultValue=false)]
-        public List<AccountTypeDTO> LstAccountType { get; set; }
+        public List<AccountTypeModel> LstAccountType { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object

@@ -24,22 +24,26 @@ using SwaggerDateConverter = AdminDashboard.SwaggerClientHelpers.SwaggerDateConv
 namespace AdminDashboard.Models.SwaggerModels
 {
     /// <summary>
-    /// AccountTypeDTO
+    /// AccountTypeModel
     /// </summary>
     [DataContract]
-        public partial class AccountTypeDTO :  IEquatable<AccountTypeDTO>, IValidatableObject
+        public partial class AccountTypeModel :  IEquatable<AccountTypeModel>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AccountTypeDTO" /> class.
+        /// Initializes a new instance of the <see cref="AccountTypeModel" /> class.
         /// </summary>
         /// <param name="id">id.</param>
         /// <param name="name">name.</param>
+        /// <param name="nameAr">nameAr.</param>
         /// <param name="status">status.</param>
-        public AccountTypeDTO(int? id = default(int?), string name = default(string), bool? status = default(bool?))
+        /// <param name="treeLevel">treeLevel.</param>
+        public AccountTypeModel(int? id = default(int?), string name = default(string), string nameAr = default(string), bool? status = default(bool?), int? treeLevel = default(int?))
         {
             this.Id = id;
             this.Name = name;
+            this.NameAr = nameAr;
             this.Status = status;
+            this.TreeLevel = treeLevel;
         }
         
         /// <summary>
@@ -55,10 +59,22 @@ namespace AdminDashboard.Models.SwaggerModels
         public string Name { get; set; }
 
         /// <summary>
+        /// Gets or Sets NameAr
+        /// </summary>
+        [DataMember(Name="nameAr", EmitDefaultValue=false)]
+        public string NameAr { get; set; }
+
+        /// <summary>
         /// Gets or Sets Status
         /// </summary>
         [DataMember(Name="status", EmitDefaultValue=false)]
         public bool? Status { get; set; }
+
+        /// <summary>
+        /// Gets or Sets TreeLevel
+        /// </summary>
+        [DataMember(Name="treeLevel", EmitDefaultValue=false)]
+        public int? TreeLevel { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -67,10 +83,12 @@ namespace AdminDashboard.Models.SwaggerModels
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class AccountTypeDTO {\n");
+            sb.Append("class AccountTypeModel {\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  NameAr: ").Append(NameAr).Append("\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
+            sb.Append("  TreeLevel: ").Append(TreeLevel).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -91,15 +109,15 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as AccountTypeDTO);
+            return this.Equals(input as AccountTypeModel);
         }
 
         /// <summary>
-        /// Returns true if AccountTypeDTO instances are equal
+        /// Returns true if AccountTypeModel instances are equal
         /// </summary>
-        /// <param name="input">Instance of AccountTypeDTO to be compared</param>
+        /// <param name="input">Instance of AccountTypeModel to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(AccountTypeDTO input)
+        public bool Equals(AccountTypeModel input)
         {
             if (input == null)
                 return false;
@@ -116,9 +134,19 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.Name.Equals(input.Name))
                 ) && 
                 (
+                    this.NameAr == input.NameAr ||
+                    (this.NameAr != null &&
+                    this.NameAr.Equals(input.NameAr))
+                ) && 
+                (
                     this.Status == input.Status ||
                     (this.Status != null &&
                     this.Status.Equals(input.Status))
+                ) && 
+                (
+                    this.TreeLevel == input.TreeLevel ||
+                    (this.TreeLevel != null &&
+                    this.TreeLevel.Equals(input.TreeLevel))
                 );
         }
 
@@ -135,8 +163,12 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.Name != null)
                     hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.NameAr != null)
+                    hashCode = hashCode * 59 + this.NameAr.GetHashCode();
                 if (this.Status != null)
                     hashCode = hashCode * 59 + this.Status.GetHashCode();
+                if (this.TreeLevel != null)
+                    hashCode = hashCode * 59 + this.TreeLevel.GetHashCode();
                 return hashCode;
             }
         }
