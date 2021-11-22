@@ -60,6 +60,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
             try
             {
+                throw new Exception("There is some thing error happened");
                 accountTypeServiceApi.ApiAccountTypeAddAccountTypePost(new AccountTypeModel
                     (
                     name: model.Name,
@@ -74,7 +75,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             {
                 TempData["result"] = false;
 
-                return View(model);
+                return View("../../Views/Shared/Error", new ErrorViewModel());
             }
         }
 
