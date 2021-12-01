@@ -139,9 +139,14 @@
                 $("#Denomination_Inquirable").prop('checked', false);
                 $("#Denomination_Inquirable").prop('disabled', true);
             }
-            $('.js-example-basic-single').select2({
+            //$('.js-example-basic-single').select2({
+            //    width: '850px',
+            //    theme: "bootstrap",
+            //});
+
+           $('#drpServiceConfig').select2({
                 width: '850px',
-                theme: "classic",
+                theme: "bootstrap"
             });
 
             $('.btnNext').click(function () {

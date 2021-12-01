@@ -60,7 +60,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
             try
             {
-                throw new Exception("There is some thing error happened");
+                //throw new Exception("There is some thing error happened");
                 accountTypeServiceApi.ApiAccountTypeAddAccountTypePost(new AccountTypeModel
                     (
                     name: model.Name,

@@ -61,20 +61,20 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 return View(model);
             try
             {
-            _usersApi.ApiUsersCreateUserPost(new CreateUserModel(
-                username: model.Username,
-                password: model.Password,
-                accountId: model.AccountID,
-                email: model.Email,
-                userRole: model.UserRole
-                ));
+                _usersApi.ApiUsersCreateUserPost(new CreateUserModel(
+                    username: model.Username,
+                    password: model.Password,
+                    accountId: model.AccountID,
+                    email: model.Email,
+                    userRole: model.UserRole
+                    ));
 
                 TempData["result"] = true;
             }
             catch (Exception ex)
             {
 
-                ModelState.AddModelError("1",ex.Message);
+                ModelState.AddModelError("1", ex.Message);
                 return View(model);
             }
 
@@ -83,7 +83,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public async Task<IActionResult> ManageRoles(string userId)
         {
-            var user = _usersApi.ApiUsersManageRolesGet(userId);
+            var user = await _usersApi.ApiUsersManageRolesGetAsync(userId);
             var viewModel = new UserRolesViewModel
             {
                 UserId = user.UserId,
@@ -104,16 +104,16 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             {
                 return View(model);
             }
-            _usersApi.ApiUsersManageRolesPost(new UserRolesModel(
-                userId: model.UserId,
-                roles: model.Roles.Select(r => new CheckBoxModel(displayName: r.DisplayName, isSelected: r.IsSelected)).ToList()
-             ));
+            await _usersApi.ApiUsersManageRolesPostAsync(new UserRolesModel(
+                  userId: model.UserId,
+                  roles: model.Roles.Select(r => new CheckBoxModel(displayName: r.DisplayName, isSelected: r.IsSelected)).ToList()
+               ));
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
         public async Task<IActionResult> ManagePermissions(string userId)
         {
-            var user = _usersApi.ApiUsersManagePermissionsGet(userId);
+            var user = await _usersApi.ApiUsersManagePermissionsGetAsync(userId);
 
             var viewModel = new UsersPermissionsViewModel
             {
@@ -136,13 +136,20 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             {
                 return View(model);
             }
-            _usersApi.ApiUsersManagePermissionsPost(new UserPermissionsModel(
-                userId: model.UserId,
-                userClaims: model.UserClaims.Select(r => new CheckBoxModel(displayName: r.DisplayName, isSelected: r.IsSelected)).ToList()
-                ));
+            await _usersApi.ApiUsersManagePermissionsPostAsync(new UserPermissionsModel(
+                  userId: model.UserId,
+                  userClaims: model.UserClaims.Select(r => new CheckBoxModel(displayName: r.DisplayName, isSelected: r.IsSelected)).ToList()
+                  ));
 
             return RedirectToAction(nameof(Index));
         }
+        [HttpPost]
+        public async Task<JsonResult> ResetPassword(string id)
+        {
+            var result = await _usersApi.ApiUsersResetPasswordUserIdPostAsync(id);
+            return Json(result);
+        }
+
         private UsersViewModel Map(UserModel model)
         {
             return new UsersViewModel
