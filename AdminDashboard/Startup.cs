@@ -111,7 +111,7 @@ namespace AdminDashboard
                 //endpoints.MapDefaultControllerRoute();
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "test/admin/{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
