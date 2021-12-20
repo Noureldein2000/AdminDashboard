@@ -108,10 +108,10 @@ namespace AdminDashboard
                 //endpoints.MapControllerRoute(
                 //     name: "areaRoute",
                 //     pattern: "{area:exists}/{controller=Home}/{action=Index}");
-                endpoints.MapDefaultControllerRoute();
-                //endpoints.MapControllerRoute(
-                //    name: "default",
-                //    pattern: "{controller=Home}/{action=Index}/{id?}");
+                //endpoints.MapDefaultControllerRoute();
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }
