@@ -17,22 +17,18 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     [Authorize]
     public class FeesController : Controller
     {
-        private readonly IAccountApi api;
-        private readonly IFeesApi apiFees;
-        private readonly IConfiguration _configuration;
-        public FeesController(IConfiguration configuration)
+        private readonly IAccountApi _api;
+        private readonly IFeesApi _apiFees;
+        public FeesController(IAccountApi accountApi, IFeesApi feesApi)
         {
-            _configuration = configuration;
-            string url = _configuration.GetValue<string>("Urls:Authority");
-            string urlTms = _configuration.GetValue<string>("Urls:TMS");
-            api = new AccountApi(url);
-            apiFees = new FeesApi(urlTms);
+            _api = accountApi;
+            _apiFees = feesApi;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
         {
-            var data = await apiFees.ApiFeesGetFeesGetAsync(page, pageSize);
+            var data = await _apiFees.ApiFeesGetFeesGetAsync(page, pageSize);
 
             var viewModel = new PagedResult<FeesViewModel>
             {
@@ -57,14 +53,14 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            apiFees.ApiFeesAddFeePost(MapToModel(model));
+            _apiFees.ApiFeesAddFeePost(MapToModel(model));
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var model = apiFees.ApiFeesGetFeeByIdIdGet(id);
+            var model = _apiFees.ApiFeesGetFeeByIdIdGet(id);
             return View(Map(model));
         }
 
@@ -75,20 +71,20 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            apiFees.ApiFeesEditFeePut(MapToModel(model));
+            _apiFees.ApiFeesEditFeePut(MapToModel(model));
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public IActionResult ChangeStatus(int id)
         {
-            apiFees.ApiFeesChangeStatusIdPut(id);
+            _apiFees.ApiFeesChangeStatusIdPut(id);
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
         public JsonResult Delete(int id)
         {
-            apiFees.ApiFeesDeleteFeeIdDelete(id);
+            _apiFees.ApiFeesDeleteFeeIdDelete(id);
             return Json(id);
         }
 

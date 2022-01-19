@@ -17,20 +17,16 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     [Authorize]
     public class AccountTypeController : Controller
     {
-        private readonly IAdminServiceApi adminServiceApi;
-        private readonly IAccountTypeApi accountTypeServiceApi;
-        private readonly IConfiguration _configuration;
-        public AccountTypeController(IConfiguration configuration)
+        private readonly IAdminServiceApi _adminServiceApi;
+        private readonly IAccountTypeApi _accountTypeServiceApi;
+        public AccountTypeController(IAdminServiceApi adminServiceApi, IAccountTypeApi accountTypeApi)
         {
-            _configuration = configuration;
-            string url = _configuration.GetValue<string>("Urls:Authority");
-            string urlTms = _configuration.GetValue<string>("Urls:TMS");
-            accountTypeServiceApi = new AccountTypeApi(url);
-            adminServiceApi = new AdminServiceApi(urlTms);
+            _accountTypeServiceApi = accountTypeApi;
+            _adminServiceApi = adminServiceApi;
         }
         public async Task<IActionResult> Index(int page = 1, int size = 10, string language = "ar")
         {
-            var model = await accountTypeServiceApi.ApiAccountTypeGetAccountTypesGetAsync(page, size, language);
+            var model = await _accountTypeServiceApi.ApiAccountTypeGetAccountTypesGetAsync(page, size, language);
 
             var viewModel = new PagedResult<AccountTypeViewModel>
             {
@@ -61,7 +57,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             try
             {
                 //throw new Exception("There is some thing error happened");
-                accountTypeServiceApi.ApiAccountTypeAddAccountTypePost(new AccountTypeModel
+                _accountTypeServiceApi.ApiAccountTypeAddAccountTypePost(new AccountTypeModel
                     (
                     name: model.Name,
                     nameAr: model.NameAr,
@@ -82,7 +78,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var model = accountTypeServiceApi.ApiAccountTypeGetAccountTypeByIdIdGet(id);
+            var model = _accountTypeServiceApi.ApiAccountTypeGetAccountTypeByIdIdGet(id);
             return View(MapToViewModel(model));
         }
 
@@ -97,7 +93,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
             try
             {
-                accountTypeServiceApi.ApiAccountTypeEditAccountTypePut(new AccountTypeModel
+                _accountTypeServiceApi.ApiAccountTypeEditAccountTypePut(new AccountTypeModel
                     (
                     id: model.Id,
                     name: model.Name,
@@ -120,14 +116,14 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public JsonResult Delete(int id)
         {
-            accountTypeServiceApi.ApiAccountTypeDeleteAccountTypeIdDelete(id);
+            _accountTypeServiceApi.ApiAccountTypeDeleteAccountTypeIdDelete(id);
             return Json(id);
         }
 
         [HttpGet]
         public ActionResult ChangeStatus(int id)
         {
-            accountTypeServiceApi.ApiAccountTypeChangeStatusIdPut(id);
+            _accountTypeServiceApi.ApiAccountTypeChangeStatusIdPut(id);
             return RedirectToAction(nameof(Index));
         }
 

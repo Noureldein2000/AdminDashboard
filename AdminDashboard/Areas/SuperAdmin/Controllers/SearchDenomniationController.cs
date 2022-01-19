@@ -18,16 +18,10 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     [Authorize]
     public class SearchDenomniationController : Controller
     {
-        private readonly IAdminServiceApi api;
-        private readonly IDenominationApi apiDenomination;
-        private readonly IConfiguration _configuration;
-        public SearchDenomniationController(IConfiguration configuration)
+        private readonly IDenominationApi _apiDenomination;
+        public SearchDenomniationController(IDenominationApi denominationApi)
         {
-            _configuration = configuration;
-            //string url = _configuration.GetValue<string>("Urls:Authority");
-            string urlTms = _configuration.GetValue<string>("Urls:TMS");
-            api = new AdminServiceApi(urlTms);
-            apiDenomination = new DenominationApi(urlTms);
+            _apiDenomination = denominationApi;
         }
         [HttpGet]
         public IActionResult Index()
@@ -38,7 +32,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult SearchByKeysDenomination(string serviceName, string serviceCode, string denomninationName, string denomniationCode, int page = 1, int size = 10, string language = "ar")
         {
-            var data = apiDenomination.ApiDenominationSearchDenominationsGet(serviceName, serviceCode, denomninationName, denomniationCode, page, size, language);
+            var data = _apiDenomination.ApiDenominationSearchDenominationsGet(serviceName, serviceCode, denomninationName, denomniationCode, page, size, language);
 
             var viewModel = new PagedResult<DenominationViewModel>
             {

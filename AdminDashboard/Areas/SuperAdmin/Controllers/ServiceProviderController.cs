@@ -18,19 +18,15 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     [Authorize]
     public class ServiceProviderController : Controller
     {
-        private readonly IServiceProviderApi apiServiceProvider;
-        private readonly IConfiguration _configuration;
-        public ServiceProviderController(IConfiguration configuration)
+        private readonly IServiceProviderApi _apiServiceProvider;
+        public ServiceProviderController(IServiceProviderApi serviceProviderApi)
         {
-            _configuration = configuration;
-            string url = _configuration.GetValue<string>("Urls:Authority");
-            string urlTms = _configuration.GetValue<string>("Urls:TMS");
-            apiServiceProvider = new ServiceProviderApi(urlTms);
+            _apiServiceProvider = serviceProviderApi;
         }
 
         public async Task<IActionResult> Index(int page = 1, int size = 10)
         {
-            var data = await apiServiceProvider.ApiServiceProviderGetServiceProviderGetAsync(page, size);
+            var data = await _apiServiceProvider.ApiServiceProviderGetServiceProviderGetAsync(page, size);
 
             var viewModel = new PagedResult<ServiceProviderViewModel>
             {
@@ -54,12 +50,12 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            apiServiceProvider.ApiServiceProviderAddServiceProviderPost(MapToModel(model));
+            _apiServiceProvider.ApiServiceProviderAddServiceProviderPost(MapToModel(model));
             return RedirectToAction(nameof(Index));
         }
         public IActionResult Edit(int id)
         {
-            var model = apiServiceProvider.ApiServiceProviderGetServiceProviderByIdIdGet(id);
+            var model = _apiServiceProvider.ApiServiceProviderGetServiceProviderByIdIdGet(id);
             return View(MapToViewModel(model));
         }
 
@@ -70,12 +66,12 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            apiServiceProvider.ApiServiceProviderEditServiceProviderPut(MapToModel(model));
+            _apiServiceProvider.ApiServiceProviderEditServiceProviderPut(MapToModel(model));
             return RedirectToAction(nameof(Index));
         }
         public JsonResult Delete(int id)
         {
-            apiServiceProvider.ApiServiceProviderDeleteServiceProviderIdDelete(id);
+            _apiServiceProvider.ApiServiceProviderDeleteServiceProviderIdDelete(id);
             return Json(id);
         }
 

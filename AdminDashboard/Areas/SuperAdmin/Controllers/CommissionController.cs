@@ -17,22 +17,18 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     [Authorize]
     public class CommissionController : Controller
     {
-        private readonly IAccountApi api;
-        private readonly ICommissionApi apiCommission;
-        private readonly IConfiguration _configuration;
-        public CommissionController(IConfiguration configuration)
+        private readonly IAccountApi _api;
+        private readonly ICommissionApi _apiCommission;
+        public CommissionController(IAccountApi accountApi, ICommissionApi commissionApi)
         {
-            _configuration = configuration;
-            string url = _configuration.GetValue<string>("Urls:Authority");
-            string urlTms = _configuration.GetValue<string>("Urls:TMS");
-            api = new AccountApi(url);
-            apiCommission = new CommissionApi(urlTms);
+            _api = accountApi;
+            _apiCommission = commissionApi;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
         {
-            var data = await apiCommission.ApiCommissionGetCommissionsGetAsync(page, pageSize);
+            var data = await _apiCommission.ApiCommissionGetCommissionsGetAsync(page, pageSize);
 
             var viewModel = new PagedResult<CommissionViewModel>
             {
@@ -57,13 +53,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            apiCommission.ApiCommissionAddCommissionPost(MapToModel(model));
+            _apiCommission.ApiCommissionAddCommissionPost(MapToModel(model));
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var model = apiCommission.ApiCommissionGetCommissionByIdIdGet(id);
+            var model = _apiCommission.ApiCommissionGetCommissionByIdIdGet(id);
             return View(Map(model));
         }
 
@@ -74,20 +70,20 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            apiCommission.ApiCommissionEditCommissionPut(MapToModel(model));
+            _apiCommission.ApiCommissionEditCommissionPut(MapToModel(model));
             return RedirectToAction(nameof(Index));
         }
 
         [HttpGet]
         public IActionResult ChangeStatus(int id)
         {
-            apiCommission.ApiCommissionChangeStatusIdPut(id);
+            _apiCommission.ApiCommissionChangeStatusIdPut(id);
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
         public JsonResult Delete(int id)
         {
-            apiCommission.ApiCommissionDeleteCommissionIdDelete(id);
+            _apiCommission.ApiCommissionDeleteCommissionIdDelete(id);
             return Json(id);
         }
 

@@ -18,30 +18,26 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     [Authorize]
     public class DenominationFeesController : Controller
     {
-        private readonly IFeesApi apiFees;
-        private readonly IDenominationFeesApi apiDenominationFees;
-        private readonly IDenominationApi apiDenomination;
-        private readonly IConfiguration _configuration;
-        public DenominationFeesController(IConfiguration configuration)
+        private readonly IFeesApi _apiFees;
+        private readonly IDenominationFeesApi _apiDenominationFees;
+        private readonly IDenominationApi _apiDenomination;
+        public DenominationFeesController(IFeesApi feesApi, IDenominationFeesApi denominationFeesApi, IDenominationApi denominationApi)
         {
-            _configuration = configuration;
-            string url = _configuration.GetValue<string>("Urls:Authority");
-            string urlTms = _configuration.GetValue<string>("Urls:TMS");
-            apiFees = new FeesApi(urlTms);
-            apiDenominationFees = new DenominationFeesApi(urlTms);
-            apiDenomination = new DenominationApi(urlTms);
+            _apiFees = feesApi;
+            _apiDenominationFees = denominationFeesApi;
+            _apiDenomination = denominationApi;
         }
         [HttpGet]
         public async Task<IActionResult> Index(int denominationId)
         {
-            var data = await apiDenominationFees.ApiDenominationFeesGetdenominationFeesByDenominationIdDenominationIdGetAsync(denominationId);
+            var data = await _apiDenominationFees.ApiDenominationFeesGetdenominationFeesByDenominationIdDenominationIdGetAsync(denominationId);
             return View(data.Select(x => Map(x)));
         }
 
         [HttpGet]
         public IActionResult Create(int id)
         {
-            var fees = apiFees.ApiFeesGetFeesGet(1, 100).Results.Select(a => new SelectListItem
+            var fees = _apiFees.ApiFeesGetFeesGet(1, 100).Results.Select(a => new SelectListItem
             {
                 Text = a.FeeRange.ToString(),
                 Value = a.Id.ToString()
@@ -62,7 +58,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var fees = apiFees.ApiFeesGetFeesGet(1, 100).Results.Select(a => new SelectListItem
+                var fees = _apiFees.ApiFeesGetFeesGet(1, 100).Results.Select(a => new SelectListItem
                 {
                     Text = a.Value.ToString(),
                     Value = a.Id.ToString()
@@ -73,7 +69,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 return View(model);
             }
 
-            apiDenominationFees.ApiDenominationFeesAddDenominationFeesPost(new AddDenominationFeesModel(
+            _apiDenominationFees.ApiDenominationFeesAddDenominationFeesPost(new AddDenominationFeesModel(
                 denominationId: model.DenominationId,
                 feesId: model.FeesId));
 
@@ -83,7 +79,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public JsonResult Delete(int id)
         {
-            apiDenominationFees.ApiDenominationFeesDeleteDenominationFeeIdDelete(id: id);
+            _apiDenominationFees.ApiDenominationFeesDeleteDenominationFeeIdDelete(id: id);
 
             return Json(id);
         }

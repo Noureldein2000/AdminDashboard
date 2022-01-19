@@ -19,28 +19,30 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     [Authorize]
     public class ChannelsController : Controller
     {
-        private readonly IChannelApi api;
-        private readonly IChannelCategoryApi channelCategoryApi;
-        private readonly IChannelTypeApi channelTypeApi;
-        private readonly IChannelOwnerApi channelOwnerApi;
-        private readonly IChannelPaymentMethodApi channelPaymentMethodApi;
-        private readonly IConfiguration _configuration;
-        public ChannelsController(IConfiguration configuration)
+        private readonly IChannelApi _api;
+        private readonly IChannelCategoryApi _channelCategoryApi;
+        private readonly IChannelTypeApi _channelTypeApi;
+        private readonly IChannelOwnerApi _channelOwnerApi;
+        private readonly IChannelPaymentMethodApi _channelPaymentMethodApi;
+        public ChannelsController(IChannelApi channelApi, 
+            IChannelCategoryApi channelCategoryApi, 
+            IChannelTypeApi channelTypeApi, 
+            IChannelOwnerApi channelOwnerApi,
+            IChannelPaymentMethodApi channelPaymentMethodApi)
         {
-            _configuration = configuration;
-            string url = _configuration.GetValue<string>("Urls:Authority");
-            api = new ChannelApi(url);
-            channelCategoryApi = new ChannelCategoryApi(url);
-            channelTypeApi = new ChannelTypeApi(url);
-            channelOwnerApi = new ChannelOwnerApi(url);
-            channelPaymentMethodApi = new ChannelPaymentMethodApi(url);
+            
+            _api = channelApi;
+            _channelCategoryApi = channelCategoryApi;
+            _channelTypeApi = channelTypeApi;
+            _channelOwnerApi = channelOwnerApi;
+            _channelPaymentMethodApi = channelPaymentMethodApi;
 
         }
         // GET: ChannelsController
         [HttpGet]
         public IActionResult Index()
         {
-            var data = channelCategoryApi.ApiChannelCategoryGetAllGet();
+            var data = _channelCategoryApi.ApiChannelCategoryGetAllGet();
 
             ViewBag.ChannelCategoryList = data.Select(a => new SelectListItem
             {
@@ -53,7 +55,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult SearchChannels(int? dropDownFilter, int? dropDownFilter2, string searchKey = null, int page = 1)
         {
-            var data = api.ApiChannelSearchChannelsGet(dropDownFilter, dropDownFilter2, searchKey, page, 10);
+            var data = _api.ApiChannelSearchChannelsGet(dropDownFilter, dropDownFilter2, searchKey, page, 10);
 
             var viewModel = new PagedResult<ChannelViewModel>
             {
@@ -63,7 +65,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 PageSize = 10
             };
 
-            ViewBag.ChannelCategoryList = channelCategoryApi.ApiChannelCategoryGetAllGet().Select(a => new SelectListItem
+            ViewBag.ChannelCategoryList = _channelCategoryApi.ApiChannelCategoryGetAllGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
@@ -74,17 +76,17 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult Create(int id)
         {
-            var channelTypes = channelTypeApi.ApiChannelTypeGetAllGet().Select(a => new SelectListItem
+            var channelTypes = _channelTypeApi.ApiChannelTypeGetAllGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
-            var channelOwners = channelOwnerApi.ApiChannelOwnerGetAllGet().Select(a => new SelectListItem
+            var channelOwners = _channelOwnerApi.ApiChannelOwnerGetAllGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
-            var channelPaymentMethods = channelPaymentMethodApi.ApiChannelPaymentMethodGetAllGet().Select(a => new SelectListItem
+            var channelPaymentMethods = _channelPaymentMethodApi.ApiChannelPaymentMethodGetAllGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
@@ -104,17 +106,17 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
             if (!ModelState.IsValid)
             {
-                var channelTypes = channelTypeApi.ApiChannelTypeGetAllGet().Select(a => new SelectListItem
+                var channelTypes = _channelTypeApi.ApiChannelTypeGetAllGet().Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
-                var channelOwners = channelOwnerApi.ApiChannelOwnerGetAllGet().Select(a => new SelectListItem
+                var channelOwners = _channelOwnerApi.ApiChannelOwnerGetAllGet().Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
-                var channelPaymentMethods = channelPaymentMethodApi.ApiChannelPaymentMethodGetAllGet().Select(a => new SelectListItem
+                var channelPaymentMethods = _channelPaymentMethodApi.ApiChannelPaymentMethodGetAllGet().Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
@@ -132,7 +134,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
             try
             {
-                var result = api.ApiChannelAddPost(new AddChannelModel
+                var result = _api.ApiChannelAddPost(new AddChannelModel
                       (
                       name: model.Name,
                       channelTypeID: model.ChannelTypeID,
@@ -164,23 +166,23 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var channelTypes = channelTypeApi.ApiChannelTypeGetAllGet().Select(a => new SelectListItem
+            var channelTypes = _channelTypeApi.ApiChannelTypeGetAllGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
-            var channelOwners = channelOwnerApi.ApiChannelOwnerGetAllGet().Select(a => new SelectListItem
+            var channelOwners = _channelOwnerApi.ApiChannelOwnerGetAllGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
-            var channelPaymentMethods = channelPaymentMethodApi.ApiChannelPaymentMethodGetAllGet().Select(a => new SelectListItem
+            var channelPaymentMethods = _channelPaymentMethodApi.ApiChannelPaymentMethodGetAllGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
 
-            var model = api.ApiChannelGetChannelIdentitfiersChannelIdGet(id);
+            var model = _api.ApiChannelGetChannelIdentitfiersChannelIdGet(id);
             var viewModel = Map(model);
             viewModel.ChannelTypes = channelTypes;
             viewModel.ChannelOwners = channelOwners;
@@ -194,17 +196,17 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var channelTypes = channelTypeApi.ApiChannelTypeGetAllGet().Select(a => new SelectListItem
+                var channelTypes = _channelTypeApi.ApiChannelTypeGetAllGet().Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
-                var channelOwners = channelOwnerApi.ApiChannelOwnerGetAllGet().Select(a => new SelectListItem
+                var channelOwners = _channelOwnerApi.ApiChannelOwnerGetAllGet().Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
-                var channelPaymentMethods = channelPaymentMethodApi.ApiChannelPaymentMethodGetAllGet().Select(a => new SelectListItem
+                var channelPaymentMethods = _channelPaymentMethodApi.ApiChannelPaymentMethodGetAllGet().Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
@@ -221,7 +223,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
             try
             {
-                var result = api.ApiChannelEditPut(new EditChannelModel(
+                var result = _api.ApiChannelEditPut(new EditChannelModel(
                      channelId: model.Id,
                      name: model.Name,
                        channelTypeID: model.ChannelTypeID,
@@ -250,19 +252,19 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult Delete(int id)
         {
-            api.ApiChannelDeleteIdDelete(id);
+            _api.ApiChannelDeleteIdDelete(id);
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
         public IActionResult ChangeStatus(int id)
         {
-            api.ApiChannelChangeStatusIdGet(id);
+            _api.ApiChannelChangeStatusIdGet(id);
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
         public JsonResult GetChannelTypesByChannelCategoryId(int id)
         {
-            var accounts = channelTypeApi.ApiChannelTypeGetByChannelCategoryIdGet(id);
+            var accounts = _channelTypeApi.ApiChannelTypeGetByChannelCategoryIdGet(id);
             return Json(accounts);
         }
         [HttpPost]
@@ -270,7 +272,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             try
             {
-                var result = api.ApiChannelAddPost(new AddChannelModel
+                var result = _api.ApiChannelAddPost(new AddChannelModel
                       (
                       name: model.Name,
                       channelTypeID: model.ChannelTypeID,

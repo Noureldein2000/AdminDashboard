@@ -18,22 +18,18 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     [Authorize]
     public class DenominationParamsController : Controller
     {
-        private readonly IAccountApi api;
-        private readonly IDenominationParamApi apiDenominationParam;
-        private readonly IConfiguration _configuration;
-        public DenominationParamsController(IConfiguration configuration)
+        private readonly IAccountApi _api;
+        private readonly IDenominationParamApi _apiDenominationParam;
+        public DenominationParamsController(IAccountApi accountApi, IDenominationParamApi denominationParamApi)
         {
-            _configuration = configuration;
-            string url = _configuration.GetValue<string>("Urls:Authority");
-            string urlTms = _configuration.GetValue<string>("Urls:TMS");
-            api = new AccountApi(url);
-            apiDenominationParam = new DenominationParamApi(urlTms);
+            _api = accountApi;
+            _apiDenominationParam = denominationParamApi;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
         {
-            var data = await apiDenominationParam.ApiDenominationParamGetParamsGetAsync(page, pageSize);
+            var data = await _apiDenominationParam.ApiDenominationParamGetParamsGetAsync(page, pageSize);
 
             var viewModel = new PagedResult<DenominationParamViewModel>
             {
@@ -57,13 +53,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            apiDenominationParam.ApiDenominationParamAddParamPost(MapToModel(model));
+            _apiDenominationParam.ApiDenominationParamAddParamPost(MapToModel(model));
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var model = apiDenominationParam.ApiDenominationParamGetParamByIdIdGet(id);
+            var model = _apiDenominationParam.ApiDenominationParamGetParamByIdIdGet(id);
 
             return View(Map(model));
         }
@@ -74,13 +70,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            apiDenominationParam.ApiDenominationParamEditParamPut(MapToModel(model));
+            _apiDenominationParam.ApiDenominationParamEditParamPut(MapToModel(model));
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
         public JsonResult Delete(int id)
         {
-            apiDenominationParam.ApiDenominationParamDeleteParamIdDelete(id);
+            _apiDenominationParam.ApiDenominationParamDeleteParamIdDelete(id);
             return Json(id);
         }
 

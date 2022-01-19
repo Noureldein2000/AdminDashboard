@@ -58,5 +58,12 @@ namespace AdminDashboard.Models.SwaggerModels
         /// Enum NUMBER_6 for value: 6
         /// </summary>
         [EnumMember(Value = "6")]
-        AccountAdmin = 6    }
+        AccountAdmin = 6,
+        /// <summary>
+        /// Enum NUMBER_7 for value: 7
+        /// </summary>
+        [EnumMember(Value = "7")]
+        Operation = 7
+    }
+
 }

@@ -1,4 +1,5 @@
 ﻿using AdminDashboard.Models;
+using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,6 +9,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace AdminDashboard.Controllers
@@ -16,13 +18,14 @@ namespace AdminDashboard.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
+        private readonly IRolesApi _rolesApi;
+        public HomeController(ILogger<HomeController> logger, IRolesApi rolesApi)
         {
             _logger = logger;
+            _rolesApi = rolesApi;
         }
 
-        
+
         public IActionResult Index()
         {
             return View();
@@ -31,24 +34,30 @@ namespace AdminDashboard.Controllers
         [Authorize]
         public async Task<IActionResult> Login()
         {
-            //var claims = User.Claims.ToList();
-            //var roleClaims = claims.Select(r => r.Type == "role").ToList();
+            string userId = User.FindFirst("sub")?.Value;
+            if (string.IsNullOrEmpty(userId))
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
-            //var accessToken = await HttpContext.GetTokenAsync("access_token");
-            //var idToken = await HttpContext.GetTokenAsync("id_token");
-            //var _idToken = new JwtSecurityTokenHandler().ReadJwtToken(idToken);
-            //var _accessToken = new JwtSecurityTokenHandler().ReadJwtToken(accessToken);
-            System.Security.Claims.ClaimsPrincipal currentUser = User;
-            bool IsAdmin = currentUser.IsInRole("SuperAdmin");
-            if(!IsAdmin)
-                return RedirectToAction("Index", "Home", new { area = "SuperAdmin" });
+            var userRole = _rolesApi.ApiRolesGetUserRoleGet(userId);
+            if(userRole == null)
+            {
+                return RedirectToAction("Index", "Home");
+            }
 
-            return RedirectToAction("Index", "Home");
-        }
+            switch (userRole.Role)
+            {
+                case "SuperAdmin":
+                    //return RedirectToAction("Index", "Home", new { area = "SuperAdmin" });
+                    return RedirectToActionPermanent("Index", "Home", new { area = "SuperAdmin" });
+                case "Operation":
+                    return RedirectToAction("Index", "Home", new { area = "Operation" });
+                default:
+                    return RedirectToAction("Index", "Home");
+            }
 
-        public IActionResult Logout()
-        {
-            return SignOut("Cookies", "oidc");
+
         }
     }
 }

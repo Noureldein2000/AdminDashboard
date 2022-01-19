@@ -18,24 +18,20 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     [Authorize]
     public class ServicesController : Controller
     {
-        private readonly IAdminServiceApi api;
-        private readonly IDenominationApi apiDenomination;
-        private readonly IConfiguration _configuration;
-        public ServicesController(IConfiguration configuration)
+        private readonly IAdminServiceApi _api;
+        private readonly IDenominationApi _apiDenomination;
+        public ServicesController(IAdminServiceApi adminServiceApi, IDenominationApi denominationApi)
         {
-            _configuration = configuration;
-            string url = _configuration.GetValue<string>("Urls:Authority");
-            string urlTms = _configuration.GetValue<string>("Urls:TMS");
-            api = new AdminServiceApi(urlTms);
-            apiDenomination = new DenominationApi(urlTms);
+            _api = adminServiceApi;
+            _apiDenomination = denominationApi;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index(int page = 1, int size = 10)
         {
-            var data = await api.ApiAdminServiceGetServicesGetAsync(page, size);
+            var data = await _api.ApiAdminServiceGetServicesGetAsync(page, size);
 
-            ViewBag.ServiceTypes = api.ApiAdminServiceGetServiceTypesGet().Select(a => new SelectListItem
+            ViewBag.ServiceTypes = _api.ApiAdminServiceGetServiceTypesGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
@@ -54,9 +50,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public async Task<IActionResult> SearchServices(int? dropDownFilter, string searchKey = null, int page = 1, int size = 10, string lang = "ar")
         {
-            var data = await api.ApiAdminServiceSearchServicesGetAsync(dropDownFilter, searchKey, page, size, lang);
+            var data = await _api.ApiAdminServiceSearchServicesGetAsync(dropDownFilter, searchKey, page, size, lang);
 
-            ViewBag.ServiceTypes = api.ApiAdminServiceGetServiceTypesGet().Select(a => new SelectListItem
+            ViewBag.ServiceTypes = _api.ApiAdminServiceGetServiceTypesGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
@@ -79,19 +75,19 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         public IActionResult Create()
         {
 
-            var serviceEntities = api.ApiAdminServiceGetServiceEntitiesGet().Select(a => new SelectListItem
+            var serviceEntities = _api.ApiAdminServiceGetServiceEntitiesGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
 
-            var servicesCategories = api.ApiAdminServiceGetServicesCategoriesGet().Select(a => new SelectListItem
+            var servicesCategories = _api.ApiAdminServiceGetServicesCategoriesGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
 
-            var serviceTypes = api.ApiAdminServiceGetServiceTypesGet().Select(a => new SelectListItem
+            var serviceTypes = _api.ApiAdminServiceGetServiceTypesGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
@@ -113,19 +109,19 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var serviceEntities = api.ApiAdminServiceGetServiceEntitiesGet().Select(a => new SelectListItem
+                var serviceEntities = _api.ApiAdminServiceGetServiceEntitiesGet().Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
 
-                var servicesCategories = api.ApiAdminServiceGetServicesCategoriesGet().Select(a => new SelectListItem
+                var servicesCategories = _api.ApiAdminServiceGetServicesCategoriesGet().Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
 
-                var serviceTypes = api.ApiAdminServiceGetServiceTypesGet().Select(a => new SelectListItem
+                var serviceTypes = _api.ApiAdminServiceGetServiceTypesGet().Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
@@ -138,7 +134,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 return View(model);
             }
 
-            api.ApiAdminServiceAddServicePost(new AddServiceModel(
+            _api.ApiAdminServiceAddServicePost(new AddServiceModel(
                 name: model.Name,
                 arName: model.ArName,
                 status: false,
@@ -156,21 +152,21 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var data = api.ApiAdminServiceGetServiceByIdIdGet(id);
+            var data = _api.ApiAdminServiceGetServiceByIdIdGet(id);
 
-            var serviceEntities = api.ApiAdminServiceGetServiceEntitiesGet().Select(a => new SelectListItem
+            var serviceEntities = _api.ApiAdminServiceGetServiceEntitiesGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
 
-            var servicesCategories = api.ApiAdminServiceGetServicesCategoriesGet().Select(a => new SelectListItem
+            var servicesCategories = _api.ApiAdminServiceGetServicesCategoriesGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
 
-            var serviceTypes = api.ApiAdminServiceGetServiceTypesGet().Select(a => new SelectListItem
+            var serviceTypes = _api.ApiAdminServiceGetServiceTypesGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
@@ -190,19 +186,19 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var serviceEntities = api.ApiAdminServiceGetServiceEntitiesGet().Select(a => new SelectListItem
+                var serviceEntities = _api.ApiAdminServiceGetServiceEntitiesGet().Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
 
-                var servicesCategories = api.ApiAdminServiceGetServicesCategoriesGet().Select(a => new SelectListItem
+                var servicesCategories = _api.ApiAdminServiceGetServicesCategoriesGet().Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
 
-                var serviceTypes = api.ApiAdminServiceGetServiceTypesGet().Select(a => new SelectListItem
+                var serviceTypes = _api.ApiAdminServiceGetServiceTypesGet().Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
@@ -215,7 +211,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 return View(model);
             }
 
-            api.ApiAdminServiceEditServicePut(new EditServiceModel(
+            _api.ApiAdminServiceEditServicePut(new EditServiceModel(
                 id: model.Id,
                 name: model.Name,
                 arName: model.ArName,
@@ -234,7 +230,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult ChangeStatus(int id)
         {
-            api.ApiAdminServiceChangeStatusPut(id);
+            _api.ApiAdminServiceChangeStatusPut(id);
             return RedirectToAction(nameof(Index));
         }
         private AdminServiceViewModel Map(AdminServiceModel model)

@@ -19,20 +19,17 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
     public class AccountTypeProfileCommissionController : Controller
     {
-        private readonly ICommissionApi commissionApi;
-        //private readonly IAccountTypeProfileDenominationApi accountTypeProfileDenominationApi;
-        private readonly IAccountTypeProfileCommissionApi accountTypeProfileCommissionApi;
-        private readonly IConfiguration _configuration;
-        public AccountTypeProfileCommissionController(IConfiguration configuration)
+        private readonly ICommissionApi _commissionApi;
+        private readonly IAccountTypeProfileCommissionApi _accountTypeProfileCommissionApi;
+        public AccountTypeProfileCommissionController(ICommissionApi commissionApi, IAccountTypeProfileCommissionApi accountTypeProfileCommissionApi)
         {
-            _configuration = configuration;
-            string urlTms = _configuration.GetValue<string>("Urls:TMS");
-            commissionApi = new CommissionApi(urlTms);
-            accountTypeProfileCommissionApi = new AccountTypeProfileCommissionApi(urlTms);
+
+            _commissionApi = commissionApi;
+            _accountTypeProfileCommissionApi = accountTypeProfileCommissionApi;
         }
         public async Task<IActionResult> Index(int id, string title, int page = 1, int size = 10)
         {
-            var model = await accountTypeProfileCommissionApi.ApiAccountTypeProfileCommissionGetAccountTypeProfileCommissionsIdGetAsync(id, page, size, "ar");
+            var model = await _accountTypeProfileCommissionApi.ApiAccountTypeProfileCommissionGetAccountTypeProfileCommissionsIdGetAsync(id, page, size, "ar");
 
             var viewModel = new PagedResult<AccountTypeProfileCommissionViewModel>
             {
@@ -48,7 +45,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
         public IActionResult Create(int id)
         {
-            var Commissions = commissionApi.ApiCommissionGetCommissionsGet(1, 1000, "ar").Results.Select(a => new SelectListItem
+            var Commissions = _commissionApi.ApiCommissionGetCommissionsGet(1, 1000, "ar").Results.Select(a => new SelectListItem
             {
                 Text = a.CommissionRange,
                 Value = a.Id.ToString()
@@ -68,7 +65,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var Commissions = commissionApi.ApiCommissionGetCommissionsGet(1, 1000, "ar").Results.Select(a => new SelectListItem
+                var Commissions = _commissionApi.ApiCommissionGetCommissionsGet(1, 1000, "ar").Results.Select(a => new SelectListItem
                 {
                     Text = a.CommissionRange,
                     Value = a.Id.ToString()
@@ -79,7 +76,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 return View(model);
             }
 
-            accountTypeProfileCommissionApi.ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPost(new AccountTypeProfileCommissionModel
+            _accountTypeProfileCommissionApi.ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPost(new AccountTypeProfileCommissionModel
                 (
                 accountTypeProfileDenominationID: model.AccountTypeProfileDenominationID,
                 commissionID: model.CommissionId
@@ -90,7 +87,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public JsonResult Delete(int id)
         {
-            accountTypeProfileCommissionApi.ApiAccountTypeProfileCommissionDeleteIdDelete(id);
+            _accountTypeProfileCommissionApi.ApiAccountTypeProfileCommissionDeleteIdDelete(id);
             return Json(id);
         }
 

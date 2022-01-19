@@ -18,24 +18,23 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     [Authorize]
     public class ServiceConfiguarationController : Controller
     {
-        private readonly IAdminServiceApi api;
-        private readonly IDenominationApi apiDenomination;
-        private readonly IServiceProviderApi apiServiceProvider;
-        private readonly IServiceConfigurationApi apiServiceConfiguration;
-        private readonly IConfiguration _configuration;
-        public ServiceConfiguarationController(IConfiguration configuration)
+        private readonly IAdminServiceApi _api;
+        private readonly IDenominationApi _apiDenomination;
+        private readonly IServiceProviderApi _apiServiceProvider;
+        private readonly IServiceConfigurationApi _apiServiceConfiguration;
+        public ServiceConfiguarationController(IAdminServiceApi adminServiceApi,
+            IDenominationApi denominationApi,
+            IServiceProviderApi serviceProviderApi,
+            IServiceConfigurationApi serviceConfigurationApi)
         {
-            _configuration = configuration;
-            string url = _configuration.GetValue<string>("Urls:Authority");
-            string urlTms = _configuration.GetValue<string>("Urls:TMS");
-            api = new AdminServiceApi(urlTms);
-            apiDenomination = new DenominationApi(urlTms);
-            apiServiceProvider = new ServiceProviderApi(urlTms);
-            apiServiceConfiguration = new ServiceConfigurationApi(urlTms);
+            _api = adminServiceApi;
+            _apiDenomination = denominationApi;
+            _apiServiceProvider = serviceProviderApi;
+            _apiServiceConfiguration = serviceConfigurationApi;
         }
         public async Task<IActionResult> Index(int page = 1, int size = 10)
         {
-            var data = await apiServiceConfiguration.ApiServiceConfigurationGetServiceConfiguartionsGetAsync(page, size);
+            var data = await _apiServiceConfiguration.ApiServiceConfigurationGetServiceConfiguartionsGetAsync(page, size);
 
             var viewModel = new PagedResult<ServiceConfigerationViewModel>
             {
@@ -59,14 +58,14 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            apiServiceConfiguration.ApiServiceConfigurationAddServiceConfiguartionsPost(MapToModel(model));
+            _apiServiceConfiguration.ApiServiceConfigurationAddServiceConfiguartionsPost(MapToModel(model));
 
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var model = apiServiceConfiguration.ApiServiceConfigurationGetServiceConfiguartionsByIdIdGet(id);
+            var model = _apiServiceConfiguration.ApiServiceConfigurationGetServiceConfiguartionsByIdIdGet(id);
             return View(MapToViewModel(model));
         }
         [HttpPost]
@@ -76,7 +75,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            apiServiceConfiguration.ApiServiceConfigurationEditServiceConfiguartionsPut(MapToModel(model));
+            _apiServiceConfiguration.ApiServiceConfigurationEditServiceConfiguartionsPut(MapToModel(model));
 
             return RedirectToAction(nameof(Index));
         }

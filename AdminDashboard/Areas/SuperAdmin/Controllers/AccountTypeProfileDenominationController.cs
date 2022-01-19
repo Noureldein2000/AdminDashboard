@@ -18,29 +18,27 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     [Authorize]
     public class AccountTypeProfileDenominationController : Controller
     {
-        private readonly IAccountTypeProfileApi accountTypeProfileApi;
-        private readonly IAccountTypeProfileDenominationApi accountTypeProfileDenominationApi;
-        private readonly IDenominationApi denominationApi;
-        private readonly IAdminServiceApi adminServiceApi;
-        private readonly IConfiguration _configuration;
-        public AccountTypeProfileDenominationController(IConfiguration configuration)
+        private readonly IAccountTypeProfileApi _accountTypeProfileApi;
+        private readonly IAccountTypeProfileDenominationApi _accountTypeProfileDenominationApi;
+        private readonly IDenominationApi _denominationApi;
+        private readonly IAdminServiceApi _adminServiceApi;
+        public AccountTypeProfileDenominationController(
+            IAccountTypeProfileApi accountTypeProfileApi,
+            IAccountTypeProfileDenominationApi accountTypeProfileDenominationApi,
+            IDenominationApi denominationApi,
+            IAdminServiceApi adminServiceApi)
         {
-            _configuration = configuration;
-            string url = _configuration.GetValue<string>("Urls:Authority");
-            string urlTms = _configuration.GetValue<string>("Urls:TMS");
-            //string url = "https://localhost:44303";
-            //string urlTms = "https://localhost:44321";
-            accountTypeProfileApi = new AccountTypeProfileApi(url);
-            accountTypeProfileDenominationApi = new AccountTypeProfileDenominationApi(urlTms);
-            denominationApi = new DenominationApi(urlTms);
-            adminServiceApi = new AdminServiceApi(urlTms);
+            _accountTypeProfileApi = accountTypeProfileApi;
+            _accountTypeProfileDenominationApi = accountTypeProfileDenominationApi;
+            _denominationApi = denominationApi;
+            _adminServiceApi = adminServiceApi;
         }
 
         public async Task<IActionResult> Index(int page = 1, int size = 10)
         {
-            var model = await accountTypeProfileDenominationApi.ApiAccountTypeProfileDenominationGetAccountTypeProfileDenominationsGetAsync(page, size);
+            var model = await _accountTypeProfileDenominationApi.ApiAccountTypeProfileDenominationGetAccountTypeProfileDenominationsGetAsync(page, size);
 
-            var accountTypesAndProfile = accountTypeProfileApi.ApiAccountTypeProfileGetAllGet(1, 1000).Results.Where(x => model.Results.Select(d => d.AccountTypeProfileID).Contains(x.Id))
+            var accountTypesAndProfile = _accountTypeProfileApi.ApiAccountTypeProfileGetAllGet(1, 1000).Results.Where(x => model.Results.Select(d => d.AccountTypeProfileID).Contains(x.Id))
                 .Select(e => new AccountTypeProfileModel
                 {
                     Id = (int)e.Id,
@@ -70,13 +68,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var services = adminServiceApi.ApiAdminServiceGetServicesGet(1, 1000, "ar").Results.Select(a => new SelectListItem
+            var services = _adminServiceApi.ApiAdminServiceGetServicesGet(1, 1000, "ar").Results.Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
 
-            var accountTypeProfiles = accountTypeProfileApi.ApiAccountTypeProfileGetAllGet(1, 1000).Results.Select(a => new SelectListItem
+            var accountTypeProfiles = _accountTypeProfileApi.ApiAccountTypeProfileGetAllGet(1, 1000).Results.Select(a => new SelectListItem
             {
                 Text = a.FullName,
                 Value = a.Id.ToString()
@@ -96,13 +94,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var services = adminServiceApi.ApiAdminServiceGetServicesGet(1, 1000, "ar").Results.Select(a => new SelectListItem
+                var services = _adminServiceApi.ApiAdminServiceGetServicesGet(1, 1000, "ar").Results.Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
 
-                var accountTypeProfiles = accountTypeProfileApi.ApiAccountTypeProfileGetAllGet(1, 1000).Results.Select(a => new SelectListItem
+                var accountTypeProfiles = _accountTypeProfileApi.ApiAccountTypeProfileGetAllGet(1, 1000).Results.Select(a => new SelectListItem
                 {
                     Text = a.FullName,
                     Value = a.Id.ToString()
@@ -115,7 +113,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 return View(model);
             }
 
-            accountTypeProfileDenominationApi.ApiAccountTypeProfileDenominationAddAccountTypeProfileDenominationsPost(new AccountTypeProfileDenominationModel
+            _accountTypeProfileDenominationApi.ApiAccountTypeProfileDenominationAddAccountTypeProfileDenominationsPost(new AccountTypeProfileDenominationModel
                 (
                 accountTypeProfileID: model.AccountTypeProfileID,
                 denominationID: model.DenominationID
@@ -127,19 +125,19 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult ChangeStatus(int id)
         {
-            accountTypeProfileDenominationApi.ApiAccountTypeProfileDenominationChangeAccountTypeProfileDenominationStatusIdPut(id);
+            _accountTypeProfileDenominationApi.ApiAccountTypeProfileDenominationChangeAccountTypeProfileDenominationStatusIdPut(id);
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
         public JsonResult Delete(int id)
         {
-            accountTypeProfileDenominationApi.ApiAccountTypeProfileDenominationDeleteAccountTypeProfileDenominationIdDelete(id);
+            _accountTypeProfileDenominationApi.ApiAccountTypeProfileDenominationDeleteAccountTypeProfileDenominationIdDelete(id);
             return Json(id);
         }
         [HttpGet]
         public JsonResult GetDenomoinationsByServiceId(int serviceId)
         {
-            var denominations = denominationApi.ApiDenominationGetDenominationsByServiceIdServiceIdGet(serviceId, 1, 100, "ar").Results;
+            var denominations = _denominationApi.ApiDenominationGetDenominationsByServiceIdServiceIdGet(serviceId, 1, 100, "ar").Results;
             return Json(denominations);
         }
 

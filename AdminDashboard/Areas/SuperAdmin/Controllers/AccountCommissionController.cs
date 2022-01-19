@@ -18,28 +18,26 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     [Authorize]
     public class AccountCommissionController : Controller
     {
-        private readonly IAccountApi api;
-        private readonly ICommissionApi apiCommission;
-        private readonly IAccountCommissionApi apiAccountCommission;
-        private readonly IDenominationApi apiDenomination;
-        private readonly IAdminServiceApi apiService;
-        private readonly IConfiguration _configuration;
-        public AccountCommissionController(IConfiguration configuration)
+        private readonly ICommissionApi _apiCommission;
+        private readonly IAccountCommissionApi _apiAccountCommission;
+        private readonly IDenominationApi _apiDenomination;
+        private readonly IAdminServiceApi _apiService;
+        public AccountCommissionController(
+            ICommissionApi commissionApi,
+            IAccountCommissionApi accountCommissionApi,
+            IDenominationApi denominationApi,
+            IAdminServiceApi adminServiceApi)
         {
-            _configuration = configuration;
-            string url = _configuration.GetValue<string>("Urls:Authority");
-            string urlTms = _configuration.GetValue<string>("Urls:TMS");
-            api = new AccountApi(url);
-            apiCommission = new CommissionApi(urlTms);
-            apiAccountCommission = new AccountCommissionApi(urlTms);
-            apiDenomination = new DenominationApi(urlTms);
-            apiService = new AdminServiceApi(urlTms);
+            _apiCommission = commissionApi;
+            _apiAccountCommission = accountCommissionApi;
+            _apiDenomination = denominationApi;
+            _apiService = adminServiceApi;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index(int? accountId = null, int page = 1)
         {
-            var data = await apiAccountCommission.ApiAccountCommissionGetAccountCommissionByAccountIdAccountIdGetAsync(accountId, page, 10);
+            var data = await _apiAccountCommission.ApiAccountCommissionGetAccountCommissionByAccountIdAccountIdGetAsync(accountId, page, 10);
 
             var viewModel = new PagedResult<AccountCommissionViewModel>
             {
@@ -55,13 +53,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult Create(int accountId)
         {
-            var commissions = apiCommission.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
+            var commissions = _apiCommission.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
             {
                 Text = a.CommissionRange.ToString(),
                 Value = a.Id.ToString()
             }).ToList();
 
-            var services = apiService.ApiAdminServiceGetServicesGet(1, 1000, "ar").Results.Select(a => new SelectListItem
+            var services = _apiService.ApiAdminServiceGetServicesGet(1, 1000, "ar").Results.Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
@@ -83,13 +81,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var commissions = apiCommission.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
+                var commissions = _apiCommission.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
                 {
                     Text = a.Value.ToString(),
                     Value = a.Id.ToString()
                 }).ToList();
 
-                var services = apiService.ApiAdminServiceGetServicesGet(1, 1000, "ar").Results.Select(a => new SelectListItem
+                var services = _apiService.ApiAdminServiceGetServicesGet(1, 1000, "ar").Results.Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
@@ -101,7 +99,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 return View(model);
             }
 
-            apiAccountCommission.ApiAccountCommissionAddAccountCommissionPost(new AddAccountCommissionModel(
+            _apiAccountCommission.ApiAccountCommissionAddAccountCommissionPost(new AddAccountCommissionModel(
                 accountId: model.AccountId,
                 denominationId: model.DenominationId,
                 commissionId: model.CommissionId));
@@ -112,7 +110,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public JsonResult DeleteAccountCommission(int id)
         {
-            apiAccountCommission.ApiAccountCommissionDeleteAccountCommissionIdDelete(id: id);
+            _apiAccountCommission.ApiAccountCommissionDeleteAccountCommissionIdDelete(id: id);
 
             return Json(id);
         }
@@ -120,7 +118,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public JsonResult GetDenomoinationsByServiceId(int serviceId)
         {
-            var denominations = apiDenomination.ApiDenominationGetDenominationsByServiceIdServiceIdGet(serviceId, 1, 100, "ar").Results;
+            var denominations = _apiDenomination.ApiDenominationGetDenominationsByServiceIdServiceIdGet(serviceId, 1, 100, "ar").Results;
             return Json(denominations);
         }
 

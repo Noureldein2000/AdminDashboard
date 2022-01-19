@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Super Admin</title>
+    <title>@ViewData["Title"] - Operation</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
     <link href="~/lib/select2/select2.min.css" rel="stylesheet" />
@@ -77,54 +77,13 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="SuperAdmin" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="Operation" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="SuperAdmin" asp-controller="Accounts" asp-action="Index">Accounts</a>
+                            <a class="nav-link text-dark" asp-area="Operation" asp-controller="UniversityCashout" asp-action="Index">Bani-suif cashout</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="SuperAdmin" asp-controller="Channels" asp-action="Index">Channels</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="SuperAdmin" asp-controller="Users" asp-action="Index">Users</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="SuperAdmin" asp-controller="Roles" asp-action="Index">Roles</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="SuperAdmin" asp-controller="Services" asp-action="Index">Services</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="SuperAdmin" asp-controller="SearchDenomniation" asp-action="Index">Search Denomination</a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Logs
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" asp-area="SuperAdmin" asp-controller="Accounts" asp-action="AccountChannelsHistory">Account Channels History</a>
-                                <div class="dropdown-divider"></div>
-                            </div>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                Lookups
-                            </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" asp-area="SuperAdmin" asp-controller="ServiceProvider" asp-action="Index">Service Provider</a>
-                                <a class="dropdown-item" asp-area="SuperAdmin" asp-controller="ServiceConfiguaration" asp-action="Index">Service Configuration</a>
-                                <a class="dropdown-item" asp-area="SuperAdmin" asp-controller="Parameter" asp-action="Index">Parameter</a>
-                                <a class="dropdown-item" asp-area="SuperAdmin" asp-controller="Fees" asp-action="Index">Fees</a>
-                                <a class="dropdown-item" asp-area="SuperAdmin" asp-controller="Commission" asp-action="Index">Commission</a>
-                                <a class="dropdown-item" asp-area="SuperAdmin" asp-controller="DenominationParams" asp-action="Index">Denomination Params</a>
-                                <a class="dropdown-item" asp-area="SuperAdmin" asp-controller="AccountType" asp-action="Index">AccountTypes </a>
-                                <a class="dropdown-item" asp-area="SuperAdmin" asp-controller="AccountTypeProfile" asp-action="Index">AccountType Profile</a>
-                                <a class="dropdown-item" asp-area="SuperAdmin" asp-controller="AccountTypeProfileDenomination" asp-action="Index">AccountType Profile Denomination</a>
-                                <div class="dropdown-divider"></div>
-                            </div>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-controller="Logout" asp-action="Logout">Logout</a>
+                            <a class="nav-link text-dark" asp-area="SuperAdmin" asp-controller="Home" asp-action="Logout">Logout</a>
                         </li>
                     </ul>
                 </div>

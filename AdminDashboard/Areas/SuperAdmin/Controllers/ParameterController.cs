@@ -17,20 +17,16 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     [Authorize]
     public class ParameterController : Controller
     {
-        private readonly IParameterApi apiParameter;
-        private readonly IConfiguration _configuration;
-        public ParameterController(IConfiguration configuration)
+        private readonly IParameterApi _apiParameter;
+        public ParameterController(IParameterApi parameterApi)
         {
-            _configuration = configuration;
-            string url = _configuration.GetValue<string>("Urls:Authority");
-            string urlTms = _configuration.GetValue<string>("Urls:TMS");
-            apiParameter = new ParameterApi(urlTms);
+            _apiParameter = parameterApi;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
         {
-            var data = await apiParameter.ApiParameterGetParamtersGetAsync(page, pageSize);
+            var data = await _apiParameter.ApiParameterGetParamtersGetAsync(page, pageSize);
 
             var viewModel = new PagedResult<ParameterViewModel>
             {
@@ -55,13 +51,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            apiParameter.ApiParameterAddParameterPost(MapToModel(model));
+            _apiParameter.ApiParameterAddParameterPost(MapToModel(model));
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var model = apiParameter.ApiParameterGetParamterByIdIdGet(id);
+            var model = _apiParameter.ApiParameterGetParamterByIdIdGet(id);
             return View(Map(model));
         }
         [HttpPost]
@@ -71,13 +67,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
-            apiParameter.ApiParameterEditParameterPut(MapToModel(model));
+            _apiParameter.ApiParameterEditParameterPut(MapToModel(model));
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
         public JsonResult Delete(int id)
         {
-            apiParameter.ApiParameterDeleteParameterIdDelete(id);
+            _apiParameter.ApiParameterDeleteParameterIdDelete(id);
             return Json(id);
         }
 

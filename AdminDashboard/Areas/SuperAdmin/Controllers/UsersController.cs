@@ -18,12 +18,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     public class UsersController : Controller
     {
         private readonly IUsersApi _usersApi;
-        private readonly IConfiguration _configuration;
-        public UsersController(IConfiguration configuration)
+        public UsersController(IUsersApi usersApi)
         {
-            _configuration = configuration;
-            string url = _configuration.GetValue<string>("Urls:Authority");
-            _usersApi = new UsersApi(url);
+            _usersApi = usersApi;
         }
         [HttpGet]
         public async Task<IActionResult> Index(int? accountId = null, int page = 1)

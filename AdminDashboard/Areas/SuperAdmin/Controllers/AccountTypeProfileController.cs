@@ -18,20 +18,14 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     [Authorize]
     public class AccountTypeProfileController : Controller
     {
-        private readonly IAccountTypeProfileApi accountTypeProfileApi;
-        private readonly IConfiguration _configuration;
-        //private readonly IAccountTypeApi accountTypeProfileApi;
-        public AccountTypeProfileController(IConfiguration configuration)
+        private readonly IAccountTypeProfileApi _accountTypeProfileApi;
+        public AccountTypeProfileController(IAccountTypeProfileApi accountTypeProfileApi)
         {
-            _configuration = configuration;
-            string url = _configuration.GetValue<string>("Urls:Authority");
-            //string url = "https://localhost:44303";
-            //string urlTms = "https://localhost:44321";
-            accountTypeProfileApi = new AccountTypeProfileApi(url);
+            _accountTypeProfileApi = accountTypeProfileApi;
         }
         public async Task<IActionResult> Index(int page = 1, int size = 10, string language = "ar")
         {
-            var model = await accountTypeProfileApi.ApiAccountTypeProfileGetAllGetAsync(page, size);
+            var model = await _accountTypeProfileApi.ApiAccountTypeProfileGetAllGetAsync(page, size);
 
             var viewModel = new PagedResult<AccountTypeProfileViewModel>
             {
@@ -47,13 +41,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult Create()
         {
-            var accountTypes = accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstAccountType.Select(a => new SelectListItem
+            var accountTypes = _accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstAccountType.Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
 
-            var profiles = accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstProfile.Select(a => new SelectListItem
+            var profiles = _accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstProfile.Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
@@ -73,13 +67,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var accountTypes = accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstAccountType.Select(a => new SelectListItem
+                var accountTypes = _accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstAccountType.Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
 
-                var profiles = accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstProfile.Select(a => new SelectListItem
+                var profiles = _accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstProfile.Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
@@ -93,7 +87,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
             try
             {
-                var result = accountTypeProfileApi.ApiAccountTypeProfileAddPost(new AccountTypeProfileModel
+                var result = _accountTypeProfileApi.ApiAccountTypeProfileAddPost(new AccountTypeProfileModel
                     (
                     accountTypeID: model.AccountTypeID,
                     profileID: model.ProfileID
@@ -106,13 +100,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             {
                 TempData["result"] = false;
 
-                var accountTypes = accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstAccountType.Select(a => new SelectListItem
+                var accountTypes = _accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstAccountType.Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
 
-                var profiles = accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstProfile.Select(a => new SelectListItem
+                var profiles = _accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstProfile.Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
@@ -131,7 +125,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public JsonResult Delete(int id)
         {
-            accountTypeProfileApi.ApiAccountTypeProfileDeleteIdDelete(id);
+            _accountTypeProfileApi.ApiAccountTypeProfileDeleteIdDelete(id);
             return Json(id);
         }
 

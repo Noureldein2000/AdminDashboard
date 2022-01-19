@@ -70,6 +70,27 @@ namespace AdminDashboard.SwaggerClient
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"> (optional)</param>
+        /// <returns>UserRoleModel</returns>
+        UserRoleModel ApiRolesGetUserRoleGet (string id = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"> (optional)</param>
+        /// <returns>ApiResponse of UserRoleModel</returns>
+        ApiResponse<UserRoleModel> ApiRolesGetUserRoleGetWithHttpInfo (string id = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="roleId"> (optional)</param>
         /// <returns>RolePermissionsModel</returns>
         RolePermissionsModel ApiRolesManagePermissionsGet (string roleId = null);
@@ -147,6 +168,27 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <returns>Task of ApiResponse (List&lt;IdentityRole&gt;)</returns>
         System.Threading.Tasks.Task<ApiResponse<List<IdentityRole>>> ApiRolesGetAllGetAsyncWithHttpInfo ();
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"> (optional)</param>
+        /// <returns>Task of UserRoleModel</returns>
+        System.Threading.Tasks.Task<UserRoleModel> ApiRolesGetUserRoleGetAsync (string id = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"> (optional)</param>
+        /// <returns>Task of ApiResponse (UserRoleModel)</returns>
+        System.Threading.Tasks.Task<ApiResponse<UserRoleModel>> ApiRolesGetUserRoleGetAsyncWithHttpInfo (string id = null);
         /// <summary>
         /// 
         /// </summary>
@@ -592,6 +634,145 @@ namespace AdminDashboard.SwaggerClient
             return new ApiResponse<List<IdentityRole>>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
                 (List<IdentityRole>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<IdentityRole>)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"> (optional)</param>
+        /// <returns>UserRoleModel</returns>
+        public UserRoleModel ApiRolesGetUserRoleGet (string id = null)
+        {
+             ApiResponse<UserRoleModel> localVarResponse = ApiRolesGetUserRoleGetWithHttpInfo(id);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"> (optional)</param>
+        /// <returns>ApiResponse of UserRoleModel</returns>
+        public ApiResponse< UserRoleModel > ApiRolesGetUserRoleGetWithHttpInfo (string id = null)
+        {
+
+            var localVarPath = "/api/Roles/GetUserRole";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (id != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "id", id)); // query parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiRolesGetUserRoleGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<UserRoleModel>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (UserRoleModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(UserRoleModel)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"> (optional)</param>
+        /// <returns>Task of UserRoleModel</returns>
+        public async System.Threading.Tasks.Task<UserRoleModel> ApiRolesGetUserRoleGetAsync (string id = null)
+        {
+             ApiResponse<UserRoleModel> localVarResponse = await ApiRolesGetUserRoleGetAsyncWithHttpInfo(id);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"> (optional)</param>
+        /// <returns>Task of ApiResponse (UserRoleModel)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<UserRoleModel>> ApiRolesGetUserRoleGetAsyncWithHttpInfo (string id = null)
+        {
+
+            var localVarPath = "/api/Roles/GetUserRole";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (id != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "id", id)); // query parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiRolesGetUserRoleGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<UserRoleModel>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (UserRoleModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(UserRoleModel)));
         }
 
         /// <summary>

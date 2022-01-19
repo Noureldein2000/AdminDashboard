@@ -19,24 +19,16 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
     public class AccountTypeProfileFeeController : Controller
     {
-        private readonly IFeesApi feesApi;
-        //private readonly IAccountTypeProfileDenominationApi accountTypeProfileDenominationApi;
-        private readonly IAccountTypeProfileFeeApi accountTypeProfileFeeApi;
-        private readonly IConfiguration _configuration;
-        public AccountTypeProfileFeeController(IConfiguration configuration)
+        private readonly IFeesApi _feesApi;
+        private readonly IAccountTypeProfileFeeApi _accountTypeProfileFeeApi;
+        public AccountTypeProfileFeeController(IFeesApi feesApi, IAccountTypeProfileFeeApi accountTypeProfileFeeApi)
         {
-            _configuration = configuration;
-            string url = _configuration.GetValue<string>("Urls:Authority");
-            string urlTms = _configuration.GetValue<string>("Urls:TMS");
-            //string url = "https://localhost:44303";
-            //string urlTms = "https://localhost:44321";
-            //accountTypeProfileDenominationApi = new AccountTypeProfileDenominationApi(urlTms);
-            feesApi = new FeesApi(urlTms);
-            accountTypeProfileFeeApi = new AccountTypeProfileFeeApi(urlTms);
+            _feesApi = feesApi;
+            _accountTypeProfileFeeApi = accountTypeProfileFeeApi;
         }
         public async Task<IActionResult> Index(int id, string title, int page = 1, int size = 10)
         {
-            var model = await accountTypeProfileFeeApi.ApiAccountTypeProfileFeeGetAccountTypeProfileFeesIdGetAsync(id, page, size, "ar");
+            var model = await _accountTypeProfileFeeApi.ApiAccountTypeProfileFeeGetAccountTypeProfileFeesIdGetAsync(id, page, size, "ar");
 
             var viewModel = new PagedResult<AccountTypeProfileFeeViewModel>
             {
@@ -52,7 +44,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
         public IActionResult Create(int id)
         {
-            var fees = feesApi.ApiFeesGetFeesGet(1, 1000, "ar").Results.Select(a => new SelectListItem
+            var fees = _feesApi.ApiFeesGetFeesGet(1, 1000, "ar").Results.Select(a => new SelectListItem
             {
                 Text = a.FeeRange,
                 Value = a.Id.ToString()
@@ -72,7 +64,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var fees = feesApi.ApiFeesGetFeesGet(1, 1000, "ar").Results.Select(a => new SelectListItem
+                var fees = _feesApi.ApiFeesGetFeesGet(1, 1000, "ar").Results.Select(a => new SelectListItem
                 {
                     Text = a.FeeRange,
                     Value = a.Id.ToString()
@@ -83,7 +75,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 return View(model);
             }
 
-            accountTypeProfileFeeApi.ApiAccountTypeProfileFeeAddAccountTypeProfileFeePost(new AccountTypeProfileFeesModel
+            _accountTypeProfileFeeApi.ApiAccountTypeProfileFeeAddAccountTypeProfileFeePost(new AccountTypeProfileFeesModel
                 (
                 accountTypeProfileDenominationID: model.AccountTypeProfileDenominationID,
                 feesID: model.FeeId
@@ -94,7 +86,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public JsonResult Delete(int id)
         {
-            accountTypeProfileFeeApi.ApiAccountTypeProfileFeeDeleteIdDelete(id);
+            _accountTypeProfileFeeApi.ApiAccountTypeProfileFeeDeleteIdDelete(id);
             return Json(id);
         }
         private AccountTypeProfileFeesModel MapToModel(AccountTypeProfileFeeViewModel x)

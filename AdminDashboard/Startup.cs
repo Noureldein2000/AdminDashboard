@@ -1,3 +1,4 @@
+using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -28,7 +29,41 @@ namespace AdminDashboard
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            string AuthorityUrl = Configuration.GetValue<string>("Urls:Authority");
+            string tmsUrl = Configuration.GetValue<string>("Urls:TMS");
+
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            services.AddScoped<IRolesApi>(x => new RolesApi(AuthorityUrl));
+            services.AddScoped<IAccountApi>(x => new AccountApi(AuthorityUrl));
+            services.AddScoped<IFeesApi>(x => new FeesApi(tmsUrl));
+            services.AddScoped<IAccountFeesApi>(x => new AccountFeesApi(tmsUrl));
+            services.AddScoped<IDenominationApi>(x => new DenominationApi(tmsUrl));
+            services.AddScoped<IAdminServiceApi>(x => new AdminServiceApi(tmsUrl));
+            services.AddScoped<ICommissionApi>(x => new CommissionApi(tmsUrl));
+            services.AddScoped<IAccountCommissionApi>(x => new AccountCommissionApi(tmsUrl));
+            services.AddScoped<IRegionApi>(x => new RegionApi(AuthorityUrl));
+            services.AddScoped<IActivityApi>(x => new ActivityApi(AuthorityUrl));
+            services.AddScoped<IEntityApi>(x => new EntityApi(AuthorityUrl));
+            services.AddScoped<IAccountTypeProfileApi>(x => new AccountTypeProfileApi(AuthorityUrl));
+            services.AddScoped<IAccountChannelApi>(x => new AccountChannelApi(AuthorityUrl));
+            services.AddScoped<IChannelApi>(x => new ChannelApi(AuthorityUrl));
+            services.AddScoped<IAccountChannelTypeApi>(x => new AccountChannelTypeApi(AuthorityUrl));
+            services.AddScoped<IChannelTypeApi>(x => new ChannelTypeApi(AuthorityUrl));
+            services.AddScoped<IUsersApi>(x => new UsersApi(AuthorityUrl));
+            services.AddScoped<IChannelOwnerApi>(x => new ChannelOwnerApi(AuthorityUrl));
+            services.AddScoped<IChannelPaymentMethodApi>(x => new ChannelPaymentMethodApi(AuthorityUrl));
+            services.AddScoped<IAccountTypeApi>(x => new AccountTypeApi(AuthorityUrl));
+            services.AddScoped<IAccountTypeProfileCommissionApi>(x => new AccountTypeProfileCommissionApi(tmsUrl)); 
+            services.AddScoped<IAccountTypeProfileDenominationApi>(x => new AccountTypeProfileDenominationApi(tmsUrl));
+            services.AddScoped<IAccountTypeProfileFeeApi>(x => new AccountTypeProfileFeeApi(tmsUrl));
+            services.AddScoped<IChannelCategoryApi>(x => new ChannelCategoryApi(AuthorityUrl));
+            services.AddScoped<IDenominationCommissionApi>(x => new DenominationCommissionApi(tmsUrl));
+            services.AddScoped<IDenominationFeesApi>(x => new DenominationFeesApi(tmsUrl));
+            services.AddScoped<IServiceProviderApi>(x => new ServiceProviderApi(tmsUrl));
+            services.AddScoped<IServiceConfigurationApi>(x => new ServiceConfigurationApi(tmsUrl));
+            services.AddScoped<IDenominationParamApi>(x => new DenominationParamApi(tmsUrl));
+            services.AddScoped<IParameterApi>(x => new ParameterApi(tmsUrl));
+
 
             //services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
 

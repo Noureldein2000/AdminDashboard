@@ -20,35 +20,45 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     public class AccountsController : Controller
     {
         //private readonly ISwaggerClient _swagerClient;
-        private readonly IAccountApi api;
-        private readonly IRegionApi regionApi;
-        private readonly IActivityApi activityApi;
-        private readonly IEntityApi entityApi;
-        private readonly IAccountTypeProfileApi accountTypeProfileApi;
-        private readonly IAccountChannelApi accountChannelApi;
-        private readonly IChannelApi channelApi;
-        private readonly IAccountChannelTypeApi accountChannelTypesApi;
-        private readonly IChannelTypeApi channelTypeApi;
-        private readonly IUsersApi usersApi;
-        private readonly IChannelOwnerApi channelOwnerApi;
-        private readonly IChannelPaymentMethodApi channelPaymentMethodApi;
-        private readonly IConfiguration _configuration;
-        public AccountsController(IConfiguration configuration)
+        private readonly IAccountApi _api;
+        private readonly IRegionApi _regionApi;
+        private readonly IActivityApi _activityApi;
+        private readonly IEntityApi _entityApi;
+        private readonly IAccountTypeProfileApi _accountTypeProfileApi;
+        private readonly IAccountChannelApi _accountChannelApi;
+        private readonly IChannelApi _channelApi;
+        private readonly IAccountChannelTypeApi _accountChannelTypesApi;
+        private readonly IChannelTypeApi _channelTypeApi;
+        private readonly IUsersApi _usersApi;
+        private readonly IChannelOwnerApi _channelOwnerApi;
+        private readonly IChannelPaymentMethodApi _channelPaymentMethodApi;
+        public AccountsController(
+            IAccountApi api,
+            IRegionApi regionApi,
+            IActivityApi activityApi,
+            IEntityApi entityApi,
+            IAccountTypeProfileApi accountTypeProfileApi,
+            IAccountChannelApi accountChannelApi,
+            IChannelApi channelApi,
+            IAccountChannelTypeApi accountChannelTypesApi,
+            IChannelTypeApi channelTypeApi,
+            IUsersApi usersApi,
+            IChannelOwnerApi channelOwnerApi,
+            IChannelPaymentMethodApi channelPaymentMethodApi
+            )
         {
-            _configuration = configuration;
-            string url = _configuration.GetValue<string>("Urls:Authority");
-            api = new AccountApi(url);
-            regionApi = new RegionApi(url);
-            activityApi = new ActivityApi(url);
-            entityApi = new EntityApi(url);
-            accountTypeProfileApi = new AccountTypeProfileApi(url);
-            accountChannelApi = new AccountChannelApi(url);
-            channelApi = new ChannelApi(url);
-            accountChannelTypesApi = new AccountChannelTypeApi(url);
-            channelTypeApi = new ChannelTypeApi(url);
-            usersApi = new UsersApi(url);
-            channelOwnerApi = new ChannelOwnerApi(url);
-            channelPaymentMethodApi = new ChannelPaymentMethodApi(url);
+            _api = api;
+            _regionApi = regionApi;
+            _activityApi = activityApi;
+            _entityApi = entityApi;
+            _accountTypeProfileApi = accountTypeProfileApi;
+            _accountChannelApi = accountChannelApi;
+            _channelApi = channelApi;
+            _accountChannelTypesApi = accountChannelTypesApi;
+            _channelTypeApi = channelTypeApi;
+            _usersApi = usersApi;
+            _channelOwnerApi = channelOwnerApi;
+            _channelPaymentMethodApi = channelPaymentMethodApi;
         }
         [HttpGet]
         public IActionResult Index()
@@ -62,7 +72,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             //    CurrentPage = page,
             //    PageSize = 10
             //};
-            var data = accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet();
+            var data = _accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet();
 
             ViewBag.AccountTypeList = data.LstAccountType.Select(a => new SelectListItem
             {
@@ -75,7 +85,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult SearchAccounts(int? dropDownFilter, string searchKey, int page = 1)
         {
-            var data = api.ApiAccountGetAccountsBySearchKeyGet(dropDownFilter, searchKey, page);
+            var data = _api.ApiAccountGetAccountsBySearchKeyGet(dropDownFilter, searchKey, page);
 
             var dd = data.Results.Select(account => Map(account)).ToList();
 
@@ -87,7 +97,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 PageSize = 10
             };
 
-            var accoutTypes = accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet();
+            var accoutTypes = _accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet();
 
             ViewBag.AccountTypeList = accoutTypes.LstAccountType.Select(a => new SelectListItem
             {
@@ -100,25 +110,25 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult Create(int id)
         {
-            var activities = activityApi.ApiActivityGetAllGet().Select(a => new SelectListItem
+            var activities = _activityApi.ApiActivityGetAllGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
 
-            var governerates = regionApi.ApiRegionGetGovernorateGet().Select(a => new SelectListItem
+            var governerates = _regionApi.ApiRegionGetGovernorateGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
 
-            var entities = entityApi.ApiEntityGetAllGet().Select(a => new SelectListItem
+            var entities = _entityApi.ApiEntityGetAllGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
 
-            var accountTypes = accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstAccountType.Select(a => new SelectListItem
+            var accountTypes = _accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstAccountType.Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
@@ -142,22 +152,22 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var activities = activityApi.ApiActivityGetAllGet().Select(a => new SelectListItem
+                var activities = _activityApi.ApiActivityGetAllGet().Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
-                var governerates = regionApi.ApiRegionGetGovernorateGet().Select(a => new SelectListItem
+                var governerates = _regionApi.ApiRegionGetGovernorateGet().Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
-                var entities = entityApi.ApiEntityGetAllGet().Select(a => new SelectListItem
+                var entities = _entityApi.ApiEntityGetAllGet().Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
-                var accountTypes = accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstAccountType.Select(a => new SelectListItem
+                var accountTypes = _accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstAccountType.Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
@@ -165,7 +175,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 ;
                 if (model.AccountTypeID.HasValue)
                 {
-                    var accountTypeProfiles = accountTypeProfileApi.ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGet(model.AccountTypeID).Select(a => new SelectListItem
+                    var accountTypeProfiles = _accountTypeProfileApi.ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGet(model.AccountTypeID).Select(a => new SelectListItem
                     {
                         Text = a.Profile,
                         Value = a.Id.ToString()
@@ -182,7 +192,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
                 if (model.GovernerateID.HasValue)
                 {
-                    var cities = regionApi.ApiRegionGetRegionByGovernorateIdIdGet(model.GovernerateID).ToList();
+                    var cities = _regionApi.ApiRegionGetRegionByGovernorateIdIdGet(model.GovernerateID).ToList();
                     model.Regions = cities.Select(s => new SelectListItem
                     {
                         Text = s.Name,
@@ -201,7 +211,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 return View(model);
             }
 
-            var result = api.ApiAccountAddAccountPost(new AddAccountModel(
+            var result = _api.ApiAccountAddAccountPost(new AddAccountModel(
                  ownerName: model.OwnerName,
                  accountName: model.AccountName,
                  mobile: model.Mobile,
@@ -222,7 +232,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             model.ConsumerUser.UserRole = Roles.Consumer;
             if (result != null)
             {
-                usersApi.ApiUsersCreateUserPost(new CreateUserModel(
+                _usersApi.ApiUsersCreateUserPost(new CreateUserModel(
                                 username: model.Username,
                                 mobile: model.Mobile,
                                 //password: model.Password,
@@ -232,7 +242,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                                 ));
 
                 if (model.ConsumerUser.Mobile != null && model.ConsumerUser.UserEmail != null && model.ConsumerUser.Username != null)
-                    usersApi.ApiUsersCreateUserPost(new CreateUserModel(
+                    _usersApi.ApiUsersCreateUserPost(new CreateUserModel(
                                    username: model.ConsumerUser.Username,
                                    mobile: model.ConsumerUser.Mobile,
                                    //password: model.Password,
@@ -249,28 +259,28 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
-            var activities = activityApi.ApiActivityGetAllGet().Select(a => new SelectListItem
+            var activities = _activityApi.ApiActivityGetAllGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
-            var governerates = regionApi.ApiRegionGetGovernorateGet().Select(a => new SelectListItem
+            var governerates = _regionApi.ApiRegionGetGovernorateGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
-            var entities = entityApi.ApiEntityGetAllGet().Select(a => new SelectListItem
+            var entities = _entityApi.ApiEntityGetAllGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
-            var accountTypes = accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstAccountType.Select(a => new SelectListItem
+            var accountTypes = _accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstAccountType.Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
 
-            var model = api.ApiAccountGetAccountByIdIdGet(id);
+            var model = _api.ApiAccountGetAccountByIdIdGet(id);
             var viewModel = Map(model);
             viewModel.Activities = activities;
             viewModel.Governerates = governerates;
@@ -278,7 +288,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             viewModel.AccountTypes = accountTypes;
             if (model.GovernerateID.HasValue)
             {
-                var cities = regionApi.ApiRegionGetRegionByGovernorateIdIdGet(model.GovernerateID).ToList();
+                var cities = _regionApi.ApiRegionGetRegionByGovernorateIdIdGet(model.GovernerateID).ToList();
                 viewModel.Regions = cities.Select(s => new SelectListItem
                 {
                     Text = s.Name,
@@ -303,22 +313,22 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var activities = activityApi.ApiActivityGetAllGet().Select(a => new SelectListItem
+                var activities = _activityApi.ApiActivityGetAllGet().Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
-                var governerates = regionApi.ApiRegionGetGovernorateGet().Select(a => new SelectListItem
+                var governerates = _regionApi.ApiRegionGetGovernorateGet().Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
-                var entities = entityApi.ApiEntityGetAllGet().Select(a => new SelectListItem
+                var entities = _entityApi.ApiEntityGetAllGet().Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
-                var accountTypes = accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstAccountType.Select(a => new SelectListItem
+                var accountTypes = _accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstAccountType.Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
@@ -334,7 +344,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             try
             {
 
-                api.ApiAccountEditAccountPut(new EditAccountModel(
+                _api.ApiAccountEditAccountPut(new EditAccountModel(
                     id: model.Id,
                     ownerName: model.OwnerName,
                     accountName: model.AccountName,
@@ -365,9 +375,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult EditAccountChannelType(int id)
         {
-            var data = accountChannelTypesApi.ApiAccountChannelTypeGetAccountChannelTypeByIdIdGet(id);
+            var data = _accountChannelTypesApi.ApiAccountChannelTypeGetAccountChannelTypeByIdIdGet(id);
 
-            var channelTypes = channelTypeApi.ApiChannelTypeGetAllGet().Select(a => new SelectListItem
+            var channelTypes = _channelTypeApi.ApiChannelTypeGetAllGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
@@ -394,7 +404,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
             try
             {
-                var result = accountChannelTypesApi.ApiAccountChannelTypeEditAccountChannelTypesPut(new EditAccountChannelTypeModel(
+                var result = _accountChannelTypesApi.ApiAccountChannelTypeEditAccountChannelTypesPut(new EditAccountChannelTypeModel(
                     id: model.Id,
                     hasLimitedAccess: model.HasLimitedAccess,
                     expirationPeriod: model.ExpirationPeriod
@@ -417,13 +427,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult ChangeStatus(int id)
         {
-            api.ApiAccountChangeAccountStatusIdGet(id);
+            _api.ApiAccountChangeAccountStatusIdGet(id);
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
         public IActionResult ViewChannels(int id)
         {
-            var data = accountChannelApi.ApiAccountChannelGetChannelsByAccountIdAccountIdGet(id);
+            var data = _accountChannelApi.ApiAccountChannelGetChannelsByAccountIdAccountIdGet(id);
             var viewModel = data.Select(d => new AccountChannelViewModel()
             {
                 Id = d.Id,
@@ -448,17 +458,17 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             //    Text = a.ToString(),
             //    Value = ((int)a).ToString()
             //}).ToList();
-            var channelTypes = channelTypeApi.ApiChannelTypeGetAllGet().Select(a => new SelectListItem
+            var channelTypes = _channelTypeApi.ApiChannelTypeGetAllGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
-            var channelOwners = channelOwnerApi.ApiChannelOwnerGetAllGet().Select(a => new SelectListItem
+            var channelOwners = _channelOwnerApi.ApiChannelOwnerGetAllGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
-            var channelPaymentMethods = channelPaymentMethodApi.ApiChannelPaymentMethodGetAllGet().Select(a => new SelectListItem
+            var channelPaymentMethods = _channelPaymentMethodApi.ApiChannelPaymentMethodGetAllGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
@@ -479,7 +489,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult ViewChannelsTypes(int id)
         {
-            var data = accountChannelTypesApi.ApiAccountChannelTypeGetAccountChannelTypesAccountIdGet(id);
+            var data = _accountChannelTypesApi.ApiAccountChannelTypeGetAccountChannelTypesAccountIdGet(id);
             var viewModel = data.Select(d => new AccountChannelTypeViewModel()
             {
                 Id = (int)d.Id,
@@ -501,25 +511,25 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult DeleteAccountChannelType(int id)
         {
-            var result = accountChannelTypesApi.ApiAccountChannelTypeDeleteAccountChannelTypesIdDelete(id);
+            var result = _accountChannelTypesApi.ApiAccountChannelTypeDeleteAccountChannelTypesIdDelete(id);
             return RedirectToAction(actionName: "ViewChannelsTypes", new { id = result.AccountID });
         }
         [HttpGet]
         public IActionResult ChangeAccountChannel(int id, AccountChannelStatus status, string reason)
         {
-            accountChannelApi.ApiAccountChannelChangeStatusIdPut(id, status, reason);
+            _accountChannelApi.ApiAccountChannelChangeStatusIdPut(id, status, reason);
             return Ok();
         }
         [HttpGet]
         public IActionResult CreateAccountChannel(int accountId, int channelId)
         {
-            accountChannelApi.ApiAccountChannelAddPost(new AccountChannelModel(accountID: accountId, channelID: channelId, reason: "Transfered"));
+            _accountChannelApi.ApiAccountChannelAddPost(new AccountChannelModel(accountID: accountId, channelID: channelId, reason: "Transfered"));
             return RedirectToAction(actionName: "ViewChannels", new { id = accountId });
         }
         [HttpGet]
         public IActionResult CreateAccountChannelType(int id)
         {
-            var channelTypes = channelTypeApi.ApiChannelTypeGetAllGet().Select(a => new SelectListItem
+            var channelTypes = _channelTypeApi.ApiChannelTypeGetAllGet().Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
@@ -540,7 +550,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
             try
             {
-                var result = accountChannelTypesApi.ApiAccountChannelTypeAddAccountChannelTypesPost(new AddAccountChannelTypeModel(
+                var result = _accountChannelTypesApi.ApiAccountChannelTypeAddAccountChannelTypesPost(new AddAccountChannelTypeModel(
                accountID: model.AccountID,
                channelTypeID: model.ChannelTypeID,
                hasLimitedAccess: model.HasLimitedAccess,
@@ -560,37 +570,37 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public JsonResult GetCities(int id)
         {
-            var cities = regionApi.ApiRegionGetRegionByGovernorateIdIdGet(id).ToList();
+            var cities = _regionApi.ApiRegionGetRegionByGovernorateIdIdGet(id).ToList();
             return Json(cities);
         }
         [HttpGet]
         public JsonResult GetAccountTypesByParentId(int id, int accountId)
         {
-            var account = accountTypeProfileApi.ApiAccountTypeProfileGetParentAccountsIdAccountIdGet(id, accountId);
+            var account = _accountTypeProfileApi.ApiAccountTypeProfileGetParentAccountsIdAccountIdGet(id, accountId);
             return Json(account);
         }
         [HttpGet]
         public JsonResult GetChannels(string serial, int page = 1)
         {
-            var data = channelApi.ApiChannelSearchSpecificChannelBySerialSearchKeyGet(serial, page, 1000);
+            var data = _channelApi.ApiChannelSearchSpecificChannelBySerialSearchKeyGet(serial, page, 1000);
             return Json(data.Results.Select(chnel => Map(chnel)).ToList());
         }
         [HttpGet]
         public JsonResult GetAccountById(int accountId)
         {
-            var data = api.ApiAccountGetAccountByIdIdGet(accountId);
+            var data = _api.ApiAccountGetAccountByIdIdGet(accountId);
             return Json(data);
         }
-        [HttpGet]   
+        [HttpGet]
         public JsonResult GetAccountProfilelByAcocuntTypeId(int id)
         {
-            var data = accountTypeProfileApi.ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGet(id);
+            var data = _accountTypeProfileApi.ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGet(id);
             return Json(data);
         }
         [HttpGet]
         public JsonResult GetAccountMappingValidation(int id)
         {
-            var account = accountTypeProfileApi.ApiAccountTypeProfileGetAccountMappingValidationIdGet(id);
+            var account = _accountTypeProfileApi.ApiAccountTypeProfileGetAccountMappingValidationIdGet(id);
             return Json(account);
         }
         [HttpGet]
@@ -601,7 +611,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpPost]
         public IActionResult AccountChannelsHistory(string searchKey, int page = 1)
         {
-            var accounts = accountChannelApi.ApiAccountChannelGetAccountChannelsHistorySearchKeyGet(searchKey);
+            var accounts = _accountChannelApi.ApiAccountChannelGetAccountChannelsHistorySearchKeyGet(searchKey);
 
             return View(new PagedResult<AccountChannelsHistoryViewModel>
             {

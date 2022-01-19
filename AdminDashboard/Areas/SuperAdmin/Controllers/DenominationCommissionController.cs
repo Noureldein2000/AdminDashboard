@@ -18,27 +18,24 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     [Authorize]
     public class DenominationCommissionController : Controller
     {
-        private readonly ICommissionApi apiCommissions;
-        private readonly IDenominationCommissionApi apiDenominationCommission;
-        private readonly IConfiguration _configuration;
-        public DenominationCommissionController(IConfiguration configuration)
+        private readonly ICommissionApi _apiCommissions;
+        private readonly IDenominationCommissionApi _apiDenominationCommission;
+        public DenominationCommissionController(ICommissionApi commissionApi, IDenominationCommissionApi denominationCommissionApi)
         {
-            _configuration = configuration;
-            string urlTms = _configuration.GetValue<string>("Urls:TMS");
-            apiCommissions = new CommissionApi(urlTms);
-            apiDenominationCommission = new DenominationCommissionApi(urlTms);
+            _apiCommissions = commissionApi;
+            _apiDenominationCommission = denominationCommissionApi;
         }
         [HttpGet]
         public async Task<IActionResult> Index(int denominationId)
         {
-            var data = await apiDenominationCommission.ApiDenominationCommissionGetdenominationCommissionByDenominationIdDenominationIdGetAsync(denominationId);
+            var data = await _apiDenominationCommission.ApiDenominationCommissionGetdenominationCommissionByDenominationIdDenominationIdGetAsync(denominationId);
             return View(data.Select(x => Map(x)));
         }
 
         [HttpGet]
         public IActionResult Create(int id)
         {
-            var commissions = apiCommissions.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
+            var commissions = _apiCommissions.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
             {
                 Text = a.CommissionRange.ToString(),
                 Value = a.Id.ToString()
@@ -59,7 +56,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var commissions = apiCommissions.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
+                var commissions = _apiCommissions.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
                 {
                     Text = a.CommissionRange.ToString(),
                     Value = a.Id.ToString()
@@ -70,7 +67,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 return View(model);
             }
 
-            apiDenominationCommission.ApiDenominationCommissionAddDenominationCommissionPost(new AddDenominationCommissionModel(
+            _apiDenominationCommission.ApiDenominationCommissionAddDenominationCommissionPost(new AddDenominationCommissionModel(
                 denominationId: model.DenominationId,
                 commissionId: model.CommissionId));
 
@@ -80,7 +77,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public JsonResult Delete(int id)
         {
-            apiDenominationCommission.ApiDenominationCommissionDeleteDenominationCommissionIdDelete(id: id);
+            _apiDenominationCommission.ApiDenominationCommissionDeleteDenominationCommissionIdDelete(id: id);
 
             return Json(id);
         }

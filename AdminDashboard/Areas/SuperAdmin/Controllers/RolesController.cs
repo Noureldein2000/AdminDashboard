@@ -17,13 +17,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     public class RolesController : Controller
     {
         private readonly IRolesApi _rolesApi;
-        private readonly IConfiguration _configuration;
-        public RolesController(IConfiguration configuration)
+        public RolesController(IRolesApi rolesApi)
         {
-            _configuration = configuration;
-            string url = _configuration.GetValue<string>("Urls:Authority");
-            string urlTms = _configuration.GetValue<string>("Urls:TMS");
-            _rolesApi = new RolesApi(url);
+            _rolesApi = rolesApi;
         }
         public async Task<IActionResult> Index()
         {
