@@ -32,6 +32,7 @@ namespace AdminDashboard.Controllers
         }
 
         [Authorize]
+        [AutoValidateAntiforgeryToken]
         public async Task<IActionResult> Login()
         {
             string userId = User.FindFirst("sub")?.Value;
@@ -49,8 +50,7 @@ namespace AdminDashboard.Controllers
             switch (userRole.Role)
             {
                 case "SuperAdmin":
-                    //return RedirectToAction("Index", "Home", new { area = "SuperAdmin" });
-                    return RedirectToActionPermanent("Index", "Home", new { area = "SuperAdmin" });
+                    return RedirectToAction("Index", "Home", new { area = "SuperAdmin" });
                 case "Operation":
                     return RedirectToAction("Index", "Home", new { area = "Operation" });
                 default:
@@ -58,6 +58,11 @@ namespace AdminDashboard.Controllers
             }
 
 
+        }
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            return SignOut("Cookies", "oidc");
         }
     }
 }

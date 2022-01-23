@@ -1,3 +1,4 @@
+using AdminDashboard.SourceOfFundSwaggerClient;
 using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
@@ -13,6 +14,7 @@ using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace AdminDashboard
@@ -31,6 +33,7 @@ namespace AdminDashboard
         {
             string AuthorityUrl = Configuration.GetValue<string>("Urls:Authority");
             string tmsUrl = Configuration.GetValue<string>("Urls:TMS");
+            string sofUrl = Configuration.GetValue<string>("Urls:SOF");
 
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
             services.AddScoped<IRolesApi>(x => new RolesApi(AuthorityUrl));
@@ -63,6 +66,8 @@ namespace AdminDashboard
             services.AddScoped<IServiceConfigurationApi>(x => new ServiceConfigurationApi(tmsUrl));
             services.AddScoped<IDenominationParamApi>(x => new DenominationParamApi(tmsUrl));
             services.AddScoped<IParameterApi>(x => new ParameterApi(tmsUrl));
+            services.AddScoped<IAuthenticationApi>(x => new AuthenticationApi(AuthorityUrl));
+            services.AddScoped<IAccountsApi>(x => new AccountsApi(sofUrl));
 
 
             //services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
@@ -92,7 +97,7 @@ namespace AdminDashboard
                 //options.Scope.Add("offline_access");
                 //options.ClaimActions.MapJsonKey("account_id", "account_id", "account_id");
                 options.ClaimActions.MapJsonKey("roles", "roles", "roles");
-              
+                options.SignedOutCallbackPath = "/Home/Index";
             });
 
             //services.AddScoped<ISwaggerClient>(obj => new SwaggerClient("http://localhost:44303/", new System.Net.Http.HttpClient { Timeout = TimeSpan.FromMinutes(30) }));
@@ -118,6 +123,7 @@ namespace AdminDashboard
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -146,7 +152,7 @@ namespace AdminDashboard
                 //endpoints.MapDefaultControllerRoute();
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "test/admin/{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
             });
         }
     }

@@ -1,7 +1,228 @@
-﻿
+﻿@model UniversityCashoutViewModelList
+
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Cash out";
 }
 
-<h1>Add from here</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="alert alert-danger">
+                @Html.ValidationSummary()
+            </div>
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <div class="row">
+                        <div class="col-md-12 d-flex justify-content-between">
+                            <h5>Add Amount</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label for="btn-choose">Import Excelsheet</label>
+                                                @using (Html.BeginForm("Upload", "UniversityCashout", FormMethod.Post, new { enctype = "multipart/form-data" }))
+                                                {
+                                                    <div class="row">
+
+                                                        @Html.AntiForgeryToken()
+                                                        <div class="col-md-9">
+                                                            <div class="input-group input-file">
+                                                                @*<span id="btn-choose" class="input-group-btn">
+                                                        <button class="btn btn-info btn-choose" type="button">Choose</button>
+                                                    </span>*@
+                                                                <input type="text" class="form-control" placeholder='Choose a file...' />
+
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-3">
+                                                            <input type="submit" value="Upload" class="btn btn-info" />
+                                                        </div>
+                                                    </div>
+                                                }
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="control-label">Account ID</label>
+                                                <input id="txt-account-id" type="text" class="form-control" placeholder="xxxxx" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-5">
+                                            <div class="form-group">
+                                                <label class="control-label">Amount</label>
+                                                <input id="txt-amount" type="text" class="form-control" placeholder="00.xx" />
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="form-group">
+                                                <label class="control-label">-</label>
+                                                <div>
+                                                    <button id="btn-add-new" type="button" class="btn btn-info" onclick="addNewRow()">Add</button>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+                    @using (Html.BeginForm("Index", "UniversityCashout", FormMethod.Post, new { id = "data-table-form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            <div class="col-md-12 table-responsive">
+                                <table class="table table-striped table-bordered table-hover" id="tblTrans">
+                                    <thead>
+                                        <tr>
+                                            <th>Account ID</th>
+                                            <th>Amount</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var row in Model.DataList)
+                                        {
+                                            <tr id="tr-@row.AccountId" data-accountid='@row.AccountId' data-amount='@row.Amount'>
+                                                <td>@row.AccountId</td>
+                                                <td>@row.Amount</td>
+                                                <td>
+                                                    <a onclick="removeCurrentRow('tr-@row.AccountId')" class="btn btn-danger">Delete</a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input id="btn-save" type="submit" value="Save" class="btn btn-success" />
+                                    <a id="btn-clear" asp-action="Index" class="btn btn-danger">Clear</a>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>
+
+@section Scripts{
+
+    <script src="~/jquery/jquery.js"></script>
+    <script>
+        $(document).ready(function () {
+            let accountId = $('#txt-account-id').val();
+            let amount = $('#txt-amount').val();
+            if (!accountId || !amount) {
+                $('#btn-add-new').prop('disabled', true)
+            }
+            $('#txt-account-id').keyup(function () {
+                if ($(this).val() != '' && $('#txt-amount').val() != '') {
+                    $('#btn-add-new').prop('disabled', false)
+                }
+                else {
+                    $('#btn-add-new').prop('disabled', true)
+                }
+            });
+            $('#txt-amount').keyup(function () {
+                if ($(this).val() != '' && $('#txt-account-id').val() != '') {
+                    $('#btn-add-new').prop('disabled', false)
+                }
+                else {
+                    $('#btn-add-new').prop('disabled', true)
+                }
+            });
+
+            bs_input_file();
+            $("#btn-save").on("click", function () {
+                var qtd = 0;
+                $("#tblTrans > tbody > tr").each(function () {
+                    var accountId = $(this).data("accountid");
+                    var amount = $(this).data("amount");
+                    $("#data-table-form").prepend("<input type='hidden' name = 'DataList[" + qtd + "].AccountId' value = '" + accountId + "' > ");
+                    $("#data-table-form").prepend("<input type='hidden' name = 'DataList[" + qtd + "].Amount' value = '" + amount + "' > ");
+                    qtd += 1;
+                });
+            })
+
+        });
+
+        var removeCurrentRow = (rowId) => {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this record!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+                    $(`#${rowId}`).remove();
+                }
+            });
+
+        }
+
+        var addNewRow = () => {
+            let accountId = $('#txt-account-id').val();
+            let amount = $('#txt-amount').val();
+            /**/
+            $('#tblTrans tbody').append(`<tr id="tr-${accountId}" data-accountid='${accountId}' data-amount='${amount}'><td>${accountId}</td><td>${amount}</td><td><a onclick="removeCurrentRow('tr-${accountId}')" class="btn btn-danger">Delete</a></td></tr>`);
+        /**/
+        $('#txt-account-id').val('');
+        $('#txt-amount').val('');
+        $('#btn-add-new').prop('disabled', true)
+    }
+
+    var bs_input_file = () => {
+        $(".input-file").before(
+            function () {
+                if (!$(this).prev().hasClass('input-ghost')) {
+                    var element = $("<input type='file' id='dataFile' name='upload' class='input-ghost' style='visibility:hidden; height:0'>");
+                    element.attr("name", $(this).attr("name"));
+                    element.change(function () {
+                        element.next(element).find('input').val((element.val()).split('\\').pop());
+                    });
+                    $(this).find("button.btn-choose").click(function () {
+                        element.click();
+                    });
+                    $(this).find("button.btn-reset").click(function () {
+                        element.val(null);
+                        $(this).parents(".input-file").find('input').val('');
+                    });
+                    $(this).find('input').css("cursor", "pointer");
+                    $(this).find('input').mousedown(function () {
+                        $(this).parents('.input-file').prev().click();
+                        return false;
+                    });
+                    return element;
+                }
+            }
+        );
+    }
+
+    </script>
+}
 
