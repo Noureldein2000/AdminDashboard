@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Configurations>Debug;Release;Production</Configurations>
+    <Configurations>Debug;Release;Testing</Configurations>
     <Deterministic>false</Deterministic>
     <AssemblyVersion>1.1.0</AssemblyVersion>
   </PropertyGroup>
