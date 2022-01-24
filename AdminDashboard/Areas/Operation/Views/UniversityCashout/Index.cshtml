@@ -168,6 +168,14 @@
                 });
             })
 
+            if ('@ViewBag.Succeeded') {
+                swal({
+                    title: "Success",
+                    text: "Data Saved Successfully!",
+                    icon: "success",
+                    button: "Ok",
+                });
+            }
         });
 
         var removeCurrentRow = (rowId) => {

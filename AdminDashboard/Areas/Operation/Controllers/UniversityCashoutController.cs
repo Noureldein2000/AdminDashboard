@@ -70,13 +70,16 @@ namespace AdminDashboard.Areas.Operation.Controllers
                          //trasnsactionId: s.TrasnactionId
                          )).ToList()));
 
+            ViewBag.Succeeded = true;
             return View(new UniversityCashoutViewModelList());
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Upload(IFormFile upload)
         {
-            var viewModel = new List<UniversityCashoutViewModel>();
+            var viewModelList = new List<UniversityCashoutViewModel>();
+            var viewModel = new UniversityCashoutViewModelList();
+
             if (!ModelState.IsValid)
             {
                 return View(nameof(Index), viewModel);
@@ -119,14 +122,16 @@ namespace AdminDashboard.Areas.Operation.Controllers
                 {
                     dt_ = reader.AsDataSet().Tables[0];
 
-                    // validate about columns
-                    //for (int i = 0; i < dt_.Columns.Count; i++)
-                    //{
-                    //    dt.Columns.Add(dt_.Rows[0][i].ToString());
-                    //}
+                    // validate columns names
+                    if (dt_.Rows[0][0].ToString() != "AccountID" || dt_.Rows[0][1].ToString() != "Amount")
+                    {
+                        ModelState.AddModelError("File", "Please make sure that table has 2 columns headers (fist col: AccountID) and (second col: Amount)");
+                        return View(nameof(Index), viewModel);
+                    }
+
                     for (int row_ = 1; row_ < dt_.Rows.Count; row_++)
                     {
-                        viewModel.Add(new UniversityCashoutViewModel
+                        viewModelList.Add(new UniversityCashoutViewModel
                         {
                             AccountId = int.Parse(dt_.Rows[row_][0].ToString()),
                             Amount = decimal.Parse(dt_.Rows[row_][1].ToString())
@@ -142,11 +147,8 @@ namespace AdminDashboard.Areas.Operation.Controllers
                 reader.Close();
                 reader.Dispose();
             }
-
-            return View(nameof(Index), new UniversityCashoutViewModelList
-            {
-                DataList = viewModel
-            });
+            viewModel.DataList = viewModelList;
+            return View(nameof(Index), viewModel);
         }
 
 
