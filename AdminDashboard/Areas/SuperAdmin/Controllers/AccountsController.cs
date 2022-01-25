@@ -32,6 +32,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         private readonly IUsersApi _usersApi;
         private readonly IChannelOwnerApi _channelOwnerApi;
         private readonly IChannelPaymentMethodApi _channelPaymentMethodApi;
+        private readonly IAccountsApi _accounts;
         public AccountsController(
             IAccountApi api,
             IRegionApi regionApi,
@@ -44,7 +45,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             IChannelTypeApi channelTypeApi,
             IUsersApi usersApi,
             IChannelOwnerApi channelOwnerApi,
-            IChannelPaymentMethodApi channelPaymentMethodApi
+            IChannelPaymentMethodApi channelPaymentMethodApi,
+            IAccountsApi accounts
             )
         {
             _api = api;
@@ -59,6 +61,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             _usersApi = usersApi;
             _channelOwnerApi = channelOwnerApi;
             _channelPaymentMethodApi = channelPaymentMethodApi;
+            _accounts = accounts;
         }
         [HttpGet]
         public IActionResult Index()
@@ -134,7 +137,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Value = a.Id.ToString()
             }).ToList();
 
-            var balanceTypes = accounts.ApiAccountsBalanceTypesGet("ar").Select(a => new SelectListItem
+            var balanceTypes = _accounts.ApiAccountsBalanceTypesGet("ar").Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
@@ -188,7 +191,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     model.AccountTypeProfiles = accountTypeProfiles;
                 }
 
-                var balanceTypes = accounts.ApiAccountsBalanceTypesGet("ar").Select(a => new SelectListItem
+                var balanceTypes = _accounts.ApiAccountsBalanceTypesGet("ar").Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()
@@ -242,9 +245,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             model.ConsumerUser.UserRole = Roles.Consumer;
             if (result != null)
             {
-                accounts.ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPost(accountId: result.Id, 0.0, model.BalanceTypeId);
+                _accounts.ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPost(accountId: result.Id, 0.0, model.BalanceTypeId);
 
-                usersApi.ApiUsersCreateUserPost(new CreateUserModel(
+                _usersApi.ApiUsersCreateUserPost(new CreateUserModel(
                                 username: model.Username,
                                 mobile: model.Mobile,
                                 //password: model.Password,
@@ -292,13 +295,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Value = a.Id.ToString()
             }).ToList();
 
-            var balanceTypes = accounts.ApiAccountsBalanceTypesGet("ar").Select(a => new SelectListItem
+            var balanceTypes = _accounts.ApiAccountsBalanceTypesGet("ar").Select(a => new SelectListItem
             {
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
 
-            var model = api.ApiAccountGetAccountByIdIdGet(id);
+            var model = _api.ApiAccountGetAccountByIdIdGet(id);
 
             var viewModel = Map(model);
 
@@ -354,7 +357,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
-                var balanceTypes = accounts.ApiAccountsBalanceTypesGet("ar").Select(a => new SelectListItem
+                var balanceTypes = _accounts.ApiAccountsBalanceTypesGet("ar").Select(a => new SelectListItem
                 {
                     Text = a.Name,
                     Value = a.Id.ToString()

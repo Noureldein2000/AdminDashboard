@@ -67,7 +67,7 @@ namespace AdminDashboard
             services.AddScoped<IDenominationParamApi>(x => new DenominationParamApi(tmsUrl));
             services.AddScoped<IParameterApi>(x => new ParameterApi(tmsUrl));
             services.AddScoped<IAuthenticationApi>(x => new AuthenticationApi(AuthorityUrl));
-            services.AddScoped<IAccountsApi>(x => new AccountsApi(sofUrl));
+            services.AddScoped<SourceOfFundSwaggerClient.IAccountsApi>(x => new SourceOfFundSwaggerClient.AccountsApi(sofUrl));
 
 
             //services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
