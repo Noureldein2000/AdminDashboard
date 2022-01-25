@@ -21,6 +21,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     {
         //private readonly ISwaggerClient _swagerClient;
         private readonly IAccountApi api;
+        private readonly IAccountsApi accounts;
         private readonly IRegionApi regionApi;
         private readonly IActivityApi activityApi;
         private readonly IEntityApi entityApi;
@@ -37,7 +38,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             _configuration = configuration;
             string url = _configuration.GetValue<string>("Urls:Authority");
+            string urlSOF = _configuration.GetValue<string>("Urls:SOF");
             api = new AccountApi(url);
+            accounts = new AccountsApi(urlSOF);
             regionApi = new RegionApi(url);
             activityApi = new ActivityApi(url);
             entityApi = new EntityApi(url);
@@ -124,6 +127,11 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Value = a.Id.ToString()
             }).ToList();
 
+            var balanceTypes = accounts.ApiAccountsBalanceTypesGet("ar").Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = a.Id.ToString()
+            }).ToList();
 
             var model = new CreateAccountViewModel
             {
@@ -131,8 +139,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Governerates = governerates,
                 Entities = entities,
                 AccountTypes = accountTypes,
+                BalanceTypes = balanceTypes
             };
-
 
             return View(model);
         }
@@ -173,12 +181,17 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     model.AccountTypeProfiles = accountTypeProfiles;
                 }
 
+                var balanceTypes = accounts.ApiAccountsBalanceTypesGet("ar").Select(a => new SelectListItem
+                {
+                    Text = a.Name,
+                    Value = a.Id.ToString()
+                }).ToList();
 
                 model.Activities = activities;
                 model.Governerates = governerates;
                 model.Entities = entities;
                 model.AccountTypes = accountTypes;
-
+                model.BalanceTypes = balanceTypes;
 
                 if (model.GovernerateID.HasValue)
                 {
@@ -222,6 +235,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             model.ConsumerUser.UserRole = Roles.Consumer;
             if (result != null)
             {
+                accounts.ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPost(accountId: result.Id, 0.0, model.BalanceTypeId);
+
                 usersApi.ApiUsersCreateUserPost(new CreateUserModel(
                                 username: model.Username,
                                 mobile: model.Mobile,
@@ -270,12 +285,21 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Value = a.Id.ToString()
             }).ToList();
 
+            var balanceTypes = accounts.ApiAccountsBalanceTypesGet("ar").Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = a.Id.ToString()
+            }).ToList();
+
             var model = api.ApiAccountGetAccountByIdIdGet(id);
+
             var viewModel = Map(model);
+
             viewModel.Activities = activities;
             viewModel.Governerates = governerates;
             viewModel.Entities = entities;
             viewModel.AccountTypes = accountTypes;
+            viewModel.BalanceTypes = balanceTypes;
             if (model.GovernerateID.HasValue)
             {
                 var cities = regionApi.ApiRegionGetRegionByGovernorateIdIdGet(model.GovernerateID).ToList();
@@ -323,11 +347,17 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
+                var balanceTypes = accounts.ApiAccountsBalanceTypesGet("ar").Select(a => new SelectListItem
+                {
+                    Text = a.Name,
+                    Value = a.Id.ToString()
+                }).ToList();
 
                 model.Activities = activities;
                 model.Governerates = governerates;
                 model.Entities = entities;
                 model.AccountTypes = accountTypes;
+                model.BalanceTypes = balanceTypes;
                 return View(model);
             }
 
@@ -581,7 +611,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             var data = api.ApiAccountGetAccountByIdIdGet(accountId);
             return Json(data);
         }
-        [HttpGet]   
+        [HttpGet]
         public JsonResult GetAccountProfilelByAcocuntTypeId(int id)
         {
             var data = accountTypeProfileApi.ApiAccountTypeProfileGetProfilesByAccountTypeIdIdGet(id);
