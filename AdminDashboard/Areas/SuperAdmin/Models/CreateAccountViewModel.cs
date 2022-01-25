@@ -33,6 +33,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public int? RegionID { get; set; }
         [Required]
         public int? AccountTypeID { get; set; }
+        [Required]
+        public int? BalanceTypeId { get; set; }
         public int? AccountTypeProfileID { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
@@ -54,6 +56,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public List<SelectListItem> AccountTypes { get; set; }
         public List<SelectListItem> AccountTypeProfiles { get; set; }
         public List<SelectListItem> Regions { get; set; }
+        public List<SelectListItem> BalanceTypes { get; set; }
         //public List<SelectListItem> ParentAccounts { get; set; }
         public ConsumerUser ConsumerUser { get; set; }
     }
