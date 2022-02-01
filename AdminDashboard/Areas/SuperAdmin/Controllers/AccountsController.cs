@@ -1,6 +1,8 @@
 ﻿using AdminDashboard.Areas.SuperAdmin.Models;
 using AdminDashboard.Models;
 using AdminDashboard.Models.SwaggerModels;
+using AdminDashboard.Models.SwaggerModels.SourceOFundSwaggerModels;
+using AdminDashboard.SourceOfFundSwaggerClient;
 using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -245,7 +247,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             model.ConsumerUser.UserRole = Roles.Consumer;
             if (result != null)
             {
-                _accounts.ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPost(accountId: result.Id, 0.0, model.BalanceTypeId);
+                _accounts.ApiAccountsCreateAccountPost(new CreateAccountModel(accountId: result.Id, 0.0, new List<int?> { model.BalanceTypeId }));
 
                 _usersApi.ApiUsersCreateUserPost(new CreateUserModel(
                                 username: model.Username,

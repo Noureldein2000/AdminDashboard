@@ -1,0 +1,134 @@
+﻿@model IEnumerable<AccountBalancesViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2>@ViewBag.AccountName Balance</h2>
+                    <button type="button" onclick="AddBalanceType()" class="btn btn-outline-primary" data-toggle="modal" data-target="#ServicesBalancesFormModal">Add</button>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Balance</th>
+                                <th>Avaliable Balance</th>
+                                <th>Balance Type</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var fee in Model)
+                            {
+                                <tr>
+                                    <td>@fee.TotalBalance L.E</td>
+                                    <td>@fee.TotalAvailableBalance L.E</td>
+                                    <td>@fee.BalanceType</td>
+                                    <td>
+                                        @*<button onclick="ConfirmDeleteAccountFee(@fee.Id,this)" class="btn btn-danger">Delete</button>*@
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div id="ServicesBalancesFormModal" class="modal fade" role="dialog" dir="ltr">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3> Add Service Balance</h3>
+                        </div>
+                        <form asp-action="Create" method="post">
+                            <div class="modal-body">
+                                <partial name="_AccontServiceBalance" model="new AccountBalancesViewModel()" />
+                            </div>
+                            <div class="modal-footer">
+                                <input type="submit" id="SaveServiceConfig" value="Create" class="btn btn-success float-right" />
+                                <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+
+        $(function () {
+            var msg = '@TempData["result"]';
+            if (msg != "") {
+                swal({
+                    title: "Good job!",
+                    text: "You Saved the User Successfully!",
+                    icon: "success",
+                    button: "Ok",
+                });
+            }
+        });
+
+        function ConfirmDeleteAccountFee(id,row)
+        {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this record!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+
+                    DeleteAccountFee(id, row);
+                }
+            });
+        }
+
+        function DeleteAccountFee(id, row) {
+
+              $.ajax({
+                type: "GET",
+                url: "@Url.Action("DeleteAccountFee")",
+                  data: {
+                      id: id,
+                  },
+                 dataType: "text",
+                success: function (msg) {
+
+                    console.log("successs Deleted Data");
+
+                    swal("Poof! Your record has been deleted!", {
+                        icon: "success",
+                    });
+
+                    $(row).parents("tr").remove();
+/*                    var data = JSON.parse(msg);*/
+
+                },
+                 error: function (req, status, error) {
+                     console.log(error);
+                     swal("Ops! There is some error happened!", {
+                         icon: "error",
+                     });
+                }
+            });
+        }
+
+        function AddBalanceType()
+        {
+            debugger;
+            var accountId = @Context.Request.Query["accountId"].ToString();
+            var accountName = @Context.Request.Query["accountName"].ToString();
+            $("#hdnAccountId").val(accountId);
+            $("#hdnAccountName").val(accountName);
+        }
+
+    </script>
+}
+

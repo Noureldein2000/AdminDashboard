@@ -27,12 +27,23 @@
                                     <td>@deno.Id</td>
                                     <td>@deno.Name</td>
                                     <td>
-                                        <a asp-action="Edit" asp-route-id="@deno.Id" class="btn btn-info">
-                                            Edit
-                                        </a>
-                                        <button onclick="ConfirmDelete(@deno.Id,this)" class="btn btn-danger">
-                                            Delete
-                                        </button>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                                More
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <h5 class="dropdown-header">Modules</h5>
+                                                <div class="dropdown-divider"></div>
+                                                <h5 class="dropdown-header">Actions</h5>
+                                                <a asp-action="Edit" asp-route-id="@deno.Id" class="dropdown-item">
+                                                    Edit
+                                                </a>
+                                                <button onclick="ConfirmDelete(@deno.Id,this)" class="dropdown-item">
+                                                    Delete
+                                                </button>
+                                            </div>
+                                        </div>
+
                                     </td>
                                 </tr>
                             }

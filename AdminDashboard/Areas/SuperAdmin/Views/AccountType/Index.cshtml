@@ -29,11 +29,19 @@
                                     <td>@AT.Name</td>
                                     <td>@AT.NameAr</td>
                                     <td>
-                                        <a asp-action="Edit" asp-route-id="@AT.Id" class="btn btn-info">Edit</a>
-                                        <a asp-action="ChangeStatus" asp-route-id="@AT.Id" class="btn @(AT.Status ? "btn-danger" : "btn-success")">
-                                            @(AT.Status ? "Deactive" : "Active")
-                                        </a>
-                                        <button onclick="ConfirmDeleteAccountType(@AT.Id,this)" class="btn btn-danger">Delete</button>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                                More
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <h5 class="dropdown-header">Modules</h5>
+                                                <div class="dropdown-divider"></div>
+                                                <h5 class="dropdown-header">Actions</h5>
+                                                <a asp-action="Edit" asp-route-id="@AT.Id" class="dropdown-item">Edit</a>
+                                                <a asp-action="ChangeStatus" asp-route-id="@AT.Id" class="dropdown-item">@(AT.Status ? "Deactive" : "Active")</a>
+                                                <button onclick="ConfirmDeleteAccountType(@AT.Id,this)" class="dropdown-item" style="color:red">Delete</button>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             }

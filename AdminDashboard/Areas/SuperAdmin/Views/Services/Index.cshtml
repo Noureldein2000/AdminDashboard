@@ -60,15 +60,26 @@
                                             <td>@service.Code</td>
                                             <td>@service.ClassType</td>
                                             <td>
-                                                <a asp-action="Index" asp-controller="Denominations" asp-route-id="@service.Id" asp-route-title="@service.Name-@service.ServiceTypeID" class="btn btn-info">
-                                                    Denominations
-                                                </a>
-                                                <a asp-action="Edit" asp-route-id="@service.Id" class="btn btn-info">
-                                                    Edit
-                                                </a>
-                                                <a asp-action="ChangeStatus" asp-route-id="@service.Id" class="btn @(service.Status ? "btn-danger" : "btn-success")">
-                                                    @(service.Status ? "Deactive" : "Active")
-                                                </a>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                                        More
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <h5 class="dropdown-header">Modules</h5>
+                                                        <a asp-action="Index" asp-controller="Denominations" asp-route-id="@service.Id" asp-route-title="@service.Name-@service.ServiceTypeID" class="dropdown-item">
+                                                            Denominations
+                                                        </a>
+                                                        <div class="dropdown-divider"></div>
+                                                        <h5 class="dropdown-header">Actions</h5>
+                                                        <a asp-action="Edit" asp-route-id="@service.Id" class="dropdown-item">
+                                                            Edit
+                                                        </a>
+                                                        <a asp-action="ChangeStatus" asp-route-id="@service.Id" class="dropdown-item">
+                                                            @(service.Status ? "Deactive" : "Active")
+                                                        </a>
+                                                    </div>
+                                                </div>
+
                                             </td>
                                         </tr>
                                     }

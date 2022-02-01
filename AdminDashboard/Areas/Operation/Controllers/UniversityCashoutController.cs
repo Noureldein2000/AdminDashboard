@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AdminDashboard.Areas.Operation.Models;
+using AdminDashboard.Models.SwaggerModels.SourceOFundSwaggerModels;
 using AdminDashboard.SourceOfFundSwaggerClient;
 using ExcelDataReader;
 using Microsoft.AspNetCore.Authorization;
@@ -35,7 +36,7 @@ namespace AdminDashboard.Areas.Operation.Controllers
         public IActionResult Index(UniversityCashoutViewModelList model)
         {
             var generalTransferAccount = 92349;
-            var checkbalances = _accountsApi.ApiAccountsCheckbalancesSeedPost(model.DataList.Select(s => new AdminDashboard.Models.SwaggerModels.SourceOFundSwaggerModels.SeedBalancesModel(
+            var checkbalances = _accountsApi.ApiAccountsCheckbalancesSeedPost(model.DataList.Select(s => new SeedBalancesModel(
                            accountId: s.AccountId,
                            amount: 100,
                            trasnsactionId: 0,
@@ -62,7 +63,7 @@ namespace AdminDashboard.Areas.Operation.Controllers
                 return View(model);
             }
 
-            Task.Run(() => _accountsApi.ApiAccountsAccountIdBalancesSeedPost(generalTransferAccount, model.DataList.Select(s => new AdminDashboard.Models.SwaggerModels.SourceOFundSwaggerModels.SeedBalancesModel
+            Task.Run(() => _accountsApi.ApiAccountsAccountIdBalancesSeedPost(generalTransferAccount, model.DataList.Select(s => new SeedBalancesModel
                          (
                              accountId: s.AccountId,
                              amount: (double)s.Amount

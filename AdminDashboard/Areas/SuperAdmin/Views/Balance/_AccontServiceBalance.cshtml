@@ -1,0 +1,30 @@
+﻿@model AccountBalancesViewModel
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group row">
+                        <div class="col-md-12">
+                            <input asp-for="AccountId" id="hdnAccountId" type="hidden" class="form-control" />
+                            <input asp-for="AccountName" id="hdnAccountName" type="hidden" class="form-control" />
+                        </div>
+                        @*<div class="col-md-12">
+                            <label class="control-label">Amount</label>
+                            <input asp-for="Amount" type="number" onkeypress="return isNumberKey(event)" class="form-control" />
+                            <span asp-validation-for="Amount" class="text-danger"></span>
+                        </div>*@
+                        <div class="col-md-12 mt-2">
+                            <label class="control-label">Balance Type</label>
+                            <select asp-for="BalanceTypeId" asp-items="@ViewBag.AvaliableBalanceType" class="form-control" id="drpServiceConfig">
+                                <option disabled selected> Choose BalanceType</option>
+                            </select>
+                            <span asp-validation-for="BalanceTypeId" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

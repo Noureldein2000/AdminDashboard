@@ -39,11 +39,22 @@
                                     <td>@com.StartDate.Value.ToShortDateString()</td>
                                     <td>@com.EndDate.Value.ToShortDateString()</td>
                                     <td>
-                                        <a asp-action="ChangeStatus" asp-route-id="@com.ID" class="btn @(com.Status ? "btn-danger" : "btn-success")">
-                                            @(com.Status ? "Deactive" : "Active")
-                                        </a>
-                                        <a asp-action="Edit" asp-route-id="@com.ID" class="btn btn-info">Edit</a>
-                                        <button onclick="ConfirmDelete(@com.ID,this)" class="btn btn-danger">Delete</button>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                                More
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <h5 class="dropdown-header">Modules</h5>
+                                                <div class="dropdown-divider"></div>
+                                                <h5 class="dropdown-header">Actions</h5>
+                                                <a asp-action="ChangeStatus" asp-route-id="@com.ID" class="btn @(com.Status ? "btn-danger" : "btn-success")">
+                                                    @(com.Status ? "Deactive" : "Active")
+                                                </a>
+                                                <a asp-action="Edit" asp-route-id="@com.ID" class="btn btn-info">Edit</a>
+                                                <button onclick="ConfirmDelete(@com.ID,this)" class="dropdown-item" style="color:red">Delete</button>
+                                            </div>
+                                        </div>
+
                                     </td>
                                 </tr>
                             }
