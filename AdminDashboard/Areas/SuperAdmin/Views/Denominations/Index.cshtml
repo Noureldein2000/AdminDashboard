@@ -39,6 +39,7 @@
                                     <td>
                                         <a asp-action="Index" asp-controller="DenominationFees" asp-route-denominationId="@deno.Id" class="btn btn-info">Fees</a>
                                         <a asp-action="Index" asp-controller="DenominationCommission" asp-route-denominationId="@deno.Id" class="btn btn-info">Commissions</a>
+                                        <a asp-action="Index" asp-controller="DenominationTaxes" asp-route-denominationId="@deno.Id" class="btn btn-info">Taxes</a>
                                         <a asp-action="Edit" asp-route-id="@deno.Id" class="btn btn-info">Edit</a>
                                         <a asp-action="ChangeStatus" asp-route-id="@deno.Id" asp-route-serviceId="@TempData["serviceId"]" class="btn @(deno.Status ? "btn-danger" : "btn-success")">
                                             @(deno.Status ? "Deactive" : "Active")

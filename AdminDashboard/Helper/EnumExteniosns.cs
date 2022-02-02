@@ -62,4 +62,9 @@ namespace AdminDashboard.Helper
         List = 3,
         Date = 4
     }
+
+    public enum TaxType : short
+    {
+        Tax = 1,
+    }
 }
