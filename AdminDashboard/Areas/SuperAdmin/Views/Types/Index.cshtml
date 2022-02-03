@@ -1,0 +1,141 @@
+﻿@model LookupTypeViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item active disabled">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Fees</a>
+                </li>
+                <li class="nav-item disabled">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Commissions</a>
+                </li>
+                <li class="nav-item disabled">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Taxes</a>
+                </li>
+            </ul>
+
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="card mt-2">
+                        <partial name="_IndexPartial" model="@Model.Fees" />
+                        <div class="card-footer mt-2">
+
+                        </div>
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                    <div class="card mt-2">
+                        <partial name="_IndexPartial" model="@Model.Commissions" />
+                    </div>
+                    <div class="card-footer">
+
+                    </div>
+                </div>
+                <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                    <div class="card mt-2">
+                        <partial name="_IndexPartial" model="@Model.Taxes" />
+                    </div>
+                    <div class="card-footer">
+
+                    </div>
+                </div>
+            </div>
+            <div id="LookupTypeModel" class="modal fade" role="dialog" dir="ltr">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3> Create Type </h3>
+                        </div>
+                        <div class="modal-body">
+                            <div class="form-group">
+                                <label class="control-label">Name <span class="validation-error">*</span></label>
+                                <input id="txtName" type="text" class="form-control" onkeyup="toggleButton(this,'SaveLookupType')" />
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Name Ar <span class="validation-error">*</span></label>
+                                <input id="txtNameAr" type="text" class="form-control" />
+                            </div>
+                            @*<partial name="../../Views/ServiceConfiguaration/_ServiceConfiguration.cshtml" for="@Model" />*@
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" id="SaveLookupType" value="Create" class="btn btn-success float-right" onclick="CreateLookupType()" data-dismiss="modal" disabled />
+                            <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    @{ TempData.Keep("serviceId");}
+    <script>
+
+        var activeTab =0;
+
+        $(document).ready(function () {
+
+
+        });
+
+
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+        function toggleButton(ref, bttnID) {
+            document.getElementById(bttnID).disabled = ((ref.value !== ref.defaultValue) ? false : true);
+        }
+
+        function CreateLookupType() {
+            debugger;
+            console.log(activeTab);
+
+            var name = $("#txtName").val();
+            var nameAr = $("#txtNameAr").val();
+
+             $.ajax({
+                type: "POST",
+                 url: "@Url.Action("CreateLookupType")",
+                 data: {
+                     Name: name,
+                     NameAr:nameAr,
+                     IdentitfierType: activeTab,
+                 },
+                dataType: "text",
+                 success: function (msg) {
+                     console.log('success data response ' + msg);
+                     debugger;
+                     var dataTest = JSON.parse(msg);
+
+                     var html = `<tr><td>${dataTest.id}</td><td> ${dataTest.name}</td><td> ${dataTest.nameAr}</td>
+                        <td><button class="btn btn-primary mr-1">Edit</button>
+                        <button onclick="ChangeStatusDenominationServiceProvider(${dataTest.id},this)" class="${dataTest.status ? 'btn btn-danger' : 'btn btn-success'}">${dataTest.status ? 'Deactive' : 'Active'}</button></td></tr>`;
+
+                     $('#tableType-' + activeTab + '').append(html);
+                },
+                 error: function (req, status, error) {
+                     console.log(error);
+                }
+            });
+        }
+
+        function GetIdentitfierTypeActiveTab(identitfierType) {
+            activeTab = identitfierType;
+        }
+
+    </script>
+}

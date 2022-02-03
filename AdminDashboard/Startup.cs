@@ -56,7 +56,7 @@ namespace AdminDashboard
             services.AddScoped<IChannelOwnerApi>(x => new ChannelOwnerApi(AuthorityUrl));
             services.AddScoped<IChannelPaymentMethodApi>(x => new ChannelPaymentMethodApi(AuthorityUrl));
             services.AddScoped<IAccountTypeApi>(x => new AccountTypeApi(AuthorityUrl));
-            services.AddScoped<IAccountTypeProfileCommissionApi>(x => new AccountTypeProfileCommissionApi(tmsUrl)); 
+            services.AddScoped<IAccountTypeProfileCommissionApi>(x => new AccountTypeProfileCommissionApi(tmsUrl));
             services.AddScoped<IAccountTypeProfileDenominationApi>(x => new AccountTypeProfileDenominationApi(tmsUrl));
             services.AddScoped<IAccountTypeProfileFeeApi>(x => new AccountTypeProfileFeeApi(tmsUrl));
             services.AddScoped<IChannelCategoryApi>(x => new ChannelCategoryApi(AuthorityUrl));
@@ -67,6 +67,7 @@ namespace AdminDashboard
             services.AddScoped<IDenominationParamApi>(x => new DenominationParamApi(tmsUrl));
             services.AddScoped<IParameterApi>(x => new ParameterApi(tmsUrl));
             services.AddScoped<IAuthenticationApi>(x => new AuthenticationApi(AuthorityUrl));
+            services.AddScoped<ILookupTypeApi>(x => new LookupTypeApi(tmsUrl));
             services.AddScoped<SourceOfFundSwaggerClient.IAccountsApi>(x => new SourceOfFundSwaggerClient.AccountsApi(sofUrl));
 
 
