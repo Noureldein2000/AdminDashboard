@@ -55,24 +55,32 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(CreateDenominationCommissionViewModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                var commissions = _apiCommissions.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
+                if (!ModelState.IsValid)
                 {
-                    Text = a.CommissionRange.ToString(),
-                    Value = a.Id.ToString()
-                }).ToList();
+                    var commissions = _apiCommissions.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
+                    {
+                        Text = a.CommissionRange.ToString(),
+                        Value = a.Id.ToString()
+                    }).ToList();
 
-                model.Commissions = commissions;
+                    model.Commissions = commissions;
 
+                    return View(model);
+                }
+
+                _apiDenominationCommission.ApiDenominationCommissionAddDenominationCommissionPost(new AddDenominationCommissionModel(
+                    denominationId: model.DenominationId,
+                    commissionId: model.CommissionId));
+
+                return RedirectToAction(nameof(Index), new { denominationId = model.DenominationId });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
                 return View(model);
             }
-
-            _apiDenominationCommission.ApiDenominationCommissionAddDenominationCommissionPost(new AddDenominationCommissionModel(
-                denominationId: model.DenominationId,
-                commissionId: model.CommissionId));
-
-            return RedirectToAction(nameof(Index), new { denominationId = model.DenominationId });
         }
 
         [HttpGet]
