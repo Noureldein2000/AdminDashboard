@@ -1,6 +1,9 @@
+using AdminDashboard.Services;
 using AdminDashboard.SourceOfFundSwaggerClient;
 using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -68,7 +71,7 @@ namespace AdminDashboard
             services.AddScoped<IParameterApi>(x => new ParameterApi(tmsUrl));
             services.AddScoped<IAuthenticationApi>(x => new AuthenticationApi(AuthorityUrl));
             services.AddScoped<SourceOfFundSwaggerClient.IAccountsApi>(x => new SourceOfFundSwaggerClient.AccountsApi(sofUrl));
-
+            services.AddScoped<IIntegrations, Integrations>();
 
             //services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
 
@@ -76,15 +79,15 @@ namespace AdminDashboard
 
             services.AddAuthentication(options =>
             {
-                options.DefaultScheme = "Cookies";
-                options.DefaultChallengeScheme = "oidc";
+                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme; 
+                options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
             })
-            .AddCookie("Cookies")
-            .AddOpenIdConnect("oidc", options =>
+            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
+            .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
             {
-                options.SignInScheme = "Cookies";
+                options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                 options.Authority = Configuration["Urls:Authority"];
-                options.RequireHttpsMetadata = false;
+                options.RequireHttpsMetadata = true;
 
                 options.ClientId = "admin_dashboard_123";// Configuration["ISConfig:ClientId"];
                 options.ClientSecret = "d5a9b78e-a694-4026-af7f-6d559d8a3949"; // Configuration["ISConfig:Secret"];
@@ -92,12 +95,20 @@ namespace AdminDashboard
                 options.SaveTokens = true;
                 options.GetClaimsFromUserInfoEndpoint = true;
                 //options.Scope.Add("account_id");
+                options.Scope.Add("openid");
+                options.Scope.Add("profile");
                 options.Scope.Add("SOF");
                 options.Scope.Add("Auth");
+                options.Scope.Add("TMS");
                 //options.Scope.Add("offline_access");
                 //options.ClaimActions.MapJsonKey("account_id", "account_id", "account_id");
                 options.ClaimActions.MapJsonKey("roles", "roles", "roles");
                 options.SignedOutCallbackPath = "/Home/Index";
+                options.Events.OnRedirectToIdentityProvider = async n =>
+                {
+                    n.ProtocolMessage.RedirectUri = $"{Configuration["Urls:DashboardRedirectUrl"]}/signin-oidc";
+                    await Task.FromResult(0);
+                };
             });
 
             //services.AddScoped<ISwaggerClient>(obj => new SwaggerClient("http://localhost:44303/", new System.Net.Http.HttpClient { Timeout = TimeSpan.FromMinutes(30) }));

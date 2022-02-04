@@ -1,4 +1,5 @@
 ﻿@model UniversityCashoutViewModelList
+@using AdminDashboard.Constants;
 
 @{
     ViewData["Title"] = "Cash out";
@@ -40,8 +41,8 @@
                                                         <div class="col-md-9">
                                                             <div class="input-group input-file">
                                                                 @*<span id="btn-choose" class="input-group-btn">
-                                                        <button class="btn btn-info btn-choose" type="button">Choose</button>
-                                                    </span>*@
+                                                                        <button class="btn btn-info btn-choose" type="button">Choose</button>
+                                                                    </span>*@
                                                                 <input type="text" class="form-control" placeholder='Choose a file...' />
 
                                                             </div>
@@ -168,12 +169,20 @@
                 });
             })
 
-            if ('@ViewBag.Succeeded') {
+            if ('@ViewBag.Succeeded' == '@ResponceStatus.Success') {
                 swal({
                     title: "Success",
-                    text: "Data Saved Successfully!",
+                    text: @Html.Raw(Json.Serialize(ViewBag.ResultData)),
                     icon: "success",
-                    button: "Ok",
+                    button: "Ok"
+                });
+            }
+            else if ('@ViewBag.Succeeded' == '@ResponceStatus.Error') {
+                swal({
+                    title: "Error",
+                    text: @Html.Raw(Json.Serialize(ViewBag.ResultData)),
+                    icon: "error",
+                    button: "Ok"
                 });
             }
         });
