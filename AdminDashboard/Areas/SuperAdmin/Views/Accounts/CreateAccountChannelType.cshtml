@@ -1,0 +1,51 @@
+﻿@model CreateAccountChannelTypeViewModel
+@{
+    ViewData["Title"] = "Assign Account ChannelType";
+}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <form asp-action="CreateAccountChannelType" method="post">
+                    <div class="card-header">
+                        <h2>Create Account ChannelType</h2>
+                    </div>
+                    <div class="card-body">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <div class="form-group">
+                            <input asp-for="AccountID" type="hidden"/>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Expiration Period <span class="validation-error">*</span></label>
+                            <input type="text" asp-for="ExpirationPeriod" class="form-control" />
+                            <span asp-validation-for="ExpirationPeriod"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Channel Types <span class="validation-error">*</span></label>
+                            <select asp-for="ChannelTypeID" asp-items="Model.ChannelTypes" class="form-control" data-style="select-with-transition" title="Choose a Channel Type" data-size="7">
+                                <option disabled> Choose</option>
+                            </select>
+                            <span asp-validation-for="ChannelTypeID"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" asp-for="HasLimitedAccess">Has LimitedAccess</label>
+                            <input asp-for="HasLimitedAccess" type="checkbox"/>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+    </script>
+}

@@ -1,0 +1,95 @@
+﻿@model DenominationViewModel
+@using AdminDashboard.Models.SwaggerModels
+@using AdminDashboard.Helper
+
+<div class="card-body">
+    <div class="form-group">
+        <input asp-for="ServiceID" type="hidden" class="form-control" />
+        <input asp-for="ServiceTypeID" type="hidden" class="form-control" />
+        <input asp-for="Id" type="hidden" class="form-control" />
+    </div>
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label class="control-label">Name <span class="validation-error">*</span></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="control-label">Value <span class="validation-error">*</span></label>
+            <input asp-for="Value" type="text" onkeypress="return isNumberKey(event)" class="form-control" />
+            <span asp-validation-for="Value" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label class="control-label">Old DenominationID</label>
+            <input asp-for="OldDenominationID" onkeypress="return isNumberKey(event)" class="form-control" />
+            <span asp-validation-for="OldDenominationID" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="control-label">API Value</label>
+            <input asp-for="APIValue" onkeypress="return isNumberKey(event)" class="form-control" />
+            <span asp-validation-for="APIValue" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label class="control-label">Min Value <span class="validation-error">*</span></label>
+            <input asp-for="MinValue" onkeypress="return isNumberKey(event)" class="form-control" />
+            <span asp-validation-for="MinValue" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="control-label">Max Value <span class="validation-error">*</span></label>
+            <input asp-for="MaxValue" onkeypress="return isNumberKey(event)" class="form-control" />
+            <span asp-validation-for="MaxValue" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Interval <span class="validation-error">*</span></label>
+        <input asp-for="Interval" onkeypress="return isNumberKey(event)" value="0" class="form-control" />
+        <span asp-validation-for="Interval" class="text-danger"></span>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label class="control-label">Class Type <span class="validation-error">*</span></label>
+            <select asp-for="ClassType" asp-items="@Html.GetEnumSelectList<DenominationClassType>()" class="form-control" data-style="select-with-transition" title="Choose a Class" data-size="7">
+                <option disabled selected> Choose a Class</option>
+            </select>
+            <span asp-validation-for="ClassType" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="control-label">Payment Mode <span class="validation-error">*</span></label>
+            <select asp-for="PaymentModeID" asp-items="@Html.GetEnumSelectList<PaymentMode>()" class="form-control" data-style="select-with-transition" title="Choose a Mode" data-size="7">
+                <option disabled selected> Choose a Mode</option>
+            </select>
+            <span asp-validation-for="PaymentModeID" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label class="control-label">BillPayment Mode <span class="validation-error">*</span></label>
+            <select asp-for="BillPaymentModeID" asp-items="@Html.GetEnumSelectList<BillPaymentMode>()" class="form-control" data-style="select-with-transition" title="Choose a Mode" data-size="7">
+                <option disabled selected> Choose a Mode</option>
+            </select>
+            <span asp-validation-for="BillPaymentModeID" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="control-label">Currency <span class="validation-error">*</span></label>
+            <select asp-for="CurrencyID" asp-items="@Html.GetEnumSelectList<Currency>()" class="form-control" data-style="select-with-transition" title="Choose a Currency" data-size="7">
+                <option disabled selected> Choose a Curreny</option>
+            </select>
+            <span asp-validation-for="CurrencyID" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Service Category <span class="validation-error">*</span></label>
+        <select asp-for="ServiceCategoryID" class="form-control" data-style="select-with-transition" title="Choose a Service Category" data-size="7">
+            <option disabled selected> Choose a Service Category</option>
+        </select>
+        <span asp-validation-for="ServiceCategoryID" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label class="control-label" asp-for="Inquirable">Is Inquirable?</label>
+        <input asp-for="Inquirable" type="checkbox" />
+    </div>
+</div>

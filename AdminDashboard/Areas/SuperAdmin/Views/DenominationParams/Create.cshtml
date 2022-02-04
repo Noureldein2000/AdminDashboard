@@ -1,0 +1,64 @@
+﻿@model DenominationParamViewModel
+@using AdminDashboard.Helper
+@{
+    ViewData["Title"] = "Create";
+}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <form asp-action="Create" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="card-header">
+                        <h2>Add Denomination Params</h2>
+                    </div>
+                    <div class="card-body">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        @*<input type="hidden" asp-for="Id" />*@
+                        <div class="form-group">
+                            <label class="control-label">Label <span class="validation-error">*</span></label>
+                            <input asp-for="Label" class="form-control" />
+                            <span asp-validation-for="Label" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Title <span class="validation-error">*</span></label>
+                            <input asp-for="Title" class="form-control" />
+                            <span asp-validation-for="Title" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Params Key <span class="validation-error">*</span></label>
+                            <input asp-for="ParamKey" class="form-control" />
+                            <span asp-validation-for="ParamKey" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Value Type <span class="validation-error">*</span></label>
+                            <select asp-for="ValueTypeID" asp-items="@Html.GetEnumSelectList<DenominationParamsValueType>()" class="form-control" data-style="select-with-transition" title="Choose a Type" data-size="7">
+                                <option disabled selected> Choose a Type</option>
+                            </select>
+                            <span asp-validation-for="ValueTypeID" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Value Mode <span class="validation-error">*</span></label>
+                            <select asp-for="ValueModeID" asp-items="@Html.GetEnumSelectList<DenominationParamsValueMode>()" class="form-control" data-style="select-with-transition" title="Choose a Mode" data-size="7">
+                                <option disabled selected> Choose a Mode</option>
+                            </select>
+                            <span asp-validation-for="ValueModeID" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+    </script>
+}

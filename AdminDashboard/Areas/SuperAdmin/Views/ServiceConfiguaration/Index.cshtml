@@ -1,0 +1,55 @@
+﻿@model PagedResult<ServiceConfigerationViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2> Service Configuartion</h2>
+                    <a asp-action="Create" class="pull-right btn btn-outline-primary">Add</a>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>URL</th>
+                                <th>Timeout</th>
+                                <th>Username</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var sc in Model.Results)
+                            {
+                                <tr>
+                                    <td>@sc.URL</td>
+                                    <td>@sc.TimeOut</td>
+                                    <td>@sc.UserName</td>
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@sc.Id" class="btn btn-info">Edit</a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer d-flex justify-content-center">
+                    <pager link-url="/SuperAdmin/ServiceConfiguaration/Index"
+                           page="Model.CurrentPage"
+                           page-size="Model.PageSize"
+                           total-items="Model.PageCount">
+                    </pager>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+
+    </script>
+}
+

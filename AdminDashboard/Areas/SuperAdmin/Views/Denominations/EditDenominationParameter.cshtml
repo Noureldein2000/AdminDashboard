@@ -1,0 +1,259 @@
+﻿@model DenominationParameterViewModel
+@using AdminDashboard.Models.SwaggerModels
+@{
+    ViewData["Title"] = "Edit Denomination Paramter";
+}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="EditDenominationParameter" method="post" id="frmDSP">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Edit Denomination Paramter</h2>
+                    </div>
+                    @Html.AntiForgeryToken()
+                    <partial name="_DenominationParameter" for="@Model" />
+                    <div class="card-footer">
+                        <input type="submit" value="Save" class="btn btn-success float-right" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script>
+        var rowIdx = 0;
+
+        $(document).ready(function () {
+            $('.js-example-basic-single').select2({
+                width: '800px',
+                theme: "classic",
+            });
+
+            @*$(function () {
+            var stringArray = @Html.Raw(Json.Serialize(Model.));
+                console.log(stringArray);
+                FillTable(stringArray)
+            });*@
+        });
+
+        $("#frmDSP").submit(function (e)
+        {
+            
+
+            var valid = checkValidation();
+            if (!valid)
+                e.preventDefault();
+
+
+/*            var data = getParams("#tblProviderParams tbody tr");*/
+/*            console.log(data);*/
+
+        });
+
+        $("input.enableBtn").keyup(function () {
+            var empty = false;
+
+            $("input.enableBtn").each(function () {
+                if ($(this).val() == '') {
+                    empty = true;
+                }
+            });
+
+            if (empty)
+                $('#SaveServiceConfig').attr('disabled', 'disabled');
+            else
+                $('#SaveServiceConfig').removeAttr('disabled');
+        });
+
+        $("input.enableAddParam").keyup(function () {
+            var empty = false;
+
+            console.log($(this).getElementById("txtTimeOut").val());
+
+            $("input.enableAddParam").each(function () {
+                if ($(this).val() == '') {
+                    empty = true;
+                }
+
+            });
+
+            if (empty)
+                $('#addConfigParams').attr('disabled', 'disabled');
+            else
+                $('#addConfigParams').removeAttr('disabled');
+        });
+
+        $("input.enableAddProviderParam").keyup(function () {
+            var empty = false;
+
+            $("input.enableAddProviderParam").each(function () {
+                if ($(this).val() == '') {
+                    empty = true;
+                }
+            });
+
+            if (empty)
+                $('#addProviderConfigParams').attr('disabled', 'disabled');
+            else
+                $('#addProviderConfigParams').removeAttr('disabled');
+        });
+
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+        function toggleButton(ref, bttnID) {
+            document.getElementById(bttnID).disabled = ((ref.value !== ref.defaultValue) ? false : true);
+        }
+
+        function addRowProviderParam() {
+
+            var name = $("#providerConfigParamName").val();
+            var value = $("#providerConfigParamValue").val();
+
+            var markup = `<tr id="R${++rowIdx}">
+                              <td class="row-index"> ${rowIdx}</td>
+                            <td>${name}</td>
+                            <td>${value}</td>
+                               <td>
+                                <button class="btn btn-danger remove"
+                                    type="button">Remove</button>
+                                </td>
+                               </tr>`;
+
+            $("#tblProviderParams tbody").append(markup);
+        }
+
+        function FillTable(data) {
+
+            var html = '';
+            for (var i = 0; i < data.length; i++) {
+                html += '<tr>' +
+                    '<td>' + data[i].id + '</td>' +
+                    '<td>' + data[i].name+ '</td>' +
+                    '<td>' + data[i].value+ '</td>' +
+                    '<td><button class="btn btn-danger remove" type="button">Remove</button></td>' +
+                    '</tr>';
+            }
+
+            $('#tblProviderParams tbody').append(html);
+        }
+
+        function CreateServiceConfiguaration() {
+            
+            var url = $("#txtUrl").val();
+            var timeOut = $("#txtTimeOut").val();
+            var username = $("#txtUsername").val();
+            var password = $("#txtPassword").val();
+
+/*             var valid = checkValidationServiceConfiguaration();*/
+
+            var dataParams = getParams("#tblParams tbody tr");
+
+             $.ajax({
+                type: "POST",
+                 url: "@Url.Action("CreateServiceConfiguartion")",
+                 data: {
+                     URL: url,
+                     TimeOut: timeOut,
+                     UserName: username,
+                     UserPassword: password,
+                     ServiceConfigParms: dataParams
+                 },
+                dataType: "json",
+                 success: function (state) {
+                     
+/*                     console.log('success data response ' + state);*/
+                         $('#drpServiceConfig').append('<option value="' + state.id + '" selected>' +
+                             state.url + '</option>');
+                },
+                 error: function (req, status, error) {
+                     
+                }
+            });
+        }
+
+        function togglePassword(toggleId, txtPasswordId) {
+
+            const togglePassword = document.querySelector(toggleId);
+            const password = document.querySelector(txtPasswordId);
+
+            togglePassword.addEventListener('click', function (e) {
+                // toggle the type attribute
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                // toggle the eye slash icon
+                this.classList.toggle('fa-eye-slash');
+            });
+        }
+
+        function getParams(selectorElement) {
+            var arrData = [];
+            // loop over each table row (tr)
+
+            $(selectorElement).each(function () {
+                var currentRow = $(this);
+
+                var col2_value = currentRow.find("td:eq(1)").text();
+                var col3_value = currentRow.find("td:eq(2)").text();
+
+                var obj = {};
+                obj.Name = col2_value;
+                obj.Value = col3_value;
+
+                arrData.push(obj);
+            });
+
+            return arrData;
+        }
+
+        function GetDynamicTextbox(value) {
+
+            return `<div class="form-group row">
+                <div class="col-md-5">
+                    <input type="text" class="form-control enableAddProviderParam" id="providerConfigParamName">
+                </div>
+                <div class="col-md-5">
+                    <input type="text" class="form-control enableAddProviderParam" id="providerConfigParamValue">
+                </div>
+                    <input type="button" value="Remove" class="btn btn-info float-right valid" onclick="RemoveTextBox(this)" aria-invalid="false" style="height: 40px;margin: 0px 0px 0px 75px;">
+            </div>`;
+        }
+
+        function AddTextBox() {
+
+            var div = document.createElement('DIV');
+
+            div.innerHTML = GetDynamicTextbox("");
+
+            document.getElementById("divCont").appendChild(div);
+
+        }
+
+        function RemoveTextBox(div) {
+            
+/*            var classes =div.par .parent().parent();*/
+            var x = div.pa;
+            var x1 = div.parentNode.parentNode;
+            var x2 = div.parentNode.parentNode.parentNode;
+            document.getElementById("divCont").removeChild(x1);
+
+        }
+
+        //function checkValidationServiceConfiguration() {
+        //    if ($('#txtTimeOut').val() < 10000)
+        //        return empty = true;
+        //}
+    </script>
+}

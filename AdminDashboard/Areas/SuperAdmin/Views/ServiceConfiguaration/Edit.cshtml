@@ -1,0 +1,181 @@
+﻿@model ServiceConfigerationViewModel
+@using AdminDashboard.Models.SwaggerModels
+@{
+    ViewData["Title"] = "Edit";
+}
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <form asp-action="Edit" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="card-header mb-2">
+                        <h2>Edit Service Configuartion</h2>
+                    </div>
+                    <partial name="_ServiceConfiguration.cshtml" for="@Model" />
+                    <div class="card-footer mt-2">
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        var rowIdx = 0;
+
+        $(document).ready(function () {
+
+        });
+
+        $("input.enableBtn").keyup(function () {
+            var empty = false;
+
+            $("input.enableBtn").each(function () {
+                if ($(this).val() == '') {
+                    empty = true;
+                }
+            });
+
+            if (empty)
+                $('#SaveServiceConfig').attr('disabled', 'disabled');
+            else
+                $('#SaveServiceConfig').removeAttr('disabled');
+        });
+
+        $("input.enableAddParam").keyup(function () {
+            var empty = false;
+
+            $("input.enableAddParam").each(function () {
+                if ($(this).val() == '') {
+                    empty = true;
+                }
+            });
+
+            if (empty)
+                $('#addConfigParams').attr('disabled', 'disabled');
+            else
+                $('#addConfigParams').removeAttr('disabled');
+        });
+
+        $("input.enableAddProviderParam").keyup(function () {
+            var empty = false;
+
+            $("input.enableAddProviderParam").each(function () {
+                if ($(this).val() == '') {
+                    empty = true;
+                }
+            });
+
+            if (empty)
+                $('#addProviderConfigParams').attr('disabled', 'disabled');
+            else
+                $('#addProviderConfigParams').removeAttr('disabled');
+        });
+
+        $('#tblParams tbody').on('click', '.remove', function () {
+
+            // Getting all the rows next to the
+            // row containing the clicked button
+            var child = $(this).closest('tr').nextAll();
+
+            // Iterating across all the rows
+            // obtained to change the index
+            child.each(function () {
+
+                // Getting <tr> id.
+                var id = $(this).attr('id');
+
+                // Getting the <p> inside the .row-index class.
+                var idx = $(this).children('.row-index').children('p');
+
+                // Gets the row number from <tr> id.
+                var dig = parseInt(id.substring(1));
+
+                // Modifying row index.
+                idx.html(`Row ${dig - 1}`);
+
+                // Modifying row id.
+                $(this).attr('id', `R${dig - 1}`);
+            });
+
+            // Removing the current row.
+            $(this).closest('tr').remove();
+
+            // Decreasing the total number of rows by 1.
+            rowIdx--;
+        });
+
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+        function toggleButton(ref, bttnID) {
+            document.getElementById(bttnID).disabled = ((ref.value !== ref.defaultValue) ? false : true);
+        }
+
+        function addRowParam() {
+
+            var name = $("#serviceConfigParamName").val();
+            var value = $("#serviceConfigParamValue").val();
+
+            var markup = `<tr id="R${++rowIdx}">
+                                  <td class="row-index"> ${rowIdx}</td>
+                                <td>${name}</td>
+                                <td>${value}</td>
+                                   <td>
+                                    <button class="btn btn-danger remove"
+                                        type="button">Remove</button>
+                                    </td>
+                                   </tr>`;
+
+            $("#tblParams tbody").append(markup);
+        }
+
+        function getParams(selectorElement) {
+            
+
+            var arrData = [];
+            // loop over each table row (tr)
+
+            $(selectorElement).each(function () {
+                var currentRow = $(this);
+
+                var col2_value = currentRow.find("td:eq(1)").text();
+                var col3_value = currentRow.find("td:eq(2)").text();
+
+                var obj = {};
+                obj.Name = col2_value;
+                obj.Value = col3_value;
+
+                arrData.push(obj);
+            });
+            return arrData;
+        }
+
+        function togglePassword(toggleId, txtPasswordId) {
+
+            const togglePassword = document.querySelector(toggleId);
+            const password = document.querySelector(txtPasswordId);
+
+            togglePassword.addEventListener('click', function (e) {
+                // toggle the type attribute
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                // toggle the eye slash icon
+                this.classList.toggle('fa-eye-slash');
+            });
+        }
+
+    </script>
+}

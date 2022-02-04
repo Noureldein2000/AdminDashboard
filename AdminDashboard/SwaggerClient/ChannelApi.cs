@@ -31,8 +31,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns></returns>
-        void ApiChannelAddPost (AddChannelModel body = null);
+        /// <returns>ChannelResponseModel</returns>
+        ChannelResponseModel ApiChannelAddPost (AddChannelModel body = null);
 
         /// <summary>
         /// 
@@ -42,8 +42,29 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
+        /// <returns>ApiResponse of ChannelResponseModel</returns>
+        ApiResponse<ChannelResponseModel> ApiChannelAddPostWithHttpInfo (AddChannelModel body = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        void ApiChannelChangeStatusIdGet (int? id);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
         /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ApiChannelAddPostWithHttpInfo (AddChannelModel body = null);
+        ApiResponse<Object> ApiChannelChangeStatusIdGetWithHttpInfo (int? id);
         /// <summary>
         /// 
         /// </summary>
@@ -73,8 +94,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns></returns>
-        void ApiChannelEditPut (EditChannelModel body = null);
+        /// <returns>ChannelResponseModel</returns>
+        ChannelResponseModel ApiChannelEditPut (EditChannelModel body = null);
 
         /// <summary>
         /// 
@@ -84,8 +105,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ApiChannelEditPutWithHttpInfo (EditChannelModel body = null);
+        /// <returns>ApiResponse of ChannelResponseModel</returns>
+        ApiResponse<ChannelResponseModel> ApiChannelEditPutWithHttpInfo (EditChannelModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -94,8 +115,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="channelId"></param>
-        /// <returns></returns>
-        void ApiChannelGetChannelIdentitfiersChannelIdGet (int? channelId);
+        /// <returns>ChannelResponseModel</returns>
+        ChannelResponseModel ApiChannelGetChannelIdentitfiersChannelIdGet (int? channelId);
 
         /// <summary>
         /// 
@@ -105,8 +126,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="channelId"></param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ApiChannelGetChannelIdentitfiersChannelIdGetWithHttpInfo (int? channelId);
+        /// <returns>ApiResponse of ChannelResponseModel</returns>
+        ApiResponse<ChannelResponseModel> ApiChannelGetChannelIdentitfiersChannelIdGetWithHttpInfo (int? channelId);
         /// <summary>
         /// 
         /// </summary>
@@ -116,8 +137,8 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns></returns>
-        void ApiChannelGetChannelsGet (int? pageNumber = null, int? pageSize = null);
+        /// <returns>ChannelResponseModelPagedResult</returns>
+        ChannelResponseModelPagedResult ApiChannelGetChannelsGet (int? pageNumber = null, int? pageSize = null);
 
         /// <summary>
         /// 
@@ -128,8 +149,37 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ApiChannelGetChannelsGetWithHttpInfo (int? pageNumber = null, int? pageSize = null);
+        /// <returns>ApiResponse of ChannelResponseModelPagedResult</returns>
+        ApiResponse<ChannelResponseModelPagedResult> ApiChannelGetChannelsGetWithHttpInfo (int? pageNumber = null, int? pageSize = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="dropDownFilter2"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <returns>ChannelResponseModelPagedResult</returns>
+        ChannelResponseModelPagedResult ApiChannelSearchChannelsGet (int? dropDownFilter = null, int? dropDownFilter2 = null, string searchKey = null, int? pageNumber = null, int? pageSize = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="dropDownFilter2"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <returns>ApiResponse of ChannelResponseModelPagedResult</returns>
+        ApiResponse<ChannelResponseModelPagedResult> ApiChannelSearchChannelsGetWithHttpInfo (int? dropDownFilter = null, int? dropDownFilter2 = null, string searchKey = null, int? pageNumber = null, int? pageSize = null);
         /// <summary>
         /// 
         /// </summary>
@@ -140,8 +190,8 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="searchKey"></param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns></returns>
-        void ApiChannelSearchChannelBySerialSearchKeyGet (string searchKey, int? pageNumber = null, int? pageSize = null);
+        /// <returns>ChannelResponseModelPagedResult</returns>
+        ChannelResponseModelPagedResult ApiChannelSearchSpecificChannelBySerialSearchKeyGet (string searchKey, int? pageNumber = null, int? pageSize = null);
 
         /// <summary>
         /// 
@@ -153,8 +203,8 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="searchKey"></param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ApiChannelSearchChannelBySerialSearchKeyGetWithHttpInfo (string searchKey, int? pageNumber = null, int? pageSize = null);
+        /// <returns>ApiResponse of ChannelResponseModelPagedResult</returns>
+        ApiResponse<ChannelResponseModelPagedResult> ApiChannelSearchSpecificChannelBySerialSearchKeyGetWithHttpInfo (string searchKey, int? pageNumber = null, int? pageSize = null);
         #endregion Synchronous Operations
         #region Asynchronous Operations
         /// <summary>
@@ -165,8 +215,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ApiChannelAddPostAsync (AddChannelModel body = null);
+        /// <returns>Task of ChannelResponseModel</returns>
+        System.Threading.Tasks.Task<ChannelResponseModel> ApiChannelAddPostAsync (AddChannelModel body = null);
 
         /// <summary>
         /// 
@@ -176,8 +226,29 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
+        /// <returns>Task of ApiResponse (ChannelResponseModel)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ChannelResponseModel>> ApiChannelAddPostAsyncWithHttpInfo (AddChannelModel body = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task ApiChannelChangeStatusIdGetAsync (int? id);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
         /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ApiChannelAddPostAsyncWithHttpInfo (AddChannelModel body = null);
+        System.Threading.Tasks.Task<ApiResponse<Object>> ApiChannelChangeStatusIdGetAsyncWithHttpInfo (int? id);
         /// <summary>
         /// 
         /// </summary>
@@ -207,8 +278,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ApiChannelEditPutAsync (EditChannelModel body = null);
+        /// <returns>Task of ChannelResponseModel</returns>
+        System.Threading.Tasks.Task<ChannelResponseModel> ApiChannelEditPutAsync (EditChannelModel body = null);
 
         /// <summary>
         /// 
@@ -218,8 +289,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ApiChannelEditPutAsyncWithHttpInfo (EditChannelModel body = null);
+        /// <returns>Task of ApiResponse (ChannelResponseModel)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ChannelResponseModel>> ApiChannelEditPutAsyncWithHttpInfo (EditChannelModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -228,8 +299,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="channelId"></param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ApiChannelGetChannelIdentitfiersChannelIdGetAsync (int? channelId);
+        /// <returns>Task of ChannelResponseModel</returns>
+        System.Threading.Tasks.Task<ChannelResponseModel> ApiChannelGetChannelIdentitfiersChannelIdGetAsync (int? channelId);
 
         /// <summary>
         /// 
@@ -239,8 +310,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="channelId"></param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ApiChannelGetChannelIdentitfiersChannelIdGetAsyncWithHttpInfo (int? channelId);
+        /// <returns>Task of ApiResponse (ChannelResponseModel)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ChannelResponseModel>> ApiChannelGetChannelIdentitfiersChannelIdGetAsyncWithHttpInfo (int? channelId);
         /// <summary>
         /// 
         /// </summary>
@@ -250,8 +321,8 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ApiChannelGetChannelsGetAsync (int? pageNumber = null, int? pageSize = null);
+        /// <returns>Task of ChannelResponseModelPagedResult</returns>
+        System.Threading.Tasks.Task<ChannelResponseModelPagedResult> ApiChannelGetChannelsGetAsync (int? pageNumber = null, int? pageSize = null);
 
         /// <summary>
         /// 
@@ -262,8 +333,37 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ApiChannelGetChannelsGetAsyncWithHttpInfo (int? pageNumber = null, int? pageSize = null);
+        /// <returns>Task of ApiResponse (ChannelResponseModelPagedResult)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ChannelResponseModelPagedResult>> ApiChannelGetChannelsGetAsyncWithHttpInfo (int? pageNumber = null, int? pageSize = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="dropDownFilter2"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <returns>Task of ChannelResponseModelPagedResult</returns>
+        System.Threading.Tasks.Task<ChannelResponseModelPagedResult> ApiChannelSearchChannelsGetAsync (int? dropDownFilter = null, int? dropDownFilter2 = null, string searchKey = null, int? pageNumber = null, int? pageSize = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="dropDownFilter2"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <returns>Task of ApiResponse (ChannelResponseModelPagedResult)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ChannelResponseModelPagedResult>> ApiChannelSearchChannelsGetAsyncWithHttpInfo (int? dropDownFilter = null, int? dropDownFilter2 = null, string searchKey = null, int? pageNumber = null, int? pageSize = null);
         /// <summary>
         /// 
         /// </summary>
@@ -274,8 +374,8 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="searchKey"></param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ApiChannelSearchChannelBySerialSearchKeyGetAsync (string searchKey, int? pageNumber = null, int? pageSize = null);
+        /// <returns>Task of ChannelResponseModelPagedResult</returns>
+        System.Threading.Tasks.Task<ChannelResponseModelPagedResult> ApiChannelSearchSpecificChannelBySerialSearchKeyGetAsync (string searchKey, int? pageNumber = null, int? pageSize = null);
 
         /// <summary>
         /// 
@@ -287,8 +387,8 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="searchKey"></param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ApiChannelSearchChannelBySerialSearchKeyGetAsyncWithHttpInfo (string searchKey, int? pageNumber = null, int? pageSize = null);
+        /// <returns>Task of ApiResponse (ChannelResponseModelPagedResult)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ChannelResponseModelPagedResult>> ApiChannelSearchSpecificChannelBySerialSearchKeyGetAsyncWithHttpInfo (string searchKey, int? pageNumber = null, int? pageSize = null);
         #endregion Asynchronous Operations
     }
 
@@ -405,10 +505,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns></returns>
-        public void ApiChannelAddPost (AddChannelModel body = null)
+        /// <returns>ChannelResponseModel</returns>
+        public ChannelResponseModel ApiChannelAddPost (AddChannelModel body = null)
         {
-             ApiChannelAddPostWithHttpInfo(body);
+             ApiResponse<ChannelResponseModel> localVarResponse = ApiChannelAddPostWithHttpInfo(body);
+             return localVarResponse.Data;
         }
 
         /// <summary>
@@ -416,8 +517,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ApiChannelAddPostWithHttpInfo (AddChannelModel body = null)
+        /// <returns>ApiResponse of ChannelResponseModel</returns>
+        public ApiResponse< ChannelResponseModel > ApiChannelAddPostWithHttpInfo (AddChannelModel body = null)
         {
 
             var localVarPath = "/api/Channel/Add";
@@ -439,6 +540,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -471,9 +575,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<ChannelResponseModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (ChannelResponseModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ChannelResponseModel)));
         }
 
         /// <summary>
@@ -481,10 +585,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ApiChannelAddPostAsync (AddChannelModel body = null)
+        /// <returns>Task of ChannelResponseModel</returns>
+        public async System.Threading.Tasks.Task<ChannelResponseModel> ApiChannelAddPostAsync (AddChannelModel body = null)
         {
-             await ApiChannelAddPostAsyncWithHttpInfo(body);
+             ApiResponse<ChannelResponseModel> localVarResponse = await ApiChannelAddPostAsyncWithHttpInfo(body);
+             return localVarResponse.Data;
 
         }
 
@@ -493,8 +598,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiChannelAddPostAsyncWithHttpInfo (AddChannelModel body = null)
+        /// <returns>Task of ApiResponse (ChannelResponseModel)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<ChannelResponseModel>> ApiChannelAddPostAsyncWithHttpInfo (AddChannelModel body = null)
         {
 
             var localVarPath = "/api/Channel/Add";
@@ -516,6 +621,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -545,6 +653,143 @@ namespace AdminDashboard.SwaggerClient
             if (ExceptionFactory != null)
             {
                 Exception exception = ExceptionFactory("ApiChannelAddPost", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<ChannelResponseModel>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (ChannelResponseModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ChannelResponseModel)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public void ApiChannelChangeStatusIdGet (int? id)
+        {
+             ApiChannelChangeStatusIdGetWithHttpInfo(id);
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public ApiResponse<Object> ApiChannelChangeStatusIdGetWithHttpInfo (int? id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new ApiException(400, "Missing required parameter 'id' when calling ChannelApi->ApiChannelChangeStatusIdGet");
+
+            var localVarPath = "/api/Channel/ChangeStatus/{Id}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (id != null) localVarPathParams.Add("Id", this.Configuration.ApiClient.ParameterToString(id)); // path parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiChannelChangeStatusIdGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                null);
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task ApiChannelChangeStatusIdGetAsync (int? id)
+        {
+             await ApiChannelChangeStatusIdGetAsyncWithHttpInfo(id);
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiChannelChangeStatusIdGetAsyncWithHttpInfo (int? id)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new ApiException(400, "Missing required parameter 'id' when calling ChannelApi->ApiChannelChangeStatusIdGet");
+
+            var localVarPath = "/api/Channel/ChangeStatus/{Id}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (id != null) localVarPathParams.Add("Id", this.Configuration.ApiClient.ParameterToString(id)); // path parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiChannelChangeStatusIdGet", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -695,10 +940,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns></returns>
-        public void ApiChannelEditPut (EditChannelModel body = null)
+        /// <returns>ChannelResponseModel</returns>
+        public ChannelResponseModel ApiChannelEditPut (EditChannelModel body = null)
         {
-             ApiChannelEditPutWithHttpInfo(body);
+             ApiResponse<ChannelResponseModel> localVarResponse = ApiChannelEditPutWithHttpInfo(body);
+             return localVarResponse.Data;
         }
 
         /// <summary>
@@ -706,8 +952,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ApiChannelEditPutWithHttpInfo (EditChannelModel body = null)
+        /// <returns>ApiResponse of ChannelResponseModel</returns>
+        public ApiResponse< ChannelResponseModel > ApiChannelEditPutWithHttpInfo (EditChannelModel body = null)
         {
 
             var localVarPath = "/api/Channel/Edit";
@@ -729,6 +975,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -761,9 +1010,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<ChannelResponseModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (ChannelResponseModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ChannelResponseModel)));
         }
 
         /// <summary>
@@ -771,10 +1020,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ApiChannelEditPutAsync (EditChannelModel body = null)
+        /// <returns>Task of ChannelResponseModel</returns>
+        public async System.Threading.Tasks.Task<ChannelResponseModel> ApiChannelEditPutAsync (EditChannelModel body = null)
         {
-             await ApiChannelEditPutAsyncWithHttpInfo(body);
+             ApiResponse<ChannelResponseModel> localVarResponse = await ApiChannelEditPutAsyncWithHttpInfo(body);
+             return localVarResponse.Data;
 
         }
 
@@ -783,8 +1033,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiChannelEditPutAsyncWithHttpInfo (EditChannelModel body = null)
+        /// <returns>Task of ApiResponse (ChannelResponseModel)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<ChannelResponseModel>> ApiChannelEditPutAsyncWithHttpInfo (EditChannelModel body = null)
         {
 
             var localVarPath = "/api/Channel/Edit";
@@ -806,6 +1056,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -838,9 +1091,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<ChannelResponseModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (ChannelResponseModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ChannelResponseModel)));
         }
 
         /// <summary>
@@ -848,10 +1101,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="channelId"></param>
-        /// <returns></returns>
-        public void ApiChannelGetChannelIdentitfiersChannelIdGet (int? channelId)
+        /// <returns>ChannelResponseModel</returns>
+        public ChannelResponseModel ApiChannelGetChannelIdentitfiersChannelIdGet (int? channelId)
         {
-             ApiChannelGetChannelIdentitfiersChannelIdGetWithHttpInfo(channelId);
+             ApiResponse<ChannelResponseModel> localVarResponse = ApiChannelGetChannelIdentitfiersChannelIdGetWithHttpInfo(channelId);
+             return localVarResponse.Data;
         }
 
         /// <summary>
@@ -859,8 +1113,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="channelId"></param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ApiChannelGetChannelIdentitfiersChannelIdGetWithHttpInfo (int? channelId)
+        /// <returns>ApiResponse of ChannelResponseModel</returns>
+        public ApiResponse< ChannelResponseModel > ApiChannelGetChannelIdentitfiersChannelIdGetWithHttpInfo (int? channelId)
         {
             // verify the required parameter 'channelId' is set
             if (channelId == null)
@@ -881,6 +1135,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -906,9 +1163,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<ChannelResponseModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (ChannelResponseModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ChannelResponseModel)));
         }
 
         /// <summary>
@@ -916,10 +1173,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="channelId"></param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ApiChannelGetChannelIdentitfiersChannelIdGetAsync (int? channelId)
+        /// <returns>Task of ChannelResponseModel</returns>
+        public async System.Threading.Tasks.Task<ChannelResponseModel> ApiChannelGetChannelIdentitfiersChannelIdGetAsync (int? channelId)
         {
-             await ApiChannelGetChannelIdentitfiersChannelIdGetAsyncWithHttpInfo(channelId);
+             ApiResponse<ChannelResponseModel> localVarResponse = await ApiChannelGetChannelIdentitfiersChannelIdGetAsyncWithHttpInfo(channelId);
+             return localVarResponse.Data;
 
         }
 
@@ -928,8 +1186,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="channelId"></param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiChannelGetChannelIdentitfiersChannelIdGetAsyncWithHttpInfo (int? channelId)
+        /// <returns>Task of ApiResponse (ChannelResponseModel)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<ChannelResponseModel>> ApiChannelGetChannelIdentitfiersChannelIdGetAsyncWithHttpInfo (int? channelId)
         {
             // verify the required parameter 'channelId' is set
             if (channelId == null)
@@ -950,6 +1208,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -975,9 +1236,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<ChannelResponseModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (ChannelResponseModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ChannelResponseModel)));
         }
 
         /// <summary>
@@ -986,10 +1247,11 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns></returns>
-        public void ApiChannelGetChannelsGet (int? pageNumber = null, int? pageSize = null)
+        /// <returns>ChannelResponseModelPagedResult</returns>
+        public ChannelResponseModelPagedResult ApiChannelGetChannelsGet (int? pageNumber = null, int? pageSize = null)
         {
-             ApiChannelGetChannelsGetWithHttpInfo(pageNumber, pageSize);
+             ApiResponse<ChannelResponseModelPagedResult> localVarResponse = ApiChannelGetChannelsGetWithHttpInfo(pageNumber, pageSize);
+             return localVarResponse.Data;
         }
 
         /// <summary>
@@ -998,8 +1260,8 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ApiChannelGetChannelsGetWithHttpInfo (int? pageNumber = null, int? pageSize = null)
+        /// <returns>ApiResponse of ChannelResponseModelPagedResult</returns>
+        public ApiResponse< ChannelResponseModelPagedResult > ApiChannelGetChannelsGetWithHttpInfo (int? pageNumber = null, int? pageSize = null)
         {
 
             var localVarPath = "/api/Channel/GetChannels";
@@ -1017,6 +1279,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -1043,9 +1308,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<ChannelResponseModelPagedResult>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (ChannelResponseModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ChannelResponseModelPagedResult)));
         }
 
         /// <summary>
@@ -1054,10 +1319,11 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ApiChannelGetChannelsGetAsync (int? pageNumber = null, int? pageSize = null)
+        /// <returns>Task of ChannelResponseModelPagedResult</returns>
+        public async System.Threading.Tasks.Task<ChannelResponseModelPagedResult> ApiChannelGetChannelsGetAsync (int? pageNumber = null, int? pageSize = null)
         {
-             await ApiChannelGetChannelsGetAsyncWithHttpInfo(pageNumber, pageSize);
+             ApiResponse<ChannelResponseModelPagedResult> localVarResponse = await ApiChannelGetChannelsGetAsyncWithHttpInfo(pageNumber, pageSize);
+             return localVarResponse.Data;
 
         }
 
@@ -1067,8 +1333,8 @@ namespace AdminDashboard.SwaggerClient
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiChannelGetChannelsGetAsyncWithHttpInfo (int? pageNumber = null, int? pageSize = null)
+        /// <returns>Task of ApiResponse (ChannelResponseModelPagedResult)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<ChannelResponseModelPagedResult>> ApiChannelGetChannelsGetAsyncWithHttpInfo (int? pageNumber = null, int? pageSize = null)
         {
 
             var localVarPath = "/api/Channel/GetChannels";
@@ -1086,6 +1352,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -1112,39 +1381,41 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<ChannelResponseModelPagedResult>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (ChannelResponseModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ChannelResponseModelPagedResult)));
         }
 
         /// <summary>
         ///  
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="searchKey"></param>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="dropDownFilter2"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns></returns>
-        public void ApiChannelSearchChannelBySerialSearchKeyGet (string searchKey, int? pageNumber = null, int? pageSize = null)
+        /// <returns>ChannelResponseModelPagedResult</returns>
+        public ChannelResponseModelPagedResult ApiChannelSearchChannelsGet (int? dropDownFilter = null, int? dropDownFilter2 = null, string searchKey = null, int? pageNumber = null, int? pageSize = null)
         {
-             ApiChannelSearchChannelBySerialSearchKeyGetWithHttpInfo(searchKey, pageNumber, pageSize);
+             ApiResponse<ChannelResponseModelPagedResult> localVarResponse = ApiChannelSearchChannelsGetWithHttpInfo(dropDownFilter, dropDownFilter2, searchKey, pageNumber, pageSize);
+             return localVarResponse.Data;
         }
 
         /// <summary>
         ///  
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="searchKey"></param>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="dropDownFilter2"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ApiChannelSearchChannelBySerialSearchKeyGetWithHttpInfo (string searchKey, int? pageNumber = null, int? pageSize = null)
+        /// <returns>ApiResponse of ChannelResponseModelPagedResult</returns>
+        public ApiResponse< ChannelResponseModelPagedResult > ApiChannelSearchChannelsGetWithHttpInfo (int? dropDownFilter = null, int? dropDownFilter2 = null, string searchKey = null, int? pageNumber = null, int? pageSize = null)
         {
-            // verify the required parameter 'searchKey' is set
-            if (searchKey == null)
-                throw new ApiException(400, "Missing required parameter 'searchKey' when calling ChannelApi->ApiChannelSearchChannelBySerialSearchKeyGet");
 
-            var localVarPath = "/api/Channel/SearchChannelBySerial/{searchKey}";
+            var localVarPath = "/api/Channel/SearchChannels";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -1159,6 +1430,171 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (dropDownFilter != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "dropDownFilter", dropDownFilter)); // query parameter
+            if (dropDownFilter2 != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "dropDownFilter2", dropDownFilter2)); // query parameter
+            if (searchKey != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "searchKey", searchKey)); // query parameter
+            if (pageNumber != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageNumber", pageNumber)); // query parameter
+            if (pageSize != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageSize", pageSize)); // query parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiChannelSearchChannelsGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<ChannelResponseModelPagedResult>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (ChannelResponseModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ChannelResponseModelPagedResult)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="dropDownFilter2"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <returns>Task of ChannelResponseModelPagedResult</returns>
+        public async System.Threading.Tasks.Task<ChannelResponseModelPagedResult> ApiChannelSearchChannelsGetAsync (int? dropDownFilter = null, int? dropDownFilter2 = null, string searchKey = null, int? pageNumber = null, int? pageSize = null)
+        {
+             ApiResponse<ChannelResponseModelPagedResult> localVarResponse = await ApiChannelSearchChannelsGetAsyncWithHttpInfo(dropDownFilter, dropDownFilter2, searchKey, pageNumber, pageSize);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="dropDownFilter"> (optional)</param>
+        /// <param name="dropDownFilter2"> (optional)</param>
+        /// <param name="searchKey"> (optional)</param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <returns>Task of ApiResponse (ChannelResponseModelPagedResult)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<ChannelResponseModelPagedResult>> ApiChannelSearchChannelsGetAsyncWithHttpInfo (int? dropDownFilter = null, int? dropDownFilter2 = null, string searchKey = null, int? pageNumber = null, int? pageSize = null)
+        {
+
+            var localVarPath = "/api/Channel/SearchChannels";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (dropDownFilter != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "dropDownFilter", dropDownFilter)); // query parameter
+            if (dropDownFilter2 != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "dropDownFilter2", dropDownFilter2)); // query parameter
+            if (searchKey != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "searchKey", searchKey)); // query parameter
+            if (pageNumber != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageNumber", pageNumber)); // query parameter
+            if (pageSize != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "pageSize", pageSize)); // query parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiChannelSearchChannelsGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<ChannelResponseModelPagedResult>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (ChannelResponseModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ChannelResponseModelPagedResult)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="searchKey"></param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <returns>ChannelResponseModelPagedResult</returns>
+        public ChannelResponseModelPagedResult ApiChannelSearchSpecificChannelBySerialSearchKeyGet (string searchKey, int? pageNumber = null, int? pageSize = null)
+        {
+             ApiResponse<ChannelResponseModelPagedResult> localVarResponse = ApiChannelSearchSpecificChannelBySerialSearchKeyGetWithHttpInfo(searchKey, pageNumber, pageSize);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="searchKey"></param>
+        /// <param name="pageNumber"> (optional, default to 1)</param>
+        /// <param name="pageSize"> (optional, default to 10)</param>
+        /// <returns>ApiResponse of ChannelResponseModelPagedResult</returns>
+        public ApiResponse< ChannelResponseModelPagedResult > ApiChannelSearchSpecificChannelBySerialSearchKeyGetWithHttpInfo (string searchKey, int? pageNumber = null, int? pageSize = null)
+        {
+            // verify the required parameter 'searchKey' is set
+            if (searchKey == null)
+                throw new ApiException(400, "Missing required parameter 'searchKey' when calling ChannelApi->ApiChannelSearchSpecificChannelBySerialSearchKeyGet");
+
+            var localVarPath = "/api/Channel/SearchSpecificChannelBySerial/{searchKey}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -1182,13 +1618,13 @@ namespace AdminDashboard.SwaggerClient
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ApiChannelSearchChannelBySerialSearchKeyGet", localVarResponse);
+                Exception exception = ExceptionFactory("ApiChannelSearchSpecificChannelBySerialSearchKeyGet", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<ChannelResponseModelPagedResult>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (ChannelResponseModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ChannelResponseModelPagedResult)));
         }
 
         /// <summary>
@@ -1198,10 +1634,11 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="searchKey"></param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ApiChannelSearchChannelBySerialSearchKeyGetAsync (string searchKey, int? pageNumber = null, int? pageSize = null)
+        /// <returns>Task of ChannelResponseModelPagedResult</returns>
+        public async System.Threading.Tasks.Task<ChannelResponseModelPagedResult> ApiChannelSearchSpecificChannelBySerialSearchKeyGetAsync (string searchKey, int? pageNumber = null, int? pageSize = null)
         {
-             await ApiChannelSearchChannelBySerialSearchKeyGetAsyncWithHttpInfo(searchKey, pageNumber, pageSize);
+             ApiResponse<ChannelResponseModelPagedResult> localVarResponse = await ApiChannelSearchSpecificChannelBySerialSearchKeyGetAsyncWithHttpInfo(searchKey, pageNumber, pageSize);
+             return localVarResponse.Data;
 
         }
 
@@ -1212,14 +1649,14 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="searchKey"></param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiChannelSearchChannelBySerialSearchKeyGetAsyncWithHttpInfo (string searchKey, int? pageNumber = null, int? pageSize = null)
+        /// <returns>Task of ApiResponse (ChannelResponseModelPagedResult)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<ChannelResponseModelPagedResult>> ApiChannelSearchSpecificChannelBySerialSearchKeyGetAsyncWithHttpInfo (string searchKey, int? pageNumber = null, int? pageSize = null)
         {
             // verify the required parameter 'searchKey' is set
             if (searchKey == null)
-                throw new ApiException(400, "Missing required parameter 'searchKey' when calling ChannelApi->ApiChannelSearchChannelBySerialSearchKeyGet");
+                throw new ApiException(400, "Missing required parameter 'searchKey' when calling ChannelApi->ApiChannelSearchSpecificChannelBySerialSearchKeyGet");
 
-            var localVarPath = "/api/Channel/SearchChannelBySerial/{searchKey}";
+            var localVarPath = "/api/Channel/SearchSpecificChannelBySerial/{searchKey}";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -1234,6 +1671,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -1257,13 +1697,13 @@ namespace AdminDashboard.SwaggerClient
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ApiChannelSearchChannelBySerialSearchKeyGet", localVarResponse);
+                Exception exception = ExceptionFactory("ApiChannelSearchSpecificChannelBySerialSearchKeyGet", localVarResponse);
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<ChannelResponseModelPagedResult>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (ChannelResponseModelPagedResult) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ChannelResponseModelPagedResult)));
         }
 
     }

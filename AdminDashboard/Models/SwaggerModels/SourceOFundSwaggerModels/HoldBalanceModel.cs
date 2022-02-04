@@ -19,46 +19,38 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
-using SwaggerDateConverter = AdminDashboard.SwaggerClientHelpers.SwaggerDateConverter;
 
-namespace AdminDashboard.Models.SwaggerModels
+
+namespace AdminDashboard.Models.SwaggerModels.SourceOFundSwaggerModels
 {
     /// <summary>
-    /// AccountTypeDTO
+    /// HoldBalanceModel
     /// </summary>
     [DataContract]
-        public partial class AccountTypeDTO :  IEquatable<AccountTypeDTO>, IValidatableObject
+        public partial class HoldBalanceModel :  IEquatable<HoldBalanceModel>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AccountTypeDTO" /> class.
+        /// Initializes a new instance of the <see cref="HoldBalanceModel" /> class.
         /// </summary>
-        /// <param name="id">id.</param>
-        /// <param name="name">name.</param>
-        /// <param name="status">status.</param>
-        public AccountTypeDTO(int? id = default(int?), string name = default(string), bool? status = default(bool?))
+        /// <param name="amount">amount (required).</param>
+        public HoldBalanceModel(double? amount = default(double?))
         {
-            this.Id = id;
-            this.Name = name;
-            this.Status = status;
+            // to ensure "amount" is required (not null)
+            if (amount == null)
+            {
+                throw new InvalidDataException("amount is a required property for HoldBalanceModel and cannot be null");
+            }
+            else
+            {
+                this.Amount = amount;
+            }
         }
         
         /// <summary>
-        /// Gets or Sets Id
+        /// Gets or Sets Amount
         /// </summary>
-        [DataMember(Name="id", EmitDefaultValue=false)]
-        public int? Id { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Name
-        /// </summary>
-        [DataMember(Name="name", EmitDefaultValue=false)]
-        public string Name { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Status
-        /// </summary>
-        [DataMember(Name="status", EmitDefaultValue=false)]
-        public bool? Status { get; set; }
+        [DataMember(Name="amount", EmitDefaultValue=false)]
+        public double? Amount { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -67,10 +59,8 @@ namespace AdminDashboard.Models.SwaggerModels
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class AccountTypeDTO {\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
-            sb.Append("  Name: ").Append(Name).Append("\n");
-            sb.Append("  Status: ").Append(Status).Append("\n");
+            sb.Append("class HoldBalanceModel {\n");
+            sb.Append("  Amount: ").Append(Amount).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -91,34 +81,24 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as AccountTypeDTO);
+            return this.Equals(input as HoldBalanceModel);
         }
 
         /// <summary>
-        /// Returns true if AccountTypeDTO instances are equal
+        /// Returns true if HoldBalanceModel instances are equal
         /// </summary>
-        /// <param name="input">Instance of AccountTypeDTO to be compared</param>
+        /// <param name="input">Instance of HoldBalanceModel to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(AccountTypeDTO input)
+        public bool Equals(HoldBalanceModel input)
         {
             if (input == null)
                 return false;
 
             return 
                 (
-                    this.Id == input.Id ||
-                    (this.Id != null &&
-                    this.Id.Equals(input.Id))
-                ) && 
-                (
-                    this.Name == input.Name ||
-                    (this.Name != null &&
-                    this.Name.Equals(input.Name))
-                ) && 
-                (
-                    this.Status == input.Status ||
-                    (this.Status != null &&
-                    this.Status.Equals(input.Status))
+                    this.Amount == input.Amount ||
+                    (this.Amount != null &&
+                    this.Amount.Equals(input.Amount))
                 );
         }
 
@@ -131,12 +111,8 @@ namespace AdminDashboard.Models.SwaggerModels
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Id != null)
-                    hashCode = hashCode * 59 + this.Id.GetHashCode();
-                if (this.Name != null)
-                    hashCode = hashCode * 59 + this.Name.GetHashCode();
-                if (this.Status != null)
-                    hashCode = hashCode * 59 + this.Status.GetHashCode();
+                if (this.Amount != null)
+                    hashCode = hashCode * 59 + this.Amount.GetHashCode();
                 return hashCode;
             }
         }

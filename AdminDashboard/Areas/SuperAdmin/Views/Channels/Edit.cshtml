@@ -1,0 +1,69 @@
+﻿@model ChannelViewModel
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <form asp-action="Edit" method="post">
+                    <div class="card-header">
+                        <h2>Edit Channel</h2>
+                    </div>
+                    <div class="card-body">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group">
+                            <label class="control-label">Channel Name <span class="validation-error">*</span></label>
+                            <input asp-for="Name" class="form-control" />
+                            <span asp-validation-for="Name"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Serial <span class="validation-error">*</span></label>
+                            <input asp-for="Serial" class="form-control" />
+                            <span asp-validation-for="Serial"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Value</label>
+                            <input asp-for="Value" class="form-control" />
+                            <span asp-validation-for="Value"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Channel Types <span class="validation-error">*</span></label>
+                            <select asp-for="ChannelTypeID" asp-items="Model.ChannelTypes" class="form-control" data-style="select-with-transition" title="Choose a Channel Type" data-size="7">
+                                <option disabled> Choose</option>
+                            </select>
+                            <span asp-validation-for="ChannelTypeID"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Channel Owner <span class="validation-error">*</span></label>
+                            <select asp-for="ChannelOwnerID" asp-items="Model.ChannelOwners" class="form-control" data-style="select-with-transition" title="Choose a Channel Owner" data-size="7">
+                                <option disabled> Choose</option>
+                            </select>
+                            <span asp-validation-for="ChannelOwnerID"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Payment Method <span class="validation-error">*</span></label>
+                            <select asp-for="PaymentMethodID" asp-items="Model.PaymentMethods" class="form-control" data-style="select-with-transition" title="Choose a Method" data-size="7">
+                                <option disabled> Choose</option>
+                            </select>
+                            <span asp-validation-for="PaymentMethodID"></span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script>
+
+    </script>
+}

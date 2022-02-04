@@ -1,0 +1,485 @@
+﻿@model CreateDenominationViewModel
+@using AdminDashboard.Models.SwaggerModels
+@using AdminDashboard.Helper
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+
+            <ul class="nav nav-tabs progressbar" id="myTab" role="tablist">
+                <li class="nav-item active disabled">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Denomination</a>
+                </li>
+                <li class="nav-item disabled">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Denomination Service Provider</a>
+                </li>
+                <li class="nav-item disabled">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Denomination Parameter</a>
+                </li>
+                <li class="nav-item disabled">
+                    <a class="nav-link" id="Receipt-tab" data-toggle="tab" href="#Receipt" role="tab" aria-controls="Receipt" aria-selected="false">Denomination Receipt</a>
+                </li>
+            </ul>
+
+            <form asp-action="Create" asp-controller="Denominations" method="post" id="frmDenomination">
+                @Html.AntiForgeryToken()
+                <div asp-validation-summary="All" class="text-danger"></div>
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="card">
+                            <partial name="_Denomination" for="@Model.Denomination" />
+                            <div class="card-footer mt-2">
+                                <input type="button" class="btn btn-success btnNext float-right" value="Next" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        <div class="card">
+                            <partial name="_DenominationServiceProviders" for="@Model.DenominationServiceProviders" />
+                            <hr />
+                            <div class="card-body">
+                                <partial name="_ServiceConfigurationPopUp" for="@Model.ServiceConfigeration" />
+                            </div>
+                            <div class="card-footer">
+                                <input type="button" class="btn btn-success btnNext float-right" value="Next" />
+                                <a class="btn btn-danger btnPrevious float-right mr-1">Previous</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="card">
+                            <partial name="_DenominationParameter" for="@Model.DenominationParameter" />
+                            <div class="card-footer mt-2">
+                                <input type="button" class="btn btn-success btnNext float-right" value="Next" />
+                                <a class="btn btn-danger btnPrevious float-right mr-1">Previous</a>
+                            </div>
+                        </div>
+                        <div id="modelParameter" class="modal fade" role="dialog" dir="ltr" tabindex="-1">
+                            <div class="modal-dialog modal-xl">
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h2>Add Denomination Params</h2>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                @*<input type="hidden" asp-for="Id" />*@
+                                                <div class="form-group">
+                                                    <label class="control-label">Label <span class="validation-error">*</span></label>
+                                                    <input class="form-control enableAddDenomintionParam" id="Label" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Title <span class="validation-error">*</span></label>
+                                                    <input class="form-control enableAddDenomintionParam" id="Title" />
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="control-label">Params Key <span class="validation-error">*</span></label>
+                                                    <input class="form-control enableAddDenomintionParam" id="ParamsKey" />
+                                                </div>
+                                                <div class="form-group row">
+                                                    <div class="col-md-6">
+                                                        <label class="control-label">Value Type <span class="validation-error">*</span></label>
+                                                        <select id="ValueTypeId" asp-items="@Html.GetEnumSelectList<DenominationParamsValueType>()" class="form-control enableAddDenomintionParam" data-style="select-with-transition" title="Choose a Type" data-size="7">
+                                                            <option disabled selected> Choose a Type</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <label class="control-label">Value Mode <span class="validation-error">*</span></label>
+                                                        <select id="ValueModeId" asp-items="@Html.GetEnumSelectList<DenominationParamsValueMode>()" class="form-control enableAddDenomintionParam" data-style="select-with-transition" title="Choose a Mode" data-size="7">
+                                                            <option disabled selected> Choose a Mode</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <input type="button" id="SaveDenominationParamter" value="Save" class="btn btn-success float-right" onclick="AddDenominationParams()" data-toggle="modal" data-target="myDenominationParameter" data-dismiss="modal" disabled />
+                                        <button type="button" class="btn btn-secondary float-left" data-toggle="modal" data-target="myDenominationParameter" data-dismiss="modal">Close</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="Receipt" role="tabpanel" aria-labelledby="Receipt-tab">
+                        <div class="card">
+                            <partial name="_DenominationReceipt" for="@Model.DenominationReceipt" />
+                            <div class="card-footer mt-2">
+                                <input type="submit" value="Save" class="btn btn-success btnSubmit float-right" />
+                                <a class="btn btn-danger btnPrevious float-right mr-1">Previous</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+
+@section Scripts{
+    @*@{ TempData.Keep("serviceId");}*@
+    <script>
+        var rowIdx = 0;
+        var arrayJson = [];
+
+        $(document).ready(function () {
+            debugger;
+            var serviceTypeId = $("#Denomination_ServiceTypeID").val();
+
+            if (serviceTypeId === "3") {
+                $("#Denomination_Inquirable").prop('checked', true);
+                $("#Denomination_Inquirable").prop('disabled', false);
+            }
+            else {
+                $("#Denomination_Inquirable").prop('checked', false);
+                $("#Denomination_Inquirable").prop('disabled', true);
+            }
+            //$('.js-example-basic-single').select2({
+            //    width: '850px',
+            //    theme: "bootstrap",
+            //});
+
+           $('#drpServiceConfig').select2({
+                width: '850px',
+                theme: "bootstrap"
+            });
+
+            $('.btnNext').click(function () {
+                $('.nav-tabs .active').parent().next('li').find('a').trigger('click');
+                $('#myTab li:not(.active):first').addClass('active');
+            });
+
+            $('.btnPrevious').click(function () {
+                $('.nav-tabs .active').parent().prev('li').find('a').trigger('click');
+                $('#myTab li.active:last').removeClass('active');
+            });
+
+        });
+
+        $("input.enableBtn").keyup(function () {
+            var empty = false;
+
+            $("input.enableBtn").each(function () {
+                if ($(this).val() == '') {
+                    empty = true;
+                }
+            });
+
+            if (empty)
+                $('#SaveServiceConfig').attr('disabled', 'disabled');
+            else
+                $('#SaveServiceConfig').removeAttr('disabled');
+        });
+
+        $("input.enableAddParam").keyup(function () {
+            var empty = false;
+
+            $("input.enableAddParam").each(function () {
+                if ($(this).val() == '') {
+                    empty = true;
+                }
+            });
+
+            if (empty)
+                $('#addConfigParams').attr('disabled', 'disabled');
+            else
+                $('#addConfigParams').removeAttr('disabled');
+        });
+
+        $("input.enableAddProviderParam").keyup(function () {
+            var empty = false;
+
+            $("input.enableAddProviderParam").each(function () {
+                if ($(this).val() == '') {
+                    empty = true;
+                }
+            });
+
+            if (empty)
+                $('#addProviderConfigParams').attr('disabled', 'disabled');
+            else
+                $('#addProviderConfigParams').removeAttr('disabled');
+        });
+
+        $("input.enableAddValueList").keyup(function () {
+            var empty = false;
+
+            $("input.enableAddValueList").each(function () {
+                if ($(this).val() == '') {
+                    empty = true;
+                }
+            });
+
+            if (empty)
+                $('#addValueToList').attr('disabled', 'disabled');
+            else
+                $('#addValueToList').removeAttr('disabled');
+        });
+
+        $("input.enableAddDenomintionParam").keyup(function () {
+            var empty = false;
+
+            $("input.enableAddDenomintionParam").each(function () {
+                if ($(this).val() == '') {
+                    empty = true;
+                }
+            });
+
+            if (empty || ($('#ValueTypeId').val() == null && $('#ValueModeId').val() == null))
+                $('#SaveDenominationParamter').attr('disabled', 'disabled');
+            else
+                $('#SaveDenominationParamter').removeAttr('disabled');
+        });
+
+        $('#tblParams tbody').on('click', '.remove', function () {
+
+            // Getting all the rows next to the
+            // row containing the clicked button
+            var child = $(this).closest('tr').nextAll();
+
+            // Iterating across all the rows
+            // obtained to change the index
+            child.each(function () {
+
+                // Getting <tr> id.
+                var id = $(this).attr('id');
+
+                // Getting the <p> inside the .row-index class.
+                var idx = $(this).children('.row-index').children('p');
+
+                // Gets the row number from <tr> id.
+                var dig = parseInt(id.substring(1));
+
+                // Modifying row index.
+                idx.html(`Row ${dig - 1}`);
+
+                // Modifying row id.
+                $(this).attr('id', `R${dig - 1}`);
+            });
+
+            // Removing the current row.
+            $(this).closest('tr').remove();
+
+            // Decreasing the total number of rows by 1.
+            rowIdx--;
+        });
+
+        $('#tblProviderParams tbody').on('click', '.remove', function () {
+
+            // Getting all the rows next to the
+            // row containing the clicked button
+            var child = $(this).closest('tr').nextAll();
+
+            // Iterating across all the rows
+            // obtained to change the index
+            child.each(function () {
+
+                // Getting <tr> id.
+                var id = $(this).attr('id');
+
+                // Getting the <p> inside the .row-index class.
+                var idx = $(this).children('.row-index').children('p');
+
+                // Gets the row number from <tr> id.
+                var dig = parseInt(id.substring(1));
+
+                // Modifying row index.
+                idx.html(`Row ${dig - 1}`);
+
+                // Modifying row id.
+                $(this).attr('id', `R${dig - 1}`);
+            });
+
+            // Removing the current row.
+            $(this).closest('tr').remove();
+
+            // Decreasing the total number of rows by 1.
+            rowIdx--;
+        });
+
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+        function toggleButton(ref, bttnID) {
+            document.getElementById(bttnID).disabled = ((ref.value !== ref.defaultValue) ? false : true);
+        }
+
+        function addRowParam() {
+
+            var name = $("#serviceConfigParamName").val();
+            var value = $("#serviceConfigParamValue").val();
+
+            var markup = `<tr id="R${++rowIdx}">
+                              <td class="row-index"> ${rowIdx}</td>
+                            <td>${name}</td>
+                            <td>${value}</td>
+                               <td>
+                                <button class="btn btn-danger remove"
+                                    type="button">Remove</button>
+                                </td>
+                               </tr>`;
+
+            $("#tblParams tbody").append(markup);
+        }
+
+        function addRowProviderParam() {
+
+            var name = $("#providerConfigParamName").val();
+            var value = $("#providerConfigParamValue").val();
+
+            var markup = `<tr id="R${++rowIdx}">
+                              <td class="row-index"> ${rowIdx}</td>
+                            <td>${name}</td>
+                            <td>${value}</td>
+                               <td>
+                                <button class="btn btn-danger remove"
+                                    type="button">Remove</button>
+                                </td>
+                               </tr>`;
+
+            $("#tblProviderParams tbody").append(markup);
+        }
+
+        function CreateServiceConfiguaration() {
+
+            var url = $("#txtUrl").val();
+            var timeOut = $("#txtTimeOut").val();
+            var username = $("#txtUsername").val();
+            var password = $("#txtPassword").val();
+            var dataParams = getParams("#tblParams tbody tr");
+
+             $.ajax({
+                type: "POST",
+                 url: "@Url.Action("CreateServiceConfiguartion")",
+                 data: {
+                     URL: url,
+                     TimeOut: timeOut,
+                     UserName: username,
+                     UserPassword: password,
+                     ServiceConfigParms: dataParams
+                 },
+                dataType: "json",
+                 success: function (state) {
+/*                     console.log('success data response ' + state);*/
+                         $('#drpServiceConfig').append('<option value="' + state.id + '" selected>' +
+                             state.url + '</option>');
+                },
+                 error: function (req, status, error) {
+                }
+            });
+        }
+
+        function getParams(selectorElement)
+        {
+
+
+            var arrData = [];
+            // loop over each table row (tr)
+
+            $(selectorElement).each(function () {
+                var currentRow = $(this);
+
+                var col2_value = currentRow.find("td:eq(1)").text();
+                var col3_value = currentRow.find("td:eq(2)").text();
+
+                var obj = {};
+                obj.Name = col2_value;
+                obj.Value = col3_value;
+
+                arrData.push(obj);
+            });
+
+            return arrData;
+        }
+
+        function togglePassword(toggleId,txtPasswordId) {
+
+            const togglePassword = document.querySelector(toggleId);
+            const password = document.querySelector(txtPasswordId);
+
+            togglePassword.addEventListener('click', function (e) {
+                // toggle the type attribute
+                const type = password.getAttribute('type') === 'password' ? 'text' : 'password';
+                password.setAttribute('type', type);
+                // toggle the eye slash icon
+                this.classList.toggle('fa-eye-slash');
+            });
+        }
+
+        function AddSerilaizeJsonValueList() {
+            $('#addValueToList').attr('disabled', 'disabled');
+            $('#clearValueToList').removeAttr('disabled');
+
+            var keytxt = $('#txtKeyValueList').val();
+            var valuetxt = $('#txtvalueValueList').val();
+
+            var object = { key:keytxt, value:valuetxt };
+
+            var json = JSON.stringify(object);
+
+            arrayJson.push(json);
+
+            const str = arrayJson.toString();
+
+            $('#txtValueList').empty();
+            $('#txtValueList').val('[' + str + ']');
+
+            $('#txtKeyValueList').val('');
+            $('#txtvalueValueList').val('');
+
+        }
+
+        function ClearValueList() {
+            arrayJson = [];
+            $('#txtKeyValueList').val('');
+            $('#txtvalueValueList').val('');
+            $('#txtValueList').val('');
+            $('#addValueToList').attr('disabled', 'disabled');
+            $('#clearValueToList').attr('disabled', 'disabled');
+        }
+
+        function AddDenominationParams() {
+
+            var Label = $("#Label").val();
+            var Title = $("#Title").val();
+            var ParamKey = $("#ParamsKey").val();
+            var ValueModeId = $("#ValueModeId").val();
+            var ValueTypeId = $("#ValueTypeId").val();
+
+             $.ajax({
+                type: "POST",
+                 url: "@Url.Action("AddDenominationParam")",
+                 data: {
+                    Label ,
+                    Title ,
+                    ParamKey,
+                    ValueModeId,
+                    ValueTypeId
+                 },
+                dataType: "text",
+                 success: function (msg) {
+
+                     var state = JSON.parse(msg);
+/*                     console.log('success data response ' + state);*/
+                     $('#DenominationParameter_DenominationParamID').append('<option value="' + state.id + '" selected>' +
+                         state.label + ' - ' + state.valueModeName + ' - ' + state.valueTypeName + ' - ' + state.paramKey+'</option>');
+                },
+                 error: function (req, status, error) {
+                     
+                }
+            });
+        }
+
+    </script>
+}

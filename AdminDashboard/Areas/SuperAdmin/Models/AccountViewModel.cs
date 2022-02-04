@@ -27,6 +27,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         [Required]
         public int? EntityID { get; set; }
         [Required]
+        public int? BalanceTypeId { get; set; }
+        [Required]
         public int? ParentAccountID { get; set; }
         [Required]
         public int? GovernerateID { get; set; }
@@ -34,10 +36,14 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public int? RegionID { get; set; }
         [Required]
         public int? AccountTypeProfileID { get; set; }
+        public bool Status { get; set; }
         public List<SelectListItem> Activities { get; set; }
         public List<SelectListItem> Entities { get; set; }
         public List<SelectListItem> Governerates { get; set; }
         public List<SelectListItem> Regions { get; set; }
         public List<SelectListItem> AccountTypeProfiles { get; set; }
+        public List<SelectListItem> AccountTypes { get; set; }
+        public List<SelectListItem> ParentAccounts { get; set; }
+        public List<SelectListItem> BalanceTypes { get; set; }
     }
 }

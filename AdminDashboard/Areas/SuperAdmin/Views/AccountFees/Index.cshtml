@@ -1,0 +1,113 @@
+﻿@model PagedResult<AccountFeesViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2> Fees</h2>
+                    <a asp-action="Create" asp-route-accountId="@ViewBag.AccountId" class="pull-right btn btn-outline-primary">Add</a>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Denomiination ID</th>
+                                <th>Denomination</th>
+                                <th>Value</th>
+                                <th>Type Name</th>
+                                <th>Payment Mode</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var fee in Model.Results)
+                            {
+                                <tr>
+                                    <td>@fee.DenomiinationId</td>
+                                    <td>@fee.DenominationFullName</td>
+                                    <td>@fee.FeesValue</td>
+                                    <td>@fee.FeesTypeName</td>
+                                    <td>@fee.PaymentMode</td>
+                                    <td>
+                                        <button onclick="ConfirmDeleteAccountFee(@fee.Id,this)" class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer d-flex justify-content-center">
+                    <pager link-url="/SuperAdmin/AccountFees/Index"
+                           page="Model.CurrentPage"
+                           page-size="Model.PageSize"
+                           total-items="Model.PageCount">
+                    </pager>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+
+        $(function () {
+            var msg = '@TempData["result"]';
+            if (msg != "") {
+                swal({
+                    title: "Good job!",
+                    text: "You Saved the User Successfully!",
+                    icon: "success",
+                    button: "Ok",
+                });
+            }
+        });
+
+        function ConfirmDeleteAccountFee(id,row)
+        {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this record!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+
+                    DeleteAccountFee(id, row);
+                }
+            });
+        }
+
+        function DeleteAccountFee(id, row) {
+
+              $.ajax({
+                type: "GET",
+                url: "@Url.Action("DeleteAccountFee")",
+                  data: {
+                      id: id,
+                  },
+                 dataType: "text",
+                success: function (msg) {
+                    swal("Your record has been deleted!", {
+                        icon: "success",
+                    });
+
+                    $(row).parents("tr").remove();
+/*                    var data = JSON.parse(msg);*/
+
+                },
+                 error: function (req, status, error) {
+                     swal("There is some error happened!", {
+                         icon: "error",
+                     });
+                }
+            });
+        }
+
+    </script>
+}
+

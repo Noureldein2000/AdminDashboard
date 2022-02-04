@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using AdminDashboard.Controllers;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -10,12 +12,15 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
    
     [Area("SuperAdmin")]
     [Route("SuperAdmin/[controller]")]
-    public class HomeController : Controller
+    [Authorize]
+    public class HomeController : BaseController
     {
-        //[Authorize]
+        
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
         }
+        
     }
 }

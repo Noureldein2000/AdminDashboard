@@ -35,16 +35,26 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="id">id.</param>
         /// <param name="accountID">accountID.</param>
         /// <param name="channelID">channelID.</param>
+        /// <param name="channelName">channelName.</param>
+        /// <param name="serial">serial.</param>
+        /// <param name="value">value.</param>
         /// <param name="status">status.</param>
+        /// <param name="reason">reason.</param>
         /// <param name="createdBy">createdBy.</param>
+        /// <param name="createdName">createdName.</param>
         /// <param name="updatedBy">updatedBy.</param>
-        public AccountChannelModel(int? id = default(int?), int? accountID = default(int?), int? channelID = default(int?), bool? status = default(bool?), int? createdBy = default(int?), int? updatedBy = default(int?))
+        public AccountChannelModel(int? id = default(int?), int? accountID = default(int?), int? channelID = default(int?), string channelName = default(string), string serial = default(string), string value = default(string), AccountChannelStatus status = default(AccountChannelStatus), string reason = default(string), int? createdBy = default(int?), string createdName = default(string), int? updatedBy = default(int?))
         {
             this.Id = id;
             this.AccountID = accountID;
             this.ChannelID = channelID;
+            this.ChannelName = channelName;
+            this.Serial = serial;
+            this.Value = value;
             this.Status = status;
+            this.Reason = reason;
             this.CreatedBy = createdBy;
+            this.CreatedName = createdName;
             this.UpdatedBy = updatedBy;
         }
         
@@ -67,16 +77,46 @@ namespace AdminDashboard.Models.SwaggerModels
         public int? ChannelID { get; set; }
 
         /// <summary>
+        /// Gets or Sets ChannelName
+        /// </summary>
+        [DataMember(Name="channelName", EmitDefaultValue=false)]
+        public string ChannelName { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Serial
+        /// </summary>
+        [DataMember(Name="serial", EmitDefaultValue=false)]
+        public string Serial { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Value
+        /// </summary>
+        [DataMember(Name="value", EmitDefaultValue=false)]
+        public string Value { get; set; }
+
+        /// <summary>
         /// Gets or Sets Status
         /// </summary>
         [DataMember(Name="status", EmitDefaultValue=false)]
-        public bool? Status { get; set; }
+        public AccountChannelStatus Status { get; set; }
+
+        /// <summary>
+        /// Gets or Sets Reason
+        /// </summary>
+        [DataMember(Name="reason", EmitDefaultValue=false)]
+        public string Reason { get; set; }
 
         /// <summary>
         /// Gets or Sets CreatedBy
         /// </summary>
         [DataMember(Name="createdBy", EmitDefaultValue=false)]
         public int? CreatedBy { get; set; }
+
+        /// <summary>
+        /// Gets or Sets CreatedName
+        /// </summary>
+        [DataMember(Name="createdName", EmitDefaultValue=false)]
+        public string CreatedName { get; set; }
 
         /// <summary>
         /// Gets or Sets UpdatedBy
@@ -95,8 +135,13 @@ namespace AdminDashboard.Models.SwaggerModels
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  AccountID: ").Append(AccountID).Append("\n");
             sb.Append("  ChannelID: ").Append(ChannelID).Append("\n");
+            sb.Append("  ChannelName: ").Append(ChannelName).Append("\n");
+            sb.Append("  Serial: ").Append(Serial).Append("\n");
+            sb.Append("  Value: ").Append(Value).Append("\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
+            sb.Append("  Reason: ").Append(Reason).Append("\n");
             sb.Append("  CreatedBy: ").Append(CreatedBy).Append("\n");
+            sb.Append("  CreatedName: ").Append(CreatedName).Append("\n");
             sb.Append("  UpdatedBy: ").Append(UpdatedBy).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -148,14 +193,39 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.ChannelID.Equals(input.ChannelID))
                 ) && 
                 (
+                    this.ChannelName == input.ChannelName ||
+                    (this.ChannelName != null &&
+                    this.ChannelName.Equals(input.ChannelName))
+                ) && 
+                (
+                    this.Serial == input.Serial ||
+                    (this.Serial != null &&
+                    this.Serial.Equals(input.Serial))
+                ) && 
+                (
+                    this.Value == input.Value ||
+                    (this.Value != null &&
+                    this.Value.Equals(input.Value))
+                ) && 
+                (
                     this.Status == input.Status ||
                     (this.Status != null &&
                     this.Status.Equals(input.Status))
                 ) && 
                 (
+                    this.Reason == input.Reason ||
+                    (this.Reason != null &&
+                    this.Reason.Equals(input.Reason))
+                ) && 
+                (
                     this.CreatedBy == input.CreatedBy ||
                     (this.CreatedBy != null &&
                     this.CreatedBy.Equals(input.CreatedBy))
+                ) && 
+                (
+                    this.CreatedName == input.CreatedName ||
+                    (this.CreatedName != null &&
+                    this.CreatedName.Equals(input.CreatedName))
                 ) && 
                 (
                     this.UpdatedBy == input.UpdatedBy ||
@@ -179,10 +249,20 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.AccountID.GetHashCode();
                 if (this.ChannelID != null)
                     hashCode = hashCode * 59 + this.ChannelID.GetHashCode();
+                if (this.ChannelName != null)
+                    hashCode = hashCode * 59 + this.ChannelName.GetHashCode();
+                if (this.Serial != null)
+                    hashCode = hashCode * 59 + this.Serial.GetHashCode();
+                if (this.Value != null)
+                    hashCode = hashCode * 59 + this.Value.GetHashCode();
                 if (this.Status != null)
                     hashCode = hashCode * 59 + this.Status.GetHashCode();
+                if (this.Reason != null)
+                    hashCode = hashCode * 59 + this.Reason.GetHashCode();
                 if (this.CreatedBy != null)
                     hashCode = hashCode * 59 + this.CreatedBy.GetHashCode();
+                if (this.CreatedName != null)
+                    hashCode = hashCode * 59 + this.CreatedName.GetHashCode();
                 if (this.UpdatedBy != null)
                     hashCode = hashCode * 59 + this.UpdatedBy.GetHashCode();
                 return hashCode;

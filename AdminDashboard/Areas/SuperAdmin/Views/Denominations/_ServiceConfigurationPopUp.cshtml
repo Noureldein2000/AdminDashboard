@@ -1,0 +1,39 @@
+﻿@model ServiceConfigerationViewModel
+
+<div class="card">
+    <div class="card-header">
+        <h3>Service Configuartion</h3>
+    </div>
+    <div class="card-body">
+        <div class="form-group row">
+            <div class="col-md-8">
+                <label class="control-label d-block">URL</label>
+                <select asp-for="Id" asp-items="@ViewBag.ServiceConfiguartion" class="form-control" id="drpServiceConfig">
+                    <option disabled selected> Choose URL Service</option>
+                </select>
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>
+            <div class="col-md-4" style="margin-top: 30px;">
+                <button type="button" class="float-right btn btn-primary" data-toggle="modal" data-target="#myServiceConfigurationModal">Create</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="myServiceConfigurationModal" class="modal fade" role="dialog" dir="ltr">
+    <div class="modal-dialog modal-xl">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3> Create Service Configuration </h3>
+            </div>
+            <div class="modal-body">
+                <partial name="../../Views/ServiceConfiguaration/_ServiceConfiguration.cshtml" for="@Model" />
+            </div>
+            <div class="modal-footer">
+                <input type="button" id="SaveServiceConfig" value="Create" class="btn btn-success float-right" onclick="CreateServiceConfiguaration()" data-dismiss="modal" disabled />
+                <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

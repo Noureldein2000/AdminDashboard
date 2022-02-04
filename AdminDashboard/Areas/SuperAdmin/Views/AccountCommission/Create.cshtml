@@ -1,0 +1,78 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model CreateAccountCommissionViewModel
+@using AdminDashboard.Models.SwaggerModels;
+@{
+    ViewData["Title"] = "CreateAccountCommission";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <form asp-action="Create" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="card-header">
+                        <h2>Create Account Commission</h2>
+                    </div>
+                    <div class="card-body">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <input type="hidden" asp-for="AccountId" />
+                        <div class="form-group">
+                            <label class="control-label">Commission Value <span class="validation-error">*</span></label>
+                            <select asp-for="CommissionId" asp-items="Model.Commissions" class="form-control" data-style="select-with-transition" title="Choose a Commission Value" data-size="7">
+                                <option disabled selected> Choose a Commission </option>
+                            </select>
+                            <span asp-validation-for="CommissionId" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Service</label>
+                            <select asp-for="ServiceId" asp-items="Model.Services" class="form-control" data-style="select-with-transition" title="Choose a Service" data-size="7">
+                                <option disabled selected> Choose a Service</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Denomination <span class="validation-error">*</span></label>
+                            <select asp-for="DenominationId" disabled class="form-control" data-style="select-with-transition" title="Choose a Denommination" data-size="7">
+                                <option disabled selected> Choose a Denomination </option>
+                            </select>
+                            <span asp-validation-for="DenominationId" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $('#ServiceId').on("change", function () {
+            var servId = $(this).val();
+            $('#ServiceId').attr("disabled", false)
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetDenomoinationsByServiceId")",
+                data: { serviceId: servId},
+                dataType: "text",
+                success: function (msg) {
+                    $('#DenominationId').prop('disabled', true);
+                    $('#DenominationId').html('');
+                    $.each(JSON.parse(msg), function (i, state) {
+                        $('#DenominationId').append('<option value="' + state.id + '">' +
+                            state.name + '</option>');
+                    });
+                    $('#DenominationId').prop('disabled', false);
+                },
+                error: function (req, status, error) {
+                }
+            });
+        });
+    </script>
+}

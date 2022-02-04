@@ -40,7 +40,8 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="value">value.</param>
         /// <param name="status">status.</param>
         /// <param name="createdBy">createdBy.</param>
-        public AddChannelModel(string name = default(string), int? channelTypeID = default(int?), int? channelOwnerID = default(int?), string serial = default(string), int? paymentMethodID = default(int?), string value = default(string), bool? status = default(bool?), int? createdBy = default(int?))
+        /// <param name="accountId">accountId.</param>
+        public AddChannelModel(string name = default(string), int? channelTypeID = default(int?), int? channelOwnerID = default(int?), string serial = default(string), int? paymentMethodID = default(int?), string value = default(string), bool? status = default(bool?), int? createdBy = default(int?), int? accountId = default(int?))
         {
             this.Name = name;
             this.ChannelTypeID = channelTypeID;
@@ -50,6 +51,7 @@ namespace AdminDashboard.Models.SwaggerModels
             this.Value = value;
             this.Status = status;
             this.CreatedBy = createdBy;
+            this.AccountId = accountId;
         }
         
         /// <summary>
@@ -101,6 +103,12 @@ namespace AdminDashboard.Models.SwaggerModels
         public int? CreatedBy { get; set; }
 
         /// <summary>
+        /// Gets or Sets AccountId
+        /// </summary>
+        [DataMember(Name="accountId", EmitDefaultValue=false)]
+        public int? AccountId { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -116,6 +124,7 @@ namespace AdminDashboard.Models.SwaggerModels
             sb.Append("  Value: ").Append(Value).Append("\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
             sb.Append("  CreatedBy: ").Append(CreatedBy).Append("\n");
+            sb.Append("  AccountId: ").Append(AccountId).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -189,6 +198,11 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.CreatedBy == input.CreatedBy ||
                     (this.CreatedBy != null &&
                     this.CreatedBy.Equals(input.CreatedBy))
+                ) && 
+                (
+                    this.AccountId == input.AccountId ||
+                    (this.AccountId != null &&
+                    this.AccountId.Equals(input.AccountId))
                 );
         }
 
@@ -217,6 +231,8 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.Status.GetHashCode();
                 if (this.CreatedBy != null)
                     hashCode = hashCode * 59 + this.CreatedBy.GetHashCode();
+                if (this.AccountId != null)
+                    hashCode = hashCode * 59 + this.AccountId.GetHashCode();
                 return hashCode;
             }
         }

@@ -1,0 +1,80 @@
+﻿@model PagedResult<DenominationViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Service Name: @ViewBag.FullTitle</h2>
+                    <a asp-action="Create" asp-route-serviceId="@ViewBag.serviceId" asp-route-serviceTypeId="@ViewBag.serviceTypeId" class="pull-right btn btn-outline-primary">Add</a>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>No.</th>
+                                <th>Name</th>
+                                <th>Value</th>
+                                <th>Inquirable</th>
+                                <th>ClassType</th>
+                                <th>PaymentMode</th>
+                                <th>Bill PaymentMode</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var deno in Model.Results)
+                            {
+                                <tr>
+                                    <td>@deno.Id</td>
+                                    <td>@deno.Name</td>
+                                    <td>@deno.Value</td>
+                                    <td>@deno.Inquirable</td>
+                                    <td>@deno.ClassType</td>
+                                    <td>@deno.PaymentModeName</td>
+                                    <td>@deno.BillPaymentModeName</td>
+                                    <td>
+                                        <a asp-action="Index" asp-controller="DenominationFees" asp-route-denominationId="@deno.Id" class="btn btn-info">Fees</a>
+                                        <a asp-action="Index" asp-controller="DenominationCommission" asp-route-denominationId="@deno.Id" class="btn btn-info">Commissions</a>
+                                        <a asp-action="Edit" asp-route-id="@deno.Id" class="btn btn-info">Edit</a>
+                                        <a asp-action="ChangeStatus" asp-route-id="@deno.Id" asp-route-serviceId="@ViewBag.serviceId" asp-route-serviceTypeId="@ViewBag.serviceTypeId"
+                                           asp-route-title="@ViewBag.FullTitle"class="btn @(deno.Status ? "btn-danger" : "btn-success")">
+                                            @(deno.Status ? "Deactive" : "Active")
+                                        </a>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer d-flex justify-content-center">
+                    <pager link-url="/SuperAdmin/Denominations/Index"
+                           page="Model.CurrentPage"
+                           page-size="Model.PageSize"
+                           total-items="Model.PageCount">
+                    </pager>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+        @*$(function () {
+            var msg = '@TempData["result"]';
+            if (msg != "") {
+                swal({
+                    title: "Good job!",
+                    text: "You Saved the User Successfully!",
+                    icon: "success",
+                    button: "Ok",
+                });
+            }
+         });*@
+
+    </script>
+}
+

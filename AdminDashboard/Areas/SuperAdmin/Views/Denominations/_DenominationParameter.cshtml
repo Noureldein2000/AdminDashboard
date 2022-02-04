@@ -1,0 +1,77 @@
+﻿@model DenominationParameterViewModel
+@using AdminDashboard.Models.SwaggerModels
+@using AdminDashboard.Helper
+
+<div class="card-body">
+    <div class="form-group">
+        <input id="denomintionParamterId" type="hidden" class="form-control" />
+        <input asp-for="DenominationID" type="hidden" class="form-control" />
+    </div>
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label class="control-label">Sequence <span class="validation-error">*</span></label>
+            <input asp-for="Sequence" type="text" onkeypress="return isNumberKey(event)" class="form-control enableBtndenomnationParamter" required/>
+            <span asp-validation-for="Sequence" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="control-label">Value</label>
+            <input asp-for="Value" onkeypress="return isNumberKey(event)" type="text" class="form-control" />
+            <span asp-validation-for="Value" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="card mb-1">
+        <div class="card-body">
+            <div class="form-group row">
+                <div class="col-md-5">
+                    <label class="control-label">Key</label>
+                    <input type="text" class="form-control enableAddValueList" id="txtKeyValueList" />
+                </div>
+                <div class="col-md-5">
+                    <label class="control-label">Value</label>
+                    <input type="text" class="form-control enableAddValueList" id="txtvalueValueList" />
+                </div>
+                <div class="col-md-2" style="margin-top: 30px;">
+                    <input type="button" id="addValueToList" value="Add" class="btn btn-info float-right" onclick="AddSerilaizeJsonValueList()" disabled />
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-md-10">
+                    <label class="control-label">Value List</label>
+                    <textarea id="txtValueList" asp-for="ValueList" rows="2" cols="40" class="form-control" readonly></textarea>
+                    <span asp-validation-for="ValueList" class="text-danger"></span>
+                </div>
+                <div class="col-md-2" style="margin-top: 30px;">
+                    <input type="button" id="clearValueToList" value="Clear" class="btn btn-danger float-right" onclick="ClearValueList()" disabled />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-6">
+            <label class="control-label">Validation Expression</label>
+            <input asp-for="ValidationExpression" class="form-control" />
+            <span asp-validation-for="ValidationExpression" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="control-label">Validation Message</label>
+            <input asp-for="ValidationMessage" type="text" class="form-control" />
+            <span asp-validation-for="ValidationMessage" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group row">
+        <div class="col-md-10">
+            <label class="control-label">Denomination Param <span class="validation-error">*</span></label>
+            <select asp-for="DenominationParamID" asp-items="@ViewBag.DenominationParamters" class="form-control" data-style="select-with-transition" title="Choose an Param" data-size="7" required>
+                <option disabled selected> Choose Param</option>
+            </select>
+            <span asp-validation-for="DenominationParamID" class="text-danger"></span>
+        </div>
+        <div class="col-md-2">
+            <input type="button" value="Create" data-toggle="modal" data-target="#modelParameter" data-dismiss="modal" class="btn btn-info float-right" style="margin-top: 30px;">
+        </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label">Is Optional?</label>
+        <input asp-for="Optional" type="checkbox" />
+    </div>
+</div>

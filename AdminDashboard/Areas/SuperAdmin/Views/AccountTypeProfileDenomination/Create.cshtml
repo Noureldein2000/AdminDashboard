@@ -1,0 +1,74 @@
+﻿@model CreateAccountTypeProfileDenominationViewModel
+@using AdminDashboard.Models.SwaggerModels;
+@{
+    ViewData["Title"] = "CreateAccountFee";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <form asp-action="Create" method="post">
+                    @Html.AntiForgeryToken()
+                    <div class="card-header">
+                        <h2>Create AccountType Profile Denomination</h2>
+                    </div>
+                    <div class="card-body">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+                        <input type="hidden" asp-for="Id" />
+                        <div class="form-group">
+                            <label class="control-label">AccoutType Profile <span class="validation-error">*</span></label>
+                            <select asp-for="AccountTypeProfileID" asp-items="Model.AcountTypeProfiles" class="form-control" data-style="select-with-transition" title="Choose a Accout Type Profile " data-size="7">
+                                <option disabled selected> Choose a Accout Type Profile </option>
+                            </select>
+                            <span asp-validation-for="AccountTypeProfileID" class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Service</label>
+                            <select id="ServiceId"  asp-items="Model.Services" class="form-control" data-style="select-with-transition" title="Choose a Service" data-size="7">
+                                <option disabled selected> Choose a Service</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Denomination <span class="validation-error">*</span></label>
+                            <select asp-for="DenominationID" disabled class="form-control" data-style="select-with-transition" title="Choose a Denommination" data-size="7">
+                                <option disabled selected> Choose a Denomination </option>
+                            </select>
+                            <span asp-validation-for="DenominationID" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" value="Save" class="btn btn-success" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        $('#ServiceId').on("change", function () {
+            
+            var servId = $(this).val();
+            $('#ServiceId').attr("disabled", false)
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetDenomoinationsByServiceId")",
+                data: { serviceId: servId},
+                dataType: "text",
+                success: function (msg) {
+                    $('#DenominationID').prop('disabled', true);
+                    $('#DenominationID').html('');
+                    $.each(JSON.parse(msg), function (i, state) {
+                        $('#DenominationID').append('<option value="' + state.id + '">' +
+                            state.name + '</option>');
+                    });
+                    $('#DenominationID').prop('disabled', false);
+                },
+                error: function (req, status, error) {
+                }
+            });
+        });
+    </script>
+}

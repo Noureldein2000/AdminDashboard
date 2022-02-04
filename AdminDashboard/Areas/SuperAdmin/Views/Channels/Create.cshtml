@@ -1,0 +1,207 @@
+﻿@model CreateChannelViewModel
+@using Newtonsoft.Json
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Create Channel</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Assign Account</a>
+                </li>
+            </ul>
+
+            <form asp-action="Create" method="post" id="frmChannel">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="card-body">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <label class="control-label">Channel Name <span class="validation-error">*</span></label>
+                                <input asp-for="Name" id="channelName" class="form-control" />
+                                <span asp-validation-for="Name"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Serial <span class="validation-error">*</span></label>
+                                <input asp-for="Serial" id="serial" class="form-control" />
+                                <span asp-validation-for="Serial"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Value</label>
+                                <input asp-for="Value" id="channelValue" class="form-control" />
+                                <span asp-validation-for="Value"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Channel Types <span class="validation-error">*</span></label>
+                                <select asp-for="ChannelTypeID" asp-items="Model.ChannelTypes" id="drpChannelType" class="form-control" data-style="select-with-transition" title="Choose a Channel Type" data-size="7">
+                                    <option disabled> Choose</option>
+                                </select>
+                                <span asp-validation-for="ChannelTypeID"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Channel Owner <span class="validation-error">*</span></label>
+                                <select asp-for="ChannelOwnerID" asp-items="Model.ChannelOwners" id="drpChannelOwner" class="form-control" data-style="select-with-transition" title="Choose a Channel Owner" data-size="7">
+                                    <option disabled> Choose</option>
+                                </select>
+                                <span asp-validation-for="ChannelOwnerID"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Payment Method <span class="validation-error">*</span></label>
+                                <select asp-for="PaymentMethodID" asp-items="Model.PaymentMethods" id="drpPaymentMethod" class="form-control" data-style="select-with-transition" title="Choose a Method" data-size="7">
+                                    <option disabled> Choose</option>
+                                </select>
+                                <span asp-validation-for="PaymentMethodID"></span>
+                            </div>
+                        </div>
+                        <div class="mb-2">
+                            <a class="btn btn-success btnNext float-right">Next</a>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="card-body">
+                            <div class="form-group row">
+                                <div class="col-md-10">
+                                    <input id="SearchKey" class="form-control" onkeyup="toggleButton(this,'btnSearch')" placeholder="Search by Id" />
+                                    <span class="text-danger"></span>
+                                </div>
+                                <div class="col-md-2">
+                                    <input id="btnSearch" type="button" value="Search" class="btn btn-secondary" disabled />
+                                </div>
+                            </div>
+                            <table class="table table-striped" id="tblAccount">
+                                <thead>
+                                    <tr>
+                                        <th>Account Name</th>
+                                        <th>Mobile</th>
+                                        <th>NationalID</th>
+                                        <th>Activity</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="submit" value="Save" class="btn btn-success btnSubmit float-right" />
+                            <a onclick="" class="btn btn-danger btnPrevious float-right mr-1">Previous</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            $('.btnNext').click(function () {
+                $('.nav-tabs .active').parent().next('li').find('a').trigger('click');
+            });
+
+            $('.btnPrevious').click(function () {
+                $('.nav-tabs .active').parent().prev('li').find('a').trigger('click');
+            });
+
+            $('#btnSearch').on("click", function () {
+                var searchKey = $("#SearchKey").val();
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetAccountById", "Accounts")",
+                data: { accountId: searchKey },
+                dataType: "json",
+                contentType: "application/json;charset=UTF-8",
+                success: function (data) {
+                    var x = $('#tblAccount tbody').empty();
+                    $('#tblAccount').append('<tr><td>' + data.accountName + '</td><td>' + data.mobile + '</td><td>' + data.nationalID + '</td><td>' + data.activityName + '</td><td> <a onclick="CreateChannel(' + data.id + ')" class="btn btn-info">Assign</a></td></tr>');
+                },
+                error: function (req, status, error) {
+
+                }
+            });
+          });
+        });
+
+        function toggleButton(ref, bttnID) {
+            document.getElementById(bttnID).disabled = ((ref.value !== ref.defaultValue) ? false : true);
+        }
+
+        function CreateChannel(id) {
+            //Second Solution PLan B
+
+            var AccountId =id;
+            var Name = $("#channelName").val();
+            var Serial = $("#serial").val();
+            var Value = $("#channelValue").val();
+            var ChannelTypeID = $("#drpChannelType").val();
+            var ChannelOwnerID = $("#drpChannelOwner").val();
+            var PaymentMethodID = $("#drpPaymentMethod").val();
+             $.ajax({
+                 url: '@Url.Action("Create", "Channels")',
+                 type: 'post',
+                 data: {
+                     AccountId: id,
+                     Name: Name,
+                     Serial: Serial,
+                     Value: Value,
+                     ChannelTypeID: ChannelTypeID,
+                     ChannelOwnerID: ChannelOwnerID,
+                     PaymentMethodID: PaymentMethodID
+                 },
+/*                 dataType: "text",*/
+/*                 contentType: "application/json;",*/
+/*                 async: false,*/
+                 /* traduitional: true,*/
+                success: function (data) {
+                    swal({
+                        title: "Good job!",
+                        text: "You Saved the Channel Successfully!",
+                        icon: "success",
+                        button: "Ok",
+                    });
+                   window.location.href='@Url.Action("Index", "Channels")';
+                },
+                error: function (req, status, error) {
+                }
+            });
+
+
+            //First Solution PLan A
+
+            @*var formData = new FormData();
+            formData.append("Name", $("#channelName").val());
+            formData.append("Serial", $("#serial").val());
+            formData.append("AccountId", id);
+            formData.append("Value", $("#channelValue").val());
+            formData.append("ChannelTypeID", $("#drpChannelType").val());
+            formData.append("ChannelOwnerID", $("#drpChannelOwner").val());
+            formData.append("PaymentMethodID", $("#drpPaymentMethod").val());
+
+            console.log(formData);
+
+                $.ajax({
+                url: '@Url.Action("Create", "Channels")',
+                type: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                    console.log('call successfully');
+                },
+                error: function (req, status, error) {
+                    console.log('call Failure');
+                    
+                }
+            });*@
+        }
+
+    </script>
+}

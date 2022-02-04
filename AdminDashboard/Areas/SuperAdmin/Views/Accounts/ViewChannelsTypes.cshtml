@@ -1,0 +1,52 @@
+﻿@model IEnumerable<AccountChannelTypeViewModel>
+@{
+    ViewData["Title"] = "Index";
+
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Account Channel Type</h2>
+                    @{var accountId = Context.Request.Path.ToString().Split("/").Last(); }
+                    <a id="url_accountId" asp-action="CreateAccountChannelType" asp-route-id="@accountId" class="pull-right btn btn-outline-primary">Create</a>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Channel Type</th>
+                                <th>Expiration Period</th>
+                                <th>Has Limited Access</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var ACT in Model)
+                            {
+                                <tr>
+                                    <td>@ACT.ChannelTypeName</td>
+                                    <td>@ACT.ExpirationPeriod</td>
+                                    <td>@ACT.HasLimitedAccess</td>
+                                    <td>
+                                        <a asp-action="EditAccountChannelType" asp-route-id="@ACT.Id" class="btn btn-info">Edit</a>
+                                        @*<a asp-action="DeleteAccountChannelType" asp-route-id="@ACT.Id" class="btn btn-danger">Delete</a>*@
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+
+    <script type="text/javascript">
+
+    </script>
+}

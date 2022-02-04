@@ -1,0 +1,85 @@
+﻿@model PagedResult<AccountChannelsHistoryViewModel>
+@{
+    ViewData["Title"] = "Account Channels History";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2>Account Channels History</h2>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <form asp-controller="Accounts" asp-action="AccountChannelsHistory" method="post">
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-md-10">
+                                            <input id="SearchKey" asp-for="@Model.SearchKey" class="form-control" placeholder="Search by account id" />
+                                            <span asp-validation-for="@Model.SearchKey" class="text-danger"></span>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <input id="btnSearch" type="submit" value="Search" class="btn btn-secondary" disabled />
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <table id="table-channels" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>Account Name</th>
+                                <th>Channel Name</th>
+                                <th>Value</th>
+                                <th>Status</th>
+                                <th>Created By</th>
+                                <th>Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var channel in Model.Results)
+                            {
+                            <tr>
+                                <td>@channel.AccountName</td>
+                                <td>@channel.ChannelName</td>
+                                <td>@channel.ChannelValue</td>
+                                <td>@channel.Status</td>
+                                <td>@channel.CreatedBy</td>
+                                <td>@channel.Reason</td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer d-flex justify-content-center">
+                    <pager link-url="/SuperAdmin/Accounts/SearchAccounts"
+                           page="Model.CurrentPage"
+                           page-size="Model.PageSize"
+                           total-items="Model.PageCount">
+                    </pager>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script>
+        $("#SearchKey").keyup(function () {
+            //Reference the Button.
+            var btnSubmit = $("#btnSearch");
+
+            //Verify the TextBox value.
+            if ($(this).val().trim() != "") {
+                //Enable the TextBox when TextBox has value.
+                btnSubmit.removeAttr("disabled");
+            } else {
+                //Disable the TextBox when TextBox is empty.
+                btnSubmit.attr("disabled", "disabled");
+            }
+        });
+    </script>
+
+}

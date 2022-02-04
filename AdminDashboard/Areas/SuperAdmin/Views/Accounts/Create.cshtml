@@ -1,154 +1,460 @@
 ﻿@model CreateAccountViewModel
+@using AdminDashboard.Models.SwaggerModels;
 @{
     ViewData["Title"] = "Create";
 }
-
-
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-            <div class="card">
-                <form asp-action="Create" method="post">
-                    <div class="card-header">
-                        <h2>Create Account</h2>
-                    </div>
-                    <div class="card-body">
-                        <div class="form-group">
-                            <label class="control-label">Owner Name</label>
-                            <input asp-for="OwnerName" class="form-control" />
-                            <span asp-validation-for="OwnerName"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Account Name</label>
-                            <input asp-for="AccountName" class="form-control" />
-                            <span asp-validation-for="AccountName"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Mobile</label>
-                            <input asp-for="Mobile" class="form-control" />
-                            <span asp-validation-for="Mobile"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Address</label>
-                            <input asp-for="Address" class="form-control" />
-                            <span asp-validation-for="Address"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Email</label>
-                            <input asp-for="Email" class="form-control" />
-                            <span asp-validation-for="Email"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">National ID</label>
-                            <input asp-for="NationalID" class="form-control" />
-                            <span asp-validation-for="NationalID"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Commercial Registration No</label>
-                            <input asp-for="CommercialRegistrationNo" class="form-control" />
-                            <span asp-validation-for="CommercialRegistrationNo"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Tax No</label>
-                            <input asp-for="TaxNo" class="form-control" />
-                            <span asp-validation-for="TaxNo"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Governerate</label>
-                            <select asp-for="GovernerateId" asp-items="Model.Governerates" class="form-control" data-style="select-with-transition" title="Choose a governerate" data-size="7">
-                                <option disabled> Choose</option>
-                            </select>
-                            <span asp-validation-for="GovernerateId"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Cites</label>
-                            <select disabled asp-for="CityId" class="form-control" data-style="select-with-transition" title="Choose a governerate" data-size="7">
-                                <option disabled> Choose</option>
-                            </select>
-                            <span asp-validation-for="CityId"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Activity</label>
-                            <select asp-for="ActivityId" asp-items="Model.Activities" class="form-control" data-style="select-with-transition" title="Choose an actitviy" data-size="7">
-                                <option disabled> Choose</option>
-                            </select>
-                            <span asp-validation-for="ActivityId"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Entity</label>
-                            <select asp-for="EntityId" asp-items="Model.Entities" class="form-control" data-style="select-with-transition" title="Choose an entity" data-size="7">
-                                <option disabled> Choose</option>
-                            </select>
-                            <span asp-validation-for="EntityId"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Account Type Profile</label>
-                            <select asp-for="AccountTypeProfileId" asp-items="Model.AccountTypeProfiles" class="form-control" data-style="select-with-transition" title="Choose an account type profile" data-size="7">
-                                <option disabled> Choose</option>
-                            </select>
-                            <span asp-validation-for="AccountTypeProfileId"></span>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label">Account Related to (Parent Id) </label>
-                            <select asp-for="ParentAccountId" class="form-control" data-style="select-with-transition" title="Choose a parent" data-size="7">
-                                <option disabled> Choose</option>
-                            </select>
-                            <span asp-validation-for="ParentAccountId"></span>
-                        </div>
-                    </div>
-                    <div class="card-footer">
-                        <input type="submit" value="Save" class="btn btn-success" />
-                    </div>
-                </form>
-            </div>
 
+            <ul class="nav nav-tabs progressbar" id="myTab" role="tablist">
+                <li class="nav-item active disabled">
+                    <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Create Account</a>
+                    @*Create Account*@
+                </li>
+                <li class="nav-item disabled">
+                    <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Account Info</a>
+                    @*Account Info*@
+                </li>
+                <li class="nav-item disabled">
+                    <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Account Admin User</a>
+                    @*Account Admin User*@
+                </li>
+                <li class="nav-item disabled">
+                    <a class="nav-link" id="second-user-tab" data-toggle="tab" href="#second-user" role="tab" aria-controls="second-user" aria-selected="false">Second User</a>
+                    @*Second User*@
+                </li>
+            </ul>
+
+            <form asp-action="Create" method="post" id="frmAccount">
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        @Html.AntiForgeryToken()
+                        <div class="card-body">
+                            <div asp-validation-summary="All" class="text-danger"></div>
+                            <div class="form-group">
+                                <label class="control-label">Owner Name </label>
+                                <input asp-for="OwnerName" class="form-control" />
+                                <span asp-validation-for="OwnerName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Account Name <span class="validation-error">*</span></label>
+                                <input asp-for="AccountName" class="form-control" />
+                                <span asp-validation-for="AccountName" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Mobile <span class="validation-error">*</span></label>
+                                <input asp-for="Mobile" class="form-control" />
+                                <span asp-validation-for="Mobile" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Address</label>
+                                <input asp-for="Address" class="form-control" />
+                                <span asp-validation-for="Address" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Email</label>
+                                <input asp-for="Email" class="form-control" />
+                                <span asp-validation-for="Email" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">National ID</label>
+                                <input asp-for="NationalID" class="form-control" />
+                                <span asp-validation-for="NationalID" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Commercial Registration No</label>
+                                <input asp-for="CommercialRegistrationNo" class="form-control" />
+                                <span asp-validation-for="CommercialRegistrationNo" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Tax No</label>
+                                <input asp-for="TaxNo" class="form-control" />
+                                <span asp-validation-for="TaxNo" class="text-danger"></span>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <a class="btn btn-success btnNext float-right">Next</a>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="control-label">Governerate <span class="validation-error">*</span></label>
+                                <select asp-for="GovernerateID" asp-items="Model.Governerates" class="form-control" data-style="select-with-transition" title="Choose a governerate" data-size="7">
+                                    <option disabled> Choose</option>
+                                </select>
+                                <span asp-validation-for="GovernerateID" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Cites <span class="validation-error">*</span></label>
+                                <select disabled asp-for="RegionID" asp-items="Model.Regions" class="form-control" data-style="select-with-transition" title="Choose a governerate" data-size="7">
+                                    <option disabled> Choose</option>
+                                </select>
+                                <span asp-validation-for="RegionID" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Activity</label>
+                                <select asp-for="ActivityID" asp-items="Model.Activities" class="form-control" data-style="select-with-transition" title="Choose an actitviy" data-size="7">
+                                    <option disabled> Choose</option>
+                                </select>
+                                <span asp-validation-for="ActivityID" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Entity <span class="validation-error">*</span></label>
+                                <select asp-for="EntityID" asp-items="Model.Entities" class="form-control" data-style="select-with-transition" title="Choose an entity" data-size="7">
+                                    <option disabled> Choose</option>
+                                </select>
+                                <span asp-validation-for="EntityID" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">BalanceType <span class="validation-error">*</span></label>
+                                <select asp-for="BalanceTypeId" asp-items="Model.BalanceTypes" class="form-control" data-style="select-with-transition" title="Choose an entity" data-size="7">
+                                    <option disabled selected> Choose BalanceType</option>
+                                </select>
+                                <span asp-validation-for="BalanceTypeId" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Account Type <span class="validation-error">*</span></label>
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <select asp-for="AccountTypeID" asp-items="Model.AccountTypes" id="drpAccountType" class="form-control" data-style="select-with-transition" title="Choose an AccountType" data-size="7">
+                                            <option disabled selected>Choose an AccountType</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="button" value="show" class="btn btn-secondary" onclick="showAccountRelationMapping()" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">AccountType Profile</label>
+                                <select asp-for="AccountTypeProfileID" asp-items="Model.AccountTypeProfiles" id="drpAccountTypeProfile" class="form-control" data-style="select-with-transition" title="Choose an account type profile" data-size="7">
+                                    <option disabled selected> Choose Profile</option>
+                                </select>
+                                <span asp-validation-for="AccountTypeProfileID" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label d-block">Account Related to (Parent Id) <span class="validation-error">*</span></label>
+
+                                <div class="row">
+                                    <div class="col-md-10">
+                                        <input type="text" asp-for="ParentAccountID" class="form-control" />
+                                    </div>
+                                    <div class="col-md-2">
+                                        <input type="button" class="btn btn-success" id="btnSearch" value="search" disabled />
+                                    </div>
+                                </div>
+                                <span asp-validation-for="ParentAccountID" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label" id="parent-account-id">Parent Account Name</label>
+                                <label class="control-label" id="selected-parent-id"></label>
+                            </div>
+                        </div>
+                        <div class="mt-2">
+                            <input type="button" id="next-account-info" class="btn btn-success btnNext float-right" disabled value="Next" />
+                            <a class="btn btn-danger btnPrevious float-right mr-1">Previous</a>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="control-label">User Name <span class="validation-error">*</span></label>
+                                <input asp-for="Username" class="form-control" />
+                                <span asp-validation-for="Username" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">User Email</label>
+                                <input asp-for="UserEmail" class="form-control" />
+                                <span asp-validation-for="UserEmail" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Mobile</label>
+                                <input asp-for="MobileAccountOwner" class="form-control" />
+                                <span asp-validation-for="MobileAccountOwner" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">User Role</label>
+                                <select disabled class="form-control" data-style="select-with-transition" title="Choose a Role" data-size="7">
+                                    <option selected value="6">Account Admin</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <a class="btn btn-success btnNext float-right">Next</a>
+                            <a class="btn btn-danger btnPrevious float-right mr-1">Previous</a>
+                        </div>
+                    </div>
+                    <div class="tab-pane fade" id="second-user" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label class="control-label">User Name</label>
+                                <input asp-for="ConsumerUser.Username" class="form-control" />
+                                <span asp-validation-for="ConsumerUser.Username" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">User Email</label>
+                                <input asp-for="ConsumerUser.UserEmail" class="form-control" />
+                                <span asp-validation-for="ConsumerUser.UserEmail" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">Mobile</label>
+                                <input asp-for="ConsumerUser.Mobile" class="form-control" />
+                                <span asp-validation-for="ConsumerUser.Mobile" class="text-danger"></span>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label">User Role</label>
+                                <select disabled class="form-control" data-style="select-with-transition" title="Choose a Role" data-size="7">
+                                    <option selected value="5">Consumer</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="submit" value="Save" class="btn btn-success btnSubmit float-right" />
+                            <a class="btn btn-danger btnPrevious float-right mr-1">Previous</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
+    </div>
+</div>
+<div id="myChangeModal" class="modal fade" role="dialog" dir="rtl">
+    <div class="modal-dialog modal-md">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <div>
+                    <div>
+                        <h4 id="titleAccountTypeMsg"></h4>
+                    </div>
+                    <div class="float-right">
+                        <p>يجب اختيار نوع الحساب المسئول عنه  من أنواع الاتية</p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <ul id="ul-list">
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
     </div>
 </div>
 
 @section Scripts{
+
     <script>
-        $('#GovernerateId').on("change", function () {
+
+        $(document).ready(function () {
+            //$("#ParentAccountID").select2({
+            //    placeholder: 'Select an option',
+            //    width:1040
+            //});
+
+            $('.btnNext').click(function () {
+                $('.nav-tabs .active').parent().next('li').find('a').trigger('click');
+                $('#myTab li:not(.active):first').addClass('active');
+            });
+
+            $('.btnPrevious').click(function () {
+                $('.nav-tabs .active').parent().prev('li').find('a').trigger('click');
+                $('#myTab li.active:last').removeClass('active');
+            });
+
+            $('#parent-account-id').hide()
+        });
+
+        $('#GovernerateID').on("change", function () {
             var goveId = $(this).val();
-            $('#CityId').attr("disabled", false)
+            $('#RegionID').attr("disabled", false)
             $.ajax({
                 type: "GET",
                 url: "@Url.Action("GetCities")",
                 data: { id: goveId},
                 dataType: "text",
                 success: function (msg) {
-                    $('#CityId').prop('disabled', true);
-                    $('#CityId').html('');
+                    $('#RegionID').prop('disabled', true);
+                    $('#RegionID').html('');
                     $.each(JSON.parse(msg), function (i, state) {
-                        $('#CityId').append('<option value="' + state.id + '">' +
+                        $('#RegionID').append('<option value="' + state.id + '">' +
                             state.name + '</option>');
                     });
-                    $('#CityId').prop('disabled', false);
+                    $('#RegionID').prop('disabled', false);
                 },
                 error: function (req, status, error) {
-                    console.log(msg);
+                    //console.log(msg);
                 }
             });
         });
-        $('#AccountTypeProfileId').on("change", function () {
+
+        $('#drpAccountType').on("change", function () {
             var Id = $(this).val();
-            $('#ParentAccountId').attr("disabled", false)
+            $('#drpAccountTypeProfile').attr("disabled", false)
+            //$('#ParentAccountID').empty();
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetAccountProfilelByAcocuntTypeId")",
+                data: { id: Id},
+                dataType: "text",
+                success: function (msg) {
+
+                    $('#drpAccountTypeProfile').prop('disabled', true);
+                    $('#drpAccountTypeProfile').html('');
+                    $.each(JSON.parse(msg), function (i, state) {
+
+                        $('#drpAccountTypeProfile').append('<option value="' + state.id + '">' +
+                            state.profile + '</option>');
+                    });
+                    $('#drpAccountTypeProfile').prop('disabled', false);
+                },
+                error: function (req, status, error) {
+                }
+            });
+
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetAccountMappingValidation")",
+                data: { id: Id},
+                dataType: "text",
+                success: function (msg) {
+                    debugger;
+                    var accountTypeName = $("#drpAccountType :selected").text();
+                    $("#titleAccountTypeMsg").empty();
+                    $("#titleAccountTypeMsg").append('لقد اخترت نوع الحساب (' + accountTypeName+')');
+                   $("#myChangeModal").modal('show');
+                   $('#ul-list').html('');
+                    $.each(JSON.parse(msg), function (i, data) {
+                        $('#ul-list').append(`<li>${data}</li>`);
+                    });
+                },
+                error: function (req, status, error) {
+                }
+            });
+        });
+        function showAccountRelationMapping() {
+            $("#myChangeModal").modal('show');
+        }
+
+        @*$('#drpAccountTypeProfile').on("change", function () {
+            var Id = $(this).val();
+            $('#ParentAccountID').attr("disabled", false)
             $.ajax({
                 type: "GET",
                 url: "@Url.Action("GetAccountTypesByParentId")",
                 data: { id: Id},
                 dataType: "text",
                 success: function (msg) {
-                    $('#ParentAccountId').prop('disabled', true);
-                    $('#ParentAccountId').html('');
+
+                    $('#ParentAccountID').prop('disabled', true);
+                    $('#ParentAccountID').html('');
                     $.each(JSON.parse(msg), function (i, state) {
-                        $('#ParentAccountId').append('<option value="' + state.id + '">' +
-                            state.name + '</option>');
+
+                        $('#ParentAccountID').append('<option value="' + state.id + '">' +
+                            state.accountName + '</option>');
                     });
-                    $('#ParentAccountId').prop('disabled', false);
+                    $('#ParentAccountID').prop('disabled', false);
                 },
                 error: function (req, status, error) {
                     console.log(msg);
+                }
+            });
+        });*@
+
+        function toggleButton(ref, bttnID) {
+                document.getElementById(bttnID).disabled = ((ref.value !== ref.defaultValue) ? false : true);
+        }
+
+        function showSweetAlert() {
+            swal({
+                title: "Are you sure?",
+                text: "Once Saved, you will be Redirect to another page!",
+                icon: "info",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                    if (willDelete) {
+                        swal("Save Succcefully", {
+                            icon: "success",
+                        });
+                        jQuery("#frmAccount").submit();
+                    } else {
+                        swal("Your imaginary file is safe!");
+                    }
+                });
+        }
+
+        $("#ParentAccountID").keyup(function () {
+            var btnSubmit = $("#btnSearch");
+
+            if ($(this).val().trim() != "") {
+                btnSubmit.removeAttr("disabled");
+            } else {
+                btnSubmit.attr("disabled", "disabled");
+
+            }
+            $('#next-account-info').attr("disabled", "disabled");
+        });
+
+        $('#btnSearch').click(function () {
+            var accountID = $('#ParentAccountID').val();
+            var Id = $('#drpAccountTypeProfile').val();
+             $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetAccountTypesByParentId")",
+                 data: { id: Id, accountId: accountID },
+                dataType: "text",
+                success: function (msg) {
+                    if (msg == 'null') {
+                        swal({
+                            title: "خطأ",
+                            text: "لا توجد بيانات",
+                            icon: "warning",
+                            dangerMode: true,
+                        });
+                        $('#parent-account-id').hide()
+                        $('#selected-parent-id').hide()
+                    }
+                    else {
+                        var json = JSON.parse(msg);
+                        swal({
+                            title: "اسم المركز",
+                            text: json.accountName,
+                            icon: "success",
+                        });
+                        $('#selected-parent-id').text(json.accountName);
+                        $('#next-account-info').removeAttr("disabled");
+                        $('#parent-account-id').show()
+                        $('#selected-parent-id').show()
+                    }
+                    //$('#drpAccountTypeProfile').prop('disabled', true);
+                    //$('#drpAccountTypeProfile').html('');
+                    //$.each(JSON.parse(msg), function (i, state) {
+
+                    //    $('#drpAccountTypeProfile').append('<option value="' + state.id + '">' +
+                    //        state.profile + '</option>');
+                    //});
+                    //$('#drpAccountTypeProfile').prop('disabled', false);
+                },
+                error: function (req, status, error) {
                 }
             });
         });
