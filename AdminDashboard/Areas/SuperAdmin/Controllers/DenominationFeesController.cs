@@ -31,6 +31,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         public async Task<IActionResult> Index(int denominationId)
         {
             var data = await _apiDenominationFees.ApiDenominationFeesGetdenominationFeesByDenominationIdDenominationIdGetAsync(denominationId);
+            ViewBag.denominationId = denominationId;
             return View(data.Select(x => Map(x)));
         }
 
@@ -56,24 +57,33 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(CreateDenominationFeesViewModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                var fees = _apiFees.ApiFeesGetFeesGet(1, 100).Results.Select(a => new SelectListItem
+                if (!ModelState.IsValid)
                 {
-                    Text = a.Value.ToString(),
-                    Value = a.Id.ToString()
-                }).ToList();
+                    var fees = _apiFees.ApiFeesGetFeesGet(1, 100).Results.Select(a => new SelectListItem
+                    {
+                        Text = a.Value.ToString(),
+                        Value = a.Id.ToString()
+                    }).ToList();
 
-                model.Fees = fees;
+                    model.Fees = fees;
 
+                    return View(model);
+                }
+
+                _apiDenominationFees.ApiDenominationFeesAddDenominationFeesPost(new AddDenominationFeesModel(
+                    denominationId: model.DenominationId,
+                    feesId: model.FeesId));
+
+                return RedirectToAction(nameof(Index), new { denominationId = model.DenominationId });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
                 return View(model);
             }
-
-            _apiDenominationFees.ApiDenominationFeesAddDenominationFeesPost(new AddDenominationFeesModel(
-                denominationId: model.DenominationId,
-                feesId: model.FeesId));
-
-            return RedirectToAction(nameof(Index), new { denominationId = model.DenominationId });
+           
         }
 
         [HttpGet]

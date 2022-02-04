@@ -9,7 +9,7 @@
             <div class="card">
                 <div class="card-header">
                     <h2> Fees</h2>
-                    <a asp-action="Create" asp-route-id="@Model.Select(x=>x.DenominationId).FirstOrDefault()" class="pull-right btn btn-outline-primary">Add</a>
+                    <a asp-action="Create" asp-route-id="@ViewBag.denominationId" class="pull-right btn btn-outline-primary">Add</a>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
@@ -83,10 +83,7 @@
                   },
                  dataType: "text",
                 success: function (msg) {
-
-                    console.log("successs Deleted Data");
-
-                    swal("Poof! Your record has been deleted!", {
+                    swal("Your record has been deleted!", {
                         icon: "success",
                     });
 
@@ -95,8 +92,7 @@
 
                 },
                  error: function (req, status, error) {
-                     console.log(error);
-                     swal("Ops! There is some error happened!", {
+                     swal("There is some error happened!", {
                          icon: "error",
                      });
                 }

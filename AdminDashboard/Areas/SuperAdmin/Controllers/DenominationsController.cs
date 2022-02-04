@@ -37,13 +37,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             _apiParameter = parameterApi;
         }
 
-        public async Task<IActionResult> Index(int? id, string title, int page = 1, int size = 10)
+        public IActionResult Index(int id, string title, int serviceTypeId, int page = 1, int size = 10)
         {
-            id ??= (int)TempData["serviceId"];
-
-            var data = await _apiDenomination.ApiDenominationGetDenominationsByServiceIdServiceIdGetAsync(id, page, size, "ar");
-
-            var FullTilte = title.Split('-');
+            var data =  _apiDenomination.ApiDenominationGetDenominationsByServiceIdServiceIdGet(id, page, size, "ar");
 
             var viewModel = new PagedResult<DenominationViewModel>
             {
@@ -53,9 +49,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 PageSize = size
             };
 
-            ViewBag.FullTitle = FullTilte[0].ToString();
-            TempData["serviceTypeId"] = int.Parse(FullTilte[1].Trim());
-            TempData["serviceId"] = id ?? data.Results.FirstOrDefault().ServiceID;
+            ViewBag.FullTitle = title;
+            ViewBag.serviceTypeId = serviceTypeId;
+            ViewBag.serviceId = id;
             return View(viewModel);
         }
 
@@ -218,10 +214,10 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         }
 
         [HttpGet]
-        public IActionResult ChangeStatus(int id, int serviceId)
+        public IActionResult ChangeStatus(int id, int serviceId, string title, int serviceTypeId)
         {
             _apiDenomination.ApiDenominationChangeStatusPut(id);
-            return RedirectToAction(nameof(Index), new { id = serviceId });
+            return RedirectToAction(nameof(Index), new { id = serviceId, serviceTypeId, title });
         }
         [HttpGet]
         public JsonResult ChangeStatusDenominationServiceProvider(int id, int denominationId)

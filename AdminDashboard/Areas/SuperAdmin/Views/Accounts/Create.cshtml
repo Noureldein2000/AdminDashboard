@@ -327,7 +327,6 @@
                     $('#drpAccountTypeProfile').prop('disabled', false);
                 },
                 error: function (req, status, error) {
-                    console.log(msg);
                 }
             });
 
@@ -348,7 +347,6 @@
                     });
                 },
                 error: function (req, status, error) {
-                    console.log(msg);
                 }
             });
         });
@@ -425,8 +423,6 @@
                  data: { id: Id, accountId: accountID },
                 dataType: "text",
                 success: function (msg) {
-                    //$('#ParentAccountID').attr("disabled", false)
-                    console.log(msg);
                     if (msg == 'null') {
                         swal({
                             title: "خطأ",
@@ -459,7 +455,6 @@
                     //$('#drpAccountTypeProfile').prop('disabled', false);
                 },
                 error: function (req, status, error) {
-                    console.log(msg);
                 }
             });
         });

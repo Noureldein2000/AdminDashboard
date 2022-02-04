@@ -29,6 +29,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         public async Task<IActionResult> Index(int denominationId)
         {
             var data = await _apiDenominationCommission.ApiDenominationCommissionGetdenominationCommissionByDenominationIdDenominationIdGetAsync(denominationId);
+            ViewBag.denominationId = denominationId;
             return View(data.Select(x => Map(x)));
         }
 
