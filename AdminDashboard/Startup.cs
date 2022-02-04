@@ -70,6 +70,7 @@ namespace AdminDashboard
             services.AddScoped<IDenominationParamApi>(x => new DenominationParamApi(tmsUrl));
             services.AddScoped<IParameterApi>(x => new ParameterApi(tmsUrl));
             services.AddScoped<IAuthenticationApi>(x => new AuthenticationApi(AuthorityUrl));
+            services.AddScoped<SwaggerClient.IAccountsApi>(x => new SwaggerClient.AccountsApi(AuthorityUrl));
             services.AddScoped<SourceOfFundSwaggerClient.IAccountsApi>(x => new SourceOfFundSwaggerClient.AccountsApi(sofUrl));
             services.AddScoped<IIntegrations, Integrations>();
 
