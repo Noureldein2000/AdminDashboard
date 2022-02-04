@@ -34,7 +34,6 @@
 
   <ItemGroup>
     <Folder Include="Areas\Operation\Data\" />
-    <Folder Include="SourceOfFundSwaggerClient\" />
     <Folder Include="SwaggerClientHelpers\" />
     <Folder Include="wwwroot\lib\select2\" />
   </ItemGroup>
