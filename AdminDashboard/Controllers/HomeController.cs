@@ -64,7 +64,9 @@ namespace AdminDashboard.Controllers
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
-            return SignOut(CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(OpenIdConnectDefaults.AuthenticationScheme);
+            return RedirectToAction(nameof(Index));
         }
     }
 }
