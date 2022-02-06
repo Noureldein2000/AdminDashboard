@@ -31,17 +31,15 @@ namespace AdminDashboard.Services
 
             signInRequest.AddJsonBody(new OldServiceAuthenticateModel
             {
-                UserName = "111",
-                Password = "25802580",
-                AccountID = 6,
-                ChannelCategory = 4,
-                ChannelType = 9,
-                ChannelID = "352966108812146",
+                UserName = "BeniSueif",
+                Password = "310137",
+                AccountID = 92349,
+                ChannelCategory = 9,
+                ChannelType = 4,
+                ChannelID = "352966105558812146653252",
                 LocalDate = DateTime.Now,
-                Version = "",
-                ServiceVersion = "",
-                Longitude = "62625652",
-                Latitude = "444"
+                Version = "1",
+                ServiceVersion = "2"
             });
 
             var response = client.Post(signInRequest);
