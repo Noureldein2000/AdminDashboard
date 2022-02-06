@@ -1,5 +1,7 @@
+using AdminDashboard.HttpHandler;
 using AdminDashboard.Services;
 using AdminDashboard.SwaggerClient;
+using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -10,6 +12,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Net.Http.Headers;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using System.Threading.Tasks;
@@ -64,7 +67,7 @@ namespace AdminDashboard
             services.AddScoped<IDenominationParamApi>(x => new DenominationParamApi(tmsUrl));
             services.AddScoped<IParameterApi>(x => new ParameterApi(tmsUrl));
             services.AddScoped<IAuthenticationApi>(x => new AuthenticationApi(AuthorityUrl));
-            services.AddScoped<SwaggerClient.IAccountsApi>(x => new SwaggerClient.AccountsApi(sofUrl));
+            services.AddScoped<IAccountsApi>(x => new AccountsApi(sofUrl));
             services.AddScoped<IIntegrations, Integrations>();
 
             //services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
@@ -104,24 +107,24 @@ namespace AdminDashboard
                     await Task.FromResult(0);
                 };
             });
+            services.AddHttpContextAccessor();
 
-            //services.AddScoped<ISwaggerClient>(obj => new SwaggerClient("http://localhost:44303/", new System.Net.Http.HttpClient { Timeout = TimeSpan.FromMinutes(30) }));
-
-            //.AddOpenIdConnect("oidc", config =>
-            //{
-            //    config.Authority = "https://localhost:44303/";
-            //    config.ClientId = "admin_dashboard_123";
-            //    config.ClientSecret = "d5a9b78e-a694-4026-af7f-6d559d8a3949";
-            //    config.SaveTokens = true;
-            //    config.ResponseType = "code";
-            //    //config.RequireHttpsMetadata = false;
-
-            //    //config.Scope.Add("SOF");
-            //    //config.Scope.Add("Auth");
-            //});
-
-            //services.AddHttpClient();
             services.AddControllersWithViews();
+
+            services.AddTransient<AuthenticationDelegatingHandler>();
+            services.AddHttpClient("Accounts", client =>
+            {
+                client.BaseAddress = new System.Uri(Configuration["Urls:Authority"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
+            }).AddHttpMessageHandler<AuthenticationDelegatingHandler>();
+
+            services.AddHttpClient("TMS", client =>
+            {
+                client.BaseAddress = new System.Uri(Configuration["Urls:TMS"]);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
+            }).AddHttpMessageHandler<AuthenticationDelegatingHandler>();
 
         }
 
