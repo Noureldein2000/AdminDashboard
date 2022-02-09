@@ -13,7 +13,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         [Required]
         public int TaxesId { get; set; }
         public int DenominationId { get; set; }
-        public string DenominationId { get; set; }
+        public string DenominationName { get; set; }
         public List<SelectListItem> Taxes { get; set; }
     }
 }
