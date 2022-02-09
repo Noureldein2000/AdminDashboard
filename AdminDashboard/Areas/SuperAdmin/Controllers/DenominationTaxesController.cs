@@ -26,14 +26,16 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             _apiDenomination = denominationApi;
         }
         [HttpGet]
-        public async Task<IActionResult> Index(int denominationId)
+        public async Task<IActionResult> Index(int denominationId, string denominationName)
         {
             var data = await _apiDenominationTaxes.ApiDenominationTaxesGetdenominationTaxesByDenominationIdDenominationIdGetAsync(denominationId);
+            ViewBag.denominationId = denominationId;
+            ViewBag.DenominationName = denominationName;
             return View(data.Select(x => Map(x)));
         }
 
         [HttpGet]
-        public IActionResult Create(int id)
+        public IActionResult Create(int id, string denominationName)
         {
             var fees = _apiTaxes.ApiTaxGetTaxesGet(1, 100).Results.Select(a => new SelectListItem
             {
@@ -44,6 +46,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             var model = new CreateDenominationTaxesViewModel
             {
                 DenominationId = id,
+                DenominationName = denominationName,
                 Taxes = fees,
             };
 
@@ -54,24 +57,33 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(CreateDenominationTaxesViewModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                var fees = _apiTaxes.ApiTaxGetTaxesGet(1, 100).Results.Select(a => new SelectListItem
+                if (!ModelState.IsValid)
                 {
-                    Text = a.TaxRange.ToString(),
-                    Value = a.Id.ToString()
-                }).ToList();
+                    var fees = _apiTaxes.ApiTaxGetTaxesGet(1, 100).Results.Select(a => new SelectListItem
+                    {
+                        Text = a.TaxRange.ToString(),
+                        Value = a.Id.ToString()
+                    }).ToList();
 
-                model.Taxes = fees;
+                    model.Taxes = fees;
 
+                    return View(model);
+                }
+
+                _apiDenominationTaxes.ApiDenominationTaxesAddDenominationTaxesPost(new AddDenominationTaxesModel(
+                    denominationId: model.DenominationId,
+                    taxId: model.TaxesId));
+
+                return RedirectToAction(nameof(Index), new { denominationId = model.DenominationId, denominationName = model.DenominationName });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
                 return View(model);
             }
 
-            _apiDenominationTaxes.ApiDenominationTaxesAddDenominationTaxesPost(new AddDenominationTaxesModel(
-                denominationId: model.DenominationId,
-                taxId: model.TaxesId));
-
-            return RedirectToAction(nameof(Index), new { denominationId = model.DenominationId });
         }
 
         [HttpGet]

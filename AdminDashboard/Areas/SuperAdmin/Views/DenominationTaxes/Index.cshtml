@@ -8,8 +8,20 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2> Taxes</h2>
-                    <a asp-action="Create" asp-route-id="@Model.Select(x=>x.DenominationId).FirstOrDefault()" class="pull-right btn btn-outline-primary">Add</a>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2>Denomination Taxes</h2>
+                            <h6>
+                                <strong>
+                                    Denomination:
+                                </strong>
+                                @ViewBag.DenominationName
+                            </h6>
+                        </div>
+                        <div>
+                            <a asp-action="Create" asp-route-id="@ViewBag.denominationId" asp-route-denominationName="@ViewBag.DenominationName" class="pull-right btn btn-outline-primary">Add</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
