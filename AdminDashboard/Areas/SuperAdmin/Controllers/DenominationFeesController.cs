@@ -28,15 +28,16 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             _apiDenomination = denominationApi;
         }
         [HttpGet]
-        public async Task<IActionResult> Index(int denominationId)
+        public async Task<IActionResult> Index(int denominationId, string denominationName)
         {
             var data = await _apiDenominationFees.ApiDenominationFeesGetdenominationFeesByDenominationIdDenominationIdGetAsync(denominationId);
             ViewBag.denominationId = denominationId;
+            ViewBag.DenominationName = denominationName;
             return View(data.Select(x => Map(x)));
         }
 
         [HttpGet]
-        public IActionResult Create(int id)
+        public IActionResult Create(int id, string denominationName)
         {
             var fees = _apiFees.ApiFeesGetFeesGet(1, 100).Results.Select(a => new SelectListItem
             {
@@ -47,6 +48,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             var model = new CreateDenominationFeesViewModel
             {
                 DenominationId = id,
+                DenominationName = denominationName,
                 Fees = fees,
             };
 
@@ -76,14 +78,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     denominationId: model.DenominationId,
                     feesId: model.FeesId));
 
-                return RedirectToAction(nameof(Index), new { denominationId = model.DenominationId });
+                return RedirectToAction(nameof(Index), new { denominationId = model.DenominationId, denominationName = model.DenominationName });
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
                 return View(model);
             }
-           
         }
 
         [HttpGet]
@@ -107,7 +108,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 FeesValue = (decimal)x.FeesValue,
                 PaymentModeId = (int)x.PaymentModeId,
                 DenominationId = (int)x.DenominationId,
-                DenominationFullName = x.DenominationFullName
+                Range = x.Range
             };
         }
     }

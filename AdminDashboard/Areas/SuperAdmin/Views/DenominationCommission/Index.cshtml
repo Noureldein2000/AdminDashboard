@@ -8,14 +8,26 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2> Commission</h2>
-                    <a asp-action="Create" asp-route-id="@ViewBag.denominationId" class="pull-right btn btn-outline-primary">Add</a>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2>Denomination Commissions</h2>
+                            <h6>
+                                <strong>
+                                    Denomination:
+                                </strong>
+                                @ViewBag.DenominationName
+                            </h6>
+                        </div>
+                        <div>
+                            <a asp-action="Create" asp-route-id="@ViewBag.denominationId" asp-route-denominationName="@ViewBag.denominationName" class="pull-right btn btn-outline-primary">Add</a>
+                        </div>
+                    </div>                   
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Denomination</th>
+                                <th>Range</th>
                                 <th>Value</th>
                                 <th>Type Name</th>
                                 <th>Payment Mode</th>
@@ -25,15 +37,15 @@
                         <tbody>
                             @foreach (var commission in Model)
                             {
-                            <tr>
-                                <td>@commission.DenominationFullName</td>
-                                <td>@commission.CommissionValue</td>
-                                <td>@commission.CommissionTypeName</td>
-                                <td>@commission.PaymentMode</td>
-                                <td>
-                                    <button onclick="ConfirmDelete(@commission.Id,this)" class="btn btn-danger">Delete</button>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>@commission.Range</td>
+                                    <td>@commission.CommissionValue</td>
+                                    <td>@commission.CommissionTypeName</td>
+                                    <td>@commission.PaymentMode</td>
+                                    <td>
+                                        <button onclick="ConfirmDelete(@commission.Id,this)" class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>
