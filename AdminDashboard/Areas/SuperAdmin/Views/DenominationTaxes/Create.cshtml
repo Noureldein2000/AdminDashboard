@@ -16,6 +16,7 @@
                     <div class="card-body">
                         <div asp-validation-summary="All" class="text-danger"></div>
                         <input type="hidden" asp-for="DenominationId" />
+                        <input type="hidden" asp-for="DenominationName" />
                         <div class="form-group">
                             <label class="control-label">Tax Value <span class="validation-error">*</span></label>
                             <select asp-for="TaxesId" asp-items="Model.Taxes" class="form-control" data-style="select-with-transition" title="Choose a Tax Value" data-size="7">
