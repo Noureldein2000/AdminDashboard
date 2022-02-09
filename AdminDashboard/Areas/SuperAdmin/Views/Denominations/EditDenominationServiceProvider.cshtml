@@ -39,7 +39,6 @@
 
             $(function () {
             var stringArray = @Html.Raw(Json.Serialize(Model.DenominationProviderConfigeration));
-                console.log(stringArray);
                 FillTable(stringArray)
             });
         });
@@ -75,8 +74,6 @@
 
         $("input.enableAddParam").keyup(function () {
             var empty = false;
-
-            console.log($(this).getElementById("txtTimeOut").val());
 
             $("input.enableAddParam").each(function () {
                 if ($(this).val() == '') {
@@ -176,12 +173,11 @@
                 dataType: "json",
                  success: function (state) {
                      
-/*                     console.log('success data response ' + state);*/
                          $('#drpServiceConfig').append('<option value="' + state.id + '" selected>' +
                              state.url + '</option>');
                 },
                  error: function (req, status, error) {
-                     console.log(error);
+                     
                 }
             });
         }
