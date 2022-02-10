@@ -39,6 +39,7 @@ namespace AdminDashboard
             services.AddScoped<IRolesApi>(x => new RolesApi(AuthorityUrl));
             services.AddScoped<IAccountApi>(x => new AccountApi(AuthorityUrl));
             services.AddScoped<IFeesApi>(x => new FeesApi(tmsUrl));
+            services.AddScoped<ITaxApi>(x => new TaxApi(tmsUrl));
             services.AddScoped<IAccountFeesApi>(x => new AccountFeesApi(tmsUrl));
             services.AddScoped<IDenominationApi>(x => new DenominationApi(tmsUrl));
             services.AddScoped<IAdminServiceApi>(x => new AdminServiceApi(tmsUrl));
@@ -56,12 +57,13 @@ namespace AdminDashboard
             services.AddScoped<IChannelOwnerApi>(x => new ChannelOwnerApi(AuthorityUrl));
             services.AddScoped<IChannelPaymentMethodApi>(x => new ChannelPaymentMethodApi(AuthorityUrl));
             services.AddScoped<IAccountTypeApi>(x => new AccountTypeApi(AuthorityUrl));
-            services.AddScoped<IAccountTypeProfileCommissionApi>(x => new AccountTypeProfileCommissionApi(tmsUrl)); 
+            services.AddScoped<IAccountTypeProfileCommissionApi>(x => new AccountTypeProfileCommissionApi(tmsUrl));
             services.AddScoped<IAccountTypeProfileDenominationApi>(x => new AccountTypeProfileDenominationApi(tmsUrl));
             services.AddScoped<IAccountTypeProfileFeeApi>(x => new AccountTypeProfileFeeApi(tmsUrl));
             services.AddScoped<IChannelCategoryApi>(x => new ChannelCategoryApi(AuthorityUrl));
             services.AddScoped<IDenominationCommissionApi>(x => new DenominationCommissionApi(tmsUrl));
             services.AddScoped<IDenominationFeesApi>(x => new DenominationFeesApi(tmsUrl));
+            services.AddScoped<IDenominationTaxesApi>(x => new DenominationTaxesApi(tmsUrl));
             services.AddScoped<IServiceProviderApi>(x => new ServiceProviderApi(tmsUrl));
             services.AddScoped<IServiceConfigurationApi>(x => new ServiceConfigurationApi(tmsUrl));
             services.AddScoped<IDenominationParamApi>(x => new DenominationParamApi(tmsUrl));

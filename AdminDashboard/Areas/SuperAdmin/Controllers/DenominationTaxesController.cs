@@ -1,11 +1,9 @@
 ﻿using AdminDashboard.Areas.SuperAdmin.Models;
-using AdminDashboard.Models;
 using AdminDashboard.Models.SwaggerModels;
 using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,40 +14,41 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     [Area("SuperAdmin")]
     [Route("SuperAdmin/[controller]/{action}/{id?}")]
     [Authorize]
-    public class DenominationFeesController : Controller
+    public class DenominationTaxesController : Controller
     {
-        private readonly IFeesApi _apiFees;
-        private readonly IDenominationFeesApi _apiDenominationFees;
+        private readonly ITaxApi _apiTaxes;
+        private readonly IDenominationTaxesApi _apiDenominationTaxes;
         private readonly IDenominationApi _apiDenomination;
-        public DenominationFeesController(IFeesApi feesApi, IDenominationFeesApi denominationFeesApi, IDenominationApi denominationApi)
+        public DenominationTaxesController(ITaxApi apiTaxes, IDenominationTaxesApi denominationTaxes, IDenominationApi denominationApi)
         {
-            _apiFees = feesApi;
-            _apiDenominationFees = denominationFeesApi;
+            _apiTaxes = apiTaxes;
+            _apiDenominationTaxes = denominationTaxes;
             _apiDenomination = denominationApi;
         }
         [HttpGet]
-        public async Task<IActionResult> Index(int denominationId, string denominationName)
+        public async Task<IActionResult> Index(int denominationId, string denominationName, bool processSucceded = false)
         {
-            var data = await _apiDenominationFees.ApiDenominationFeesGetdenominationFeesByDenominationIdDenominationIdGetAsync(denominationId);
+            var data = await _apiDenominationTaxes.ApiDenominationTaxesGetdenominationTaxesByDenominationIdDenominationIdGetAsync(denominationId);
             ViewBag.denominationId = denominationId;
             ViewBag.DenominationName = denominationName;
+            ViewBag.ProcessSucceded = processSucceded;
             return View(data.Select(x => Map(x)));
         }
 
         [HttpGet]
         public IActionResult Create(int id, string denominationName)
         {
-            var fees = _apiFees.ApiFeesGetFeesGet(1, 100).Results.Select(a => new SelectListItem
+            var taxes = _apiTaxes.ApiTaxGetTaxesGet(1, 100).Results.Select(a => new SelectListItem
             {
-                Text = a.FeeRange.ToString(),
+                Text = a.TaxRange.ToString(),
                 Value = a.Id.ToString()
             }).ToList();
 
-            var model = new CreateDenominationFeesViewModel
+            var model = new CreateDenominationTaxesViewModel
             {
                 DenominationId = id,
                 DenominationName = denominationName,
-                Fees = fees,
+                Taxes = taxes,
             };
 
             return View(model);
@@ -57,42 +56,42 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(CreateDenominationFeesViewModel model)
+        public IActionResult Create(CreateDenominationTaxesViewModel model)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    var fees = _apiFees.ApiFeesGetFeesGet(1, 100).Results.Select(a => new SelectListItem
+                    var taxes = _apiTaxes.ApiTaxGetTaxesGet(1, 100).Results.Select(a => new SelectListItem
                     {
-                        Text = a.Value.ToString(),
+                        Text = a.TaxRange.ToString(),
                         Value = a.Id.ToString()
                     }).ToList();
 
-                    model.Fees = fees;
+                    model.Taxes = taxes;
 
                     return View(model);
                 }
 
-                _apiDenominationFees.ApiDenominationFeesAddDenominationFeesPost(new AddDenominationFeesModel(
+                _apiDenominationTaxes.ApiDenominationTaxesAddDenominationTaxesPost(new AddDenominationTaxesModel(
                     denominationId: model.DenominationId,
-                    feesId: model.FeesId));
+                    taxId: model.TaxesId));
 
-                return RedirectToAction(nameof(Index), new { denominationId = model.DenominationId, denominationName = model.DenominationName });
+                return RedirectToAction(nameof(Index), new { denominationId = model.DenominationId, denominationName = model.DenominationName, processSucceded = true });
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
-                var fees = _apiFees.ApiFeesGetFeesGet(1, 100).Results.Select(a => new SelectListItem
+                var taxes = _apiTaxes.ApiTaxGetTaxesGet(1, 100).Results.Select(a => new SelectListItem
                 {
-                    Text = a.Value.ToString(),
+                    Text = a.TaxRange.ToString(),
                     Value = a.Id.ToString()
                 }).ToList();
 
-                model.Fees = fees;
-
+                model.Taxes = taxes;
                 return View(model);
             }
+
         }
 
         [HttpGet]
@@ -100,26 +99,28 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             try
             {
-                _apiDenominationFees.ApiDenominationFeesDeleteDenominationFeeIdDelete(id: id);
+                _apiDenominationTaxes.ApiDenominationTaxesDeleteDenominationTaxIdDelete(id: id);
+
                 return Json(id);
             }
             catch (Exception ex)
             {
                 return Json(ex.Message);
             }
+
         }
 
-        private DenominationFeesViewModel Map(DenominationFeesModel x)
+        private DenominationTaxesViewModel Map(DenominationTaxesModel x)
         {
-            return new DenominationFeesViewModel
+            return new DenominationTaxesViewModel
             {
 
                 Id = (int)x.Id,
-                FeesId = (int)x.FeesId,
-                FeesTypeId = (int)x.FeesTypeId,
-                FeesTypeName = x.FeesTypeName,
+                TaxId = (int)x.TaxId,
+                TaxTypeId = (int)x.TaxTypeId,
+                TaxTypeName = x.TaxTypeName,
                 PaymentMode = x.PaymentMode,
-                FeesValue = (decimal)x.FeesValue,
+                TaxValue = (decimal)x.TaxValue,
                 PaymentModeId = (int)x.PaymentModeId,
                 DenominationId = (int)x.DenominationId,
                 Range = x.Range

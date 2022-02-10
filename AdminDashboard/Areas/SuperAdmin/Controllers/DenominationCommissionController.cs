@@ -26,11 +26,12 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             _apiDenominationCommission = denominationCommissionApi;
         }
         [HttpGet]
-        public async Task<IActionResult> Index(int denominationId, string denominationName)
+        public async Task<IActionResult> Index(int denominationId, string denominationName, bool processSucceded = false)
         {
             var data = await _apiDenominationCommission.ApiDenominationCommissionGetdenominationCommissionByDenominationIdDenominationIdGetAsync(denominationId);
             ViewBag.denominationId = denominationId;
             ViewBag.DenominationName = denominationName;
+            ViewBag.ProcessSucceded = processSucceded;
             return View(data.Select(x => Map(x)));
         }
 
@@ -75,11 +76,18 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     denominationId: model.DenominationId,
                     commissionId: model.CommissionId));
 
-                return RedirectToAction(nameof(Index), new { denominationId = model.DenominationId, denominationName = model.DenominationName });
+                return RedirectToAction(nameof(Index), new { denominationId = model.DenominationId, denominationName = model.DenominationName, processSucceded = true }); ;
             }
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
+                var commissions = _apiCommissions.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
+                {
+                    Text = a.CommissionRange.ToString(),
+                    Value = a.Id.ToString()
+                }).ToList();
+
+                model.Commissions = commissions;
                 return View(model);
             }
         }
@@ -87,9 +95,17 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public JsonResult Delete(int id)
         {
-            _apiDenominationCommission.ApiDenominationCommissionDeleteDenominationCommissionIdDelete(id: id);
+            try
+            {
 
-            return Json(id);
+                _apiDenominationCommission.ApiDenominationCommissionDeleteDenominationCommissionIdDelete(id: id);
+
+                return Json(id);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
         }
 
         private DenominationCommissionViewModel Map(DenominationCommissionModel x)

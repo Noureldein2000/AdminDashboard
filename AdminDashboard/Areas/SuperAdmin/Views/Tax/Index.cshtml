@@ -1,0 +1,127 @@
+﻿@model PagedResult<TaxesViewModel>
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <h2> Taxes</h2>
+                    <a asp-action="Create" class="pull-right btn btn-outline-primary">Add</a>
+                </div>
+                <div class="card-body">
+                    <table class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Value</th>
+                                <th>Payment Mode</th>
+                                <th>Type Name</th>
+                                <th>Start Date</th>
+                                <th>End Date</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var tax in Model.Results)
+                            {
+                                <tr>
+                                    <td>@tax.ID</td>
+                                    <td>@tax.AmountFrom</td>
+                                    <td>@tax.AmountTo</td>
+                                    <td>@tax.Value</td>
+                                    <td>@tax.PaymentModeName</td>
+                                    <td>@tax.TaxesTypeName</td>
+                                    <td>@tax.StartDate.ToShortDateString()</td>
+                                    <td>@tax.EndDate.ToShortDateString()</td>
+                                    <td>
+                                        <a asp-action="ChangeStatus" asp-route-id="@tax.ID" class="btn @(tax.Status ? "btn-danger" : "btn-success")">
+                                            @(tax.Status ? "Deactive" : "Active")
+                                        </a>
+                                        <a asp-action="Edit" asp-route-id="@tax.ID" class="btn btn-info">Edit</a>
+                                        <button onclick="ConfirmDelete(@tax.ID,this)" class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div class="card-footer d-flex justify-content-center">
+                    <pager link-url="/SuperAdmin/Tax/Index"
+                           page="Model.CurrentPage"
+                           page-size="Model.PageSize"
+                           total-items="Model.PageCount">
+                    </pager>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{
+    <script>
+
+        $(function () {
+            var msg = '@TempData["result"]';
+            if (msg != "") {
+                swal({
+                    title: "Good job!",
+                    text: "You Saved the User Successfully!",
+                    icon: "success",
+                    button: "Ok",
+                });
+            }
+         });
+
+        function ConfirmDelete(id,row)
+        {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this record!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+
+                    DeleteTax(id, row);
+                }
+            });
+        }
+
+        function DeleteTax(id, row) {
+
+              $.ajax({
+                type: "GET",
+                url: "@Url.Action("Delete")",
+                  data: {
+                      id: id,
+                  },
+                 dataType: "text",
+                success: function (msg) {
+
+                    console.log("successs Deleted Data");
+
+                    swal("Poof! Your record has been deleted!", {
+                        icon: "success",
+                    });
+
+                    $(row).parents("tr").remove();
+/*                    var data = JSON.parse(msg);*/
+
+                },
+                 error: function (req, status, error) {
+                     console.log(error);
+                     swal("Ops! There is some error happened!", {
+                         icon: "error",
+                     });
+                }
+            });
+        }
+
+    </script>
+}
+
