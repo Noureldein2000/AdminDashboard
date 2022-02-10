@@ -1,4 +1,4 @@
-﻿@model IEnumerable<DenominationCommissionViewModel>
+﻿@model IEnumerable<DenominationTaxesViewModel>
 @{
     ViewData["Title"] = "Index";
 }
@@ -10,7 +10,7 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between">
                         <div>
-                            <h2>Denomination Commissions</h2>
+                            <h2>Denomination Taxes</h2>
                             <h6>
                                 <strong>
                                     Denomination:
@@ -19,7 +19,7 @@
                             </h6>
                         </div>
                         <div>
-                            <a asp-action="Create" asp-route-id="@ViewBag.denominationId" asp-route-denominationName="@ViewBag.denominationName" class="pull-right btn btn-outline-primary">Add</a>
+                            <a asp-action="Create" asp-route-id="@ViewBag.denominationId" asp-route-denominationName="@ViewBag.DenominationName" class="pull-right btn btn-outline-primary">Add</a>
                         </div>
                     </div>
                 </div>
@@ -35,15 +35,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var commission in Model)
+                            @foreach (var tax in Model)
                             {
                                 <tr>
-                                    <td>@commission.Range</td>
-                                    <td>@commission.CommissionValue</td>
-                                    <td>@commission.CommissionTypeName</td>
-                                    <td>@commission.PaymentMode</td>
+                                    <td>@tax.Range</td>
+                                    <td>@tax.TaxValue</td>
+                                    <td>@tax.TaxTypeName</td>
+                                    <td>@tax.PaymentMode</td>
                                     <td>
-                                        <button onclick="ConfirmDelete(@commission.Id,this)" class="btn btn-danger">Delete</button>
+                                        <button onclick="ConfirmDelete(@tax.Id,this)" class="btn btn-danger">Delete</button>
                                     </td>
                                 </tr>
                             }
@@ -56,17 +56,21 @@
 </div>
 @section Scripts{
     <script>
+
         $(function () {
-            if (@ViewBag.processSucceded) {
+          
+            var msg = '@ViewBag.ProcessSucceded';
+            if (msg === 'True') {
                 swal({
-                    title: "success!",
-                    text: "You Saved the Record Successfully!",
+                    title: "Good job!",
+                    text: "You Saved the Tax Successfully!",
                     icon: "success",
                     button: "Ok",
                 });
             }
-         });
-         function ConfirmDelete(id,row)
+        });
+
+        function ConfirmDelete(id,row)
         {
             swal({
                 title: "Are you sure?",
@@ -77,12 +81,12 @@
             }).then((willDelete) => {
                 if (willDelete) {
 
-                    DeleteDenomintionCommission(id, row);
+                    DeleteDenominationTax(id, row);
                 }
             });
         }
 
-        function DeleteDenomintionCommission(id, row) {
+        function DeleteDenominationTax(id, row) {
 
               $.ajax({
                 type: "GET",
@@ -92,7 +96,9 @@
                   },
                  dataType: "text",
                 success: function (msg) {
-                    swal("Your record has been deleted!", {
+
+
+                    swal("Poof! Your record has been deleted!", {
                         icon: "success",
                     });
 
@@ -101,8 +107,11 @@
 
                 },
                  error: function (req, status, error) {
-                     swal("There is some error happened!", {
+                     swal({
+                         title: "Failure job!",
+                         text: error,
                          icon: "error",
+                         button: "Ok",
                      });
                 }
             });
