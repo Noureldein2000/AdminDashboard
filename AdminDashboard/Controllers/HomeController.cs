@@ -1,6 +1,8 @@
 ﻿using AdminDashboard.Models;
 using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -62,7 +64,7 @@ namespace AdminDashboard.Controllers
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
-            return SignOut("Cookies", "oidc");
+            return SignOut(CookieAuthenticationDefaults.AuthenticationScheme, OpenIdConnectDefaults.AuthenticationScheme);
         }
     }
 }

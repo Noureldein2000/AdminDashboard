@@ -88,8 +88,7 @@
 
     <script>
         $(function () {
-            var msg = '@TempData["result"]';
-            if (msg != "") {
+            if (@ViewBag.processSucceded) {
                 swal({
                     title: "success!",
                     text: "You Saved the Account Successfully!",

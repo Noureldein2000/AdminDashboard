@@ -60,7 +60,7 @@
                                             <td>@service.Code</td>
                                             <td>@service.ClassType</td>
                                             <td>
-                                                <a asp-action="Index" asp-controller="Denominations" asp-route-id="@service.Id" asp-route-title="@service.Name-@service.ServiceTypeID" class="btn btn-info">
+                                                <a asp-action="Index" asp-controller="Denominations" asp-route-id="@service.Id" asp-route-title="@service.Name" asp-route-serviceTypeId="@service.ServiceTypeID" class="btn btn-info">
                                                     Denominations
                                                 </a>
                                                 <a asp-action="Edit" asp-route-id="@service.Id" class="btn btn-info">
