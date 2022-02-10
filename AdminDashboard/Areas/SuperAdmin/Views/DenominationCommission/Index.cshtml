@@ -57,8 +57,7 @@
 @section Scripts{
     <script>
         $(function () {
-          var msg = '@ViewBag.ProcessSucceded';
-            if (msg === 'True') {
+            if (@ViewBag.processSucceded) {
                 swal({
                     title: "success!",
                     text: "You Saved the Record Successfully!",
