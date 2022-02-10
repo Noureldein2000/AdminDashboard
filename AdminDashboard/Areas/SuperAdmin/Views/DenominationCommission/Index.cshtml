@@ -21,7 +21,7 @@
                         <div>
                             <a asp-action="Create" asp-route-id="@ViewBag.denominationId" asp-route-denominationName="@ViewBag.denominationName" class="pull-right btn btn-outline-primary">Add</a>
                         </div>
-                    </div>                   
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
@@ -56,19 +56,17 @@
 </div>
 @section Scripts{
     <script>
-
         $(function () {
-            @*var msg = '@TempData["result"]';*@
-            if (msg != "") {
+          var msg = '@ViewBag.ProcessSucceded';
+            if (msg === 'True') {
                 swal({
-                    title: "Good job!",
-                    text: "You Saved the User Successfully!",
+                    title: "success!",
+                    text: "You Saved the Record Successfully!",
                     icon: "success",
                     button: "Ok",
                 });
             }
-        });
-
+         });
          function ConfirmDelete(id,row)
         {
             swal({

@@ -100,14 +100,11 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             try
             {
-            _apiDenominationFees.ApiDenominationFeesDeleteDenominationFeeIdDelete(id: id);
-
-            return Json(id);
-
+                _apiDenominationFees.ApiDenominationFeesDeleteDenominationFeeIdDelete(id: id);
+                return Json(id);
             }
             catch (Exception ex)
             {
-
                 return Json(ex.Message);
             }
         }

@@ -58,11 +58,12 @@
     <script>
 
         $(function () {
-            @*var msg = '@TempData["result"]';*@
-            if (msg != "") {
+            debugger;
+            var msg = '@ViewBag.ProcessSucceded';
+            if (msg === 'True') {
                 swal({
                     title: "Good job!",
-                    text: "You Saved the User Successfully!",
+                    text: "You Saved the Tax Successfully!",
                     icon: "success",
                     button: "Ok",
                 });
