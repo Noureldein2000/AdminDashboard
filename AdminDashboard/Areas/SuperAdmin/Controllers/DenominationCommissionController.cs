@@ -80,6 +80,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
+                var commissions = _apiCommissions.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
+                {
+                    Text = a.CommissionRange.ToString(),
+                    Value = a.Id.ToString()
+                }).ToList();
+
+                model.Commissions = commissions;
                 return View(model);
             }
         }
@@ -87,9 +94,17 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public JsonResult Delete(int id)
         {
-            _apiDenominationCommission.ApiDenominationCommissionDeleteDenominationCommissionIdDelete(id: id);
+            try
+            {
 
-            return Json(id);
+                _apiDenominationCommission.ApiDenominationCommissionDeleteDenominationCommissionIdDelete(id: id);
+
+                return Json(id);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
         }
 
         private DenominationCommissionViewModel Map(DenominationCommissionModel x)

@@ -37,7 +37,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public IActionResult Create(int id, string denominationName)
         {
-            var fees = _apiTaxes.ApiTaxGetTaxesGet(1, 100).Results.Select(a => new SelectListItem
+            var taxes = _apiTaxes.ApiTaxGetTaxesGet(1, 100).Results.Select(a => new SelectListItem
             {
                 Text = a.TaxRange.ToString(),
                 Value = a.Id.ToString()
@@ -47,7 +47,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             {
                 DenominationId = id,
                 DenominationName = denominationName,
-                Taxes = fees,
+                Taxes = taxes,
             };
 
             return View(model);
@@ -61,13 +61,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             {
                 if (!ModelState.IsValid)
                 {
-                    var fees = _apiTaxes.ApiTaxGetTaxesGet(1, 100).Results.Select(a => new SelectListItem
+                    var taxes = _apiTaxes.ApiTaxGetTaxesGet(1, 100).Results.Select(a => new SelectListItem
                     {
                         Text = a.TaxRange.ToString(),
                         Value = a.Id.ToString()
                     }).ToList();
 
-                    model.Taxes = fees;
+                    model.Taxes = taxes;
 
                     return View(model);
                 }
@@ -81,6 +81,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
+                var taxes = _apiTaxes.ApiTaxGetTaxesGet(1, 100).Results.Select(a => new SelectListItem
+                {
+                    Text = a.TaxRange.ToString(),
+                    Value = a.Id.ToString()
+                }).ToList();
+
+                model.Taxes = taxes;
                 return View(model);
             }
 
@@ -89,9 +96,17 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public JsonResult Delete(int id)
         {
-            _apiDenominationTaxes.ApiDenominationTaxesDeleteDenominationTaxIdDelete(id: id);
+            try
+            {
+                _apiDenominationTaxes.ApiDenominationTaxesDeleteDenominationTaxIdDelete(id: id);
 
-            return Json(id);
+                return Json(id);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+
         }
 
         private DenominationTaxesViewModel Map(DenominationTaxesModel x)
@@ -107,7 +122,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 TaxValue = (decimal)x.TaxValue,
                 PaymentModeId = (int)x.PaymentModeId,
                 DenominationId = (int)x.DenominationId,
-                DenominationFullName = x.DenominationFullName
+                Range = x.Range
             };
         }
     }

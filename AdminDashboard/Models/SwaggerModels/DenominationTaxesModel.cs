@@ -19,7 +19,6 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
-using SwaggerDateConverter = AdminDashboard.SwaggerClientHelpers.SwaggerDateConverter;
 
 namespace AdminDashboard.Models.SwaggerModels
 {
@@ -40,9 +39,9 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="taxTypeId">taxTypeId.</param>
         /// <param name="taxTypeName">taxTypeName.</param>
         /// <param name="denominationId">denominationId.</param>
-        /// <param name="denominationFullName">denominationFullName.</param>
+        /// <param name="range">range.</param>
         /// <param name="creationDate">creationDate.</param>
-        public DenominationTaxesModel(int? id = default(int?), int? taxId = default(int?), double? taxValue = default(double?), int? paymentModeId = default(int?), string paymentMode = default(string), int? taxTypeId = default(int?), string taxTypeName = default(string), int? denominationId = default(int?), string denominationFullName = default(string), DateTime? creationDate = default(DateTime?))
+        public DenominationTaxesModel(int? id = default(int?), int? taxId = default(int?), double? taxValue = default(double?), int? paymentModeId = default(int?), string paymentMode = default(string), int? taxTypeId = default(int?), string taxTypeName = default(string), int? denominationId = default(int?), string range = default(string), DateTime? creationDate = default(DateTime?))
         {
             this.Id = id;
             this.TaxId = taxId;
@@ -52,7 +51,7 @@ namespace AdminDashboard.Models.SwaggerModels
             this.TaxTypeId = taxTypeId;
             this.TaxTypeName = taxTypeName;
             this.DenominationId = denominationId;
-            this.DenominationFullName = denominationFullName;
+            this.Range = range;
             this.CreationDate = creationDate;
         }
         
@@ -105,10 +104,10 @@ namespace AdminDashboard.Models.SwaggerModels
         public int? DenominationId { get; set; }
 
         /// <summary>
-        /// Gets or Sets DenominationFullName
+        /// Gets or Sets Range
         /// </summary>
-        [DataMember(Name="denominationFullName", EmitDefaultValue=false)]
-        public string DenominationFullName { get; set; }
+        [DataMember(Name="range", EmitDefaultValue=false)]
+        public string Range { get; set; }
 
         /// <summary>
         /// Gets or Sets CreationDate
@@ -132,7 +131,7 @@ namespace AdminDashboard.Models.SwaggerModels
             sb.Append("  TaxTypeId: ").Append(TaxTypeId).Append("\n");
             sb.Append("  TaxTypeName: ").Append(TaxTypeName).Append("\n");
             sb.Append("  DenominationId: ").Append(DenominationId).Append("\n");
-            sb.Append("  DenominationFullName: ").Append(DenominationFullName).Append("\n");
+            sb.Append("  Range: ").Append(Range).Append("\n");
             sb.Append("  CreationDate: ").Append(CreationDate).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -209,9 +208,9 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.DenominationId.Equals(input.DenominationId))
                 ) && 
                 (
-                    this.DenominationFullName == input.DenominationFullName ||
-                    (this.DenominationFullName != null &&
-                    this.DenominationFullName.Equals(input.DenominationFullName))
+                    this.Range == input.Range ||
+                    (this.Range != null &&
+                    this.Range.Equals(input.Range))
                 ) && 
                 (
                     this.CreationDate == input.CreationDate ||
@@ -245,8 +244,8 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.TaxTypeName.GetHashCode();
                 if (this.DenominationId != null)
                     hashCode = hashCode * 59 + this.DenominationId.GetHashCode();
-                if (this.DenominationFullName != null)
-                    hashCode = hashCode * 59 + this.DenominationFullName.GetHashCode();
+                if (this.Range != null)
+                    hashCode = hashCode * 59 + this.Range.GetHashCode();
                 if (this.CreationDate != null)
                     hashCode = hashCode * 59 + this.CreationDate.GetHashCode();
                 return hashCode;

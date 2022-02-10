@@ -83,6 +83,14 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             catch (Exception ex)
             {
                 ModelState.AddModelError("", ex.Message);
+                var fees = _apiFees.ApiFeesGetFeesGet(1, 100).Results.Select(a => new SelectListItem
+                {
+                    Text = a.Value.ToString(),
+                    Value = a.Id.ToString()
+                }).ToList();
+
+                model.Fees = fees;
+
                 return View(model);
             }
         }
@@ -90,9 +98,18 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public JsonResult Delete(int id)
         {
+            try
+            {
             _apiDenominationFees.ApiDenominationFeesDeleteDenominationFeeIdDelete(id: id);
 
             return Json(id);
+
+            }
+            catch (Exception ex)
+            {
+
+                return Json(ex.Message);
+            }
         }
 
         private DenominationFeesViewModel Map(DenominationFeesModel x)

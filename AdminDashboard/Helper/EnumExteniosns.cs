@@ -28,7 +28,7 @@ namespace AdminDashboard.Helper
     public enum FeesType : short
     {
         ServiceFees = 1,
-        AddedValue = 2,
+        AddedValue = 3,
     }
     public enum CommissionType : short
     {
