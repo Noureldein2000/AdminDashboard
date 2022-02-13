@@ -1,9 +1,4 @@
-﻿@model IEnumerable<LookupTypeViewModel>
-@using AdminDashboard.Helper;
-
-@{
-    ViewData["Title"] = "Index";
-}
+﻿@model LookupTypesViewModel
 
 <div class="card-header">
     <button type="button" class="btn btn-outline-primary fa-pull-right" data-toggle="modal" data-target="#LookupTypeModel">
@@ -11,7 +6,7 @@
     </button>
 </div>
 <div class="card-body">
-    <table class="table table-striped" id="tableType-@Model.Select(x=>((int)x.IdentitfierType)).FirstOrDefault()">
+    <table class="table table-striped" id="tableType-@Model.IdentifierType">
         <thead>
             <tr>
                 <th>ID</th>
@@ -22,7 +17,7 @@
         </thead>
         <tbody>
 
-            @foreach (var deno in Model)
+            @foreach (var deno in Model.GeneralLookups)
             {
                 <tr>
                     <td>@deno.Id</td>

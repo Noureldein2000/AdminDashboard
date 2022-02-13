@@ -32,33 +32,17 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <summary>
         /// Initializes a new instance of the <see cref="LookupTypeModel" /> class.
         /// </summary>
-        /// <param name="fees">fees.</param>
-        /// <param name="commissions">commissions.</param>
-        /// <param name="taxes">taxes.</param>
-        public LookupTypeModel(List<GeneralLookupTypeModel> fees = default(List<GeneralLookupTypeModel>), List<GeneralLookupTypeModel> commissions = default(List<GeneralLookupTypeModel>), List<GeneralLookupTypeModel> taxes = default(List<GeneralLookupTypeModel>))
+        /// <param name="generalLookups">generalLookups.</param>
+        public LookupTypeModel(List<GeneralLookupTypeModel> generalLookups = default(List<GeneralLookupTypeModel>))
         {
-            this.Fees = fees;
-            this.Commissions = commissions;
-            this.Taxes = taxes;
+            this.GeneralLookups = generalLookups;
         }
         
         /// <summary>
-        /// Gets or Sets Fees
+        /// Gets or Sets GeneralLookups
         /// </summary>
-        [DataMember(Name="fees", EmitDefaultValue=false)]
-        public List<GeneralLookupTypeModel> Fees { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Commissions
-        /// </summary>
-        [DataMember(Name="commissions", EmitDefaultValue=false)]
-        public List<GeneralLookupTypeModel> Commissions { get; set; }
-
-        /// <summary>
-        /// Gets or Sets Taxes
-        /// </summary>
-        [DataMember(Name="taxes", EmitDefaultValue=false)]
-        public List<GeneralLookupTypeModel> Taxes { get; set; }
+        [DataMember(Name="generalLookups", EmitDefaultValue=false)]
+        public List<GeneralLookupTypeModel> GeneralLookups { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -68,9 +52,7 @@ namespace AdminDashboard.Models.SwaggerModels
         {
             var sb = new StringBuilder();
             sb.Append("class LookupTypeModel {\n");
-            sb.Append("  Fees: ").Append(Fees).Append("\n");
-            sb.Append("  Commissions: ").Append(Commissions).Append("\n");
-            sb.Append("  Taxes: ").Append(Taxes).Append("\n");
+            sb.Append("  GeneralLookups: ").Append(GeneralLookups).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -106,22 +88,10 @@ namespace AdminDashboard.Models.SwaggerModels
 
             return 
                 (
-                    this.Fees == input.Fees ||
-                    this.Fees != null &&
-                    input.Fees != null &&
-                    this.Fees.SequenceEqual(input.Fees)
-                ) && 
-                (
-                    this.Commissions == input.Commissions ||
-                    this.Commissions != null &&
-                    input.Commissions != null &&
-                    this.Commissions.SequenceEqual(input.Commissions)
-                ) && 
-                (
-                    this.Taxes == input.Taxes ||
-                    this.Taxes != null &&
-                    input.Taxes != null &&
-                    this.Taxes.SequenceEqual(input.Taxes)
+                    this.GeneralLookups == input.GeneralLookups ||
+                    this.GeneralLookups != null &&
+                    input.GeneralLookups != null &&
+                    this.GeneralLookups.SequenceEqual(input.GeneralLookups)
                 );
         }
 
@@ -134,12 +104,8 @@ namespace AdminDashboard.Models.SwaggerModels
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Fees != null)
-                    hashCode = hashCode * 59 + this.Fees.GetHashCode();
-                if (this.Commissions != null)
-                    hashCode = hashCode * 59 + this.Commissions.GetHashCode();
-                if (this.Taxes != null)
-                    hashCode = hashCode * 59 + this.Taxes.GetHashCode();
+                if (this.GeneralLookups != null)
+                    hashCode = hashCode * 59 + this.GeneralLookups.GetHashCode();
                 return hashCode;
             }
         }
