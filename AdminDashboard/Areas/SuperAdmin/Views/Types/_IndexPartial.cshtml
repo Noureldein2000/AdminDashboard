@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GeneralLookupTypeViewModel>
+﻿@model IEnumerable<LookupTypeViewModel>
 @using AdminDashboard.Helper;
 
 @{
@@ -6,13 +6,12 @@
 }
 
 <div class="card-header">
-    <button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#LookupTypeModel"
-            onclick="GetIdentitfierTypeActiveTab(@Model.Select(x=>x.IdentitfierType).FirstOrDefault())">
+    <button type="button" class="btn btn-outline-primary fa-pull-right" data-toggle="modal" data-target="#LookupTypeModel">
         Add
     </button>
 </div>
 <div class="card-body">
-    <table class="table table-striped" id="tableType-@Model.Select(x=>x.IdentitfierType).FirstOrDefault()">
+    <table class="table table-striped" id="tableType-@Model.Select(x=>((int)x.IdentitfierType)).FirstOrDefault()">
         <thead>
             <tr>
                 <th>ID</th>
@@ -43,70 +42,9 @@
     </table>
 </div>
 
-@*</div>
-            </div>
-        </div>
-    </div>*@
 @section Scripts{
     <script>
 
-        @*$(function () {
-            var msg = '@TempData["result"]';
-            if (msg != "") {
-                swal({
-                    title: "Good job!",
-                    text: "You Saved the User Successfully!",
-                    icon: "success",
-                    button: "Ok",
-                });
-            }
-         });*@
-
-         function ConfirmDelete(id,row)
-        {
-            swal({
-                title: "Are you sure?",
-                text: "Once deleted, you will not be able to recover this record!",
-                icon: "warning",
-                buttons: true,
-                dangerMode: true,
-            }).then((willDelete) => {
-                if (willDelete) {
-
-                    DeleteServieProvider(id, row);
-                }
-            });
-        }
-
-        function DeleteServieProvider(id, row) {
-
-              $.ajax({
-                type: "GET",
-                url: "@Url.Action("Delete")",
-                  data: {
-                      id: id,
-                  },
-                 dataType: "text",
-                success: function (msg) {
-
-                    console.log("successs Deleted Data");
-
-                    swal("Poof! Your record has been deleted!", {
-                        icon: "success",
-                    });
-
-                    $(row).parents("tr").remove();
-/*                    var data = JSON.parse(msg);*/
-
-                },
-                 error: function (req, status, error) {
-                     console.log(error);
-                     swal("Ops! There is some error happened!", {
-                         icon: "error",
-                     });
-                }
-            });
-        }
     </script>
 }
 

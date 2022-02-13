@@ -36,7 +36,7 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="name">name.</param>
         /// <param name="nameAr">nameAr.</param>
         /// <param name="identifierType">identifierType.</param>
-        public GeneralLookupTypeModel(int? id = default(int?), string name = default(string), string nameAr = default(string), int? identifierType = default(int?))
+        public GeneralLookupTypeModel(int? id = default(int?), string name = default(string), string nameAr = default(string), LookupType identifierType = default(LookupType))
         {
             this.Id = id;
             this.Name = name;
@@ -66,7 +66,7 @@ namespace AdminDashboard.Models.SwaggerModels
         /// Gets or Sets IdentifierType
         /// </summary>
         [DataMember(Name="identifierType", EmitDefaultValue=false)]
-        public int? IdentifierType { get; set; }
+        public LookupType IdentifierType { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
