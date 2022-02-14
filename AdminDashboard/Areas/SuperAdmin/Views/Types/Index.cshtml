@@ -108,7 +108,7 @@
         });
 
         function CreateLookupType() {
-            debugger;
+           
 
             var name = $("#txtName").val();
             var nameAr = $("#txtNameAr").val();
@@ -124,7 +124,7 @@
                  },
                 dataType: "text",
                  success: function (msg) {
-                     debugger;
+                    
                      var dataTest = JSON.parse(msg);
 
                      var html = `<tr>
@@ -174,7 +174,7 @@
         }
 
         function DeleteServieProvider(id, row) {
-            debugger;
+           
               $.ajax({
                 type: "GET",
                 url: "@Url.Action("Delete")",
@@ -249,7 +249,7 @@
         }
 
         function EditLookupType() {
-            debugger;
+           
             var typeId = $("#typeId").val();
             var name = $("#txtName").val();
             var nameAr = $("#txtNameAr").val();
@@ -278,7 +278,7 @@
                     },
                     dataType: "text",
                     success: function (msg) {
-                        debugger;
+                       
 
                         var html = `<td>${typeId}</td>
                         <td> ${name}</td>
