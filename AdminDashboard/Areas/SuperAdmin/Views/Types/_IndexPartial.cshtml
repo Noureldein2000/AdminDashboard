@@ -29,7 +29,7 @@
                     <td>@deno.Name</td>
                     <td>@deno.NameAr</td>
                     <td>
-                        <button asp-action="Edit" asp-route-id="1" class="btn btn-info">
+                        <button asp-action="Edit" onclick="OnViewDataModel(@deno)" class="btn btn-info">
                             Edit
                         </button>
                         <button onclick="ConfirmDelete(1,this)" class="btn btn-danger">

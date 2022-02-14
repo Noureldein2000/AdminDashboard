@@ -21,7 +21,7 @@
             <div class="tab-content" id="myTabContent">
                 <div class="tab-pane fade show active" id="fees" role="tabpanel" aria-labelledby="fees-tab">
                     <div class="card mt-2">
-                        <partial name="_IndexPartial" model="@Model.Fees"  />
+                        <partial name="_IndexPartial" model="@Model.Fees" />
                         <div class="card-footer mt-2">
 
                         </div>
@@ -52,6 +52,7 @@
                             <h3> Create Type </h3>
                         </div>
                         <div class="modal-body">
+                            <input id="typeId" type="hidden" />
                             <div class="form-group">
                                 <label class="control-label">Name <span class="validation-error">*</span></label>
                                 <input id="txtName" type="text" class="form-control" onkeyup="toggleButton(this,'SaveLookupType')" />
@@ -62,7 +63,8 @@
                             </div>
                         </div>
                         <div class="modal-footer">
-                            <input type="button" id="SaveLookupType" value="Create" class="btn btn-success float-right" onclick="CreateLookupType()" data-dismiss="modal" disabled />
+                            <input type="button" id="SaveLookupType" value="Create" class="btn btn-success float-right" onclick="CreateLookupType()" data-dismiss="modal" disabled style="display:inline" />
+                            <input type="button" id="EditLookupType" value="Edit" class="btn btn-success float-right" onclick="EditLookupType()" data-dismiss="modal" disabled style="display:none" />
                             <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -132,6 +134,8 @@
                          icon: "success",
                          button: "Ok",
                      });
+
+                     resetInputs();
                 },
                  error: function (req, status, error) {
                      swal({
@@ -144,12 +148,135 @@
             });
         }
 
-        //function GetIdentitfierTypeActiveTab(identitfierType) {
-        //    debugger;
-        //    var activeAchor=$('a.active').html();
-        //    activeTab = identitfierType;
-        //    console.log(activeAchor);
-        //}
+         function ConfirmDelete(id,row)
+        {
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this record!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willDelete) => {
+                if (willDelete) {
+
+                    DeleteServieProvider(id, row);
+                }
+            });
+        }
+
+        function DeleteServieProvider(id, row) {
+
+              $.ajax({
+                type: "GET",
+                url: "@Url.Action("Delete")",
+                  data: {
+                      id: id,
+                      identifier: activeTab
+                  },
+                 dataType: "text",
+                success: function (msg) {
+                    swal("Your record has been deleted!", {
+                        icon: "success",
+                    });
+
+                    $(row).parents("tr").remove();
+
+                },
+                 error: function (req, status, error) {
+
+                     swal("Ops! There is some error happened!", {
+                         icon: "error",
+                     });
+                }
+            });
+        }
+
+        function resetInputs()
+        {
+            $('#txtName').val('');
+            $('#txtNameAr').val('');
+        }
+
+        function OnViewDataModel(modal)
+        {
+            resetInputs();
+            debugger;
+
+            var data = {
+                id: modal.id,
+                name: modal.name,
+                nameAr: modal.name,
+                identifier: activeTab
+            }
+
+            $('#typeId').val(data.id);
+            $('#txtName').val(data.name);
+            $('#txtNameAr').val(data.nameAr);
+            /*$('EditLookupType').css('Display','inline');*/
+            $('EditLookupType').show();
+            $('SaveLookupType').hide();
+
+            $('#LookupTypeModel').modal('show');
+        }
+
+        function EditLookupType() {
+
+            var typeId = $("#typeId").val();
+            var name = $("#txtName").val();
+            var nameAr = $("#txtNameAr").val();
+
+            if (name == '' || nameAr == '')
+            {
+                swal({
+                    title: "Reqired Field!",
+                    text: "You Shoud enter Required Field!",
+                    icon: "waring",
+                    button: "Ok",
+                });
+            }
+            else
+            {
+
+                $.ajax({
+                    type: "POST",
+                    url: "@Url.Action("EditLookupType")",
+                    data: {
+                        Id: typeId,
+                        Name: name,
+                        NameAr: nameAr,
+                        IdentitfierType: activeTab,
+                    },
+                    dataType: "text",
+                    success: function (msg) {
+
+                        var dataTest = JSON.parse(msg);
+
+                        var html = `<tr><td>${dataTest.id}</td><td> ${dataTest.name}</td><td> ${dataTest.nameAr}</td>
+                            <td><button class="btn btn-primary mr-1">Edit</button>
+                            <button onclick="ChangeStatusDenominationServiceProvider(${dataTest.id},this)" class="${dataTest.status ? 'btn btn-danger' : 'btn btn-success'}">${dataTest.status ? 'Deactive' : 'Active'}</button></td></tr>`;
+
+                        $('#tableType-' + activeTab + '').append(html);
+
+                        swal({
+                            title: "Good job!",
+                            text: "You Saved the Record Successfully!",
+                            icon: "success",
+                            button: "Ok",
+                        });
+
+                        resetInputs();
+                    },
+                    error: function (req, status, error) {
+                        swal({
+                            title: "Failure job!",
+                            text: "Ops, message error is '" + error + "'",
+                            icon: "error",
+                            button: "Ok",
+                        });
+                    }
+                });
+            }
+        }
 
     </script>
 }
