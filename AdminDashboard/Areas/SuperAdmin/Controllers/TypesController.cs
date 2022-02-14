@@ -29,7 +29,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             {
                 IdentifierType = d.Key,
                 GeneralLookups = d.Select(s => new LookupTypeViewModel
-                { 
+                {
                     Id = (int)s.Id,
                     Name = s.Name,
                     NameAr = s.NameAr
@@ -42,11 +42,66 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpPost]
         public JsonResult CreateLookupType(AddLookupTypeViewModel viewModel)
         {
-            var model = _apiLookups.ApiLookupTypeAddLookupTypePost(new GeneralLookupTypeModel(
+            try
+            {
+                var model = _apiLookups.ApiLookupTypeAddLookupTypePost(new GeneralLookupTypeModel(
                   name: viewModel.Name,
                   nameAr: viewModel.NameAr,
                   identifierType: viewModel.IdentifierType));
-            return Json(model);
+                return Json(model);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult Delete(int id, LookupType identifier)
+        {
+            try
+            {
+                _apiLookups.ApiLookupTypeDeleteLookupTypeIdDelete(id: id, lookup: identifier);
+                return Json(new object());
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
+
+        [HttpGet]
+        public JsonResult GetLookupTypeById(int id, LookupType identifier)
+        {
+            try
+            {
+                var model = _apiLookups.ApiLookupTypeGetLookupTypeByIdIdGet(id: id, lookup: identifier);
+                return Json(model);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
+
+
+        [HttpPost]
+        public JsonResult EditLookupType(EditLookupTypeViewModel viewModel)
+        {
+            try
+            {
+                _apiLookups.ApiLookupTypeEditLookupTypePost(new GeneralLookupTypeModel(
+                    id:viewModel.Id,
+                     name: viewModel.Name,
+                     nameAr: viewModel.NameAr,
+                     identifierType: viewModel.IdentifierType));
+
+                return Json(new object());
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
         }
     }
 }

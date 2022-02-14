@@ -9,15 +9,12 @@
         <div class="col-md-12">
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
-                <li class="nav-item active disabled">
-                    <a class="nav-link active" id="FeesType-tab" data-toggle="tab" href="#FeesType" accesskey="1" role="tab" aria-controls="FeesType" aria-selected="true">Fees</a>
-                </li>
-                <li class="nav-item disabled">
-                    <a class="nav-link" id="CommissionType-tab" data-toggle="tab" href="#CommissionType" accesskey="2" role="tab" aria-controls="CommissionType" aria-selected="false">Commissions</a>
-                </li>
-                <li class="nav-item disabled">
-                    <a class="nav-link" id="TaxesType-tab" data-toggle="tab" href="#TaxesType" accesskey="3" role="tab" aria-controls="TaxesType" aria-selected="false">Taxes</a>
-                </li>
+                @foreach (var item in Model)
+                {
+                    <li class="nav-item active disabled">
+                        <a class="nav-link @(item.IdentifierType == LookupType.FeesType ? "active" : "")" id="@((LookupType)item.IdentifierType)-tab" data-toggle="tab" href="#@((LookupType)item.IdentifierType)" accesskey="@((int)item.IdentifierType)" role="tab" aria-controls="@((LookupType)item.IdentifierType)" aria-selected="true">@((LookupType)item.IdentifierType)</a>
+                    </li>
+                }
             </ul>
 
             <div class="tab-content" id="myTabContent">
@@ -40,21 +37,23 @@
                         <div class="modal-body">
                             <input id="typeId" type="hidden" />
                             <div class="form-group">
-                                <label class="control-label">Name <span class="validation-error">*</span></label>
-                                <input id="types" type="text" class="form-control" onkeyup="toggleButton(this,'SaveLookupType')" />
+                                <label class="control-label">Types<span class="validation-error">*</span></label>
+                                <select id="drpIdentitfierTypeId" asp-items="Html.GetEnumSelectList<LookupType>()" class="form-control" data-style="select-with-transition" title="Choose an Lookup Type" data-size="7">
+                                    <option value="0" disabled selected>Choose an Lookup Type</option>
+                                </select>
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Name <span class="validation-error">*</span></label>
-                                <input id="txtName" type="text" class="form-control" onkeyup="toggleButton(this,'SaveLookupType')" />
+                                <input id="txtName" type="text" class="form-control enableAddlookupType" />
                             </div>
                             <div class="form-group">
                                 <label class="control-label">Name Ar <span class="validation-error">*</span></label>
-                                <input id="txtNameAr" type="text" class="form-control" />
+                                <input id="txtNameAr" type="text" class="form-control enableAddlookupType" />
                             </div>
                         </div>
                         <div class="modal-footer">
                             <input type="button" id="SaveLookupType" value="Create" class="btn btn-success float-right" onclick="CreateLookupType()" data-dismiss="modal" disabled style="display:inline" />
-                            <input type="button" id="EditLookupType" value="Edit" class="btn btn-success float-right" onclick="EditLookupType()" data-dismiss="modal" disabled style="display:none" />
+                            <input type="button" id="EditLookupType" value="Edit" class="btn btn-success float-right" onclick="EditLookupType()" style="display:none" />
                             <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">Close</button>
                         </div>
                     </div>
@@ -69,15 +68,14 @@
 @section Scripts{
     <script>
 
-        var activeTab=0 ;
+        var activeTab=0;
 
         $(document).ready(function () {
-             activeTab = $('a.active').attr("accesskey");
+            activeTab = $('a.active').attr("accesskey");
         });
 
         $("#myTab > li > a").click(function () {
             activeTab = $(this).attr("accesskey");
-            $()
         });
 
 
@@ -94,10 +92,27 @@
             document.getElementById(bttnID).disabled = ((ref.value !== ref.defaultValue) ? false : true);
         }
 
+        $("input.enableAddlookupType").keyup(function () {
+            var empty = false;
+
+            $("input.enableAddlookupType").each(function () {
+                if ($(this).val() == '' || $('#drpIdentitfierTypeId').val() == null) {
+                    empty = true;
+                }
+            });
+
+            if (empty)
+                $('#SaveLookupType').attr('disabled', 'disabled');
+            else
+                $('#SaveLookupType').removeAttr('disabled');
+        });
+
         function CreateLookupType() {
+            debugger;
 
             var name = $("#txtName").val();
             var nameAr = $("#txtNameAr").val();
+            var identitfierTypeId = $("#drpIdentitfierTypeId").val();
 
              $.ajax({
                 type: "POST",
@@ -105,18 +120,22 @@
                  data: {
                      Name: name,
                      NameAr:nameAr,
-                     IdentitfierType: activeTab,
+                     IdentifierType: identitfierTypeId,
                  },
                 dataType: "text",
                  success: function (msg) {
-
+                     debugger;
                      var dataTest = JSON.parse(msg);
 
-                     var html = `<tr><td>${dataTest.id}</td><td> ${dataTest.name}</td><td> ${dataTest.nameAr}</td>
-                        <td><button class="btn btn-primary mr-1">Edit</button>
-                        <button onclick="ChangeStatusDenominationServiceProvider(${dataTest.id},this)" class="${dataTest.status ? 'btn btn-danger' : 'btn btn-success'}">${dataTest.status ? 'Deactive' : 'Active'}</button></td></tr>`;
+                     var html = `<tr>
+                        <td>${dataTest.id}</td>
+                        <td> ${dataTest.name}</td>
+                        <td> ${dataTest.nameAr}</td>
+                        <td><button class="btn btn-info" onclick="OnViewDataModel(${dataTest.id})">Edit</button>
+                        <button class="btn btn-danger" onclick="ConfirmDelete(${dataTest.id}, this)">Delete</button></td>
+                        </tr>`;
 
-                     $('#tableType-' + activeTab + '').append(html);
+                     $('#tableType-' + identitfierTypeId + '').append(html);
 
                      swal({
                          title: "Good job!",
@@ -125,7 +144,7 @@
                          button: "Ok",
                      });
 
-                     resetInputs();
+                     ResetInputs();
                 },
                  error: function (req, status, error) {
                      swal({
@@ -155,7 +174,7 @@
         }
 
         function DeleteServieProvider(id, row) {
-
+            debugger;
               $.ajax({
                 type: "GET",
                 url: "@Url.Action("Delete")",
@@ -181,46 +200,67 @@
             });
         }
 
-        function resetInputs()
+        function ResetInputs()
         {
             $('#txtName').val('');
             $('#txtNameAr').val('');
+            $('#drpIdentitfierTypeId').val(0);
+            $('#drpIdentitfierTypeId').removeAttr("disabled");
+            $('#SaveLookupType').show();
+            $('#EditLookupType').hide();
         }
 
-        function OnViewDataModel(modal)
+        function OnViewDataModel(id)
         {
-            resetInputs();
-            debugger;
+            ResetInputs();
 
-            var data = {
-                id: modal.id,
-                name: modal.name,
-                nameAr: modal.name,
-                identifier: activeTab
-            }
 
-            $('#typeId').val(data.id);
-            $('#txtName').val(data.name);
-            $('#txtNameAr').val(data.nameAr);
-            /*$('EditLookupType').css('Display','inline');*/
-            $('EditLookupType').show();
-            $('SaveLookupType').hide();
+             $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetLookupTypeById")",
+                  data: {
+                      id: id,
+                      identifier: activeTab
+                  },
+                 dataType: "text",
+                 success: function (msg) {
 
-            $('#LookupTypeModel').modal('show');
+                     var data = JSON.parse(msg);
+
+                    $('#drpIdentitfierTypeId').val(activeTab);
+                    $('#drpIdentitfierTypeId').attr("disabled", "disabled");
+
+                    $('#typeId').val(data.id);
+                    $('#txtName').val(data.name);
+                    $('#txtNameAr').val(data.nameAr);
+
+                    $('#EditLookupType').show();
+                    $('#SaveLookupType').hide();
+
+                    $('#LookupTypeModel').modal('show');
+                },
+                 error: function (req, status, error) {
+
+                     swal("Ops! There is some error happened!", {
+                         icon: "error",
+                     });
+                }
+            });
         }
 
         function EditLookupType() {
-
+            debugger;
             var typeId = $("#typeId").val();
             var name = $("#txtName").val();
             var nameAr = $("#txtNameAr").val();
+            var drpTypeId = $("#drpIdentitfierTypeId").val();
 
-            if (name == '' || nameAr == '')
+            if (name == '' || nameAr == '' || drpTypeId==0)
             {
                 swal({
                     title: "Reqired Field!",
                     text: "You Shoud enter Required Field!",
-                    icon: "waring",
+                    icon: "warning",
                     button: "Ok",
                 });
             }
@@ -234,27 +274,32 @@
                         Id: typeId,
                         Name: name,
                         NameAr: nameAr,
-                        IdentitfierType: activeTab,
+                        IdentifierType: activeTab,
                     },
                     dataType: "text",
                     success: function (msg) {
+                        debugger;
 
-                        var dataTest = JSON.parse(msg);
+                        var html = `<td>${typeId}</td>
+                        <td> ${name}</td>
+                        <td> ${nameAr}</td>
+                        <td><button class="btn btn-info" onclick="OnViewDataModel(${typeId})">Edit</button>
+                        <button class="btn btn-danger" onclick="ConfirmDelete(${typeId}, this)">Delete</button></td>`;
 
-                        var html = `<tr><td>${dataTest.id}</td><td> ${dataTest.name}</td><td> ${dataTest.nameAr}</td>
-                            <td><button class="btn btn-primary mr-1">Edit</button>
-                            <button onclick="ChangeStatusDenominationServiceProvider(${dataTest.id},this)" class="${dataTest.status ? 'btn btn-danger' : 'btn btn-success'}">${dataTest.status ? 'Deactive' : 'Active'}</button></td></tr>`;
+                        var row = '#tableType-' + activeTab +' #tr-' + typeId;
+                        $(row).empty();
+                        $(row).append(html);
 
-                        $('#tableType-' + activeTab + '').append(html);
+                        $('#LookupTypeModel').modal('hide');
+
+                        ResetInputs();
 
                         swal({
                             title: "Good job!",
-                            text: "You Saved the Record Successfully!",
+                            text: "You Modified the Record Successfully!",
                             icon: "success",
                             button: "Ok",
                         });
-
-                        resetInputs();
                     },
                     error: function (req, status, error) {
                         swal({

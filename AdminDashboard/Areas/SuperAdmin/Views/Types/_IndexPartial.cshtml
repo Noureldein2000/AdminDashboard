@@ -1,12 +1,12 @@
 ﻿@model LookupTypesViewModel
 
 <div class="card-header">
-    <button type="button" class="btn btn-outline-primary fa-pull-right" data-toggle="modal" data-target="#LookupTypeModel">
+    <button type="button" class="btn btn-outline-primary fa-pull-right" onclick="ResetInputs()" data-toggle="modal" data-target="#LookupTypeModel">
         Add
     </button>
 </div>
 <div class="card-body">
-    <table class="table table-striped" id="tableType-@Model.IdentifierType">
+    <table class="table table-striped" id="tableType-@((int)Model.IdentifierType)">
         <thead>
             <tr>
                 <th>ID</th>
@@ -19,15 +19,15 @@
 
             @foreach (var deno in Model.GeneralLookups)
             {
-                <tr>
+                <tr id="tr-@deno.Id">
                     <td>@deno.Id</td>
                     <td>@deno.Name</td>
                     <td>@deno.NameAr</td>
                     <td>
-                        <button asp-action="Edit" onclick="OnViewDataModel(@deno)" class="btn btn-info">
+                        <button onclick="OnViewDataModel(@deno.Id)" class="btn btn-info">
                             Edit
                         </button>
-                        <button onclick="ConfirmDelete(1,this)" class="btn btn-danger">
+                        <button onclick="ConfirmDelete(@deno.Id, this)" class="btn btn-danger">
                             Delete
                         </button>
                     </td>

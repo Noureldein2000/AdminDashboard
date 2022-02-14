@@ -27,7 +27,7 @@ namespace AdminDashboard.Models.SwaggerModels
     /// Defines LookupType
     /// </summary>
     [JsonConverter(typeof(StringEnumConverter))]
-        public enum LookupType
+    public enum LookupType
     {
         /// <summary>
         /// Enum FeesType for value: FeesType
@@ -43,10 +43,6 @@ namespace AdminDashboard.Models.SwaggerModels
         /// Enum TaxesType for value: TaxesType
         /// </summary>
         [EnumMember(Value = "TaxesType")]
-        TaxesType = 3,
-        /// <summary>
-        /// Enum ServiceType for value: ServiceType
-        /// </summary>
-        [EnumMember(Value = "ServiceType")]
-        ServiceType = 4    }
+        TaxesType = 3
+    }
 }
