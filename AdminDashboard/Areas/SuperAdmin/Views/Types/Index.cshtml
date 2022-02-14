@@ -1,4 +1,6 @@
-﻿@model LookupTypesViewModel
+﻿@model List<LookupTypesViewModel>
+@using AdminDashboard.Models.SwaggerModels;
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -8,41 +10,25 @@
 
             <ul class="nav nav-tabs" id="myTab" role="tablist">
                 <li class="nav-item active disabled">
-                    <a class="nav-link active" id="fees-tab" data-toggle="tab" href="#fees" accesskey="1" role="tab" aria-controls="fees" aria-selected="true">Fees</a>
+                    <a class="nav-link active" id="FeesType-tab" data-toggle="tab" href="#FeesType" accesskey="1" role="tab" aria-controls="FeesType" aria-selected="true">Fees</a>
                 </li>
                 <li class="nav-item disabled">
-                    <a class="nav-link" id="commission-tab" data-toggle="tab" href="#commission" accesskey="2" role="tab" aria-controls="commission" aria-selected="false">Commissions</a>
+                    <a class="nav-link" id="CommissionType-tab" data-toggle="tab" href="#CommissionType" accesskey="2" role="tab" aria-controls="CommissionType" aria-selected="false">Commissions</a>
                 </li>
                 <li class="nav-item disabled">
-                    <a class="nav-link" id="tax-tab" data-toggle="tab" href="#tax" accesskey="3" role="tab" aria-controls="tax" aria-selected="false">Taxes</a>
+                    <a class="nav-link" id="TaxesType-tab" data-toggle="tab" href="#TaxesType" accesskey="3" role="tab" aria-controls="TaxesType" aria-selected="false">Taxes</a>
                 </li>
             </ul>
 
             <div class="tab-content" id="myTabContent">
-                <div class="tab-pane fade show active" id="fees" role="tabpanel" aria-labelledby="fees-tab">
-                    <div class="card mt-2">
-                        <partial name="_IndexPartial" model="@Model.Fees" />
-                        <div class="card-footer mt-2">
-
+                @foreach (var lookupType in Model)
+                {
+                    <div class="tab-pane fade show @(lookupType.IdentifierType == LookupType.FeesType ? "active" : "")" id="@((LookupType)lookupType.IdentifierType)" role="tabpanel" aria-labelledby="@((LookupType)lookupType.IdentifierType)-tab">
+                        <div class="card mt-2">
+                            <partial name="_IndexPartial" model="@lookupType" />
                         </div>
                     </div>
-                </div>
-                <div class="tab-pane fade" id="commission" role="tabpanel" aria-labelledby="commission-tab">
-                    <div class="card mt-2">
-                        <partial name="_IndexPartial" model="@Model.Commissions" />
-                    </div>
-                    <div class="card-footer">
-
-                    </div>
-                </div>
-                <div class="tab-pane fade" id="tax" role="tabpanel" aria-labelledby="tax-tab">
-                    <div class="card mt-2">
-                        <partial name="_IndexPartial" model="@Model.Taxes" />
-                    </div>
-                    <div class="card-footer">
-
-                    </div>
-                </div>
+                }
             </div>
             <div id="LookupTypeModel" class="modal fade" role="dialog" dir="ltr">
                 <div class="modal-dialog">
@@ -53,6 +39,10 @@
                         </div>
                         <div class="modal-body">
                             <input id="typeId" type="hidden" />
+                            <div class="form-group">
+                                <label class="control-label">Name <span class="validation-error">*</span></label>
+                                <input id="types" type="text" class="form-control" onkeyup="toggleButton(this,'SaveLookupType')" />
+                            </div>
                             <div class="form-group">
                                 <label class="control-label">Name <span class="validation-error">*</span></label>
                                 <input id="txtName" type="text" class="form-control" onkeyup="toggleButton(this,'SaveLookupType')" />

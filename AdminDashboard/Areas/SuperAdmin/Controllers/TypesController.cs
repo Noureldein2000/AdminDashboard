@@ -25,33 +25,28 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         public async Task<IActionResult> Index()
         {
             var data = await _apiLookups.ApiLookupTypeGetAllLookupTypesGetAsync();
-            return View(new LookupTypesViewModel()
+            var groupedData = data.GeneralLookups.GroupBy(d => d.IdentifierType).Select(d => new LookupTypesViewModel
             {
-                Fees = { Types = data.Fees.Select(x => MapToViewModel(x)).ToList(), IdentitfierType = LookupType.FeesType },
-                Commissions = { Types = data.Commissions.Select(x => MapToViewModel(x)).ToList(), IdentitfierType = LookupType.CommissionType },
-                Taxes = { Types = data.Taxes.Select(x => MapToViewModel(x)).ToList(), IdentitfierType = LookupType.TaxesType },
-            });
+                IdentifierType = d.Key,
+                GeneralLookups = d.Select(s => new LookupTypeViewModel
+                { 
+                    Id = (int)s.Id,
+                    Name = s.Name,
+                    NameAr = s.NameAr
+                }).ToList()
+            }).ToList();
+
+            return View(groupedData);
         }
 
         [HttpPost]
-        public JsonResult CreateLookupType(LookupTypeViewModel viewModel)
+        public JsonResult CreateLookupType(AddLookupTypeViewModel viewModel)
         {
             var model = _apiLookups.ApiLookupTypeAddLookupTypePost(new GeneralLookupTypeModel(
                   name: viewModel.Name,
                   nameAr: viewModel.NameAr,
-                  identifierType: viewModel.IdentitfierType));
-            return Json(MapToViewModel(model));
-        }
-
-        private LookupTypeViewModel MapToViewModel(GeneralLookupTypeModel model)
-        {
-            return new LookupTypeViewModel
-            {
-                Id = (int)model.Id,
-                Name = model.Name,
-                NameAr = model.NameAr,
-                IdentitfierType = model.IdentifierType
-            };
+                  identifierType: viewModel.IdentifierType));
+            return Json(model);
         }
     }
 }
