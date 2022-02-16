@@ -69,6 +69,7 @@ namespace AdminDashboard
             services.AddScoped<IDenominationParamApi>(x => new DenominationParamApi(tmsUrl));
             services.AddScoped<IParameterApi>(x => new ParameterApi(tmsUrl));
             services.AddScoped<IAuthenticationApi>(x => new AuthenticationApi(AuthorityUrl));
+            services.AddScoped<ILookupTypeApi>(x => new LookupTypeApi(tmsUrl));
             services.AddScoped<IAccountsApi>(x => new AccountsApi(sofUrl));
             services.AddScoped<IIntegrations, Integrations>();
 
