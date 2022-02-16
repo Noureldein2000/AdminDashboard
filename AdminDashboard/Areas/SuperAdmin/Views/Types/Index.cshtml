@@ -67,7 +67,7 @@
 
 @section Scripts{
     <script>
-
+        
         var activeTab=0;
 
         $(document).ready(function () {
@@ -108,8 +108,6 @@
         });
 
         function CreateLookupType() {
-           
-
             var name = $("#txtName").val();
             var nameAr = $("#txtNameAr").val();
             var identitfierTypeId = $("#drpIdentitfierTypeId").val();
@@ -168,12 +166,12 @@
             }).then((willDelete) => {
                 if (willDelete) {
 
-                    DeleteServieProvider(id, row);
+                    DeleteType(id, row);
                 }
             });
         }
 
-        function DeleteServieProvider(id, row) {
+        function DeleteType(id, row) {
            
               $.ajax({
                 type: "GET",
@@ -183,17 +181,24 @@
                       identifier: activeTab
                   },
                  dataType: "text",
-                success: function (msg) {
-                    swal("Your record has been deleted!", {
-                        icon: "success",
-                    });
+                  success: function (msg) {                    
+                      let data = JSON.parse(msg);
+                      if (data.result == true) {
+                          swal("Your record has been deleted!", {
+                              icon: "success",
+                          });
 
-                    $(row).parents("tr").remove();
+                          $(row).parents("tr").remove();
+                      }
+                      else {
+                          swal(data.message, {
+                              icon: "error",
+                          });
+                      }
 
                 },
                  error: function (req, status, error) {
-
-                     swal("Ops! There is some error happened!", {
+                     swal("There is some error happened!", {
                          icon: "error",
                      });
                 }
@@ -279,27 +284,37 @@
                     dataType: "text",
                     success: function (msg) {
                        
-
-                        var html = `<td>${typeId}</td>
+                        let data = JSON.parse(msg);
+                        if (data.result == true) {
+                            var html = `<tr><td>${typeId}</td>
                         <td> ${name}</td>
                         <td> ${nameAr}</td>
                         <td><button class="btn btn-info" onclick="OnViewDataModel(${typeId})">Edit</button>
-                        <button class="btn btn-danger" onclick="ConfirmDelete(${typeId}, this)">Delete</button></td>`;
+                        <button class="btn btn-danger" onclick="ConfirmDelete(${typeId}, this)">Delete</button></td></tr>`;
 
-                        var row = '#tableType-' + activeTab +' #tr-' + typeId;
-                        $(row).empty();
-                        $(row).append(html);
+                            var table = `#tableType-${activeTab}`;
+                            $(table).remove(`#tr${typeId}`)
+                            $(table).append(html);
 
-                        $('#LookupTypeModel').modal('hide');
+                            $('#LookupTypeModel').modal('hide');
 
-                        ResetInputs();
+                            ResetInputs();
 
-                        swal({
-                            title: "Good job!",
-                            text: "You Modified the Record Successfully!",
-                            icon: "success",
-                            button: "Ok",
-                        });
+                            swal({
+                                title: "Good job!",
+                                text: "You Modified the Record Successfully!",
+                                icon: "success",
+                                button: "Ok",
+                            });
+                        }
+                        else {
+                            swal({
+                                title: "Failure!",
+                                text: data.message,
+                                icon: "error",
+                                button: "Ok",
+                            });
+                        }
                     },
                     error: function (req, status, error) {
                         swal({

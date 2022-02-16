@@ -62,11 +62,11 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             try
             {
                 _apiLookups.ApiLookupTypeDeleteLookupTypeIdDelete(id: id, lookup: identifier);
-                return Json(new object());
+                return Json(new { result = true });
             }
             catch (Exception ex)
             {
-                return Json(ex.Message);
+                return Json(new { result = false, message = ex.Message });
             }
         }
 
@@ -91,16 +91,16 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             try
             {
                 _apiLookups.ApiLookupTypeEditLookupTypePost(new GeneralLookupTypeModel(
-                    id:viewModel.Id,
+                    id: viewModel.Id,
                      name: viewModel.Name,
                      nameAr: viewModel.NameAr,
                      identifierType: viewModel.IdentifierType));
 
-                return Json(new object());
+                return Json(new { result = true });
             }
             catch (Exception ex)
             {
-                return Json(ex.Message);
+                return Json(new { result = false, message = ex.Message });
             }
         }
     }
