@@ -116,16 +116,13 @@
                   },
                  dataType: "text",
                 success: function (msg) {
-
-                    console.log("successs Reseted Data");
-
                     if (msg=="true")
-                        swal("Poof! Your record has been reseted!", {
+                        swal("Your record has been reseted!", {
                             icon: "success",
                             text: "Note: wait to recevie new password in SMS..."
                         });
                     else
-                        swal("Poof! Your record has been failed!", {
+                        swal("Your record has been failed!", {
                             icon: "error",
                             text: "Note: Something happen couldn't reset password..."
                         });
@@ -135,8 +132,7 @@
 
                 },
                  error: function (req, status, error) {
-                     console.log(error);
-                     swal("Ops! There is some error happened!", {
+                     swal("There is some error happened!", {
                          icon: "error",
                      });
                 }

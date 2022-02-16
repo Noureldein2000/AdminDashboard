@@ -58,7 +58,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             var fees = _apiFees.ApiFeesGetFeesGet(1, 100).Results.Select(a => new SelectListItem
             {
-                Text = a.FeeRange.ToString(),
+                Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
                 Value = a.Id.ToString()
             }).ToList();
 
@@ -86,7 +86,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             {
                 var fees = _apiFees.ApiFeesGetFeesGet(1, 100).Results.Select(a => new SelectListItem
                 {
-                    Text = a.Value.ToString(),
+                    Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
                     Value = a.Id.ToString()
                 }).ToList();
 

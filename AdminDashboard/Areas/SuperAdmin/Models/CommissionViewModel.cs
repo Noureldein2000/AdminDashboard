@@ -14,7 +14,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         [EnumDataType(typeof(CommissionType), ErrorMessage = "You Should choose a Commission Type")]
         public CommissionType CommissionTypeID { get; set; }
         public string CommissionTypeName { get; set; }
-        public string CommissionRange { get; set; }
         public decimal Commission { get; set; }
         [Required]
         [Range(1.0, Double.MaxValue, ErrorMessage = "The field {0} must be greater than {1}.")]

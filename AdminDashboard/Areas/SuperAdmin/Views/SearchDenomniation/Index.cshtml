@@ -65,23 +65,13 @@
                                     <td>@deno.PaymentModeName</td>
                                     <td>@deno.BillPaymentModeName</td>
                                     <td>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-                                                More
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <h5 class="dropdown-header">Modules</h5>
-                                                <a asp-action="Index" asp-controller="DenominationFees" asp-route-denominationId="@deno.Id" class="dropdown-item">Fees</a>
-                                                <a asp-action="Index" asp-controller="DenominationCommission" asp-route-denominationId="@deno.Id" class="dropdown-item">Commissions</a>
-                                                <div class="dropdown-divider"></div>
-                                                <h5 class="dropdown-header">Actions</h5>
-                                                <a asp-action="Edit" asp-controller="Denominations" asp-route-id="@deno.Id" class="dropdown-item">Edit</a>
-                                                @*<a asp-action="ChangeStatus" asp-controller="Denominations" asp-route-id="@deno.Id" asp-route-serviceId="@deno.ServiceID" class="btn @(deno.Status ? "btn-danger" : "btn-success")">
-                                                        @(deno.Status ? "Deactive" : "Active")
-                                                    </a>*@
-                                            </div>
-                                        </div>
-
+                                        <a asp-action="Index" asp-controller="DenominationFees" asp-route-denominationId="@deno.Id" class="btn btn-info">Fees</a>
+                                        <a asp-action="Index" asp-controller="DenominationCommission" asp-route-denominationId="@deno.Id" class="btn btn-info">Commissions</a>
+                                        <a asp-action="Index" asp-controller="DenominationTaxes" asp-route-denominationId="@deno.Id" class="btn btn-info">Taxes</a>
+                                        <a asp-action="Edit" asp-controller="Denominations" asp-route-id="@deno.Id" class="btn btn-info">Edit</a>
+                                        @*<a asp-action="ChangeStatus" asp-controller="Denominations" asp-route-id="@deno.Id" asp-route-serviceId="@deno.ServiceID" class="btn @(deno.Status ? "btn-danger" : "btn-success")">
+                                            @(deno.Status ? "Deactive" : "Active")
+                                        </a>*@
                                     </td>
                                 </tr>
                             }
@@ -117,7 +107,7 @@
                              state.url + '</option>');
                 },
                  error: function (req, status, error) {
-                     console.log(error);
+                     
                 }
             });
         });*@

@@ -55,7 +55,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             var commissions = _apiCommission.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
             {
-                Text = a.CommissionRange.ToString(),
+                Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
                 Value = a.Id.ToString()
             }).ToList();
 
@@ -83,7 +83,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             {
                 var commissions = _apiCommission.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
                 {
-                    Text = a.Value.ToString(),
+                    Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
                     Value = a.Id.ToString()
                 }).ToList();
 

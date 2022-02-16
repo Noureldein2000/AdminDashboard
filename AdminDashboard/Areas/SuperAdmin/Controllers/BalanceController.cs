@@ -2,7 +2,6 @@
 using AdminDashboard.Models;
 using AdminDashboard.Models.SwaggerModels;
 using AdminDashboard.Models.SwaggerModels.SourceOFundSwaggerModels;
-using AdminDashboard.SourceOfFundSwaggerClient;
 using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

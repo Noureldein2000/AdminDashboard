@@ -46,7 +46,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             var fees = _feesApi.ApiFeesGetFeesGet(1, 1000, "ar").Results.Select(a => new SelectListItem
             {
-                Text = a.FeeRange,
+                Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
                 Value = a.Id.ToString()
             }).ToList();
 
@@ -66,7 +66,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             {
                 var fees = _feesApi.ApiFeesGetFeesGet(1, 1000, "ar").Results.Select(a => new SelectListItem
                 {
-                    Text = a.FeeRange,
+                    Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
                     Value = a.Id.ToString()
                 }).ToList();
 
@@ -93,7 +93,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             return new AccountTypeProfileFeesModel
             {
-                Id = (int)x.Id,
+                Id = x.Id,
                 AmountFrom = (double)x.AmountFrom,
                 AmountTo = (double)x.AmountTo,
                 FeesTypeName = x.FeesTypeName,

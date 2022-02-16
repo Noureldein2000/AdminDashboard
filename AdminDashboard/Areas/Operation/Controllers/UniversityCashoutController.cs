@@ -6,12 +6,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using AdminDashboard.Areas.Operation.Models;
-using AdminDashboard.Models.SwaggerModels.SourceOFundSwaggerModels;
-using AdminDashboard.SourceOfFundSwaggerClient;
+using AdminDashboard.Constants;
+using AdminDashboard.Services;
 using ExcelDataReader;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace AdminDashboard.Areas.Operation.Controllers
 {
@@ -20,58 +22,40 @@ namespace AdminDashboard.Areas.Operation.Controllers
     [Authorize]
     public class UniversityCashoutController : Controller
     {
-        private readonly IAccountsApi _accountsApi;
+        private readonly IIntegrations _integrations;
 
-        public UniversityCashoutController(IAccountsApi accountsApi)
+        public UniversityCashoutController(IIntegrations integrations)
         {
-            _accountsApi = accountsApi;
+            _integrations = integrations;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return View(new UniversityCashoutViewModelList());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Index(UniversityCashoutViewModelList model)
+        public async Task<IActionResult> Index(UniversityCashoutViewModelList model)
         {
-            var generalTransferAccount = 92349;
-            var checkbalances = _accountsApi.ApiAccountsCheckbalancesSeedPost(model.DataList.Select(s => new SeedBalancesModel(
-                           accountId: s.AccountId,
-                           amount: 100,
-                           trasnsactionId: 0,
-                           requestId: 0
-                       )).ToList());
-
-            if (checkbalances != null && !checkbalances.Value)
+            var serviceId = 639;
+            var result = await _integrations.InvokeSeedUniversityCashout(serviceId, new AdminDashboard.Models.UniversityCashoutSeedListModel
             {
-                ModelState.AddModelError("File", "Error, one or more account type not exists");
-                return View(model);
-            }
+                Accounts = model.DataList.Select(x => new AdminDashboard.Models.UniversityCashoutSeedModel
+                {
+                    AccountId = x.AccountId,
+                    Amount = x.Amount
+                }).ToList()
+            });
 
-            var sofResponse = _accountsApi.ApiAccountsAccountIdBalancesBalanceTypeIdGet(92349, 1);
-            if (sofResponse == null || sofResponse.Code != 200)
+            ViewBag.Succeeded = result.Select(x => x.Key).FirstOrDefault();
+            ViewBag.ResultData = result.Select(x => x.Value).FirstOrDefault();
+            if (result.Select(x => x.Key).FirstOrDefault() != ResponceStatus.Success)
             {
-                ModelState.AddModelError("File", "Error, please check SOF service");
-                return View(model);
+                return View(new UniversityCashoutViewModelList
+                {
+                    DataList = model.DataList
+                });
             }
-
-            var sumAmount = model.DataList.Sum(s => s.Amount);
-            if ((decimal)sofResponse.TotalAvailableBalance <= sumAmount)
-            {
-                ModelState.AddModelError("File", "Error, Ledger account insufficient fund");
-                return View(model);
-            }
-
-            Task.Run(() => _accountsApi.ApiAccountsAccountIdBalancesSeedPost(generalTransferAccount, model.DataList.Select(s => new SeedBalancesModel
-                         (
-                             accountId: s.AccountId,
-                             amount: (double)s.Amount
-                         //requestId: s.RequestId,
-                         //trasnsactionId: s.TrasnactionId
-                         )).ToList()));
-
-            ViewBag.Succeeded = true;
             return View(new UniversityCashoutViewModelList());
         }
         [HttpPost]

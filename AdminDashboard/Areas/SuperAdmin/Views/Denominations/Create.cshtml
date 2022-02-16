@@ -122,13 +122,12 @@
 
 
 @section Scripts{
-    @{ TempData.Keep("serviceId");}
+    @*@{ TempData.Keep("serviceId");}*@
     <script>
         var rowIdx = 0;
         var arrayJson = [];
 
         $(document).ready(function () {
-            debugger;
             var serviceTypeId = $("#Denomination_ServiceTypeID").val();
 
             if (serviceTypeId === "3") {
@@ -376,7 +375,6 @@
                              state.url + '</option>');
                 },
                  error: function (req, status, error) {
-                     console.log(error);
                 }
             });
         }
@@ -400,8 +398,6 @@
 
                 arrData.push(obj);
             });
-
-            console.log(arrData);
 
             return arrData;
         }
@@ -479,7 +475,7 @@
                          state.label + ' - ' + state.valueModeName + ' - ' + state.valueTypeName + ' - ' + state.paramKey+'</option>');
                 },
                  error: function (req, status, error) {
-                     console.log(error);
+                     
                 }
             });
         }
