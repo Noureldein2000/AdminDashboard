@@ -15,7 +15,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public FeesType FeesTypeID { get; set; }
         public string FeesTypeName { get; set; }
         public decimal Fees { get; set; }
-        public string FeeRange { get; set; }
         [Required]
         [Range(1.0, Double.MaxValue, ErrorMessage = "The field {0} must be greater than {1}.")]
         public decimal AmountFrom { get; set; }

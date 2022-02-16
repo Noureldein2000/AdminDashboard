@@ -40,7 +40,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             var taxes = _apiTaxes.ApiTaxGetTaxesGet(1, 100).Results.Select(a => new SelectListItem
             {
-                Text = a.TaxRange.ToString(),
+                Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
                 Value = a.Id.ToString()
             }).ToList();
 
@@ -64,7 +64,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 {
                     var taxes = _apiTaxes.ApiTaxGetTaxesGet(1, 100).Results.Select(a => new SelectListItem
                     {
-                        Text = a.TaxRange.ToString(),
+                        Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
                         Value = a.Id.ToString()
                     }).ToList();
 
@@ -84,7 +84,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 ModelState.AddModelError("", ex.Message);
                 var taxes = _apiTaxes.ApiTaxGetTaxesGet(1, 100).Results.Select(a => new SelectListItem
                 {
-                    Text = a.TaxRange.ToString(),
+                    Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
                     Value = a.Id.ToString()
                 }).ToList();
 
