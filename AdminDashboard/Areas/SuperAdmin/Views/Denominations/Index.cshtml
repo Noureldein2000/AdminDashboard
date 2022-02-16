@@ -8,20 +8,8 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <div class="d-flex justify-content-between">
-                        <div>
-                            <h2>Denominations</h2>
-                            <h6>
-                                <strong>
-                                    Service Name:
-                                </strong>
-                                @ViewBag.FullTitle
-                            </h6>
-                        </div>
-                        <div>
-                            <a asp-action="Create" asp-route-serviceId="@ViewBag.serviceId" asp-route-serviceTypeId="@ViewBag.serviceTypeId" class="pull-right btn btn-outline-primary">Add</a>
-                        </div>
-                    </div>
+                    <h2> Denomination >> @ViewBag.FullTitle</h2>
+                    <a asp-action="Create" asp-route-serviceId="@TempData["serviceId"]" asp-route-serviceTypeId="@TempData["serviceTypeId"]" class="pull-right btn btn-outline-primary">Add</a>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
@@ -49,14 +37,23 @@
                                     <td>@deno.PaymentModeName</td>
                                     <td>@deno.BillPaymentModeName</td>
                                     <td>
-                                        <a asp-action="Index" asp-controller="DenominationFees" asp-route-denominationId="@deno.Id" asp-route-denominationName="@deno.Name" class="btn btn-info">Fees</a>
-                                        <a asp-action="Index" asp-controller="DenominationCommission" asp-route-denominationId="@deno.Id" asp-route-denominationName="@deno.Name" class="btn btn-info">Commissions</a>
-                                        <a asp-action="Index" asp-controller="DenominationTaxes" asp-route-denominationId="@deno.Id" asp-route-denominationName="@deno.Name" class="btn btn-info">Taxes</a>
-                                        <a asp-action="Edit" asp-route-id="@deno.Id" class="btn btn-info">Edit</a>
-                                        <a asp-action="ChangeStatus" asp-route-id="@deno.Id" asp-route-serviceId="@ViewBag.serviceId" asp-route-serviceTypeId="@ViewBag.serviceTypeId"
-                                           asp-route-title="@ViewBag.FullTitle" class="btn @(deno.Status ? "btn-danger" : "btn-success")">
-                                            @(deno.Status ? "Deactive" : "Active")
-                                        </a>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                                More
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <h5 class="dropdown-header">Modules</h5>
+                                                <a asp-action="Index" asp-controller="DenominationFees" asp-route-denominationId="@deno.Id" class="dropdown-item">Fees</a>
+                                                <a asp-action="Index" asp-controller="DenominationCommission" asp-route-denominationId="@deno.Id" class="dropdown-item">Commissions</a>
+                                                <div class="dropdown-divider"></div>
+                                                <h5 class="dropdown-header">Actions</h5>
+                                                <a asp-action="Edit" asp-route-id="@deno.Id" class="dropdown-item">Edit</a>
+                                                <a asp-action="ChangeStatus" asp-route-id="@deno.Id" asp-route-serviceId="@TempData["serviceId"]" class="dropdown-item">
+                                                    @(deno.Status ? "Deactive" : "Active")
+                                                </a>
+                                            </div>
+                                        </div>
+
                                     </td>
                                 </tr>
                             }
@@ -76,6 +73,8 @@
 </div>
 @section Scripts{
     <script>
+        @{ TempData.Keep("serviceId");}
+
         @*$(function () {
             var msg = '@TempData["result"]';
             if (msg != "") {

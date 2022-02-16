@@ -15,7 +15,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public int FeesTypeId { get; set; }
         public string FeesTypeName { get; set; }
         public int DenominationId { get; set; }
-        public string Range { get; set; }
+        public string DenominationFullName { get; set; }
         public DateTime CreationDate { get; set; }
     }
 }

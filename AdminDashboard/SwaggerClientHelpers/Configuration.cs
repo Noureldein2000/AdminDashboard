@@ -111,7 +111,7 @@ namespace AdminDashboard.SwaggerClientHelpers
             ApiKeyPrefix = new ConcurrentDictionary<string, string>();
 
             // Setting Timeout has side effects (forces ApiClient creation).
-            Timeout = 30000;
+            Timeout = 100000;
         }
 
         /// <summary>

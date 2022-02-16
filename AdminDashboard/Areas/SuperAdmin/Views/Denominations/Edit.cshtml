@@ -302,6 +302,9 @@
 
         $("input.enableAddParam").keyup(function () {
             var empty = false;
+
+            console.log($(this).getElementById("txtTimeOut").val());
+
             $("input.enableAddParam").each(function () {
                 if ($(this).val() == '') {
                     empty = true;
@@ -421,14 +424,15 @@
                         $('#myDenominationServiceProviderModal').modal('hide');
                     },
                      error: function (req, status, error) {
-                         swal("There is some error happened!", {
+                         console.log(error);
+                         swal("Ops! There is some error happened!", {
                              icon: "error",
                          });
                     }
                 });
             }
             else {
-                swal("You should compelete fields!", {
+                swal("Ops! You should compelete fields!", {
                     icon: "info",
                 });
             }
@@ -465,7 +469,7 @@
                              state.url + '</option>');
                 },
                  error: function (req, status, error) {
-
+                     console.log(error);
                 }
             });
         }
@@ -550,7 +554,7 @@
                         $('#myDenominationParameter').modal('hide');
                     },
                      error: function (req, status, error) {
-                         
+                         console.log(error);
                          swal("Ops! There is some error happened!", {
                              icon: "error",
                          });
@@ -558,7 +562,7 @@
                 });
             }
             else {
-                swal("You should Complete Fields", {
+                swal("Ops! You should Complete Fields", {
                     icon: "info",
                 });
             }
@@ -602,7 +606,7 @@
                     });
                 },
                  error: function (req, status, error) {
-                     
+                     console.log(error);
                      swal("Ops! There is some error happened!", {
                          icon: "error",
                      });
@@ -633,7 +637,7 @@
                     $('#myDenominationParameter').modal('toggle');
                 },
                  error: function (req, status, error) {
-                     
+                     console.log(error);
                 }
             });
         }
@@ -688,6 +692,9 @@
                   },
                  dataType: "text",
                 success: function (msg) {
+
+                    console.log("successs Deleted Data");
+
                     swal("Poof! Your record has been deleted!", {
                         icon: "success",
                     });
@@ -697,7 +704,7 @@
 
                 },
                  error: function (req, status, error) {
-                     
+                     console.log(error);
                      swal("Ops! There is some error happened!", {
                          icon: "error",
                      });
@@ -714,6 +721,8 @@
                  dataType: "text",
                  success: function (msg) {
                      
+                    console.log("successs Get Data");
+
                     var data = JSON.parse(msg);
 
                     $('#denominationServieProviderId').val(id);
@@ -729,7 +738,7 @@
                     $('#myDenominationServiceProviderModal').modal('toggle');
                 },
                  error: function (req, status, error) {
-                     
+                     console.log(error);
                 }
             });
             }
@@ -756,7 +765,7 @@
                      $(row).html(active == false ? 'Deactive' : 'Active');
                 },
                  error: function (req, status, error) {
-                     
+                     console.log(error);
                      swal("Ops! There is some error happened!", {
                          icon: "error",
                      });

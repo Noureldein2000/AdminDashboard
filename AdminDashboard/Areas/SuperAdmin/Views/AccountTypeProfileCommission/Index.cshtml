@@ -86,7 +86,10 @@
                   },
                  dataType: "text",
                 success: function (msg) {
-                    swal("Your record has been deleted!", {
+
+                    console.log("successs Deleted Data");
+
+                    swal("Poof! Your record has been deleted!", {
                         icon: "success",
                     });
 
@@ -95,7 +98,8 @@
 
                 },
                  error: function (req, status, error) {
-                     swal("There is some error happened!", {
+                     console.log(error);
+                     swal("Ops! There is some error happened!", {
                          icon: "error",
                      });
                 }

@@ -124,7 +124,7 @@
                     $('#tblAccount').append('<tr><td>' + data.accountName + '</td><td>' + data.mobile + '</td><td>' + data.nationalID + '</td><td>' + data.activityName + '</td><td> <a onclick="CreateChannel(' + data.id + ')" class="btn btn-info">Assign</a></td></tr>');
                 },
                 error: function (req, status, error) {
-
+                    console.log(error);
                 }
             });
           });
@@ -170,6 +170,8 @@
                    window.location.href='@Url.Action("Index", "Channels")';
                 },
                 error: function (req, status, error) {
+                    console.log('call Failure');
+                    console.log(error);
                 }
             });
 
@@ -198,7 +200,7 @@
                 },
                 error: function (req, status, error) {
                     console.log('call Failure');
-                    
+                    console.log(error);
                 }
             });*@
         }

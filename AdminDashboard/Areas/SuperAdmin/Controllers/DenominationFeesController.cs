@@ -28,16 +28,14 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             _apiDenomination = denominationApi;
         }
         [HttpGet]
-        public async Task<IActionResult> Index(int denominationId, string denominationName)
+        public async Task<IActionResult> Index(int denominationId)
         {
             var data = await _apiDenominationFees.ApiDenominationFeesGetdenominationFeesByDenominationIdDenominationIdGetAsync(denominationId);
-            ViewBag.denominationId = denominationId;
-            ViewBag.DenominationName = denominationName;
             return View(data.Select(x => Map(x)));
         }
 
         [HttpGet]
-        public IActionResult Create(int id, string denominationName)
+        public IActionResult Create(int id)
         {
             var fees = _apiFees.ApiFeesGetFeesGet(1, 100).Results.Select(a => new SelectListItem
             {
@@ -48,7 +46,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             var model = new CreateDenominationFeesViewModel
             {
                 DenominationId = id,
-                DenominationName = denominationName,
                 Fees = fees,
             };
 
@@ -59,30 +56,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(CreateDenominationFeesViewModel model)
         {
-            try
+            if (!ModelState.IsValid)
             {
-                if (!ModelState.IsValid)
-                {
-                    var fees = _apiFees.ApiFeesGetFeesGet(1, 100).Results.Select(a => new SelectListItem
-                    {
-                        Text = a.Value.ToString(),
-                        Value = a.Id.ToString()
-                    }).ToList();
-
-                    model.Fees = fees;
-
-                    return View(model);
-                }
-
-                _apiDenominationFees.ApiDenominationFeesAddDenominationFeesPost(new AddDenominationFeesModel(
-                    denominationId: model.DenominationId,
-                    feesId: model.FeesId));
-
-                return RedirectToAction(nameof(Index), new { denominationId = model.DenominationId, denominationName = model.DenominationName });
-            }
-            catch (Exception ex)
-            {
-                ModelState.AddModelError("", ex.Message);
                 var fees = _apiFees.ApiFeesGetFeesGet(1, 100).Results.Select(a => new SelectListItem
                 {
                     Text = a.Value.ToString(),
@@ -93,20 +68,20 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
                 return View(model);
             }
+
+            _apiDenominationFees.ApiDenominationFeesAddDenominationFeesPost(new AddDenominationFeesModel(
+                denominationId: model.DenominationId,
+                feesId: model.FeesId));
+
+            return RedirectToAction(nameof(Index), new { denominationId = model.DenominationId });
         }
 
         [HttpGet]
         public JsonResult Delete(int id)
         {
-            try
-            {
-                _apiDenominationFees.ApiDenominationFeesDeleteDenominationFeeIdDelete(id: id);
-                return Json(id);
-            }
-            catch (Exception ex)
-            {
-                return Json(ex.Message);
-            }
+            _apiDenominationFees.ApiDenominationFeesDeleteDenominationFeeIdDelete(id: id);
+
+            return Json(id);
         }
 
         private DenominationFeesViewModel Map(DenominationFeesModel x)
@@ -122,7 +97,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 FeesValue = (decimal)x.FeesValue,
                 PaymentModeId = (int)x.PaymentModeId,
                 DenominationId = (int)x.DenominationId,
-                Range = x.Range
+                DenominationFullName = x.DenominationFullName
             };
         }
     }

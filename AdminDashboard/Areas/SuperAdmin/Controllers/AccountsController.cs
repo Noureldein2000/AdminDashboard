@@ -1,19 +1,17 @@
 ﻿using AdminDashboard.Areas.SuperAdmin.Models;
 using AdminDashboard.Models;
 using AdminDashboard.Models.SwaggerModels;
+using AdminDashboard.Models.SwaggerModels.SourceOFundSwaggerModels;
+using AdminDashboard.SourceOfFundSwaggerClient;
 using AdminDashboard.SwaggerClient;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
-using Newtonsoft.Json;
 using PagedList.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace AdminDashboard.Areas.SuperAdmin.Controllers
@@ -37,8 +35,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         private readonly IChannelOwnerApi _channelOwnerApi;
         private readonly IChannelPaymentMethodApi _channelPaymentMethodApi;
         private readonly IAccountsApi _accounts;
-        private readonly IHttpClientFactory _httpClientFactory;
-
         public AccountsController(
             IAccountApi api,
             IRegionApi regionApi,
@@ -52,11 +48,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             IUsersApi usersApi,
             IChannelOwnerApi channelOwnerApi,
             IChannelPaymentMethodApi channelPaymentMethodApi,
-            IAccountsApi accounts,
-            IHttpClientFactory httpClientFactory
+            IAccountsApi accounts
             )
         {
-
             _api = api;
             _regionApi = regionApi;
             _activityApi = activityApi;
@@ -70,10 +64,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             _channelOwnerApi = channelOwnerApi;
             _channelPaymentMethodApi = channelPaymentMethodApi;
             _accounts = accounts;
-            _httpClientFactory = httpClientFactory;
         }
         [HttpGet]
-        public IActionResult Index(bool processSucceded = false)
+        public IActionResult Index()
         {
             //var data = api.ApiAccountGetAccountsGet(page, 10);
             //var dd = data.Results.Select(account => Map(account)).ToList();
@@ -92,13 +85,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Value = a.Id.ToString()
             }).ToList();
 
-            ViewBag.processSucceded = processSucceded;
             return View(new PagedResult<AccountViewModel>());
         }
         [HttpGet]
-        public async Task<IActionResult> SearchAccounts(int? dropDownFilter, string searchKey, int page = 1)
+        public IActionResult SearchAccounts(int? dropDownFilter, string searchKey, int page = 1)
         {
             var data = _api.ApiAccountGetAccountsBySearchKeyGet(dropDownFilter, searchKey, page);
+
             var dd = data.Results.Select(account => Map(account)).ToList();
 
             var viewModel = new PagedResult<AccountViewModel>
@@ -254,7 +247,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             model.ConsumerUser.UserRole = Roles.Consumer;
             if (result != null)
             {
-                _accounts.ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPost(accountId: result.Id, 0.0, model.BalanceTypeId);
+                _accounts.ApiAccountsCreateAccountPost(new CreateAccountModel(accountId: result.Id, 0.0, new List<int?> { model.BalanceTypeId }));
 
                 _usersApi.ApiUsersCreateUserPost(new CreateUserModel(
                                 username: model.Username,
@@ -276,7 +269,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                                    ));
             }
 
-            return RedirectToAction(nameof(Index), new { processSucceded = true});
+
+            TempData["result"] = true;
+            return RedirectToAction(nameof(Index));
         }
         [HttpGet]
         public IActionResult Edit(int id)

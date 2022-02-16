@@ -1,4 +1,4 @@
-﻿@model PagedResult<AccountFeesViewModel>
+﻿@model IEnumerable<AccountBalancesViewModel>
 @{
     ViewData["Title"] = "Index";
 }
@@ -8,44 +8,52 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2> Fees</h2>
-                    <a asp-action="Create" asp-route-accountId="@ViewBag.AccountId" class="pull-right btn btn-outline-primary">Add</a>
+                    <h2>@ViewBag.AccountName Balance</h2>
+                    <button type="button" onclick="AddBalanceType()" class="btn btn-outline-primary" data-toggle="modal" data-target="#ServicesBalancesFormModal">Add</button>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Denomiination ID</th>
-                                <th>Denomination</th>
-                                <th>Value</th>
-                                <th>Type Name</th>
-                                <th>Payment Mode</th>
+                                <th>Balance</th>
+                                <th>Avaliable Balance</th>
+                                <th>Balance Type</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var fee in Model.Results)
+                            @foreach (var fee in Model)
                             {
                                 <tr>
-                                    <td>@fee.DenomiinationId</td>
-                                    <td>@fee.DenominationFullName</td>
-                                    <td>@fee.FeesValue</td>
-                                    <td>@fee.FeesTypeName</td>
-                                    <td>@fee.PaymentMode</td>
+                                    <td>@fee.TotalBalance L.E</td>
+                                    <td>@fee.TotalAvailableBalance L.E</td>
+                                    <td>@fee.BalanceType</td>
                                     <td>
-                                        <button onclick="ConfirmDeleteAccountFee(@fee.Id,this)" class="btn btn-danger">Delete</button>
+                                        @*<button onclick="ConfirmDeleteAccountFee(@fee.Id,this)" class="btn btn-danger">Delete</button>*@
                                     </td>
                                 </tr>
                             }
                         </tbody>
                     </table>
                 </div>
-                <div class="card-footer d-flex justify-content-center">
-                    <pager link-url="/SuperAdmin/AccountFees/Index"
-                           page="Model.CurrentPage"
-                           page-size="Model.PageSize"
-                           total-items="Model.PageCount">
-                    </pager>
+            </div>
+            <div id="ServicesBalancesFormModal" class="modal fade" role="dialog" dir="ltr">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3> Add Service Balance</h3>
+                        </div>
+                        <form asp-action="Create" method="post">
+                            <div class="modal-body">
+                                <partial name="_AccontServiceBalance" model="new AccountBalancesViewModel()" />
+                            </div>
+                            <div class="modal-footer">
+                                <input type="submit" id="SaveServiceConfig" value="Create" class="btn btn-success float-right" />
+                                <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">Close</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </div>
@@ -110,6 +118,15 @@
                      });
                 }
             });
+        }
+
+        function AddBalanceType()
+        {
+            debugger;
+            var accountId = @Context.Request.Query["accountId"].ToString();
+            var accountName = @Context.Request.Query["accountName"].ToString();
+            $("#hdnAccountId").val(accountId);
+            $("#hdnAccountName").val(accountName);
         }
 
     </script>

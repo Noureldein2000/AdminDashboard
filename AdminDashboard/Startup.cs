@@ -1,19 +1,19 @@
-using AdminDashboard.HttpHandler;
-using AdminDashboard.Services;
+using AdminDashboard.SourceOfFundSwaggerClient;
 using AdminDashboard.SwaggerClient;
-using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Net.Http.Headers;
+using Microsoft.IdentityModel.Tokens;
+using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -39,7 +39,6 @@ namespace AdminDashboard
             services.AddScoped<IRolesApi>(x => new RolesApi(AuthorityUrl));
             services.AddScoped<IAccountApi>(x => new AccountApi(AuthorityUrl));
             services.AddScoped<IFeesApi>(x => new FeesApi(tmsUrl));
-            services.AddScoped<ITaxApi>(x => new TaxApi(tmsUrl));
             services.AddScoped<IAccountFeesApi>(x => new AccountFeesApi(tmsUrl));
             services.AddScoped<IDenominationApi>(x => new DenominationApi(tmsUrl));
             services.AddScoped<IAdminServiceApi>(x => new AdminServiceApi(tmsUrl));
@@ -57,21 +56,19 @@ namespace AdminDashboard
             services.AddScoped<IChannelOwnerApi>(x => new ChannelOwnerApi(AuthorityUrl));
             services.AddScoped<IChannelPaymentMethodApi>(x => new ChannelPaymentMethodApi(AuthorityUrl));
             services.AddScoped<IAccountTypeApi>(x => new AccountTypeApi(AuthorityUrl));
-            services.AddScoped<IAccountTypeProfileCommissionApi>(x => new AccountTypeProfileCommissionApi(tmsUrl));
+            services.AddScoped<IAccountTypeProfileCommissionApi>(x => new AccountTypeProfileCommissionApi(tmsUrl)); 
             services.AddScoped<IAccountTypeProfileDenominationApi>(x => new AccountTypeProfileDenominationApi(tmsUrl));
             services.AddScoped<IAccountTypeProfileFeeApi>(x => new AccountTypeProfileFeeApi(tmsUrl));
             services.AddScoped<IChannelCategoryApi>(x => new ChannelCategoryApi(AuthorityUrl));
             services.AddScoped<IDenominationCommissionApi>(x => new DenominationCommissionApi(tmsUrl));
             services.AddScoped<IDenominationFeesApi>(x => new DenominationFeesApi(tmsUrl));
-            services.AddScoped<IDenominationTaxesApi>(x => new DenominationTaxesApi(tmsUrl));
             services.AddScoped<IServiceProviderApi>(x => new ServiceProviderApi(tmsUrl));
             services.AddScoped<IServiceConfigurationApi>(x => new ServiceConfigurationApi(tmsUrl));
             services.AddScoped<IDenominationParamApi>(x => new DenominationParamApi(tmsUrl));
             services.AddScoped<IParameterApi>(x => new ParameterApi(tmsUrl));
             services.AddScoped<IAuthenticationApi>(x => new AuthenticationApi(AuthorityUrl));
-            services.AddScoped<ILookupTypeApi>(x => new LookupTypeApi(tmsUrl));
-            services.AddScoped<IAccountsApi>(x => new AccountsApi(sofUrl));
-            services.AddScoped<IIntegrations, Integrations>();
+            services.AddScoped<SourceOfFundSwaggerClient.IAccountsApi>(x => new SourceOfFundSwaggerClient.AccountsApi(sofUrl));
+
 
             //services.AddMvc().SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
 
@@ -79,15 +76,15 @@ namespace AdminDashboard
 
             services.AddAuthentication(options =>
             {
-                options.DefaultScheme = CookieAuthenticationDefaults.AuthenticationScheme; 
-                options.DefaultChallengeScheme = OpenIdConnectDefaults.AuthenticationScheme;
+                options.DefaultScheme = "Cookies";
+                options.DefaultChallengeScheme = "oidc";
             })
-            .AddCookie(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddOpenIdConnect(OpenIdConnectDefaults.AuthenticationScheme, options =>
+            .AddCookie("Cookies")
+            .AddOpenIdConnect("oidc", options =>
             {
-                options.SignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                options.SignInScheme = "Cookies";
                 options.Authority = Configuration["Urls:Authority"];
-                options.RequireHttpsMetadata = true;
+                options.RequireHttpsMetadata = false;
 
                 options.ClientId = "admin_dashboard_123";// Configuration["ISConfig:ClientId"];
                 options.ClientSecret = "d5a9b78e-a694-4026-af7f-6d559d8a3949"; // Configuration["ISConfig:Secret"];
@@ -95,39 +92,31 @@ namespace AdminDashboard
                 options.SaveTokens = true;
                 options.GetClaimsFromUserInfoEndpoint = true;
                 //options.Scope.Add("account_id");
-                options.Scope.Add("openid");
-                options.Scope.Add("profile");
                 options.Scope.Add("SOF");
                 options.Scope.Add("Auth");
-                options.Scope.Add("TMS");
                 //options.Scope.Add("offline_access");
                 //options.ClaimActions.MapJsonKey("account_id", "account_id", "account_id");
                 options.ClaimActions.MapJsonKey("roles", "roles", "roles");
                 options.SignedOutCallbackPath = "/Home/Index";
-                options.Events.OnRedirectToIdentityProvider = async n =>
-                {
-                    n.ProtocolMessage.RedirectUri = $"{Configuration["Urls:DashboardRedirectUrl"]}/signin-oidc";
-                    await Task.FromResult(0);
-                };
             });
-            services.AddHttpContextAccessor();
 
+            //services.AddScoped<ISwaggerClient>(obj => new SwaggerClient("http://localhost:44303/", new System.Net.Http.HttpClient { Timeout = TimeSpan.FromMinutes(30) }));
+
+            //.AddOpenIdConnect("oidc", config =>
+            //{
+            //    config.Authority = "https://localhost:44303/";
+            //    config.ClientId = "admin_dashboard_123";
+            //    config.ClientSecret = "d5a9b78e-a694-4026-af7f-6d559d8a3949";
+            //    config.SaveTokens = true;
+            //    config.ResponseType = "code";
+            //    //config.RequireHttpsMetadata = false;
+
+            //    //config.Scope.Add("SOF");
+            //    //config.Scope.Add("Auth");
+            //});
+
+            //services.AddHttpClient();
             services.AddControllersWithViews();
-
-            services.AddTransient<AuthenticationDelegatingHandler>();
-            services.AddHttpClient("Accounts", client =>
-            {
-                client.BaseAddress = new System.Uri(Configuration["Urls:Authority"]);
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
-            }).AddHttpMessageHandler<AuthenticationDelegatingHandler>();
-
-            services.AddHttpClient("TMS", client =>
-            {
-                client.BaseAddress = new System.Uri(Configuration["Urls:TMS"]);
-                client.DefaultRequestHeaders.Clear();
-                client.DefaultRequestHeaders.Add(HeaderNames.Accept, "application/json");
-            }).AddHttpMessageHandler<AuthenticationDelegatingHandler>();
 
         }
 

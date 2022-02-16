@@ -29,12 +29,23 @@
                                     <td>@user.Email</td>
                                     <td>@user.Roles</td>
                                     <td>
-                                        @*<a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-primary">Edit</a>*@
-                                        <a asp-action="ManageRoles" asp-route-userId="@user.Id" class="btn btn-primary">Manage Roles</a>
-                                        <a asp-action="ManagePermissions" asp-route-userId="@user.Id" class="btn btn-info">Manage Permissions</a>
-                                        <button onclick="ConfirmResetPassword('@user.Id')" class="btn btn-danger">Reset Password</button>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                                More
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <h5 class="dropdown-header">Modules</h5>
+                                                <div class="dropdown-divider"></div>
+                                                <h5 class="dropdown-header">Actions</h5>
+                                                <a asp-action="ManageRoles" asp-route-userId="@user.Id" class="dropdown-item">Manage Roles</a>
+                                                <a asp-action="ManagePermissions" asp-route-userId="@user.Id" class="dropdown-item">Manage Permissions</a>
+                                                <button onclick="ConfirmResetPassword('@user.Id')" class="dropdown-item" style="color:red">Reset Password</button>
+                                            </div>
+                                        </div>
 
-                                      @*Note: make this condition to display resetPassword button for users who has Account ID*@
+                                        @*<a asp-action="Edit" asp-route-id="@user.Id" class="btn btn-primary">Edit</a>*@
+
+                                        @*Note: make this condition to display resetPassword button for users who has Account ID*@
                                         @*@if (user.AccountId != null)
                                             {
                                                 <button onclick="ConfirmResetPassword('@user.Id')" class="btn btn-danger">Reset Password</button>
@@ -105,13 +116,16 @@
                   },
                  dataType: "text",
                 success: function (msg) {
+
+                    console.log("successs Reseted Data");
+
                     if (msg=="true")
-                        swal("Your record has been reseted!", {
+                        swal("Poof! Your record has been reseted!", {
                             icon: "success",
                             text: "Note: wait to recevie new password in SMS..."
                         });
                     else
-                        swal("Your record has been failed!", {
+                        swal("Poof! Your record has been failed!", {
                             icon: "error",
                             text: "Note: Something happen couldn't reset password..."
                         });
@@ -121,7 +135,8 @@
 
                 },
                  error: function (req, status, error) {
-                     swal("There is some error happened!", {
+                     console.log(error);
+                     swal("Ops! There is some error happened!", {
                          icon: "error",
                      });
                 }

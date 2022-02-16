@@ -12,10 +12,10 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using RestSharp;
-using AdminDashboard.Models.SwaggerModels;
+using AdminDashboard.Models.SwaggerModels.SourceOFundSwaggerModels;
 using AdminDashboard.SwaggerClientHelpers;
 
-namespace AdminDashboard.SwaggerClient
+namespace AdminDashboard.SourceOfFundSwaggerClient
 {
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
@@ -73,6 +73,29 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="body"> (optional)</param>
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> ApiAccountsAccountIdBalancesBalanceTypeIdRequestsRequestIdPostWithHttpInfo (int? accountId, int? requestId, int? balanceTypeId, HoldBalanceModel body = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="accountId"></param>
+        /// <param name="body"> (optional)</param>
+        /// <returns></returns>
+        void ApiAccountsAccountIdBalancesSeedPost (int? accountId, List<SeedBalancesModel> body = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="accountId"></param>
+        /// <param name="body"> (optional)</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> ApiAccountsAccountIdBalancesSeedPostWithHttpInfo (int? accountId, List<SeedBalancesModel> body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -172,6 +195,73 @@ namespace AdminDashboard.SwaggerClient
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>List&lt;int?&gt;</returns>
+        List<int?> ApiAccountsBalanceTypesIdGet (int? id, string language = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>ApiResponse of List&lt;int?&gt;</returns>
+        ApiResponse<List<int?>> ApiAccountsBalanceTypesIdGetWithHttpInfo (int? id, string language = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="accountId"></param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>List&lt;AccountBalancesModel&gt;</returns>
+        List<AccountBalancesModel> ApiAccountsBalancesAccountIdGet (int? accountId, string language = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="accountId"></param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>ApiResponse of List&lt;AccountBalancesModel&gt;</returns>
+        ApiResponse<List<AccountBalancesModel>> ApiAccountsBalancesAccountIdGetWithHttpInfo (int? accountId, string language = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body"> (optional)</param>
+        /// <returns>bool?</returns>
+        bool? ApiAccountsCheckbalancesSeedPost (List<SeedBalancesModel> body = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body"> (optional)</param>
+        /// <returns>ApiResponse of bool?</returns>
+        ApiResponse<bool?> ApiAccountsCheckbalancesSeedPostWithHttpInfo (List<SeedBalancesModel> body = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="fromAccountId"></param>
         /// <param name="toAccountId"></param>
         /// <param name="requestId"></param>
@@ -197,11 +287,9 @@ namespace AdminDashboard.SwaggerClient
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="accountId"></param>
-        /// <param name="amount"></param>
-        /// <param name="balanceTypeId"></param>
+        /// <param name="body"> (optional)</param>
         /// <returns></returns>
-        void ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPost (int? accountId, double? amount, int? balanceTypeId);
+        void ApiAccountsCreateAccountPost (CreateAccountModel body = null);
 
         /// <summary>
         /// 
@@ -210,11 +298,9 @@ namespace AdminDashboard.SwaggerClient
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="accountId"></param>
-        /// <param name="amount"></param>
-        /// <param name="balanceTypeId"></param>
+        /// <param name="body"> (optional)</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPostWithHttpInfo (int? accountId, double? amount, int? balanceTypeId);
+        ApiResponse<Object> ApiAccountsCreateAccountPostWithHttpInfo (CreateAccountModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -244,6 +330,27 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="accountFromTransactionId"></param>
         /// <returns>ApiResponse of Object(void)</returns>
         ApiResponse<Object> ApiAccountsManageBalanceFromAccountIdToAccountIdBalancesAmountRequestsAccountFromRequestIdTransactionsAccountFromTransactionIdPostWithHttpInfo (int? fromAccountId, int? toAccountId, double? amount, int? accountFromRequestId, int? accountFromTransactionId);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body"> (optional)</param>
+        /// <returns></returns>
+        void ApiAccountsManageBalancePost (ManageBalanceDTO body = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body"> (optional)</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        ApiResponse<Object> ApiAccountsManageBalancePostWithHttpInfo (ManageBalanceDTO body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -321,6 +428,29 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="body"> (optional)</param>
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountsAccountIdBalancesBalanceTypeIdRequestsRequestIdPostAsyncWithHttpInfo (int? accountId, int? requestId, int? balanceTypeId, HoldBalanceModel body = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="accountId"></param>
+        /// <param name="body"> (optional)</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task ApiAccountsAccountIdBalancesSeedPostAsync (int? accountId, List<SeedBalancesModel> body = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="accountId"></param>
+        /// <param name="body"> (optional)</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountsAccountIdBalancesSeedPostAsyncWithHttpInfo (int? accountId, List<SeedBalancesModel> body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -420,6 +550,73 @@ namespace AdminDashboard.SwaggerClient
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>Task of List&lt;int?&gt;</returns>
+        System.Threading.Tasks.Task<List<int?>> ApiAccountsBalanceTypesIdGetAsync (int? id, string language = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>Task of ApiResponse (List&lt;int?&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<int?>>> ApiAccountsBalanceTypesIdGetAsyncWithHttpInfo (int? id, string language = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="accountId"></param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>Task of List&lt;AccountBalancesModel&gt;</returns>
+        System.Threading.Tasks.Task<List<AccountBalancesModel>> ApiAccountsBalancesAccountIdGetAsync (int? accountId, string language = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="accountId"></param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>Task of ApiResponse (List&lt;AccountBalancesModel&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<AccountBalancesModel>>> ApiAccountsBalancesAccountIdGetAsyncWithHttpInfo (int? accountId, string language = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body"> (optional)</param>
+        /// <returns>Task of bool?</returns>
+        System.Threading.Tasks.Task<bool?> ApiAccountsCheckbalancesSeedPostAsync (List<SeedBalancesModel> body = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body"> (optional)</param>
+        /// <returns>Task of ApiResponse (bool?)</returns>
+        System.Threading.Tasks.Task<ApiResponse<bool?>> ApiAccountsCheckbalancesSeedPostAsyncWithHttpInfo (List<SeedBalancesModel> body = null);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="fromAccountId"></param>
         /// <param name="toAccountId"></param>
         /// <param name="requestId"></param>
@@ -445,11 +642,9 @@ namespace AdminDashboard.SwaggerClient
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="accountId"></param>
-        /// <param name="amount"></param>
-        /// <param name="balanceTypeId"></param>
+        /// <param name="body"> (optional)</param>
         /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPostAsync (int? accountId, double? amount, int? balanceTypeId);
+        System.Threading.Tasks.Task ApiAccountsCreateAccountPostAsync (CreateAccountModel body = null);
 
         /// <summary>
         /// 
@@ -458,11 +653,9 @@ namespace AdminDashboard.SwaggerClient
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="accountId"></param>
-        /// <param name="amount"></param>
-        /// <param name="balanceTypeId"></param>
+        /// <param name="body"> (optional)</param>
         /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPostAsyncWithHttpInfo (int? accountId, double? amount, int? balanceTypeId);
+        System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountsCreateAccountPostAsyncWithHttpInfo (CreateAccountModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -492,6 +685,27 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="accountFromTransactionId"></param>
         /// <returns>Task of ApiResponse</returns>
         System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountsManageBalanceFromAccountIdToAccountIdBalancesAmountRequestsAccountFromRequestIdTransactionsAccountFromTransactionIdPostAsyncWithHttpInfo (int? fromAccountId, int? toAccountId, double? amount, int? accountFromRequestId, int? accountFromTransactionId);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body"> (optional)</param>
+        /// <returns>Task of void</returns>
+        System.Threading.Tasks.Task ApiAccountsManageBalancePostAsync (ManageBalanceDTO body = null);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body"> (optional)</param>
+        /// <returns>Task of ApiResponse</returns>
+        System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountsManageBalancePostAsyncWithHttpInfo (ManageBalanceDTO body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -964,6 +1178,169 @@ namespace AdminDashboard.SwaggerClient
             if (ExceptionFactory != null)
             {
                 Exception exception = ExceptionFactory("ApiAccountsAccountIdBalancesBalanceTypeIdRequestsRequestIdPost", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                null);
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="accountId"></param>
+        /// <param name="body"> (optional)</param>
+        /// <returns></returns>
+        public void ApiAccountsAccountIdBalancesSeedPost (int? accountId, List<SeedBalancesModel> body = null)
+        {
+             ApiAccountsAccountIdBalancesSeedPostWithHttpInfo(accountId, body);
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="accountId"></param>
+        /// <param name="body"> (optional)</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public ApiResponse<Object> ApiAccountsAccountIdBalancesSeedPostWithHttpInfo (int? accountId, List<SeedBalancesModel> body = null)
+        {
+            // verify the required parameter 'accountId' is set
+            if (accountId == null)
+                throw new ApiException(400, "Missing required parameter 'accountId' when calling AccountsApi->ApiAccountsAccountIdBalancesSeedPost");
+
+            var localVarPath = "/api/Accounts/{accountId}/balances/seed";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json", 
+                "text/json", 
+                "application/_*+json"
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (accountId != null) localVarPathParams.Add("accountId", this.Configuration.ApiClient.ParameterToString(accountId)); // path parameter
+            if (body != null && body.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = body; // byte array
+            }
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiAccountsAccountIdBalancesSeedPost", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                null);
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="accountId"></param>
+        /// <param name="body"> (optional)</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task ApiAccountsAccountIdBalancesSeedPostAsync (int? accountId, List<SeedBalancesModel> body = null)
+        {
+             await ApiAccountsAccountIdBalancesSeedPostAsyncWithHttpInfo(accountId, body);
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="accountId"></param>
+        /// <param name="body"> (optional)</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountsAccountIdBalancesSeedPostAsyncWithHttpInfo (int? accountId, List<SeedBalancesModel> body = null)
+        {
+            // verify the required parameter 'accountId' is set
+            if (accountId == null)
+                throw new ApiException(400, "Missing required parameter 'accountId' when calling AccountsApi->ApiAccountsAccountIdBalancesSeedPost");
+
+            var localVarPath = "/api/Accounts/{accountId}/balances/seed";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json", 
+                "text/json", 
+                "application/_*+json"
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (accountId != null) localVarPathParams.Add("accountId", this.Configuration.ApiClient.ParameterToString(accountId)); // path parameter
+            if (body != null && body.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = body; // byte array
+            }
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiAccountsAccountIdBalancesSeedPost", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -1568,6 +1945,467 @@ namespace AdminDashboard.SwaggerClient
         ///  
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>List&lt;int?&gt;</returns>
+        public List<int?> ApiAccountsBalanceTypesIdGet (int? id, string language = null)
+        {
+             ApiResponse<List<int?>> localVarResponse = ApiAccountsBalanceTypesIdGetWithHttpInfo(id, language);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>ApiResponse of List&lt;int?&gt;</returns>
+        public ApiResponse< List<int?> > ApiAccountsBalanceTypesIdGetWithHttpInfo (int? id, string language = null)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new ApiException(400, "Missing required parameter 'id' when calling AccountsApi->ApiAccountsBalanceTypesIdGet");
+
+            var localVarPath = "/api/Accounts/BalanceTypes/{id}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (id != null) localVarPathParams.Add("id", this.Configuration.ApiClient.ParameterToString(id)); // path parameter
+            if (language != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiAccountsBalanceTypesIdGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<List<int?>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (List<int?>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<int?>)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>Task of List&lt;int?&gt;</returns>
+        public async System.Threading.Tasks.Task<List<int?>> ApiAccountsBalanceTypesIdGetAsync (int? id, string language = null)
+        {
+             ApiResponse<List<int?>> localVarResponse = await ApiAccountsBalanceTypesIdGetAsyncWithHttpInfo(id, language);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="id"></param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>Task of ApiResponse (List&lt;int?&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<int?>>> ApiAccountsBalanceTypesIdGetAsyncWithHttpInfo (int? id, string language = null)
+        {
+            // verify the required parameter 'id' is set
+            if (id == null)
+                throw new ApiException(400, "Missing required parameter 'id' when calling AccountsApi->ApiAccountsBalanceTypesIdGet");
+
+            var localVarPath = "/api/Accounts/BalanceTypes/{id}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (id != null) localVarPathParams.Add("id", this.Configuration.ApiClient.ParameterToString(id)); // path parameter
+            if (language != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiAccountsBalanceTypesIdGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<List<int?>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (List<int?>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<int?>)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="accountId"></param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>List&lt;AccountBalancesModel&gt;</returns>
+        public List<AccountBalancesModel> ApiAccountsBalancesAccountIdGet (int? accountId, string language = null)
+        {
+             ApiResponse<List<AccountBalancesModel>> localVarResponse = ApiAccountsBalancesAccountIdGetWithHttpInfo(accountId, language);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="accountId"></param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>ApiResponse of List&lt;AccountBalancesModel&gt;</returns>
+        public ApiResponse< List<AccountBalancesModel> > ApiAccountsBalancesAccountIdGetWithHttpInfo (int? accountId, string language = null)
+        {
+            // verify the required parameter 'accountId' is set
+            if (accountId == null)
+                throw new ApiException(400, "Missing required parameter 'accountId' when calling AccountsApi->ApiAccountsBalancesAccountIdGet");
+
+            var localVarPath = "/api/Accounts/Balances/{accountId}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (accountId != null) localVarPathParams.Add("accountId", this.Configuration.ApiClient.ParameterToString(accountId)); // path parameter
+            if (language != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiAccountsBalancesAccountIdGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<List<AccountBalancesModel>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (List<AccountBalancesModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<AccountBalancesModel>)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="accountId"></param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>Task of List&lt;AccountBalancesModel&gt;</returns>
+        public async System.Threading.Tasks.Task<List<AccountBalancesModel>> ApiAccountsBalancesAccountIdGetAsync (int? accountId, string language = null)
+        {
+             ApiResponse<List<AccountBalancesModel>> localVarResponse = await ApiAccountsBalancesAccountIdGetAsyncWithHttpInfo(accountId, language);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="accountId"></param>
+        /// <param name="language"> (optional, default to ar)</param>
+        /// <returns>Task of ApiResponse (List&lt;AccountBalancesModel&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<AccountBalancesModel>>> ApiAccountsBalancesAccountIdGetAsyncWithHttpInfo (int? accountId, string language = null)
+        {
+            // verify the required parameter 'accountId' is set
+            if (accountId == null)
+                throw new ApiException(400, "Missing required parameter 'accountId' when calling AccountsApi->ApiAccountsBalancesAccountIdGet");
+
+            var localVarPath = "/api/Accounts/Balances/{accountId}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (accountId != null) localVarPathParams.Add("accountId", this.Configuration.ApiClient.ParameterToString(accountId)); // path parameter
+            if (language != null) localVarQueryParams.AddRange(this.Configuration.ApiClient.ParameterToKeyValuePairs("", "language", language)); // query parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiAccountsBalancesAccountIdGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<List<AccountBalancesModel>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (List<AccountBalancesModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<AccountBalancesModel>)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body"> (optional)</param>
+        /// <returns>bool?</returns>
+        public bool? ApiAccountsCheckbalancesSeedPost (List<SeedBalancesModel> body = null)
+        {
+             ApiResponse<bool?> localVarResponse = ApiAccountsCheckbalancesSeedPostWithHttpInfo(body);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body"> (optional)</param>
+        /// <returns>ApiResponse of bool?</returns>
+        public ApiResponse< bool? > ApiAccountsCheckbalancesSeedPostWithHttpInfo (List<SeedBalancesModel> body = null)
+        {
+
+            var localVarPath = "/api/Accounts/checkbalances/seed";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json", 
+                "text/json", 
+                "application/_*+json"
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (body != null && body.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = body; // byte array
+            }
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiAccountsCheckbalancesSeedPost", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<bool?>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (bool?) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(bool?)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body"> (optional)</param>
+        /// <returns>Task of bool?</returns>
+        public async System.Threading.Tasks.Task<bool?> ApiAccountsCheckbalancesSeedPostAsync (List<SeedBalancesModel> body = null)
+        {
+             ApiResponse<bool?> localVarResponse = await ApiAccountsCheckbalancesSeedPostAsyncWithHttpInfo(body);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body"> (optional)</param>
+        /// <returns>Task of ApiResponse (bool?)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<bool?>> ApiAccountsCheckbalancesSeedPostAsyncWithHttpInfo (List<SeedBalancesModel> body = null)
+        {
+
+            var localVarPath = "/api/Accounts/checkbalances/seed";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json", 
+                "text/json", 
+                "application/_*+json"
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (body != null && body.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = body; // byte array
+            }
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiAccountsCheckbalancesSeedPost", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<bool?>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (bool?) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(bool?)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="fromAccountId"></param>
         /// <param name="toAccountId"></param>
         /// <param name="requestId"></param>
@@ -1729,36 +2567,23 @@ namespace AdminDashboard.SwaggerClient
         ///  
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="accountId"></param>
-        /// <param name="amount"></param>
-        /// <param name="balanceTypeId"></param>
+        /// <param name="body"> (optional)</param>
         /// <returns></returns>
-        public void ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPost (int? accountId, double? amount, int? balanceTypeId)
+        public void ApiAccountsCreateAccountPost (CreateAccountModel body = null)
         {
-             ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPostWithHttpInfo(accountId, amount, balanceTypeId);
+             ApiAccountsCreateAccountPostWithHttpInfo(body);
         }
 
         /// <summary>
         ///  
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="accountId"></param>
-        /// <param name="amount"></param>
-        /// <param name="balanceTypeId"></param>
+        /// <param name="body"> (optional)</param>
         /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPostWithHttpInfo (int? accountId, double? amount, int? balanceTypeId)
+        public ApiResponse<Object> ApiAccountsCreateAccountPostWithHttpInfo (CreateAccountModel body = null)
         {
-            // verify the required parameter 'accountId' is set
-            if (accountId == null)
-                throw new ApiException(400, "Missing required parameter 'accountId' when calling AccountsApi->ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPost");
-            // verify the required parameter 'amount' is set
-            if (amount == null)
-                throw new ApiException(400, "Missing required parameter 'amount' when calling AccountsApi->ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPost");
-            // verify the required parameter 'balanceTypeId' is set
-            if (balanceTypeId == null)
-                throw new ApiException(400, "Missing required parameter 'balanceTypeId' when calling AccountsApi->ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPost");
 
-            var localVarPath = "/api/Accounts/CreateAccount/{accountId}/balances/{amount}/{balanceTypeId}";
+            var localVarPath = "/api/Accounts/CreateAccount";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -1768,6 +2593,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Content-Type header
             String[] localVarHttpContentTypes = new String[] {
+                "application/json", 
+                "text/json", 
+                "application/_*+json"
             };
             String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
 
@@ -1778,9 +2606,14 @@ namespace AdminDashboard.SwaggerClient
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (accountId != null) localVarPathParams.Add("accountId", this.Configuration.ApiClient.ParameterToString(accountId)); // path parameter
-            if (amount != null) localVarPathParams.Add("amount", this.Configuration.ApiClient.ParameterToString(amount)); // path parameter
-            if (balanceTypeId != null) localVarPathParams.Add("balanceTypeId", this.Configuration.ApiClient.ParameterToString(balanceTypeId)); // path parameter
+            if (body != null && body.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = body; // byte array
+            }
             // authentication (Bearer) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
             {
@@ -1796,7 +2629,7 @@ namespace AdminDashboard.SwaggerClient
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPost", localVarResponse);
+                Exception exception = ExceptionFactory("ApiAccountsCreateAccountPost", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -1809,13 +2642,11 @@ namespace AdminDashboard.SwaggerClient
         ///  
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="accountId"></param>
-        /// <param name="amount"></param>
-        /// <param name="balanceTypeId"></param>
+        /// <param name="body"> (optional)</param>
         /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPostAsync (int? accountId, double? amount, int? balanceTypeId)
+        public async System.Threading.Tasks.Task ApiAccountsCreateAccountPostAsync (CreateAccountModel body = null)
         {
-             await ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPostAsyncWithHttpInfo(accountId, amount, balanceTypeId);
+             await ApiAccountsCreateAccountPostAsyncWithHttpInfo(body);
 
         }
 
@@ -1823,23 +2654,12 @@ namespace AdminDashboard.SwaggerClient
         ///  
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
-        /// <param name="accountId"></param>
-        /// <param name="amount"></param>
-        /// <param name="balanceTypeId"></param>
+        /// <param name="body"> (optional)</param>
         /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPostAsyncWithHttpInfo (int? accountId, double? amount, int? balanceTypeId)
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountsCreateAccountPostAsyncWithHttpInfo (CreateAccountModel body = null)
         {
-            // verify the required parameter 'accountId' is set
-            if (accountId == null)
-                throw new ApiException(400, "Missing required parameter 'accountId' when calling AccountsApi->ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPost");
-            // verify the required parameter 'amount' is set
-            if (amount == null)
-                throw new ApiException(400, "Missing required parameter 'amount' when calling AccountsApi->ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPost");
-            // verify the required parameter 'balanceTypeId' is set
-            if (balanceTypeId == null)
-                throw new ApiException(400, "Missing required parameter 'balanceTypeId' when calling AccountsApi->ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPost");
 
-            var localVarPath = "/api/Accounts/CreateAccount/{accountId}/balances/{amount}/{balanceTypeId}";
+            var localVarPath = "/api/Accounts/CreateAccount";
             var localVarPathParams = new Dictionary<String, String>();
             var localVarQueryParams = new List<KeyValuePair<String, String>>();
             var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
@@ -1849,6 +2669,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Content-Type header
             String[] localVarHttpContentTypes = new String[] {
+                "application/json", 
+                "text/json", 
+                "application/_*+json"
             };
             String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
 
@@ -1859,9 +2682,14 @@ namespace AdminDashboard.SwaggerClient
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
-            if (accountId != null) localVarPathParams.Add("accountId", this.Configuration.ApiClient.ParameterToString(accountId)); // path parameter
-            if (amount != null) localVarPathParams.Add("amount", this.Configuration.ApiClient.ParameterToString(amount)); // path parameter
-            if (balanceTypeId != null) localVarPathParams.Add("balanceTypeId", this.Configuration.ApiClient.ParameterToString(balanceTypeId)); // path parameter
+            if (body != null && body.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = body; // byte array
+            }
             // authentication (Bearer) required
             if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
             {
@@ -1877,7 +2705,7 @@ namespace AdminDashboard.SwaggerClient
 
             if (ExceptionFactory != null)
             {
-                Exception exception = ExceptionFactory("ApiAccountsCreateAccountAccountIdBalancesAmountBalanceTypeIdPost", localVarResponse);
+                Exception exception = ExceptionFactory("ApiAccountsCreateAccountPost", localVarResponse);
                 if (exception != null) throw exception;
             }
 
@@ -2063,6 +2891,157 @@ namespace AdminDashboard.SwaggerClient
             if (ExceptionFactory != null)
             {
                 Exception exception = ExceptionFactory("ApiAccountsManageBalanceFromAccountIdToAccountIdBalancesAmountRequestsAccountFromRequestIdTransactionsAccountFromTransactionIdPost", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                null);
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body"> (optional)</param>
+        /// <returns></returns>
+        public void ApiAccountsManageBalancePost (ManageBalanceDTO body = null)
+        {
+             ApiAccountsManageBalancePostWithHttpInfo(body);
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body"> (optional)</param>
+        /// <returns>ApiResponse of Object(void)</returns>
+        public ApiResponse<Object> ApiAccountsManageBalancePostWithHttpInfo (ManageBalanceDTO body = null)
+        {
+
+            var localVarPath = "/api/Accounts/ManageBalance";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json", 
+                "text/json", 
+                "application/_*+json"
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (body != null && body.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = body; // byte array
+            }
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiAccountsManageBalancePost", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<Object>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                null);
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body"> (optional)</param>
+        /// <returns>Task of void</returns>
+        public async System.Threading.Tasks.Task ApiAccountsManageBalancePostAsync (ManageBalanceDTO body = null)
+        {
+             await ApiAccountsManageBalancePostAsyncWithHttpInfo(body);
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="body"> (optional)</param>
+        /// <returns>Task of ApiResponse</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountsManageBalancePostAsyncWithHttpInfo (ManageBalanceDTO body = null)
+        {
+
+            var localVarPath = "/api/Accounts/ManageBalance";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+                "application/json", 
+                "text/json", 
+                "application/_*+json"
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (body != null && body.GetType() != typeof(byte[]))
+            {
+                localVarPostBody = this.Configuration.ApiClient.Serialize(body); // http body (model) parameter
+            }
+            else
+            {
+                localVarPostBody = body; // byte array
+            }
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.POST, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiAccountsManageBalancePost", localVarResponse);
                 if (exception != null) throw exception;
             }
 

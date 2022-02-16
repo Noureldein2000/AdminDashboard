@@ -41,9 +41,8 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="commissionTypeName">commissionTypeName.</param>
         /// <param name="denominationId">denominationId.</param>
         /// <param name="denominationFullName">denominationFullName.</param>
-        /// <param name="range">range.</param>
         /// <param name="creationDate">creationDate.</param>
-        public DenominationCommissionModel(int? id = default(int?), int? commissionId = default(int?), double? commissionValue = default(double?), int? paymentModeId = default(int?), string paymentMode = default(string), int? commissionTypeId = default(int?), string commissionTypeName = default(string), int? denominationId = default(int?), string denominationFullName = default(string), string range = default(string), DateTime? creationDate = default(DateTime?))
+        public DenominationCommissionModel(int? id = default(int?), int? commissionId = default(int?), double? commissionValue = default(double?), int? paymentModeId = default(int?), string paymentMode = default(string), int? commissionTypeId = default(int?), string commissionTypeName = default(string), int? denominationId = default(int?), string denominationFullName = default(string), DateTime? creationDate = default(DateTime?))
         {
             this.Id = id;
             this.CommissionId = commissionId;
@@ -54,7 +53,6 @@ namespace AdminDashboard.Models.SwaggerModels
             this.CommissionTypeName = commissionTypeName;
             this.DenominationId = denominationId;
             this.DenominationFullName = denominationFullName;
-            this.Range = range;
             this.CreationDate = creationDate;
         }
         
@@ -113,12 +111,6 @@ namespace AdminDashboard.Models.SwaggerModels
         public string DenominationFullName { get; set; }
 
         /// <summary>
-        /// Gets or Sets Range
-        /// </summary>
-        [DataMember(Name="range", EmitDefaultValue=false)]
-        public string Range { get; set; }
-
-        /// <summary>
         /// Gets or Sets CreationDate
         /// </summary>
         [DataMember(Name="creationDate", EmitDefaultValue=false)]
@@ -141,7 +133,6 @@ namespace AdminDashboard.Models.SwaggerModels
             sb.Append("  CommissionTypeName: ").Append(CommissionTypeName).Append("\n");
             sb.Append("  DenominationId: ").Append(DenominationId).Append("\n");
             sb.Append("  DenominationFullName: ").Append(DenominationFullName).Append("\n");
-            sb.Append("  Range: ").Append(Range).Append("\n");
             sb.Append("  CreationDate: ").Append(CreationDate).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -223,11 +214,6 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.DenominationFullName.Equals(input.DenominationFullName))
                 ) && 
                 (
-                    this.Range == input.Range ||
-                    (this.Range != null &&
-                    this.Range.Equals(input.Range))
-                ) && 
-                (
                     this.CreationDate == input.CreationDate ||
                     (this.CreationDate != null &&
                     this.CreationDate.Equals(input.CreationDate))
@@ -261,8 +247,6 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.DenominationId.GetHashCode();
                 if (this.DenominationFullName != null)
                     hashCode = hashCode * 59 + this.DenominationFullName.GetHashCode();
-                if (this.Range != null)
-                    hashCode = hashCode * 59 + this.Range.GetHashCode();
                 if (this.CreationDate != null)
                     hashCode = hashCode * 59 + this.CreationDate.GetHashCode();
                 return hashCode;
