@@ -83,7 +83,6 @@
             $("#txtReason").keyup(function () {
                 //Reference the Button.
                 var btnSubmit = $("#btnSubmit");
-                //
                 //Verify the TextBox value.
                 if ($(this).val().trim() != "" && $("#drpStatus").val() != null) {
                     //Enable the TextBox when TextBox has value.
@@ -105,7 +104,6 @@
                 data: { serial: searchKey },
                 dataType: "text",
                 success: function (msg) {
-                    //console.log('success');
 
                     var x = $('#tblChannels tbody').empty();
                     $.each(JSON.parse(msg), function (i, data) {
@@ -113,14 +111,12 @@
                     });
                 },
                 error: function (req, status, error) {
-                    console.log(msg);
                 }
             });
         });
 
         function changeStatus() {
             var ddlFruits = $("[id*=drpStatus]");
-            var selectedText = ddlFruits.find("option:selected").text();
             var selectedValue = ddlFruits.val();
 
             var rowId = $('#rowId').val();
@@ -136,12 +132,10 @@
                 },
                 dataType: "text",
                 success: function (msg) {
-                    //console.log(' change success');
                     $("#myChangeModal").modal('hide');
                     location.reload(true);
                 },
                 error: function (req, status, error) {
-                    console.log(msg);
                 }
          });
         }
@@ -149,7 +143,7 @@
         function getData(val, statusValue) {
             $('#rowId').val(val);
             $('#statusValue').val(statusValue);
-            //
+          
             var model = '@Html.Raw(Json.Serialize(enumLst))';
             var lst = JSON.parse(model);
 
@@ -205,16 +199,6 @@
                      PaymentMethodID: paymentMethod
                  },
                 success: function (data) {
-                    //console.log(data);
-                    //let result = JSON.parse(data);
-//                    console.log(result);
-//                    $('#table-channels > tbody > tr:first').before(`<tr><td>${data.name}</td>
-//                                <td>${data.serial}</td>
-//                                <td>${data.value}</td>
-//                                <td>Created</td>
-//                                <td></td>
-//                                <td><button type="button" class="pull-right btn btn-info" data-toggle="modal" data-target="#myChangeModal" onclick="getData(${data.channelID}, ${parseInt(data.status)}">Change Status</button></td>
-//</tr>`);
                     swal({
                         title: "",
                         text: "تم الحفظ",
@@ -227,8 +211,8 @@
                     });;
                 },
                 error: function (req, status, error) {
-                    console.log('call Failure');
-                    console.log(error);
+
+                    
                 }
             });
 

@@ -26,14 +26,17 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             _apiDenominationCommission = denominationCommissionApi;
         }
         [HttpGet]
-        public async Task<IActionResult> Index(int denominationId)
+        public async Task<IActionResult> Index(int denominationId, string denominationName, bool processSucceded = false)
         {
             var data = await _apiDenominationCommission.ApiDenominationCommissionGetdenominationCommissionByDenominationIdDenominationIdGetAsync(denominationId);
+            ViewBag.denominationId = denominationId;
+            ViewBag.DenominationName = denominationName;
+            ViewBag.ProcessSucceded = processSucceded;
             return View(data.Select(x => Map(x)));
         }
 
         [HttpGet]
-        public IActionResult Create(int id)
+        public IActionResult Create(int id, string denominationName)
         {
             var commissions = _apiCommissions.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
             {
@@ -44,9 +47,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             var model = new CreateDenominationCommissionViewModel
             {
                 DenominationId = id,
+                DenominationName = denominationName,
                 Commissions = commissions,
             };
-
             return View(model);
         }
 
@@ -54,8 +57,30 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(CreateDenominationCommissionViewModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
+                if (!ModelState.IsValid)
+                {
+                    var commissions = _apiCommissions.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
+                    {
+                        Text = a.CommissionRange.ToString(),
+                        Value = a.Id.ToString()
+                    }).ToList();
+
+                    model.Commissions = commissions;
+
+                    return View(model);
+                }
+
+                _apiDenominationCommission.ApiDenominationCommissionAddDenominationCommissionPost(new AddDenominationCommissionModel(
+                    denominationId: model.DenominationId,
+                    commissionId: model.CommissionId));
+
+                return RedirectToAction(nameof(Index), new { denominationId = model.DenominationId, denominationName = model.DenominationName, processSucceded = true }); ;
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
                 var commissions = _apiCommissions.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
                 {
                     Text = a.CommissionRange.ToString(),
@@ -63,23 +88,24 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 }).ToList();
 
                 model.Commissions = commissions;
-
                 return View(model);
             }
-
-            _apiDenominationCommission.ApiDenominationCommissionAddDenominationCommissionPost(new AddDenominationCommissionModel(
-                denominationId: model.DenominationId,
-                commissionId: model.CommissionId));
-
-            return RedirectToAction(nameof(Index), new { denominationId = model.DenominationId });
         }
 
         [HttpGet]
         public JsonResult Delete(int id)
         {
-            _apiDenominationCommission.ApiDenominationCommissionDeleteDenominationCommissionIdDelete(id: id);
+            try
+            {
 
-            return Json(id);
+                _apiDenominationCommission.ApiDenominationCommissionDeleteDenominationCommissionIdDelete(id: id);
+
+                return Json(id);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
         }
 
         private DenominationCommissionViewModel Map(DenominationCommissionModel x)
@@ -95,7 +121,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 CommissionValue = x.CommissionValue,
                 PaymentModeId = (int)x.PaymentModeId,
                 DenominationId = (int)x.DenominationId,
-                DenominationFullName = x.DenominationFullName
+                Range = x.Range
             };
         }
     }

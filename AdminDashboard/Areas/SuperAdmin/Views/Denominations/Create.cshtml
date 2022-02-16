@@ -122,7 +122,7 @@
 
 
 @section Scripts{
-    @{ TempData.Keep("serviceId");}
+    @*@{ TempData.Keep("serviceId");}*@
     <script>
         var rowIdx = 0;
         var arrayJson = [];
@@ -376,7 +376,6 @@
                              state.url + '</option>');
                 },
                  error: function (req, status, error) {
-                     console.log(error);
                 }
             });
         }
@@ -400,8 +399,6 @@
 
                 arrData.push(obj);
             });
-
-            console.log(arrData);
 
             return arrData;
         }
@@ -479,7 +476,7 @@
                          state.label + ' - ' + state.valueModeName + ' - ' + state.valueTypeName + ' - ' + state.paramKey+'</option>');
                 },
                  error: function (req, status, error) {
-                     console.log(error);
+                     
                 }
             });
         }
