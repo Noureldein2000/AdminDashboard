@@ -688,9 +688,6 @@
                   },
                  dataType: "text",
                 success: function (msg) {
-
-                    console.log("successs Deleted Data");
-
                     swal("Poof! Your record has been deleted!", {
                         icon: "success",
                     });
@@ -717,8 +714,6 @@
                  dataType: "text",
                  success: function (msg) {
                      
-                    console.log("successs Get Data");
-
                     var data = JSON.parse(msg);
 
                     $('#denominationServieProviderId').val(id);
