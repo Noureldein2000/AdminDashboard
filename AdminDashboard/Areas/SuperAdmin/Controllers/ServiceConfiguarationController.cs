@@ -32,7 +32,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             _apiServiceProvider = serviceProviderApi;
             _apiServiceConfiguration = serviceConfigurationApi;
         }
-        public async Task<IActionResult> Index(int page = 1, int size = 10)
+        public async Task<IActionResult> Index(int page = 1, int size = 10, bool processSucceded = false)
         {
             var data = await _apiServiceConfiguration.ApiServiceConfigurationGetServiceConfiguartionsGetAsync(page, size);
 
@@ -43,7 +43,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 CurrentPage = page,
                 PageSize = size
             };
-
+            ViewBag.processSucceded = processSucceded;
             return View(viewModel);
         }
         [HttpGet]
@@ -60,7 +60,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
             _apiServiceConfiguration.ApiServiceConfigurationAddServiceConfiguartionsPost(MapToModel(model));
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { processSucceded = true });
         }
         [HttpGet]
         public IActionResult Edit(int id)

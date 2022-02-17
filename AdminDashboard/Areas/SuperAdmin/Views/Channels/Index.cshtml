@@ -92,8 +92,7 @@
 @section Scripts{
     <script>
          $(function () {
-            var msg = '@TempData["result"]';
-            if (msg != "") {
+            if (@ViewBag.processSucceded.ToString().ToLower()) {
                 swal({
                     title: "Good job!",
                     text: "You Saved the Channel Successfully!",

@@ -40,7 +40,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         }
         // GET: ChannelsController
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(bool processSucceded = false)
         {
             var data = _channelCategoryApi.ApiChannelCategoryGetAllGet();
 
@@ -49,11 +49,11 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
-
+            ViewBag.processSucceded = processSucceded;
             return View(new PagedResult<ChannelViewModel>());
         }
         [HttpGet]
-        public IActionResult SearchChannels(int? dropDownFilter, int? dropDownFilter2, string searchKey = null, int page = 1)
+        public IActionResult SearchChannels(int? dropDownFilter, int? dropDownFilter2, string searchKey = null, int page = 1, bool processSucceded = false)
         {
             var data = _api.ApiChannelSearchChannelsGet(dropDownFilter, dropDownFilter2, searchKey, page, 10);
 
@@ -70,7 +70,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
-
+            ViewBag.processSucceded = processSucceded;
             return View("Index", viewModel);
         }
         [HttpGet]
@@ -150,7 +150,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 if (result != null)
                 {
                     TempData["result"] = true;
-                    return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index), new { processSucceded = true });
                 }
 
                 return View(model);

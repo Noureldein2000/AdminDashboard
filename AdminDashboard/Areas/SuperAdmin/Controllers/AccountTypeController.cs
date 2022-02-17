@@ -24,7 +24,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             _accountTypeServiceApi = accountTypeApi;
             _adminServiceApi = adminServiceApi;
         }
-        public async Task<IActionResult> Index(int page = 1, int size = 10, string language = "ar")
+        public async Task<IActionResult> Index(int page = 1, int size = 10, string language = "ar", bool processSucceded = false)
         {
             var model = await _accountTypeServiceApi.ApiAccountTypeGetAccountTypesGetAsync(page, size, language);
 
@@ -36,6 +36,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 PageSize = size
             };
 
+            ViewBag.processSucceded = processSucceded;
             return View(viewModel);
         }
 
@@ -64,13 +65,10 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     status: model.Status
                     ));
 
-                TempData["result"] = true;
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Index), new { processSucceded = true });
             }
             catch (Exception ex)
             {
-                TempData["result"] = false;
-
                 return View("../../Views/Shared/Error", new ErrorViewModel());
             }
         }

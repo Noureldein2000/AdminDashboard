@@ -26,7 +26,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int page = 1, int pageSize = 10)
+        public async Task<IActionResult> Index(int page = 1, int pageSize = 10, bool processSucceded = false)
         {
             var data = await _apiFees.ApiFeesGetFeesGetAsync(page, pageSize);
 
@@ -37,7 +37,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 CurrentPage = page,
                 PageSize = pageSize
             };
-
+            ViewBag.processSucceded = processSucceded;
             return View(viewModel);
         }
 
@@ -54,7 +54,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 return View(model);
 
             _apiFees.ApiFeesAddFeePost(MapToModel(model));
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { processSucceded =true});
         }
 
         [HttpGet]

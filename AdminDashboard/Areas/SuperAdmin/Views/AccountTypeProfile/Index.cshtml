@@ -51,9 +51,8 @@
     <script>
 
         $(function () {
-            
-            var msg = '@TempData["result"]';
-            if (msg == "True") {
+
+           if (@ViewBag.processSucceded.ToString().ToLower()) {
                 swal({
                     title: "Good job!",
                     text: "You Saved Successfully!",
@@ -65,7 +64,7 @@
 
         function ConfirmDeleteAccountTypeProfile(id,row)
         {
-            
+
             swal({
                 title: "Are you sure?",
                 text: "Once deleted, you will not be able to recover this record!",

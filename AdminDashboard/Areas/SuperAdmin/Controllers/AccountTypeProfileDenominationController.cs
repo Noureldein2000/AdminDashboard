@@ -34,7 +34,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             _adminServiceApi = adminServiceApi;
         }
 
-        public async Task<IActionResult> Index(int page = 1, int size = 10)
+        public async Task<IActionResult> Index(int page = 1, int size = 10, bool processSucceded = false)
         {
             var model = await _accountTypeProfileDenominationApi.ApiAccountTypeProfileDenominationGetAccountTypeProfileDenominationsGetAsync(page, size);
 
@@ -62,7 +62,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 CurrentPage = page,
                 PageSize = size
             };
-
+            ViewBag.processSucceded = processSucceded;
             return View(viewModel);
         }
         [HttpGet]
@@ -119,7 +119,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 denominationID: model.DenominationID
                 ));
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { processSucceded = true });
         }
 
         [HttpGet]

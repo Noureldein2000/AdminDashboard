@@ -23,7 +23,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             _usersApi = usersApi;
         }
         [HttpGet]
-        public async Task<IActionResult> Index(int? accountId = null, int page = 1)
+        public async Task<IActionResult> Index(int? accountId = null, int page = 1,bool processSucceded=false)
         {
             var data = new UserModelPagedResult();
             if (!accountId.HasValue)
@@ -43,6 +43,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             };
 
             ViewBag.AccountId = accountId;
+            ViewBag.processSucceded = processSucceded;
             return View(viewModel);
         }
         [HttpGet]
@@ -66,7 +67,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     userRole: model.UserRole
                     ));
 
-                TempData["result"] = true;
+               
             }
             catch (Exception ex)
             {
@@ -75,7 +76,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 return View(model);
             }
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index),new { processSucceded =true});
         }
         [HttpGet]
         public async Task<IActionResult> ManageRoles(string userId)

@@ -31,7 +31,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             var data = await _apiDenominationCommission.ApiDenominationCommissionGetdenominationCommissionByDenominationIdDenominationIdGetAsync(denominationId);
             ViewBag.denominationId = denominationId;
             ViewBag.DenominationName = denominationName;
-            ViewBag.ProcessSucceded = processSucceded;
+            ViewBag.processSucceded = processSucceded;
             return View(data.Select(x => Map(x)));
         }
 

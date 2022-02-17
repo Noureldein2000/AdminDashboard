@@ -55,11 +55,10 @@
     <script>
 
         $(function () {
-            var msg = '@TempData["result"]';
-            if (msg != "") {
+           if (@ViewBag.processSucceded.ToString().ToLower()) {
                 swal({
                     title: "Good job!",
-                    text: "You Saved the User Successfully!",
+                    text: "You Saved the Record Successfully!",
                     icon: "success",
                     button: "Ok",
                 });

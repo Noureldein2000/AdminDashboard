@@ -58,8 +58,7 @@
     <script>
 
         $(function () {
-            var result = @ViewBag.ProcessSucceded.ToString().ToLower();
-            if (result) {
+           if (@ViewBag.processSucceded.ToString().ToLower()) {
                 swal({
                     title: "Good job!",
                     text: "You Saved the Tax Successfully!",

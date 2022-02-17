@@ -73,18 +73,16 @@
 </div>
 @section Scripts{
     <script>
-
         $(function () {
-            var msg = '@TempData["result"]';
-            if (msg != "") {
+            if (@ViewBag.processSucceded.ToString().ToLower()) {
                 swal({
-                    title: "Good job!",
-                    text: "You Saved the User Successfully!",
+                    title: "success!",
+                    text: "You Saved the Record Successfully!",
                     icon: "success",
                     button: "Ok",
                 });
             }
-         });
+        });
 
         function ConfirmDelete(id,row)
         {
@@ -121,7 +119,7 @@
 
                 },
                  error: function (req, status, error) {
-                     
+
                      swal("Ops! There is some error happened!", {
                          icon: "error",
                      });

@@ -27,7 +27,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int page = 1, int size = 10)
+        public async Task<IActionResult> Index(int page = 1, int size = 10, bool processSucceded = false)
         {
             var data = await _api.ApiAdminServiceGetServicesGetAsync(page, size);
 
@@ -37,6 +37,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Value = a.Id.ToString()
             }).ToList();
 
+            ViewBag.processSucceded = processSucceded;
             var viewModel = new PagedResult<AdminServiceViewModel>
             {
                 Results = data.Results.Select(u => Map(u)).ToList(),
@@ -48,7 +49,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return View(viewModel);
         }
         [HttpGet]
-        public async Task<IActionResult> SearchServices(int? dropDownFilter, string searchKey = null, int page = 1, int size = 10, string lang = "ar")
+        public async Task<IActionResult> SearchServices(int? dropDownFilter, string searchKey = null, int page = 1, int size = 10, string lang = "ar", bool processSucceded = false)
         {
             var data = await _api.ApiAdminServiceSearchServicesGetAsync(dropDownFilter, searchKey, page, size, lang);
 
@@ -58,6 +59,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Value = a.Id.ToString()
             }).ToList();
 
+            ViewBag.processSucceded = processSucceded;
             var viewModel = new PagedResult<AdminServiceViewModel>
             {
                 Results = data.Results.Select(x => Map(x)).ToList(),
@@ -67,7 +69,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 DropDownFilter = dropDownFilter,
                 SearchKey = searchKey
             };
-
             return View("Index", viewModel);
         }
 
@@ -146,7 +147,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 classType: model.ClassType
                 ));
 
-            return RedirectToAction(nameof(Index));
+            return RedirectToAction(nameof(Index), new { processSucceded = true });
         }
 
         [HttpGet]

@@ -67,7 +67,7 @@
                                                         <a asp-action="Index" asp-controller="Users" asp-route-accountId="@account.Id" class="dropdown-item">Users</a>
                                                         <a asp-action="Index" asp-controller="AccountFees" asp-route-accountId="@account.Id" class="dropdown-item">Fees</a>
                                                         <a asp-action="Index" asp-controller="AccountCommission" asp-route-accountId="@account.Id" class="dropdown-item">Commissions</a>
-                                                        <a asp-action="Index" asp-controller="Balance" asp-route-accountId="@account.Id" asp-route-accountName="@account.AccountName"class="dropdown-item">Balances</a>
+                                                        <a asp-action="Index" asp-controller="Balance" asp-route-accountId="@account.Id" asp-route-accountName="@account.AccountName" class="dropdown-item">Balances</a>
                                                         <div class="dropdown-divider"></div>
                                                         <h5 class="dropdown-header">Actions</h5>
                                                         <a asp-action="Edit" asp-route-id="@account.Id" class="dropdown-item">Edit</a>
@@ -100,15 +100,16 @@
 
     <script>
         $(function () {
-            if (@ViewBag.processSucceded) {
+            if (@ViewBag.processSucceded.ToString().ToLower()) {
                 swal({
                     title: "success!",
-                    text: "You Saved the Account Successfully!",
+                    text: "You Saved the Record Successfully!",
                     icon: "success",
                     button: "Ok",
                 });
             }
-         });
+        });
+
         $("#SearchKey").keyup(function () {
             //Reference the Button.
             var btnSubmit = $("#btnSearch");

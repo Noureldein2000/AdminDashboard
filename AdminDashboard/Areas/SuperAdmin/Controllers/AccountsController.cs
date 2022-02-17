@@ -92,7 +92,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return View(new PagedResult<AccountViewModel>());
         }
         [HttpGet]
-        public async Task<IActionResult> SearchAccounts(int? dropDownFilter, string searchKey, int page = 1)
+        public async Task<IActionResult> SearchAccounts(int? dropDownFilter, string searchKey, int page = 1, bool processSucceded = false)
         {
             var data = _api.ApiAccountGetAccountsBySearchKeyGet(dropDownFilter, searchKey, page);
             var dd = data.Results.Select(account => Map(account)).ToList();
@@ -112,6 +112,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
+
+            ViewBag.processSucceded = processSucceded;
 
             return View("Index", viewModel);
         }
@@ -272,7 +274,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                                    ));
             }
 
-            return RedirectToAction(nameof(Index), new { processSucceded = true});
+            return RedirectToAction(nameof(Index), new { processSucceded = true });
         }
         [HttpGet]
         public IActionResult Edit(int id)
