@@ -12,8 +12,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using RestSharp;
-using AdminDashboard.Models.SwaggerModels.SourceOFundSwaggerModels;
+using AdminDashboard.Models.SwaggerModels;
 using AdminDashboard.SwaggerClientHelpers;
+using AdminDashboard.Models.SwaggerModels.SourceOFundSwaggerModels;
 
 namespace AdminDashboard.SwaggerClient
 {

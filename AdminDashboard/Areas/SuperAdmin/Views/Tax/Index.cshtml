@@ -39,11 +39,21 @@
                                     <td>@tax.StartDate.ToShortDateString()</td>
                                     <td>@tax.EndDate.ToShortDateString()</td>
                                     <td>
-                                        <a asp-action="ChangeStatus" asp-route-id="@tax.ID" class="btn @(tax.Status ? "btn-danger" : "btn-success")">
-                                            @(tax.Status ? "Deactive" : "Active")
-                                        </a>
-                                        <a asp-action="Edit" asp-route-id="@tax.ID" class="btn btn-info">Edit</a>
-                                        <button onclick="ConfirmDelete(@tax.ID,this)" class="btn btn-danger">Delete</button>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                                More
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <h5 class="dropdown-header">Modules</h5>
+                                                <div class="dropdown-divider"></div>
+                                                <h5 class="dropdown-header">Actions</h5>
+                                                <a asp-action="ChangeStatus" asp-route-id="@tax.ID" class="dropdown-item">
+                                                    @(tax.Status ? "Deactive" : "Active")
+                                                </a>
+                                                <a asp-action="Edit" asp-route-id="@tax.ID" class="dropdown-item">Edit</a>
+                                                <button onclick="ConfirmDelete(@tax.ID,this)" class="dropdown-item">Delete</button>
+                                            </div>
+                                        </div>
                                     </td>
                                 </tr>
                             }
