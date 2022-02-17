@@ -33,25 +33,34 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(int accountId, string accountName)
         {
-            var data = await _accounts.ApiAccountsBalancesAccountIdGetAsync(accountId, "ar");
-
-            var balanceTypeIds = data.Select(x => new BalanceTypeModel
+            try
             {
-                Id = x.BalanceTypeId,
-                Name = x.BalanceType
-            }).ToList();
+                var data = await _accounts.ApiAccountsBalancesAccountIdGetAsync(accountId, "ar");
 
-            var balanceTypes = await _accounts.ApiAccountsBalanceTypesGetAsync("ar");
+                var balanceTypeIds = data.Select(x => new BalanceTypeModel
+                {
+                    Id = x.BalanceTypeId,
+                    Name = x.BalanceType
+                }).ToList();
 
-            ViewBag.AccountId = accountId;
-            ViewBag.AccountName = accountName;
-            ViewBag.AvaliableBalanceType = balanceTypes.Except(balanceTypeIds).Select(a => new SelectListItem
+                var balanceTypes = await _accounts.ApiAccountsBalanceTypesGetAsync("ar");
+
+                ViewBag.AccountId = accountId;
+                ViewBag.AccountName = accountName;
+                ViewBag.AvaliableBalanceType = balanceTypes.Except(balanceTypeIds).Select(a => new SelectListItem
+                {
+                    Text = a.Name,
+                    Value = a.Id.ToString()
+                }).ToList();
+
+                return View(data.Select(x => Map(x)));
+            }
+            catch (Exception ex)
             {
-                Text = a.Name,
-                Value = a.Id.ToString()
-            }).ToList();
 
-            return View(data.Select(x => Map(x)));
+                throw;
+            }
+          
         }
 
         [HttpPost]
@@ -62,7 +71,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                amount: 0.0,
                balanceTypeIds: new List<int?> { model.BalanceTypeId }));
 
-            return RedirectToAction(nameof(Index), new { accountId = model.AccountId, accountName = model.AccountName});
+            return RedirectToAction(nameof(Index), new { accountId = model.AccountId, accountName = model.AccountName });
         }
 
         private AccountBalancesViewModel Map(AccountBalancesModel x)
