@@ -35,7 +35,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int? accountId = null, int page = 1)
+        public async Task<IActionResult> Index(int? accountId = null, int page = 1, bool processSucceded = false)
         {
             var data = await _apiAccountCommission.ApiAccountCommissionGetAccountCommissionByAccountIdAccountIdGetAsync(accountId, page, 10);
 
@@ -48,6 +48,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             };
 
             ViewBag.AccountId = accountId;
+            ViewBag.processSucceded = processSucceded;
             return View(viewModel);
         }
         [HttpGet]
@@ -104,7 +105,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 denominationId: model.DenominationId,
                 commissionId: model.CommissionId));
 
-            return RedirectToAction(nameof(Index), new { accountId = model.AccountId });
+            return RedirectToAction(nameof(Index), new { accountId = model.AccountId, processSucceded = true });
         }
 
         [HttpGet]

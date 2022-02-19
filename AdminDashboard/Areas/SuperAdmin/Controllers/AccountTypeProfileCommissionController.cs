@@ -27,7 +27,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             _commissionApi = commissionApi;
             _accountTypeProfileCommissionApi = accountTypeProfileCommissionApi;
         }
-        public async Task<IActionResult> Index(int id, string title, int page = 1, int size = 10)
+        public async Task<IActionResult> Index(int id, string title, int page = 1, int size = 10, bool processSucceded = false)
         {
             var model = await _accountTypeProfileCommissionApi.ApiAccountTypeProfileCommissionGetAccountTypeProfileCommissionsIdGetAsync(id, page, size, "ar");
 
@@ -40,6 +40,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             };
 
             ViewBag.FullTitle = title;
+            ViewBag.processSucceded = processSucceded;
             return View(viewModel);
         }
 
@@ -82,7 +83,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 commissionID: model.CommissionId
                 ));
 
-            return RedirectToAction(nameof(Index), new { id = model.AccountTypeProfileDenominationID });
+            return RedirectToAction(nameof(Index), new { id = model.AccountTypeProfileDenominationID, processSucceded = true });
         }
         [HttpGet]
         public JsonResult Delete(int id)

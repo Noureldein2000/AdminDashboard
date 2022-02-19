@@ -37,9 +37,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             _apiParameter = parameterApi;
         }
 
-        public IActionResult Index(int id, string title, int serviceTypeId, int page = 1, int size = 10)
+        public IActionResult Index(int id, string title, int serviceTypeId, int page = 1, int size = 10, bool processSucceded = false)
         {
-            var data =  _apiDenomination.ApiDenominationGetDenominationsByServiceIdServiceIdGet(id, page, size, "ar");
+            var data = _apiDenomination.ApiDenominationGetDenominationsByServiceIdServiceIdGet(id, page, size, "ar");
 
             var viewModel = new PagedResult<DenominationViewModel>
             {
@@ -52,6 +52,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             ViewBag.FullTitle = title;
             ViewBag.serviceTypeId = serviceTypeId;
             ViewBag.serviceId = id;
+            ViewBag.processSucceded = processSucceded;
             return View(viewModel);
         }
 
@@ -135,7 +136,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 DenominationReceiptParams = model.DenominationReceipt.DenominationReceiptParams.Select(x => MapToModel(x)).ToList()
             });
 
-            return RedirectToAction(nameof(Index), new { id = model.Denomination.ServiceID });
+            return RedirectToAction(nameof(Index), new { id = model.Denomination.ServiceID , processSucceded =true});
         }
 
         [HttpPost]

@@ -26,7 +26,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             _feesApi = feesApi;
             _accountTypeProfileFeeApi = accountTypeProfileFeeApi;
         }
-        public async Task<IActionResult> Index(int id, string title, int page = 1, int size = 10)
+        public async Task<IActionResult> Index(int id, string title, int page = 1, int size = 10, bool processSucceded = false)
         {
             var model = await _accountTypeProfileFeeApi.ApiAccountTypeProfileFeeGetAccountTypeProfileFeesIdGetAsync(id, page, size, "ar");
 
@@ -39,6 +39,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             };
 
             ViewBag.FullTitle = title;
+            ViewBag.processSucceded = processSucceded;
             return View(viewModel);
         }
 
@@ -81,7 +82,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 feesID: model.FeeId
                 ));
 
-            return RedirectToAction(nameof(Index), new { id = model.AccountTypeProfileDenominationID });
+            return RedirectToAction(nameof(Index), new { id = model.AccountTypeProfileDenominationID, processSucceded = true });
         }
         [HttpGet]
         public JsonResult Delete(int id)

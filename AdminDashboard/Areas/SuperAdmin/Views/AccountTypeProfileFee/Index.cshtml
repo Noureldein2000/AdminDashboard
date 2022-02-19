@@ -71,6 +71,16 @@
 </div>
 @section Scripts{
     <script>
+          $(function () {
+            if (@ViewBag.processSucceded.ToString().ToLower()) {
+                swal({
+                    title: "success!",
+                    text: "You Saved the Record Successfully!",
+                    icon: "success",
+                    button: "Ok",
+                });
+            }
+          });
 
         function ConfirmDeleteAccountTypeProfileFee(id,row)
         {

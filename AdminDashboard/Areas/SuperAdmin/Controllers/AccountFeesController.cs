@@ -25,9 +25,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         private readonly IAdminServiceApi _apiService;
         public AccountFeesController(
             //IAccountApi api, 
-            IFeesApi feesApi, 
-            IAccountFeesApi accountFeesApi, 
-            IDenominationApi denominationApi, 
+            IFeesApi feesApi,
+            IAccountFeesApi accountFeesApi,
+            IDenominationApi denominationApi,
             IAdminServiceApi adminServiceApi)
         {
             //_api = api;
@@ -37,7 +37,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             _apiService = adminServiceApi;
         }
         [HttpGet]
-        public async Task<IActionResult> Index(int? accountId = null, int page = 1)
+        public async Task<IActionResult> Index(int? accountId = null, int page = 1, bool processSucceded = false)
         {
             var data = await _apiAccountFees.ApiAccountFeesGetAccountFeesByAccountIdAccountIdGetAsync(accountId, page, 10);
 
@@ -50,6 +50,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             };
 
             ViewBag.AccountId = accountId;
+            ViewBag.processSucceded = processSucceded;
             return View(viewModel);
         }
 
@@ -107,7 +108,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 denominationId: model.DenominationId,
                 feeId: model.FeesId));
 
-            return RedirectToAction(nameof(Index), new { accountId = model.AccountId });
+            return RedirectToAction(nameof(Index), new { accountId = model.AccountId, processSucceded = true });
         }
 
         [HttpGet]

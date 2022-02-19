@@ -64,8 +64,7 @@
 
         $(function () {
 
-            var msg = '@TempData["result"]';
-            if (msg == "True") {
+            if (@ViewBag.processSucceded.ToString().ToLower()) {
                 swal({
                     title: "Good job!",
                     text: "You Saved Successfully!",

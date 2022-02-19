@@ -33,34 +33,25 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(int accountId, string accountName)
         {
-            try
+            var data = await _accounts.ApiAccountsBalancesAccountIdGetAsync(accountId, "ar");
+
+            var balanceTypeIds = data.Select(x => new BalanceTypeModel
             {
-                var data = await _accounts.ApiAccountsBalancesAccountIdGetAsync(accountId, "ar");
+                Id = x.BalanceTypeId,
+                Name = x.BalanceType
+            }).ToList();
 
-                var balanceTypeIds = data.Select(x => new BalanceTypeModel
-                {
-                    Id = x.BalanceTypeId,
-                    Name = x.BalanceType
-                }).ToList();
+            var balanceTypes = await _accounts.ApiAccountsBalanceTypesGetAsync("ar");
 
-                var balanceTypes = await _accounts.ApiAccountsBalanceTypesGetAsync("ar");
-
-                ViewBag.AccountId = accountId;
-                ViewBag.AccountName = accountName;
-                ViewBag.AvaliableBalanceType = balanceTypes.Except(balanceTypeIds).Select(a => new SelectListItem
-                {
-                    Text = a.Name,
-                    Value = a.Id.ToString()
-                }).ToList();
-
-                return View(data.Select(x => Map(x)));
-            }
-            catch (Exception ex)
+            ViewBag.AccountId = accountId;
+            ViewBag.AccountName = accountName;
+            ViewBag.AvaliableBalanceType = balanceTypes.Except(balanceTypeIds).Select(a => new SelectListItem
             {
+                Text = a.Name,
+                Value = a.Id.ToString()
+            }).ToList();
 
-                throw;
-            }
-          
+            return View(data.Select(x => Map(x)));
         }
 
         [HttpPost]

@@ -28,11 +28,12 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             _apiDenomination = denominationApi;
         }
         [HttpGet]
-        public async Task<IActionResult> Index(int denominationId, string denominationName)
+        public async Task<IActionResult> Index(int denominationId, string denominationName, bool processSucceded = false)
         {
             var data = await _apiDenominationFees.ApiDenominationFeesGetdenominationFeesByDenominationIdDenominationIdGetAsync(denominationId);
             ViewBag.denominationId = denominationId;
             ViewBag.DenominationName = denominationName;
+            ViewBag.processSucceded = processSucceded;
             return View(data.Select(x => Map(x)));
         }
 
@@ -78,7 +79,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     denominationId: model.DenominationId,
                     feesId: model.FeesId));
 
-                return RedirectToAction(nameof(Index), new { denominationId = model.DenominationId, denominationName = model.DenominationName });
+                return RedirectToAction(nameof(Index), new { denominationId = model.DenominationId, denominationName = model.DenominationName, processSucceded = true });
             }
             catch (Exception ex)
             {

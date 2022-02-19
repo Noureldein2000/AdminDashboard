@@ -72,6 +72,16 @@
 @section Scripts{
     <script>
 
+         $(function () {
+            if (@ViewBag.processSucceded.ToString().ToLower()) {
+                swal({
+                    title: "success!",
+                    text: "You Saved the Account Successfully!",
+                    icon: "success",
+                    button: "Ok",
+                });
+            }
+         });
         function ConfirmDeleteAccountTypeProfileCommission(id,row)
         {
             swal({
