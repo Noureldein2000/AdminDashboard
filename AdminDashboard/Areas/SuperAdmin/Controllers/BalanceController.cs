@@ -18,15 +18,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
     [Authorize]
     public class BalanceController : Controller
     {
-        //private readonly ISwaggerClient _swagerClient;
-        private readonly IAccountApi _api;
         private readonly IAccountsApi _accounts;
-        public BalanceController(
-            IAccountApi api,
-            IAccountsApi accounts
-            )
+        public BalanceController(IAccountsApi accounts)
         {
-            _api = api;
             _accounts = accounts;
         }
 
