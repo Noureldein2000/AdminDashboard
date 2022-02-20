@@ -8,8 +8,14 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2> Taxes</h2>
-                    <a asp-action="Create" class="pull-right btn btn-outline-primary">Add</a>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2> Taxes</h2>
+                        </div>
+                        <div>
+                            <a asp-action="Create" class="pull-right btn btn-outline-primary">Add</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
@@ -44,8 +50,6 @@
                                                 More
                                             </button>
                                             <div class="dropdown-menu">
-                                                <h5 class="dropdown-header">Modules</h5>
-                                                <div class="dropdown-divider"></div>
                                                 <h5 class="dropdown-header">Actions</h5>
                                                 <a asp-action="ChangeStatus" asp-route-id="@tax.ID" class="dropdown-item">
                                                     @(tax.Status ? "Deactive" : "Active")

@@ -8,8 +8,26 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2>@ViewBag.AccountName Balance</h2>
-                    <button type="button" onclick="AddBalanceType()" class="btn btn-outline-primary" data-toggle="modal" data-target="#ServicesBalancesFormModal">Add</button>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2>Account Balances</h2>
+                            <h6>
+                                <strong>
+                                    Account Name:
+                                </strong>
+                                @ViewBag.AccountName
+                            </h6>
+                            <h6>
+                                <strong>
+                                    Account ID:
+                                </strong>
+                                @ViewBag.AccountId
+                            </h6>
+                        </div>
+                        <div>
+                            <button type="button" onclick="AddBalanceType()" class="btn btn-outline-primary" data-toggle="modal" data-target="#ServicesBalancesFormModal">Add</button>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">

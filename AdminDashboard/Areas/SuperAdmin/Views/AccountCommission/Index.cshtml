@@ -8,8 +8,26 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2> Commissions</h2>
-                    <a asp-action="Create" asp-route-accountId="@ViewBag.AccountId" class="pull-right btn btn-outline-primary">Add</a>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2> Commissions</h2>
+                            <h6>
+                                <strong>
+                                    Account Name:
+                                </strong>
+                                @ViewBag.AccountName
+                            </h6>
+                            <h6>
+                                <strong>
+                                    Account ID:
+                                </strong>
+                                @ViewBag.AccountId
+                            </h6>
+                        </div>
+                        <div>
+                            <a asp-action="Create" asp-route-accountId="@ViewBag.AccountId" class="pull-right btn btn-outline-primary">Add</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
@@ -26,16 +44,16 @@
                         <tbody>
                             @foreach (var com in Model.Results)
                             {
-                            <tr>
-                                <td>@com.DenomiinationId</td>
-                                <td>@com.DenominationFullName</td>
-                                <td>@com.CommissionValue</td>
-                                <td>@com.CommissionTypeName</td>
-                                <td>@com.PaymentMode</td>
-                                <td>
-                                    <button onclick="ConfirmDeleteAccountCommission(@com.Id,this)" class="btn btn-danger">Delete</button>
-                                </td>
-                            </tr>
+                                <tr>
+                                    <td>@com.DenomiinationId</td>
+                                    <td>@com.DenominationFullName</td>
+                                    <td>@com.CommissionValue</td>
+                                    <td>@com.CommissionTypeName</td>
+                                    <td>@com.PaymentMode</td>
+                                    <td>
+                                        <button onclick="ConfirmDeleteAccountCommission(@com.Id,this)" class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>
                             }
                         </tbody>
                     </table>

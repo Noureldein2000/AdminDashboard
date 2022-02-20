@@ -35,7 +35,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Index(int? accountId = null, int page = 1, bool processSucceded = false)
+        public async Task<IActionResult> Index(int? accountId = null,string accountName = null, int page = 1, bool processSucceded = false)
         {
             var data = await _apiAccountCommission.ApiAccountCommissionGetAccountCommissionByAccountIdAccountIdGetAsync(accountId, page, 10);
 
@@ -48,6 +48,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             };
 
             ViewBag.AccountId = accountId;
+            ViewBag.AccountName = accountName;
             ViewBag.processSucceded = processSucceded;
             return View(viewModel);
         }
