@@ -13,6 +13,7 @@ namespace AdminDashboard.Constants
     {
         Success = 1,
         Warning = 2,
-        Error = 3
+        Error = 3,
+        InvalidData = 4
     }
 }

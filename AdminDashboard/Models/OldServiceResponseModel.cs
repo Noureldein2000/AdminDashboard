@@ -10,5 +10,6 @@ namespace AdminDashboard.Models
         public string Message { get; set; }
         public string Code { get; set; }
         public string Token { get; set; }
+        public List<int> InvalidData { get; set; }
     }
 }
