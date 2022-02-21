@@ -59,59 +59,47 @@ namespace AdminDashboard.Areas.Operation.Controllers
             return View(new UniversityCashoutViewModelList());
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Upload(IFormFile upload)
+        public async Task<JsonResult> Upload(IFormFile file)
         {
             var viewModelList = new List<UniversityCashoutViewModel>();
-            var viewModel = new UniversityCashoutViewModelList();
 
-            if (!ModelState.IsValid)
+            if (file == null || file.Length <= 0)
             {
-                return View(nameof(Index), viewModel);
-            }
-
-            if (upload == null || upload.Length <= 0)
-            {
-                ModelState.AddModelError("File", "Please Upload Your file");
-                return View(nameof(Index), viewModel);
+                return Json(new { result = false, message = "Please Upload Your file" });
             }
 
             IExcelDataReader reader = null;
 
             using (var memoryStream = new MemoryStream())
             {
-                await upload.CopyToAsync(memoryStream);
+                await file.CopyToAsync(memoryStream);
 
                 // Upload the file if less than 2 MB
                 if (memoryStream.Length >= 2097152)
                 {
-                    ModelState.AddModelError("File", "The file is too large.");
-                    return View(nameof(Index), viewModel);
+                    return Json(new { result = false, message = "The file is too large" });
                 }
 
-                if (upload.FileName.EndsWith(".xls"))
+                if (file.FileName.EndsWith(".xls"))
                 {
                     reader = ExcelReaderFactory.CreateBinaryReader(memoryStream);
                 }
-                else if (upload.FileName.EndsWith(".xlsx"))
+                else if (file.FileName.EndsWith(".xlsx"))
                 {
                     reader = ExcelReaderFactory.CreateOpenXmlReader(memoryStream);
                 }
                 else
                 {
-                    ModelState.AddModelError("File", "This file format is not supported");
-                    return View(nameof(Index), viewModel);
+                    return Json(new { result = false, message = "This file format is not supported" });
                 }
                 DataTable dt_ = new DataTable();
                 try
                 {
                     dt_ = reader.AsDataSet().Tables[0];
 
-                    // validate columns names
                     if (dt_.Rows[0][0].ToString() != "AccountID" || dt_.Rows[0][1].ToString() != "Amount")
                     {
-                        ModelState.AddModelError("File", "Please make sure that table has 2 columns headers (fist col: AccountID) and (second col: Amount)");
-                        return View(nameof(Index), viewModel);
+                        return Json(new { result = false, message = "Please make sure that table has 2 columns headers (fist col: AccountID) and (second col: Amount)" });
                     }
 
                     for (int row_ = 1; row_ < dt_.Rows.Count; row_++)
@@ -126,14 +114,12 @@ namespace AdminDashboard.Areas.Operation.Controllers
                 }
                 catch (Exception ex)
                 {
-                    ModelState.AddModelError("File", "Unable to Upload file!");
-                    return View(nameof(Index), viewModel);
+                    return Json(new { result = false, message = "Unable to Upload file!" });
                 }
                 reader.Close();
                 reader.Dispose();
             }
-            viewModel.DataList = viewModelList;
-            return View(nameof(Index), viewModel);
+            return Json(new { result = true, data= viewModelList });
         }
 
 

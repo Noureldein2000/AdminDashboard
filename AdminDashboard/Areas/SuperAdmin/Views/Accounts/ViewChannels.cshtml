@@ -38,24 +38,6 @@
                                 <td>@channel.CreatedName</td>
                                 <td>
                                     <button type="button" class="pull-right btn btn-info" data-toggle="modal" data-target="#myChangeModal" onclick="getData(@channel.Id,@((int)channel.Status))">Change Status</button>
-
-
-                                    @*<a asp-action="DeleteAccountChannel" asp-route-id="@channel.Id" class="btn btn-info">Edit</a>*@
-                                    @*<a asp-action="ChangeAccountChannel" asp-route-id="@channel.Id" class="btn @(channel.Status ? "btn-danger": "btn-success")">
-                @(channel.Status ? "Deactive" : "Active")
-            </a>*@
-                                    @*@{var exceptedLst = new SelectListItem()
-                {
-                    Text = channel.Status.ToString(),
-                    Value = ((int)channel.Status).ToString()
-                };
-            }*@
-                                    <!--<select id="drpStatus" asp-items="Html.GetEnumSelectList<AccountChannelStatus>().Where(t=>!((int)channel.Status).ToString().Contains(t.Value))" class="form-control" data-style="select-with-transition" title="Choose an AccountType" data-size="7"
-        onchange="document.location.href = '../ChangeAccountChannel?id=' +'&status='+this.options[this.selectedIndex].value;">-->
-                                    @*onchange="changeStatus('@channel.Id')">*@
-                                    <!--<option>Choose an AccountType</option>
-        </select>-->
-
                                 </td>
                             </tr>
                             }
