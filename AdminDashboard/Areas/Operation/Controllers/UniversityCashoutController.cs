@@ -68,7 +68,7 @@ namespace AdminDashboard.Areas.Operation.Controllers
                 return Json(new { result = false, message = "Please Upload Your file" });
             }
 
-            IExcelDataReader reader = null;
+            IExcelDataReader reader;
 
             using (var memoryStream = new MemoryStream())
             {
