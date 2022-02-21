@@ -48,7 +48,14 @@ namespace AdminDashboard.Areas.Operation.Controllers
             });
 
             ViewBag.Succeeded = result.Select(x => x.Key).FirstOrDefault();
-            ViewBag.ResultData = result.Select(x => x.Value).FirstOrDefault();
+            if(result.Count > 1)
+            {
+                ViewBag.ResultData = $"{result.Select(x => x.Value).FirstOrDefault()}, invalid accounts: {result.Where(x => x.Key == ResponceStatus.InvalidData).Select(x => x.Value).FirstOrDefault()}";
+            }
+            else
+            {
+                ViewBag.ResultData = result.Select(x => x.Value).FirstOrDefault();
+            }
             if (result.Select(x => x.Key).FirstOrDefault() != ResponceStatus.Success)
             {
                 return View(new UniversityCashoutViewModelList
