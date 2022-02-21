@@ -8,8 +8,14 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2> AccountType Profile Denomination</h2>
-                    <a asp-action="Create" class="pull-right btn btn-outline-primary">Add</a>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2> Account Type Profile Denominations</h2>
+                        </div>
+                        <div>
+                            <a asp-action="Create" class="pull-right btn btn-outline-primary">Add</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
@@ -37,14 +43,14 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <h5 class="dropdown-header">Modules</h5>
-                                        <a asp-action="Index" asp-controller="AccountTypeProfileFee" asp-route-id="@ATPD.Id" asp-route-title="@ATPD.AccountTypeName - @ATPD.ProfileName" class="dropdown-item">Fees</a>
-                                        <a asp-action="Index" asp-controller="AccountTypeProfileCommission" asp-route-id="@ATPD.Id" asp-route-title="@ATPD.AccountTypeName - @ATPD.ProfileName" class="dropdown-item">Commission</a>
+                                                <a asp-action="Index" asp-controller="AccountTypeProfileFee" asp-route-id="@ATPD.Id" asp-route-title="@ATPD.AccountTypeName - @ATPD.ProfileName" class="dropdown-item">Fees</a>
+                                                <a asp-action="Index" asp-controller="AccountTypeProfileCommission" asp-route-id="@ATPD.Id" asp-route-title="@ATPD.AccountTypeName - @ATPD.ProfileName" class="dropdown-item">Commission</a>
                                                 <div class="dropdown-divider"></div>
                                                 <h5 class="dropdown-header">Actions</h5>
-                                        <a asp-action="ChangeStatus" asp-route-id="@ATPD.Id" class="dropdown-item">
-                                            @(ATPD.Status ? "Deactive" : "Active")
-                                        </a>
-                                        <button onclick="ConfirmDeleteAccountTypeProfileDenomintion(@ATPD.Id,this)" class="dropdown-item" style="color:red">Delete</button>
+                                                <a asp-action="ChangeStatus" asp-route-id="@ATPD.Id" class="dropdown-item">
+                                                    @(ATPD.Status ? "Deactive" : "Active")
+                                                </a>
+                                                <button onclick="ConfirmDeleteAccountTypeProfileDenomintion(@ATPD.Id,this)" class="dropdown-item" style="color:red">Delete</button>
                                             </div>
                                         </div>
 

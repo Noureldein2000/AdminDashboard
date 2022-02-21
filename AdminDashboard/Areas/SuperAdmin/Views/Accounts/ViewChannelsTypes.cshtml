@@ -9,9 +9,26 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2>Account Channel Type</h2>
-                    @{var accountId = Context.Request.Path.ToString().Split("/").Last(); }
-                    <a id="url_accountId" asp-action="CreateAccountChannelType" asp-route-id="@accountId" class="pull-right btn btn-outline-primary">Create</a>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2>Account Channel Types</h2>
+                            <h6>
+                                <strong>
+                                    Account Name:
+                                </strong>
+                                @ViewBag.AccountName
+                            </h6>
+                            <h6>
+                                <strong>
+                                    Account ID:
+                                </strong>
+                                @ViewBag.AccountId
+                            </h6>
+                        </div>
+                        <div>
+                            <a id="url_accountId" asp-action="CreateAccountChannelType" asp-route-id="@ViewBag.AccountId" class="pull-right btn btn-outline-primary">Create</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
@@ -31,7 +48,7 @@
                                     <td>@ACT.ExpirationPeriod</td>
                                     <td>@ACT.HasLimitedAccess</td>
                                     <td>
-                                        <a asp-action="EditAccountChannelType" asp-route-id="@ACT.Id" class="btn btn-info">Edit</a>
+                                        <a asp-action="EditAccountChannelType" asp-route-id="@ACT.Id" asp-route-channelTypeName="@ACT.ChannelTypeName" class="btn btn-info">Edit</a>
                                         @*<a asp-action="DeleteAccountChannelType" asp-route-id="@ACT.Id" class="btn btn-danger">Delete</a>*@
                                     </td>
                                 </tr>

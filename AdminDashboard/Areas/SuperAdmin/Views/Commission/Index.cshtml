@@ -8,8 +8,14 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2> Commissions</h2>
-                    <a asp-action="Create" class="pull-right btn btn-outline-primary">Add</a>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2> Commissions</h2>
+                        </div>
+                        <div>
+                            <a asp-action="Create" class="pull-right btn btn-outline-primary">Add</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
@@ -44,13 +50,11 @@
                                                 More
                                             </button>
                                             <div class="dropdown-menu">
-                                                <h5 class="dropdown-header">Modules</h5>
-                                                <div class="dropdown-divider"></div>
                                                 <h5 class="dropdown-header">Actions</h5>
-                                                <a asp-action="ChangeStatus" asp-route-id="@com.ID" class="btn @(com.Status ? "btn-danger" : "btn-success")">
+                                                <a asp-action="ChangeStatus" asp-route-id="@com.ID" class="dropdown-item">
                                                     @(com.Status ? "Deactive" : "Active")
                                                 </a>
-                                                <a asp-action="Edit" asp-route-id="@com.ID" class="btn btn-info">Edit</a>
+                                                <a asp-action="Edit" asp-route-id="@com.ID" class="dropdown-item">Edit</a>
                                                 <button onclick="ConfirmDelete(@com.ID,this)" class="dropdown-item" style="color:red">Delete</button>
                                             </div>
                                         </div>

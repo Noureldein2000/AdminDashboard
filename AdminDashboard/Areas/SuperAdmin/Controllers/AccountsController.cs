@@ -408,7 +408,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             }
         }
         [HttpGet]
-        public IActionResult EditAccountChannelType(int id)
+        public IActionResult EditAccountChannelType(int id,string channelTypeName)
         {
             var data = _accountChannelTypesApi.ApiAccountChannelTypeGetAccountChannelTypeByIdIdGet(id);
 
@@ -428,7 +428,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 HasLimitedAccess = (bool)data.HasLimitedAccess,
                 ChannelTypes = channelTypes
             };
-
+            ViewBag.ChannelTypeName = channelTypeName;
             return View(viewModel);
         }
         [HttpPost]
@@ -466,9 +466,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
-        public IActionResult ViewChannels(int id)
+        public IActionResult ViewChannels(int accountId, string accountName)
         {
-            var data = _accountChannelApi.ApiAccountChannelGetChannelsByAccountIdAccountIdGet(id);
+            var data = _accountChannelApi.ApiAccountChannelGetChannelsByAccountIdAccountIdGet(accountId);
             var viewModel = data.Select(d => new AccountChannelViewModel()
             {
                 Id = d.Id,
@@ -482,6 +482,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 CreatedName = d.CreatedName
             });
 
+            ViewBag.AccountId = accountId;
+            ViewBag.AccountName = accountName;
 
             //var statusCreated = new List<AccountChannelStatus>() { AccountChannelStatus.Created};
 
@@ -514,7 +516,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 AccountChannels = viewModel.ToList(),
                 CreateChannelAccount = new CreateChannelAccountViewModel
                 {
-                    AccountId = id,
+                    AccountId = accountId,
                     ChannelOwners = channelOwners,
                     ChannelTypes = channelTypes,
                     PaymentMethods = channelPaymentMethods
@@ -522,9 +524,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             });
         }
         [HttpGet]
-        public IActionResult ViewChannelsTypes(int id)
+        public IActionResult ViewChannelsTypes(int accountId, string accountName)
         {
-            var data = _accountChannelTypesApi.ApiAccountChannelTypeGetAccountChannelTypesAccountIdGet(id);
+            var data = _accountChannelTypesApi.ApiAccountChannelTypeGetAccountChannelTypesAccountIdGet(accountId);
             var viewModel = data.Select(d => new AccountChannelTypeViewModel()
             {
                 Id = (int)d.Id,
@@ -535,6 +537,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 HasLimitedAccess = (bool)d.HasLimitedAccess
             });
 
+            ViewBag.AccountId = accountId;
+            ViewBag.AccountName = accountName;
             return View(viewModel);
         }
         //[HttpGet]
@@ -601,7 +605,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             }
 
         }
-
         [HttpGet]
         public JsonResult GetCities(int id)
         {

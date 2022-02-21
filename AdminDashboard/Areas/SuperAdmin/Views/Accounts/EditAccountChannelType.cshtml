@@ -10,7 +10,17 @@
             <div class="card">
                 <form asp-action="EditAccountChannelType" method="post">
                     <div class="card-header">
-                        <h2>Edit AccountChannelType</h2>
+                        <div class="d-flex justify-content-between">
+                            <div>
+                                <h2>Edit Account Channel Type</h2>
+                                <h6>
+                                    <strong>
+                                        Channel Type:
+                                    </strong>
+                                    @ViewBag.ChannelTypeName
+                                </h6>
+                            </div>
+                        </div>
                     </div>
                     <div class="card-body">
                         <div asp-validation-summary="All" class="text-danger"></div>
