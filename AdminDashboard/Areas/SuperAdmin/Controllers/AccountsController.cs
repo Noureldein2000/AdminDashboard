@@ -429,7 +429,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 ChannelTypes = channelTypes
             };
 
-            return View(viewModel);
+            return Json(viewModel);
         }
         [HttpPost]
         public IActionResult EditAccountChannelType(AccountChannelTypeViewModel model)
@@ -445,8 +445,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     expirationPeriod: model.ExpirationPeriod
                     ));
 
-
-                return RedirectToAction(actionName: "ViewChannelsTypes", new { id = model.AccountID });
+                return Json(result);
             }
             catch (Exception ex)
             {

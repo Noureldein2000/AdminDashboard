@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,6 +37,19 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             };
 
             ViewBag.processSucceded = processSucceded;
+
+            ViewBag.accountTypes = _accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstAccountType.Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = a.Id.ToString()
+            }).ToList();
+
+            ViewBag.profiles = _accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstProfile.Select(a => new SelectListItem
+            {
+                Text = a.Name,
+                Value = a.Id.ToString()
+            }).ToList();
+
             return View(viewModel);
         }
 
@@ -63,29 +77,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return View(model);
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Create(CreateAccountTypeProfileViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                var accountTypes = _accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstAccountType.Select(a => new SelectListItem
-                {
-                    Text = a.Name,
-                    Value = a.Id.ToString()
-                }).ToList();
-
-                var profiles = _accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstProfile.Select(a => new SelectListItem
-                {
-                    Text = a.Name,
-                    Value = a.Id.ToString()
-                }).ToList();
-
-                model.AccountTypes = accountTypes;
-                model.Profiles = profiles;
-
-                return View(model);
-            }
-
             try
             {
                 var result = _accountTypeProfileApi.ApiAccountTypeProfileAddPost(new AccountTypeProfileModel
@@ -94,32 +87,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     profileID: model.ProfileID
                     ));
 
-                return RedirectToAction(nameof(Index), new { processSucceded = true });
+                return Json(MapToViewModel(result));
             }
             catch (Exception ex)
             {
-                TempData["result"] = false;
-
-                var accountTypes = _accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstAccountType.Select(a => new SelectListItem
-                {
-                    Text = a.Name,
-                    Value = a.Id.ToString()
-                }).ToList();
-
-                var profiles = _accountTypeProfileApi.ApiAccountTypeProfileGetAccountTypesAndProfilesGet().LstProfile.Select(a => new SelectListItem
-                {
-                    Text = a.Name,
-                    Value = a.Id.ToString()
-                }).ToList();
-
-                model.AccountTypes = accountTypes;
-                model.Profiles = profiles;
-
-                return View(model);
+                var errorMessage = ex.Message.Remove(0, ex.Message.IndexOf('{'));
+                return Json(JsonConvert.DeserializeObject<ExceptionErrorMessage>(errorMessage));
             }
-
-
-
         }
 
         [HttpGet]

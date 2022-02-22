@@ -9,10 +9,10 @@
             <div class="card">
                 <div class="card-header">
                     <h2> AccountType</h2>
-                    <a asp-action="Create" class="pull-right btn btn-outline-primary">Add</a>
+                    <button onclick="ViewDataModel()" class="pull-right btn btn-primary">Add</button>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="tbl-AccountType">
                         <thead>
                             <tr>
                                 <th>No.</th>
@@ -24,7 +24,7 @@
                         <tbody>
                             @foreach (var AT in Model.Results)
                             {
-                                <tr>
+                                <tr id="tr-@AT.Id">
                                     <td>@AT.Id</td>
                                     <td>@AT.Name</td>
                                     <td>@AT.NameAr</td>
@@ -37,7 +37,7 @@
                                                 <h5 class="dropdown-header">Modules</h5>
                                                 <div class="dropdown-divider"></div>
                                                 <h5 class="dropdown-header">Actions</h5>
-                                                <a asp-action="Edit" asp-route-id="@AT.Id" class="dropdown-item">Edit</a>
+                                                <button onclick="ViewDataModel(@AT.Id)" class="dropdown-item">Edit</button>
                                                 <a asp-action="ChangeStatus" asp-route-id="@AT.Id" class="dropdown-item">@(AT.Status ? "Deactive" : "Active")</a>
                                                 <button onclick="ConfirmDeleteAccountType(@AT.Id,this)" class="dropdown-item" style="color:red">Delete</button>
                                             </div>
@@ -56,11 +56,32 @@
                     </pager>
                 </div>
             </div>
+            <div id="AccountTypeFormModal" class="modal fade" role="dialog" dir="ltr">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3> Add Account Type</h3>
+                        </div>
+                        <div class="modal-body">
+                            <partial name="_Create" />
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" onclick="AddAccountType()" id="btnAddAccountType" value="Add" class="btn btn-success float-right" disabled />
+                            <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
 @section Scripts{
     <script>
+        $(document).ready(function () {
+
+            $('input.enableBtn').keyup(doCheck).focusout(doCheck);
+        });
 
         $(function () {
 
@@ -115,6 +136,119 @@
             });
         }
 
+        function ViewDataModel(id= null) {
+
+            $('#accountTypeId').val(id);
+            $('#btnAddAccountType').prop('disabled', true);
+
+            if (id != null) {
+                var name = $('#tr-' + id).find("td:eq(1)").text();
+                var nameAr = $('#tr-' + id).find("td:eq(2)").text();
+                $('#name').val(name);
+                $('#nameAr').val(nameAr);
+                $('#btnAddAccountType').prop('disabled', false);
+            }
+
+            $('#AccountTypeFormModal').modal('show');
+        }
+
+        function AddAccountType() {
+            debugger;
+            var id = $('#accountTypeId').val();
+            var name = $('#name').val();
+            var nameAr = $('#nameAr').val();
+
+            var url = id == "" ? "@Url.Action("Create")" : "@Url.Action("Edit")";
+
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {
+                      Id:id,
+                      Name: name,
+                      NameAr: nameAr,
+                      Status: false
+                  },
+                 dataType: "text",
+                 success: function (msg) {
+                     debugger;
+                     var data = JSON.parse(msg);
+
+                     if (data.code != null)
+                     {
+                         swal({
+                             title: "Failure job!",
+                             text: "Failed, " + data.message + "",
+                             icon: "error",
+                             button: "Ok",
+                         });
+                     }
+                     else {
+
+                         var html = `<tr id="tr-${data.id}">
+                                    <td>${data.id}</td>
+                                    <td>${data.name}</td>
+                                    <td>${data.nameAr}</td>
+                                    <td>
+                                        <div class="dropdown">
+                                            <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
+                                                More
+                                            </button>
+                                            <div class="dropdown-menu">
+                                                <h5 class="dropdown-header">Actions</h5>
+                                                <button onclick="ViewDataModel(${data.id})" class="dropdown-item">Edit</button>
+                                                <a class="dropdown-item" href="/SuperAdmin/AccountType/ChangeStatus/${data.id}">Deactive</a>
+                                                <button onclick="ConfirmDeleteAccountType(${data.id},this)" class="dropdown-item" style="color:red">Delete</button>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>`;
+
+                         if (id != null)
+                         $('#tbl-AccountType #tr-' + id).remove();
+
+                         $('#tbl-AccountType').append(html);
+
+                         $('#AccountTypeFormModal').modal('hide');
+
+                         $('#name').val('');
+                         $('#nameAr').val('');
+                         $('#btnAddAccountType').prop('disabled', true);
+
+                     swal({
+                         title: "Good job!",
+                         text: "You Saved the Record Successfully!",
+                         icon: "success",
+                         button: "Ok",
+                     });
+                     }
+                },
+                 error: function (req, status, error) {
+
+                     swal({
+                         title: "Failure job!",
+                         text: "Ops, message error is '" + error + "'",
+                         icon: "error",
+                         button: "Ok",
+                     });
+                }
+            });
+        }
+
+        function toggleButton(ref, bttnID) {
+            document.getElementById(bttnID).disabled = ((ref.value !== ref.defaultValue) ? false : true);
+        }
+
+        function doCheck() {
+            var allFilled = true;
+            $('input.enableBtn').each(function () {
+                if ($(this).val() == '') {
+                    allFilled = false;
+                    return false;
+                }
+            });
+            $('#btnAddAccountType').prop('disabled', !allFilled);
+        }
     </script>
 }
 

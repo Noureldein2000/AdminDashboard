@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,6 +41,13 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
             ViewBag.FullTitle = title;
             ViewBag.processSucceded = processSucceded;
+            ViewBag.accountTypeProfileDenomination = id;
+            ViewBag.Fees = _feesApi.ApiFeesGetFeesGet(1, 1000, "ar").Results.Select(a => new SelectListItem
+            {
+                Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
+                Value = a.Id.ToString()
+            }).ToList();
+
             return View(viewModel);
         }
 
@@ -60,29 +68,24 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return View(model);
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Create(CreateAccountTypeProfileFeeViewModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                var fees = _feesApi.ApiFeesGetFeesGet(1, 1000, "ar").Results.Select(a => new SelectListItem
-                {
-                    Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
-                    Value = a.Id.ToString()
-                }).ToList();
+                var result = _accountTypeProfileFeeApi.ApiAccountTypeProfileFeeAddAccountTypeProfileFeePost(new AccountTypeProfileFeesModel
+                      (
+                      accountTypeProfileDenominationID: model.AccountTypeProfileDenominationID,
+                      feesID: model.FeeId
+                      ));
 
-                model.Fees = fees;
+                return Json(MapToViewModel(result));
 
-                return View(model);
             }
-
-            _accountTypeProfileFeeApi.ApiAccountTypeProfileFeeAddAccountTypeProfileFeePost(new AccountTypeProfileFeesModel
-                (
-                accountTypeProfileDenominationID: model.AccountTypeProfileDenominationID,
-                feesID: model.FeeId
-                ));
-
-            return RedirectToAction(nameof(Index), new { id = model.AccountTypeProfileDenominationID, processSucceded = true });
+            catch (Exception ex)
+            {
+                var errorMessage = ex.Message.Remove(0, ex.Message.IndexOf('{'));
+                return Json(JsonConvert.DeserializeObject<ExceptionErrorMessage>(errorMessage));
+            }
         }
         [HttpGet]
         public JsonResult Delete(int id)

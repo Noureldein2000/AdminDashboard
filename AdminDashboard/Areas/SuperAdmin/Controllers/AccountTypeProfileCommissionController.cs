@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,12 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
             ViewBag.FullTitle = title;
             ViewBag.processSucceded = processSucceded;
+            ViewBag.accountTypeProfileDenomination = id;
+            ViewBag.Commissions = _commissionApi.ApiCommissionGetCommissionsGet(1, 1000, "ar").Results.Select(a => new SelectListItem
+            {
+                Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
+                Value = a.Id.ToString()
+            }).ToList();
             return View(viewModel);
         }
 
@@ -61,29 +68,24 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return View(model);
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Create(CreateAccountTypeProfileCommissionViewModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                var Commissions = _commissionApi.ApiCommissionGetCommissionsGet(1, 1000, "ar").Results.Select(a => new SelectListItem
-                {
-                    Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
-                    Value = a.Id.ToString()
-                }).ToList();
 
-                model.Commissions = Commissions;
+                var result = _accountTypeProfileCommissionApi.ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPost(new AccountTypeProfileCommissionModel
+                      (
+                      accountTypeProfileDenominationID: model.AccountTypeProfileDenominationID,
+                      commissionID: model.CommissionId
+                      ));
 
-                return View(model);
+                return Json(MapToViewModel(result));
             }
-
-            _accountTypeProfileCommissionApi.ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPost(new AccountTypeProfileCommissionModel
-                (
-                accountTypeProfileDenominationID: model.AccountTypeProfileDenominationID,
-                commissionID: model.CommissionId
-                ));
-
-            return RedirectToAction(nameof(Index), new { id = model.AccountTypeProfileDenominationID, processSucceded = true });
+            catch (Exception ex)
+            {
+                var errorMessage = ex.Message.Remove(0, ex.Message.IndexOf('{'));
+                return Json(JsonConvert.DeserializeObject<ExceptionErrorMessage>(errorMessage));
+            }
         }
         [HttpGet]
         public JsonResult Delete(int id)

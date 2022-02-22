@@ -31,8 +31,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns></returns>
-        void ApiDenominationCommissionAddDenominationCommissionPost (AddDenominationCommissionModel body = null);
+        /// <returns>DenominationCommissionModel</returns>
+        DenominationCommissionModel ApiDenominationCommissionAddDenominationCommissionPost (AddDenominationCommissionModel body = null);
 
         /// <summary>
         /// 
@@ -42,8 +42,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ApiDenominationCommissionAddDenominationCommissionPostWithHttpInfo (AddDenominationCommissionModel body = null);
+        /// <returns>ApiResponse of DenominationCommissionModel</returns>
+        ApiResponse<DenominationCommissionModel> ApiDenominationCommissionAddDenominationCommissionPostWithHttpInfo (AddDenominationCommissionModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -98,8 +98,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ApiDenominationCommissionAddDenominationCommissionPostAsync (AddDenominationCommissionModel body = null);
+        /// <returns>Task of DenominationCommissionModel</returns>
+        System.Threading.Tasks.Task<DenominationCommissionModel> ApiDenominationCommissionAddDenominationCommissionPostAsync (AddDenominationCommissionModel body = null);
 
         /// <summary>
         /// 
@@ -109,8 +109,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ApiDenominationCommissionAddDenominationCommissionPostAsyncWithHttpInfo (AddDenominationCommissionModel body = null);
+        /// <returns>Task of ApiResponse (DenominationCommissionModel)</returns>
+        System.Threading.Tasks.Task<ApiResponse<DenominationCommissionModel>> ApiDenominationCommissionAddDenominationCommissionPostAsyncWithHttpInfo (AddDenominationCommissionModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -271,10 +271,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns></returns>
-        public void ApiDenominationCommissionAddDenominationCommissionPost (AddDenominationCommissionModel body = null)
+        /// <returns>DenominationCommissionModel</returns>
+        public DenominationCommissionModel ApiDenominationCommissionAddDenominationCommissionPost (AddDenominationCommissionModel body = null)
         {
-             ApiDenominationCommissionAddDenominationCommissionPostWithHttpInfo(body);
+             ApiResponse<DenominationCommissionModel> localVarResponse = ApiDenominationCommissionAddDenominationCommissionPostWithHttpInfo(body);
+             return localVarResponse.Data;
         }
 
         /// <summary>
@@ -282,8 +283,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ApiDenominationCommissionAddDenominationCommissionPostWithHttpInfo (AddDenominationCommissionModel body = null)
+        /// <returns>ApiResponse of DenominationCommissionModel</returns>
+        public ApiResponse< DenominationCommissionModel > ApiDenominationCommissionAddDenominationCommissionPostWithHttpInfo (AddDenominationCommissionModel body = null)
         {
 
             var localVarPath = "/api/DenominationCommission/AddDenominationCommission";
@@ -304,6 +305,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -336,9 +340,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<DenominationCommissionModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (DenominationCommissionModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(DenominationCommissionModel)));
         }
 
         /// <summary>
@@ -346,10 +350,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ApiDenominationCommissionAddDenominationCommissionPostAsync (AddDenominationCommissionModel body = null)
+        /// <returns>Task of DenominationCommissionModel</returns>
+        public async System.Threading.Tasks.Task<DenominationCommissionModel> ApiDenominationCommissionAddDenominationCommissionPostAsync (AddDenominationCommissionModel body = null)
         {
-             await ApiDenominationCommissionAddDenominationCommissionPostAsyncWithHttpInfo(body);
+             ApiResponse<DenominationCommissionModel> localVarResponse = await ApiDenominationCommissionAddDenominationCommissionPostAsyncWithHttpInfo(body);
+             return localVarResponse.Data;
 
         }
 
@@ -358,8 +363,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiDenominationCommissionAddDenominationCommissionPostAsyncWithHttpInfo (AddDenominationCommissionModel body = null)
+        /// <returns>Task of ApiResponse (DenominationCommissionModel)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<DenominationCommissionModel>> ApiDenominationCommissionAddDenominationCommissionPostAsyncWithHttpInfo (AddDenominationCommissionModel body = null)
         {
 
             var localVarPath = "/api/DenominationCommission/AddDenominationCommission";
@@ -380,6 +385,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -412,9 +420,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<DenominationCommissionModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (DenominationCommissionModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(DenominationCommissionModel)));
         }
 
         /// <summary>

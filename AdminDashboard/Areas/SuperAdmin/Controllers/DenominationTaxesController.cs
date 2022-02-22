@@ -1,9 +1,11 @@
 ﻿using AdminDashboard.Areas.SuperAdmin.Models;
+using AdminDashboard.Models;
 using AdminDashboard.Models.SwaggerModels;
 using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -32,6 +34,12 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             ViewBag.denominationId = denominationId;
             ViewBag.DenominationName = denominationName;
             ViewBag.ProcessSucceded = processSucceded;
+            ViewBag.Taxes = _apiTaxes.ApiTaxGetTaxesGet(1, 100).Results.Select(a => new SelectListItem
+            {
+                Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
+                Value = a.Id.ToString()
+            }).ToList();
+
             return View(data.Select(x => Map(x)));
         }
 
@@ -55,41 +63,21 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Create(CreateDenominationTaxesViewModel model)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    var taxes = _apiTaxes.ApiTaxGetTaxesGet(1, 100).Results.Select(a => new SelectListItem
-                    {
-                        Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
-                        Value = a.Id.ToString()
-                    }).ToList();
 
-                    model.Taxes = taxes;
+                var result = _apiDenominationTaxes.ApiDenominationTaxesAddDenominationTaxesPost(new AddDenominationTaxesModel(
+                      denominationId: model.DenominationId,
+                      taxId: model.TaxesId));
 
-                    return View(model);
-                }
-
-                _apiDenominationTaxes.ApiDenominationTaxesAddDenominationTaxesPost(new AddDenominationTaxesModel(
-                    denominationId: model.DenominationId,
-                    taxId: model.TaxesId));
-
-                return RedirectToAction(nameof(Index), new { denominationId = model.DenominationId, denominationName = model.DenominationName, processSucceded = true });
+                return Json(Map(result));
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", ex.Message);
-                var taxes = _apiTaxes.ApiTaxGetTaxesGet(1, 100).Results.Select(a => new SelectListItem
-                {
-                    Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
-                    Value = a.Id.ToString()
-                }).ToList();
-
-                model.Taxes = taxes;
-                return View(model);
+                var errorMessage = ex.Message.Remove(0, ex.Message.IndexOf('{'));
+                return Json(JsonConvert.DeserializeObject<ExceptionErrorMessage>(errorMessage));
             }
 
         }

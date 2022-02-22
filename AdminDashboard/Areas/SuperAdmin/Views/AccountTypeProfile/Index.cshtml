@@ -9,10 +9,10 @@
             <div class="card">
                 <div class="card-header">
                     <h2> AccountType Profile</h2>
-                    <a asp-action="Create" class="pull-right btn btn-outline-primary">Add</a>
+                    <button onclick="ViewDataModel()" class="pull-right btn btn-primary">Add</button>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="tbl-AccountTypeProfile">
                         <thead>
                             <tr>
                                 <th>No.</th>
@@ -24,7 +24,7 @@
                         <tbody>
                             @foreach (var ATPD in Model.Results)
                             {
-                                <tr>
+                                <tr id="tr-@ATPD.Id">
                                     <td>@ATPD.Id</td>
                                     <td>@ATPD.AccountTypeName</td>
                                     <td>@ATPD.ProfileName</td>
@@ -44,6 +44,23 @@
                     </pager>
                 </div>
             </div>
+            <div id="AccountTypeProfileFormModal" class="modal fade" role="dialog" dir="ltr">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3> Add Account Type Profile</h3>
+                        </div>
+                        <div class="modal-body">
+                            <partial name="_Create" />
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" onclick="AddAccountTypeProfile()" id="btnAddAccountTypeProfile" value="Add" class="btn btn-success float-right" disabled />
+                            <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
@@ -60,7 +77,15 @@
                     button: "Ok",
                 });
             }
-         });
+        });
+
+        $(function () {
+            $('.enableBtn').on('change', function () {
+                debugger;
+                var $sels = $('.enableBtn option:selected[value="0"]');
+                $("#btnAddAccountTypeProfile").attr("disabled", $sels.length > 0);
+            }).change();
+        });
 
         function ConfirmDeleteAccountTypeProfile(id,row)
         {
@@ -100,6 +125,82 @@
                      });
                 }
             });
+        }
+
+        function ViewDataModel() {
+
+            $('#accountTypeProfileId').val(id);
+/*            $('#denominationName').val(denominationName);*/
+            $('#AccountTypeProfileFormModal').modal('show');
+        }
+
+        function AddAccountTypeProfile() {
+            debugger;
+            var accountTypeID = $('#accountTypeID').val();
+            var profileID = $('#profileID').val();
+
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Create")",
+                  data: {
+                      AccountTypeID: accountTypeID,
+                      ProfileID: profileID,
+                  },
+                 dataType: "text",
+                 success: function (msg) {
+                     debugger;
+                     var data = JSON.parse(msg);
+
+                     if (data.code != null)
+                     {
+                         swal({
+                             title: "Failure job!",
+                             text: "Failed, " + data.message + "",
+                             icon: "error",
+                             button: "Ok",
+                         });
+                     }
+                     else {
+
+                         var html = `<tr id="tr-${data.id}">
+                                    <td>${data.id}</td>
+                                    <td>${data.accountTypeName}</td>
+                                    <td>${data.profileName}</td>
+                                    <td>
+                                        <button onclick="ConfirmDeleteAccountTypeProfile(${data.id},this)" class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>`;
+
+                         $('#tbl-AccountTypeProfile').append(html);
+
+                         $('#AccountTypeProfileFormModal').modal('hide');
+
+                         $('#accountTypeID').val(0);
+                         $('#profileID').val(0);
+
+                     swal({
+                         title: "Good job!",
+                         text: "You Added the Record Successfully!",
+                         icon: "success",
+                         button: "Ok",
+                     });
+                     }
+                },
+                 error: function (req, status, error) {
+
+                     swal({
+                         title: "Failure job!",
+                         text: "Ops, message error is '" + error + "'",
+                         icon: "error",
+                         button: "Ok",
+                     });
+                }
+            });
+        }
+
+        function toggleButton(ref, bttnID) {
+            document.getElementById(bttnID).disabled = ((ref.value !== ref.defaultValue) ? false : true);
         }
 
     </script>
