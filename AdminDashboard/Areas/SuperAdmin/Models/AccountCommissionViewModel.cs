@@ -10,6 +10,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public int Id { get; set; }
         public int CommissionId { get; set; }
         public int AccountId { get; set; }
+        public double? From { get; set; }
+        public double? To { get; set; }
         public double? CommissionValue { get; set; }
         public int PaymentModeId { get; set; }
         public string PaymentMode { get; set; }

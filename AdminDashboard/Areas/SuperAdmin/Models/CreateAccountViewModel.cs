@@ -34,7 +34,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         [Required]
         public int? AccountTypeID { get; set; }
         [Required]
-        public int? BalanceTypeId { get; set; }
+        public List<int?> BalanceTypeId { get; set; }
         public int? AccountTypeProfileID { get; set; }
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
