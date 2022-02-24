@@ -37,7 +37,7 @@
                             <div class="col-md-6">
                                 <label class="control-label">Start Date <span class="validation-error">*</span></label>
                                 <div class="input-group date mb-3">
-                                    <input asp-for="StartDate" id="startDateFee" class="datepicker form-control" type="text" value="@DateTime.Now.ToShortDateString()">
+                                    <input readonly asp-for="StartDate" id="startDateTax" class="datepicker form-control" type="text">
                                     <div class="input-group-append">
                                         <span class="input-group-text">
                                             <i class="far fa-calendar" aria-hidden="true"></i>
@@ -49,7 +49,7 @@
                             <div class="col-md-6">
                                 <label class="control-label">End Date <span class="validation-error">*</span></label>
                                 <div class="input-group date mb-3">
-                                    <input asp-for="EndDate" id="endDateFee" class="datepicker form-control" type="text">
+                                    <input readonly asp-for="EndDate" id="endDateTax" class="datepicker form-control" type="text">
                                     <div class="input-group-append">
                                         <span class="input-group-text">
                                             <i class="far fa-calendar" aria-hidden="true"></i>
@@ -92,12 +92,12 @@
                  autoclose: true,
             });
 
-            $("#startDateFee").on('changeDate', function () {
+        });
+        $("#startDateTax").on('changeDate', function () {
                 var st = $(this).datepicker("getDate");
                 var end = st;
-                $('#endDateFee').val('').datepicker('setStartDate', end);
+            $('#endDateTax').val(st.toLocaleDateString()).datepicker('setStartDate', end);
             });
-        });
 
         function isNumberKey(evt) {
             var charCode = (evt.which) ? evt.which : event.keyCode;
