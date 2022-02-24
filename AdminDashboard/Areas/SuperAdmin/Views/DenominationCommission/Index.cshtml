@@ -134,7 +134,7 @@
         }
 
         function AddDenominationCommission() {
-            debugger;
+            
             var denominationId = $('#denominationId').val();
             var commissionId = $('#commissionId').val();
 
@@ -148,7 +148,7 @@
                   },
                  dataType: "text",
                  success: function (msg) {
-                     debugger;
+                     
                      var data = JSON.parse(msg);
 
                      if (data.code != null)

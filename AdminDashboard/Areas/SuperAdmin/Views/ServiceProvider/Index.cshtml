@@ -132,7 +132,7 @@
         }
 
         function ViewDataModel(id = null) {
-            debugger;
+            
             $('#serviceProviderId').val(id);
              $('#btnAddServiceProvider').prop('disabled', true);
 
@@ -146,7 +146,7 @@
         }
 
         function AddServiceProvider() {
-            debugger;
+            
             var id = $('#serviceProviderId').val();
             var name = $('#name').val();
 
@@ -161,7 +161,7 @@
                   },
                  dataType: "text",
                  success: function (msg) {
-                     debugger;
+                     
                      var data = JSON.parse(msg);
 
                      if (data.code != null)

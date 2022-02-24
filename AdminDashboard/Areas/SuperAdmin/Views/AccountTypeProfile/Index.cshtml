@@ -81,7 +81,7 @@
 
         $(function () {
             $('.enableBtn').on('change', function () {
-                debugger;
+                
                 var $sels = $('.enableBtn option:selected[value="0"]');
                 $("#btnAddAccountTypeProfile").attr("disabled", $sels.length > 0);
             }).change();
@@ -135,7 +135,7 @@
         }
 
         function AddAccountTypeProfile() {
-            debugger;
+            
             var accountTypeID = $('#accountTypeID').val();
             var profileID = $('#profileID').val();
 
@@ -149,7 +149,7 @@
                   },
                  dataType: "text",
                  success: function (msg) {
-                     debugger;
+                     
                      var data = JSON.parse(msg);
 
                      if (data.code != null)

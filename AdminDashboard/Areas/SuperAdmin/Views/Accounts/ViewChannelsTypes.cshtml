@@ -106,7 +106,7 @@
         }
 
         function EditAccountChannelType() {
-            debugger;
+            
             var id = $('#accountId').val();
             var expirationData = $('#txtExpirationPeriod').val();
             var hasLimitedAccess = $('#chkHasLimitedAccess').is(":checked");
@@ -122,7 +122,7 @@
                   },
                  dataType: "text",
                  success: function (msg) {
-                     debugger;
+                     
                      var data = JSON.parse(msg);
 
                      var html = `<td>${channelTypeName}</td>

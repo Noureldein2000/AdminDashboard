@@ -140,7 +140,7 @@
         }
 
         function AddDenominationTaxes() {
-            debugger;
+            
             var denominationId = $('#denominationId').val();
             var taxesId = $('#taxesId').val();
 
@@ -154,7 +154,7 @@
                   },
                  dataType: "text",
                  success: function (msg) {
-                     debugger;
+                     
                      var data = JSON.parse(msg);
 
                      if (data.code != null)

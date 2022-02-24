@@ -147,7 +147,7 @@
         }
 
         function AddAccountTypeProfileFee() {
-            debugger;
+            
             var accountTypeProfileDenominationID = $('#accountTypeProfileDenominationID').val();
             var feeId = $('#feeId').val();
 
@@ -160,7 +160,7 @@
                   },
                  dataType: "text",
                  success: function (msg) {
-                     debugger;
+                     
                      var data = JSON.parse(msg);
 
                      if (data.code != null)
