@@ -35,6 +35,8 @@
                             <tr>
                                 <th>Denomiination ID</th>
                                 <th>Denomination</th>
+                                <th>From</th>
+                                <th>To</th>
                                 <th>Value</th>
                                 <th>Type Name</th>
                                 <th>Payment Mode</th>
@@ -44,16 +46,18 @@
                         <tbody>
                             @foreach (var com in Model.Results)
                             {
-                                <tr>
-                                    <td>@com.DenomiinationId</td>
-                                    <td>@com.DenominationFullName</td>
-                                    <td>@com.CommissionValue</td>
-                                    <td>@com.CommissionTypeName</td>
-                                    <td>@com.PaymentMode</td>
-                                    <td>
-                                        <button onclick="ConfirmDeleteAccountCommission(@com.Id,this)" class="btn btn-danger">Delete</button>
-                                    </td>
-                                </tr>
+                            <tr>
+                                <td>@com.DenomiinationId</td>
+                                <td>@com.DenominationFullName</td>
+                                <td>@com.From</td>
+                                <td>@com.To</td>
+                                <td>@com.CommissionValue</td>
+                                <td>@com.CommissionTypeName</td>
+                                <td>@com.PaymentMode</td>
+                                <td>
+                                    <button onclick="ConfirmDeleteAccountCommission(@com.Id,this)" class="btn btn-danger">Delete</button>
+                                </td>
+                            </tr>
                             }
                         </tbody>
                     </table>

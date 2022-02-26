@@ -19,7 +19,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
-using SwaggerDateConverter = AdminDashboard.SwaggerClientHelpers.SwaggerDateConverter;
+using AdminDashboard.Models.SwaggerModels;
 
 namespace AdminDashboard.Models.SwaggerModels
 {
@@ -35,6 +35,8 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="id">id.</param>
         /// <param name="commissionId">commissionId.</param>
         /// <param name="accountId">accountId.</param>
+        /// <param name="amountFrom">amountFrom.</param>
+        /// <param name="amountTo">amountTo.</param>
         /// <param name="commissionValue">commissionValue.</param>
         /// <param name="paymentModeId">paymentModeId.</param>
         /// <param name="paymentMode">paymentMode.</param>
@@ -45,11 +47,13 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="serviceId">serviceId.</param>
         /// <param name="serviceName">serviceName.</param>
         /// <param name="creationDate">creationDate.</param>
-        public AccountCommissionModel(int? id = default(int?), int? commissionId = default(int?), int? accountId = default(int?), double? commissionValue = default(double?), int? paymentModeId = default(int?), string paymentMode = default(string), int? commissionTypeId = default(int?), string commissionTypeName = default(string), int? denomiinationId = default(int?), string denominationFullName = default(string), int? serviceId = default(int?), string serviceName = default(string), DateTime? creationDate = default(DateTime?))
+        public AccountCommissionModel(int? id = default(int?), int? commissionId = default(int?), int? accountId = default(int?), double? amountFrom = default(double?), double? amountTo = default(double?), double? commissionValue = default(double?), int? paymentModeId = default(int?), string paymentMode = default(string), int? commissionTypeId = default(int?), string commissionTypeName = default(string), int? denomiinationId = default(int?), string denominationFullName = default(string), int? serviceId = default(int?), string serviceName = default(string), DateTime? creationDate = default(DateTime?))
         {
             this.Id = id;
             this.CommissionId = commissionId;
             this.AccountId = accountId;
+            this.AmountFrom = amountFrom;
+            this.AmountTo = amountTo;
             this.CommissionValue = commissionValue;
             this.PaymentModeId = paymentModeId;
             this.PaymentMode = paymentMode;
@@ -79,6 +83,18 @@ namespace AdminDashboard.Models.SwaggerModels
         /// </summary>
         [DataMember(Name="accountId", EmitDefaultValue=false)]
         public int? AccountId { get; set; }
+
+        /// <summary>
+        /// Gets or Sets AmountFrom
+        /// </summary>
+        [DataMember(Name="amountFrom", EmitDefaultValue=false)]
+        public double? AmountFrom { get; set; }
+
+        /// <summary>
+        /// Gets or Sets AmountTo
+        /// </summary>
+        [DataMember(Name="amountTo", EmitDefaultValue=false)]
+        public double? AmountTo { get; set; }
 
         /// <summary>
         /// Gets or Sets CommissionValue
@@ -151,6 +167,8 @@ namespace AdminDashboard.Models.SwaggerModels
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  CommissionId: ").Append(CommissionId).Append("\n");
             sb.Append("  AccountId: ").Append(AccountId).Append("\n");
+            sb.Append("  AmountFrom: ").Append(AmountFrom).Append("\n");
+            sb.Append("  AmountTo: ").Append(AmountTo).Append("\n");
             sb.Append("  CommissionValue: ").Append(CommissionValue).Append("\n");
             sb.Append("  PaymentModeId: ").Append(PaymentModeId).Append("\n");
             sb.Append("  PaymentMode: ").Append(PaymentMode).Append("\n");
@@ -209,6 +227,16 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.AccountId == input.AccountId ||
                     (this.AccountId != null &&
                     this.AccountId.Equals(input.AccountId))
+                ) && 
+                (
+                    this.AmountFrom == input.AmountFrom ||
+                    (this.AmountFrom != null &&
+                    this.AmountFrom.Equals(input.AmountFrom))
+                ) && 
+                (
+                    this.AmountTo == input.AmountTo ||
+                    (this.AmountTo != null &&
+                    this.AmountTo.Equals(input.AmountTo))
                 ) && 
                 (
                     this.CommissionValue == input.CommissionValue ||
@@ -277,6 +305,10 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.CommissionId.GetHashCode();
                 if (this.AccountId != null)
                     hashCode = hashCode * 59 + this.AccountId.GetHashCode();
+                if (this.AmountFrom != null)
+                    hashCode = hashCode * 59 + this.AmountFrom.GetHashCode();
+                if (this.AmountTo != null)
+                    hashCode = hashCode * 59 + this.AmountTo.GetHashCode();
                 if (this.CommissionValue != null)
                     hashCode = hashCode * 59 + this.CommissionValue.GetHashCode();
                 if (this.PaymentModeId != null)

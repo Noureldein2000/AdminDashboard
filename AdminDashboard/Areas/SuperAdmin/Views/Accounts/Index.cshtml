@@ -23,8 +23,8 @@
                             <form asp-controller="Accounts" asp-action="SearchAccounts" method="get">
                                 <div class="form-group">
                                     <div class="form-group">
-                                        <label class="control-label">Filter by account type</label>
-                                        <select id="DropDownFilter" asp-for="DropDownFilter" asp-items="ViewBag.AccountTypeList" class="form-control" data-style="select-with-transition" title="Choose an AccountType" data-size="7">
+                                        <label class="control-label" style="display:block">Filter by account type</label>
+                                        <select id="DropDownFilter" asp-for="DropDownFilter" asp-items="ViewBag.AccountTypeList" class="form-control js-example-responsive" style="width: 100%" data-style="select-with-transition" data-size="7">
                                             <option>Choose an AccountType</option>
                                         </select>
                                     </div>
@@ -105,6 +105,12 @@
 @section Scripts{
 
     <script>
+        $(document).ready(function () {
+
+            $('#DropDownFilter').select2({
+                placeholder: "Select a Account Type"
+            });
+
         $(function () {
             if (@ViewBag.processSucceded.ToString().ToLower()) {
                 swal({
@@ -114,6 +120,7 @@
                     button: "Ok",
                 });
             }
+        });
         });
 
         $("#SearchKey").keyup(function () {

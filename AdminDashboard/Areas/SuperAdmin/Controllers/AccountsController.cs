@@ -252,7 +252,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             model.ConsumerUser.UserRole = Roles.Consumer;
             if (result != null)
             {
-                _accounts.ApiAccountsCreateAccountPost(new CreateAccountModel(accountId: result.Id, 0.0, new List<int?> { model.BalanceTypeId }));
+                _accounts.ApiAccountsCreateAccountPost(new CreateAccountModel(accountId: result.Id, 0.0, model.BalanceTypeId));
 
                 _usersApi.ApiUsersCreateUserPost(new CreateUserModel(
                                 username: model.Username,
@@ -300,11 +300,11 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Value = a.Id.ToString()
             }).ToList();
 
-            var balanceTypes = _accounts.ApiAccountsBalanceTypesGet("ar").Select(a => new SelectListItem
-            {
-                Text = a.Name,
-                Value = a.Id.ToString()
-            }).ToList();
+            //var balanceTypes = _accounts.ApiAccountsBalanceTypesGet("ar").Select(a => new SelectListItem
+            //{
+            //    Text = a.Name,
+            //    Value = a.Id.ToString()
+            //}).ToList();
 
             var model = _api.ApiAccountGetAccountByIdIdGet(id);
 
@@ -314,7 +314,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             viewModel.Governerates = governerates;
             viewModel.Entities = entities;
             viewModel.AccountTypes = accountTypes;
-            viewModel.BalanceTypes = balanceTypes;
+            //viewModel.BalanceTypes = balanceTypes;
             if (model.GovernerateID.HasValue)
             {
                 var cities = _regionApi.ApiRegionGetRegionByGovernorateIdIdGet(model.GovernerateID).ToList();
@@ -362,17 +362,17 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
-                var balanceTypes = _accounts.ApiAccountsBalanceTypesGet("ar").Select(a => new SelectListItem
-                {
-                    Text = a.Name,
-                    Value = a.Id.ToString()
-                }).ToList();
+                //var balanceTypes = _accounts.ApiAccountsBalanceTypesGet("ar").Select(a => new SelectListItem
+                //{
+                //    Text = a.Name,
+                //    Value = a.Id.ToString()
+                //}).ToList();
 
                 model.Activities = activities;
                 model.Governerates = governerates;
                 model.Entities = entities;
                 model.AccountTypes = accountTypes;
-                model.BalanceTypes = balanceTypes;
+                //model.BalanceTypes = balanceTypes;
                 return View(model);
             }
 
@@ -408,7 +408,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             }
         }
         [HttpGet]
-        public IActionResult EditAccountChannelType(int id,string channelTypeName)
+        public IActionResult EditAccountChannelType(int id, string channelTypeName)
         {
             var data = _accountChannelTypesApi.ApiAccountChannelTypeGetAccountChannelTypeByIdIdGet(id);
 

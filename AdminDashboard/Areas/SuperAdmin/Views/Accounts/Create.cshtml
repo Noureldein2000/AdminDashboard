@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Create";
 }
+
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-12">
@@ -104,9 +105,9 @@
                                 <span asp-validation-for="EntityID" class="text-danger"></span>
                             </div>
                             <div class="form-group">
-                                <label class="control-label">BalanceType <span class="validation-error">*</span></label>
-                                <select asp-for="BalanceTypeId" asp-items="Model.BalanceTypes" class="form-control" data-style="select-with-transition" title="Choose an entity" data-size="7">
-                                    <option disabled selected> Choose BalanceType</option>
+                                <label class="control-label" style="display:block">BalanceType <span class="validation-error">*</span></label>
+                                <select asp-for="BalanceTypeId" asp-items="Model.BalanceTypes" class="form-control js-example-responsive" multiple="multiple" style="width: 100%" data-style="select-with-transition" title="Choose an Balance Type" data-size="7">
+                                    @*<option disabled selected> Choose BalanceType</option>*@
                                 </select>
                                 <span asp-validation-for="BalanceTypeId" class="text-danger"></span>
                             </div>
@@ -265,6 +266,15 @@
             //    placeholder: 'Select an option',
             //    width:1040
             //});
+            $('#BalanceTypeId').select2({
+                placeholder: "Select a Balance Type",
+                //placeholder: {
+                //    id: '-1', // the value of the option
+                //    text: 'Select an option',
+                //    width:'150px'
+                //},
+/*                width: '100%'*/
+            });
 
             $('.btnNext').click(function () {
                 $('.nav-tabs .active').parent().next('li').find('a').trigger('click');

@@ -134,6 +134,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Id = (int)x.Id,
                 FeesId = (int)x.FeesId,
                 FeesTypeId = (int)x.FeesTypeId,
+                From = x.AmountFrom,
+                To = x.AmountTo,
                 FeesTypeName = x.FeesTypeName,
                 PaymentMode = x.PaymentMode,
                 FeesValue = x.FeesValue,
