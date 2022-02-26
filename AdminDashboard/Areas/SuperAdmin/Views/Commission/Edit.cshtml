@@ -1,4 +1,4 @@
-﻿@model CommissionViewModel
+﻿@model EditCommissionViewModel
 @using AdminDashboard.Helper
 @{
     ViewData["Title"] = "Edit Commission";
@@ -8,7 +8,7 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <form asp-action="Edit" method="post">
+                <form id="submit-form" asp-action="Edit" method="post">
                     @Html.AntiForgeryToken()
                     <div class="card-header">
                         <h2>Edit Commission</h2>
@@ -37,24 +37,14 @@
                             <div class="col-md-6">
                                 <label class="control-label">Start Date <span class="validation-error">*</span></label>
                                 <div class="input-group date mb-3">
-                                    <input readonly asp-for="StartDate" id="startDateCommission" class="datepicker form-control" type="text">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="far fa-calendar" aria-hidden="true"></i>
-                                        </span>
-                                    </div>
+                                    <input asp-for="StartDate" id="startDateCommission" class="form-control" type="date">
                                 </div>
                                 <span asp-validation-for="StartDate" class="text-danger"></span>
                             </div>
                             <div class="col-md-6">
                                 <label class="control-label">End Date <span class="validation-error">*</span></label>
                                 <div class="input-group date mb-3">
-                                    <input readonly asp-for="EndDate" id="endDateCommission" class="datepicker form-control" type="text">
-                                    <div class="input-group-append">
-                                        <span class="input-group-text">
-                                            <i class="far fa-calendar" aria-hidden="true"></i>
-                                        </span>
-                                    </div>
+                                    <input asp-for="EndDate" id="endDateCommission" class="form-control" type="date">
                                 </div>
                                 <span asp-validation-for="EndDate" class="text-danger"></span>
                             </div>
@@ -75,7 +65,7 @@
                         </div>
                     </div>
                     <div class="card-footer">
-                        <input type="submit" value="Save" class="btn btn-success" />
+                        <input id="submit-btn" type="button" value="Save" class="btn btn-success" />
                     </div>
                 </form>
             </div>
@@ -85,19 +75,33 @@
 
 @section Scripts{
     <script>
-  $(document).ready(function () {
+         $(document).ready(function () {
 
-            $('.datepicker').datepicker({
-                 startDate: '@DateTime.Now.ToShortDateString()',
-                 autoclose: true,
+            $('#submit-btn').click(() => {
+                let startDateVal = $('#startDateCommission').val();
+                let endDateVal = $('#endDateCommission').val();
+                if (startDateVal && endDateVal) {
+                    $('#submit-form').submit();
+                }
+                else {
+                    swal({
+                        title: "Are you sure?",
+                        text: "Default (End Date) will be 100 years from now, Do you want to continue?",
+                        icon: "warning",
+                        buttons: true,
+                        dangerMode: true,
+                    }).then((result) => {
+                        if (result) {
+                            $('#submit-form').submit();
+                        }
+                        else {
+                            $('#endDateCommission').focus();
+                        }
+                    });
+                }
             });
+
         });
-
-      $("#startDateCommission").on('changeDate', function () {
-                var st = $(this).datepicker("getDate");
-                var end = st;
-          $('#endDateCommission').val('').datepicker('setStartDate', end);
-            });
 
         function isNumberKey(evt) {
             var charCode = (evt.which) ? evt.which : event.keyCode;
