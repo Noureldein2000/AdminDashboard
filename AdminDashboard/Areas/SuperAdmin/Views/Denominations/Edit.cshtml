@@ -96,11 +96,12 @@
                                 </div>
                                 <div class="modal-body">
                                     <form id="frmDenominationServiceProviders">
+                                        <input type="hidden" asp-for="DenominationID">
                                         <partial name="_DenominationServiceProviders.cshtml" model="new DenominationServiceProvidersViewModel()" />
                                         <hr />
                                         <div class="col-md-8">
                                             <label class="control-label d-block">URL</label>
-                                            <select asp-items="@ViewBag.ServiceConfiguartion" class="form-control" id="ServiceConfigerationID">
+                                            <select asp-items="@ViewBag.ServiceConfiguartion" asp-for="ServiceConfigerationID" class="form-control" id="ServiceConfigerationID">
                                                 <option disabled selected> Choose URL Service</option>
                                             </select>
                                             <span class="text-danger"></span>
@@ -367,60 +368,46 @@
         }
 
         function AddDenominationServiceProvider(IsEdited) {
-            
-            var id = $('#denominationServieProviderId').val();
-            var DenominationID = @ViewContext.RouteData.Values["id"];
-            var ServiceProviderID = $('#ServiceProviderID').val();
-            var ServiceConfigerationID = $('#ServiceConfigerationID').val();
-            var Balance = $('#Balance').val();
-/*            var Status = $('#Status').val();*/
-            var ProviderCode = $('#ProviderCode').val();
-            var ProviderAmount = $('#ProviderAmount').val();
-            var OldServiceID = $('#OldServiceID').val();
-            var ProviderHasFees = $('#ProviderHasFees').is(':checked');
 
-            var urlDenomnitonServiceProvider = IsEdited != "" ? "@Url.Action("EditDenominationServiceProvider")" : "@Url.Action("AddDenominationServiceProvider")";
+            var urlDenomnitonServiceProvider = IsEdited != "" ? "@Url.Action("EditDenominationServiceProvider", "Denominations")" : "@Url.Action("AddDenominationServiceProvider", "Denominations")";
             if (CheckValidation("frmDenominationServiceProviders"))
             {
                 $.ajax({
-                    type: "POST",
+                    method: "post",
                     url: urlDenomnitonServiceProvider,
-                    data: {
-                        Id: id,
-                        DenominationID ,
-                        ServiceProviderID ,
-                        ServiceConfigerationID,
-                        Balance ,
-                        ProviderCode ,
-                        ProviderAmount ,
-                        OldServiceID ,
-                        ProviderHasFees
-                    },
-                     dataType: "text",
-                    success: function (msg) {
-                        
+                    data: new FormData($('#frmDenominationServiceProviders')[0]),
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        if (data) {
+                            var html = `<td>${data.id}</td><td> ${data.serviceProviderName}</td>
+                            <td> ${data.balance} </td><td>${data.providerCode}</td>
+                            <td>${data.providerAmount}</td><td>${data.providerHasFees}</td>
+                            <td><button onclick="EditDenominationServiceProvider(${data.id},this)" class="btn btn-primary mr-1">Edit</button>
+                            <button onclick="ChangeStatusDenominationServiceProvider(${data.id},this)" class="${data.status ? 'btn btn-danger' : 'btn btn-success'}">${data.status ? 'Deactive' : 'Active'}</button></td>`;
 
-                        var dataTest = JSON.parse(msg);
-
-                        var html = `<td>${dataTest.id}</td><td> ${dataTest.serviceProviderName}</td>
-                        <td> ${dataTest.balance} </td><td>${dataTest.providerCode}</td>
-                        <td>${dataTest.providerAmount}</td><td>${dataTest.providerHasFees}</td>
-                        <td><button onclick="EditDenominationServiceProvider(${dataTest.id},this)" class="btn btn-primary mr-1">Edit</button>
-                        <button onclick="ChangeStatusDenominationServiceProvider(${dataTest.id},this)" class="${dataTest.status ? 'btn btn-danger' : 'btn btn-success'}">${dataTest.status ? 'Deactive' : 'Active'}</button></td>`;
-
-                        if (IsEdited == "")
-                            $('#table-DenominationServiceProvider').append(`<tr id="tr-dsp-' + dataTest.id+'">${html}</tr>`);
+                            if (IsEdited == "") {
+                                $('#table-DenominationServiceProvider').append(`<tr id="tr-dsp-' + dataTest.id+'">${html}</tr>`);
+                            }
                             else {
-                            var row = '#tr-dsp-' + dataTest.id;
-                            $(row).empty();
-                            $(row).append(html);
-/*                            $(row).append('<td>' + data.id + '</td><td>' + data.serviceProviderName + '</td><td>' + data.balance + '</td><td>' + data.providerCode + '</td><td>' + data.providerAmount + '</td><td>' + data.providerHasFees + '</td><td><button onclick="EditDenominationServiceProvider(' + data.id + ',this)" class="btn btn-primary mr-1">Edit</button><a onclick="ChangeStatusDenominationServiceProvider(' + data.id + ',this)" class="btn btn-success">Change</a></td>');*/
-                        }
+                                var row = '#tr-dsp-' + data.id;
+                                $(row).empty();
+                                $(row).append(html);
+                            }
 
-                        ClearData();
-                        $('#myDenominationServiceProviderModal').modal('hide');
+                            ClearData();
+                            $('#myDenominationServiceProviderModal').modal('hide');
+                            swal("Your record has been updated", {
+                                icon: "success",
+                            });
+                        }
+                        else {
+                            swal("There is some error happened! Please try again", {
+                                icon: "error",
+                            });
+                        }
                     },
-                     error: function (req, status, error) {
+                    error: function (req, status, error) {
                          swal("There is some error happened!", {
                              icon: "error",
                          });
@@ -550,7 +537,7 @@
                         $('#myDenominationParameter').modal('hide');
                     },
                      error: function (req, status, error) {
-                         
+
                          swal("Ops! There is some error happened!", {
                              icon: "error",
                          });
@@ -602,7 +589,7 @@
                     });
                 },
                  error: function (req, status, error) {
-                     
+
                      swal("Ops! There is some error happened!", {
                          icon: "error",
                      });
@@ -633,7 +620,7 @@
                     $('#myDenominationParameter').modal('toggle');
                 },
                  error: function (req, status, error) {
-                     
+
                 }
             });
         }
@@ -659,6 +646,7 @@
             $('#ProviderCode').val('');
             $('#ProviderAmount').val('');
             $('#OldServiceID').val('');
+            $('#div-configs').empty();
         }
 
         function ConfirmDeleteDenominationParameter(id, denominationId,row)
@@ -697,7 +685,7 @@
 
                 },
                  error: function (req, status, error) {
-                     
+
                      swal("Ops! There is some error happened!", {
                          icon: "error",
                      });
@@ -713,7 +701,7 @@
                 data: {id:id},
                  dataType: "text",
                  success: function (msg) {
-                     
+
                     var data = JSON.parse(msg);
 
                     $('#denominationServieProviderId').val(id);
@@ -726,10 +714,15 @@
                     $('#OldServiceID').val(data.oldServiceID);
                     $('#ProviderHasFees').prop('checked', data.providerHasFees);
 
+                     $('#div-configs').empty();
+                     data.denominationProviderConfigurations.forEach(dpc => {
+                         addConfig(dpc.name, dpc.value);
+                     });
+
                     $('#myDenominationServiceProviderModal').modal('toggle');
                 },
                  error: function (req, status, error) {
-                     
+
                 }
             });
             }
@@ -756,7 +749,7 @@
                      $(row).html(active == false ? 'Deactive' : 'Active');
                 },
                  error: function (req, status, error) {
-                     
+
                      swal("Ops! There is some error happened!", {
                          icon: "error",
                      });
@@ -766,7 +759,7 @@
 
         function CheckValidation(formId)
         {
-            
+
             var valid = true;
 
             switch (formId) {
@@ -789,5 +782,49 @@
             return valid;
         }
 
+        function addConfig() {
+            let configsTemplate = $('#configsTemplate').clone();
+            configsTemplate.removeAttr('id');
+            configsTemplate.find('.item').hide();
+            $('#div-configs').append(configsTemplate);
+            configsTemplate.show();
+            reorderLocations();
+        }
+
+        function addConfig(name, value) {
+            let configsTemplate = $('#configsTemplate').clone();
+            configsTemplate.removeAttr('id');
+            configsTemplate.find('.item').hide();
+            configsTemplate.find('#providerConfigParamName').attr("value", name);
+            configsTemplate.find('#providerConfigParamValue').attr("value", value);
+            $('#div-configs').append(configsTemplate);
+            configsTemplate.show();
+            reorderLocations();
+        }
+
+        function deleteConfig(id) {
+            $(`#${id}`).remove();
+            //if ($('#div-configs').children().length == 0) {
+            //    $('.HideLabel').hide();
+            //}
+            reorderLocations();
+        }
+
+        function reorderLocations() {
+            $('#div-configs').children().each((i, e) => {
+                $(e).find("input")
+                    .first()
+                    .attr("id", "DenominationProviderConfigurations_" + i + "__Name")
+                    .attr("name", "DenominationProviderConfigurations[" + i + "].Name");
+                $(e).find("input:eq(1)")
+                    .first()
+                    .attr("id", "DenominationProviderConfigurations_" + i + "__Value")
+                    .attr("name", "DenominationProviderConfigurations[" + i + "].Value");
+                $(e).find("button")
+                    .first()
+                    .attr("onclick", "deleteConfig('configs-" + i + "\')");
+                $(e).attr("id", "configs-" + i);
+            });
+        }
     </script>
 }

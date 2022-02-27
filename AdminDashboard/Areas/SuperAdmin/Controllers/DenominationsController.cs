@@ -188,6 +188,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
             var viewModel = new EditDenominationViewModel()
             {
+                DenominationID = (int)model.Denomination.Id,
                 Denomination = MapToViewModel(model.Denomination),
                 DenominationServiceProvidersViewModels = model.DenominationServiceProviders.Select(x => MapToViewModel(x)).ToList(),
                 DenominationParameters = model.DenominationParameters.Select(x => MapToViewModel(x)).ToList(),
@@ -248,14 +249,14 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         }
 
         [HttpPost]
-        public JsonResult EditDenominationServiceProvider(DenominationServiceProvidersViewModel model)
+        public JsonResult EditDenominationServiceProvider([FromForm] DenominationServiceProvidersViewModel model)
         {
             var viewModel = _apiDenomination.ApiDenominationEditDenominationServiceProviderPut(MapToModel(model));
 
             return Json(MapToViewModel(viewModel));
         }
         [HttpPost]
-        public JsonResult AddDenominationServiceProvider(DenominationServiceProvidersViewModel model)
+        public JsonResult AddDenominationServiceProvider([FromForm] DenominationServiceProvidersViewModel model)
         {
             var viewModel = _apiDenomination.ApiDenominationAddDenominationServiceProvdierPost(MapToModel(model));
 
@@ -426,7 +427,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 ServiceConfigerationId = model.ServiceConfigerationID,
                 Status = model.Status,
                 DenominationId = model.DenominationID,
-                //DenominationProviderConfigurationModel = model.DenominationProviderConfigeration.Select(x=> MapToModel(x)).ToList()
+                DenominationProviderConfigurationModel = model.DenominationProviderConfigurations.Select(x=> MapToModel(x)).ToList()
             };
         }
         private DenominationServiceProvidersViewModel MapToViewModel(DenominationServiceProvidersModel model)
@@ -444,10 +445,10 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Status = (bool)model.Status,
                 DenominationID = (int)model.DenominationId,
                 ServiceConfigerationID = (int)model.ServiceConfigerationId, //Edit
-                DenominationProviderConfigeration = model.DenominationProviderConfigurationModel?.Select(x => MapToViewModel(x)).ToList()
+                DenominationProviderConfigurations = model.DenominationProviderConfigurationModel?.Select(x => MapToViewModel(x)).ToList()
             };
         }
-        private DenominationProviderConfigerationModel MapToModel(DenominationProviderConfigerationViewModel model)
+        private DenominationProviderConfigerationModel MapToModel(DenominationProviderConfigurationViewModel model)
         {
             return new DenominationProviderConfigerationModel
             {
@@ -457,9 +458,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 DenominationProviderID = model.DenominationProviderID
             };
         }
-        private DenominationProviderConfigerationViewModel MapToViewModel(DenominationProviderConfigerationModel model)
+        private DenominationProviderConfigurationViewModel MapToViewModel(DenominationProviderConfigerationModel model)
         {
-            return new DenominationProviderConfigerationViewModel
+            return new DenominationProviderConfigurationViewModel
             {
                 ID = (int)model.Id,
                 Name = model.Name,

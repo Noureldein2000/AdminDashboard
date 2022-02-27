@@ -13,5 +13,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public List<DenominationServiceProvidersViewModel> DenominationServiceProvidersViewModels { get; set; }
         public List<DenominationParameterViewModel> DenominationParameters { get; set; }
         public DenominationReceiptViewModel DenominationReceipt{ get; set; }
+        public int ServiceConfigerationID { get; set; }
+        public int DenominationID { get; set; }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AdminDashboard.Areas.SuperAdmin.Models
 {
-    public class DenominationProviderConfigerationViewModel
+    public class DenominationProviderConfigurationViewModel
     {
         public int ID { get; set; }
         public string Name { get; set; }
