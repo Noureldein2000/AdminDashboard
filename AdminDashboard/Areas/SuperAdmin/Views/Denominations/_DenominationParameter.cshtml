@@ -10,7 +10,7 @@
     <div class="form-group row">
         <div class="col-md-6">
             <label class="control-label">Sequence <span class="validation-error">*</span></label>
-            <input asp-for="Sequence" type="text" onkeypress="return isNumberKey(event)" class="form-control enableBtndenomnationParamter" required/>
+            <input asp-for="Sequence" type="text" onkeypress="return isNumberKey(event)" class="form-control enableBtndenomnationParamter" required />
             <span asp-validation-for="Sequence" class="text-danger"></span>
         </div>
         <div class="col-md-6">
@@ -47,15 +47,22 @@
         </div>
     </div>
     <div class="form-group row">
-        <div class="col-md-6">
+        <div class="col-md-12">
             <label class="control-label">Validation Expression</label>
             <input asp-for="ValidationExpression" class="form-control" />
             <span asp-validation-for="ValidationExpression" class="text-danger"></span>
         </div>
+    </div>
+    <div class="form-group row">
         <div class="col-md-6">
             <label class="control-label">Validation Message</label>
             <input asp-for="ValidationMessage" type="text" class="form-control" />
             <span asp-validation-for="ValidationMessage" class="text-danger"></span>
+        </div>
+        <div class="col-md-6">
+            <label class="control-label">Validation Message Ar</label>
+            <input asp-for="ValidationMessageAr" type="text" class="form-control" />
+            <span asp-validation-for="ValidationMessageAr" class="text-danger"></span>
         </div>
     </div>
     <div class="form-group row">
