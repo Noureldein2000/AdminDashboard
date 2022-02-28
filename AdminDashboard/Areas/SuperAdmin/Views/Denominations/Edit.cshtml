@@ -189,7 +189,6 @@
                                     <form id="frmDenominationParams">
                                         <div class="card">
                                             <div class="card-body">
-                                                @*<input type="hidden" asp-for="Id" />*@
                                                 <div class="form-group">
                                                     <label class="control-label">Label</label>
                                                     <input class="form-control enableAddDenomintionParam" id="Label" />
@@ -230,11 +229,16 @@
                 </div>
                 <div class="tab-pane fade" id="receiptData" role="tabpanel" aria-labelledby="receiptData-tab">
                     <div class="card">
-                        <partial name="_DenominationReceipt" model="@Model.DenominationReceipt" />
+                        <form id="denominationReceiptForm">
+                            <input type="hidden" asp-for="DenominationID" />
+                            <input type="hidden" asp-for="@Model.DenominationReceipt.DenominationReceiptData.Id"/>
+                            <partial name="_DenominationReceipt" model="@Model.DenominationReceipt" />
+                        </form>
                         <div class="card-footer mt-2">
                             <input type="button" id="saveDenominationRecepit" onclick="saveDenominationRecepit()" value="Save" class="btn btn-success btnSubmit float-right" />
                         </div>
                     </div>
+                   
                 </div>
             </div>
         </div>
@@ -492,7 +496,7 @@
 
         function AddDenominationParamter(IsEdited) {
 
-             var Id = $('#denomintionParamterId').val();
+                var Id = $('#denomintionParamterId').val();
              var DenominationID = @ViewContext.RouteData.Values["id"];
              var Sequence = $('#Sequence').val();
              var Value = $('#Value').val();
@@ -502,7 +506,7 @@
              var DenominationParamID = $('#DenominationParamID').val();
             var Optional = $('#Optional').is(':checked');
 
-             var urlDenomnitonParamter = IsEdited != "" ? "@Url.Action("EditDenominationParameter")" : "@Url.Action("AddDenominationParameter")";
+            var urlDenomnitonParamter = IsEdited != "" ? "@Url.Action("EditDenominationParameter")" : "@Url.Action("AddDenominationParameter")";
 
             if (CheckValidation("frmDenominationParamters"))
             {
@@ -511,30 +515,38 @@
                     url: urlDenomnitonParamter,
                     data: {
                         Id,
-                        DenominationID  ,
-                        Sequence ,
+                        DenominationID,
+                        Sequence,
                         Value,
-                        ValueList ,
-                        ValidationExpression ,
-                        ValidationMessage ,
-                        DenominationParamID ,
+                        ValueList,
+                        ValidationExpression,
+                        ValidationMessage,
+                        DenominationParamID,
                         Optional
                     },
-                     dataType: "text",
+                    dataType: "text",
                     success: function (msg) {
-
                         var data = JSON.parse(msg);
+                        if (data) {
+                            if (IsEdited == "")
+                                $('#table-DenomnationParamter').append('<tr id="tr-dp-' + data.id + '"><td>' + data.id + '</td><td>' + data.sequence + '</td><td>' + data.value + '</td><td>' + data.validationExpression + '</td><td>' + data.validationMessage + '</td><td>' + data.optional + '</td><td> <button onclick="viewDataDenomiationParamterModal(' + data.id + ',this)" class="btn btn-primary mr-1">Edit</button> <button onclick="ConfirmDeleteDenominationParameter(' + data.id + ',' + data.denominationId + ',this)" class="btn btn-danger">Delete</button></td></tr>');
+                            else {
+                                var row = '#tr-dp-' + data.id;
+                                $(row).empty();
+                                $(row).append('<td>' + data.id + '</td><td>' + data.sequence + '</td><td>' + data.value + '</td><td>' + data.validationExpression + '</td><td>' + data.validationMessage + '</td><td>' + data.optional + '</td><td> <button onclick="viewDataDenomiationParamterModal(' + data.id + ',this)" class="btn btn-primary mr-1">Edit</button> <button onclick="ConfirmDeleteDenominationParameter(' + data.id + ',' + data.denominationId + ',this)" class="btn btn-danger">Delete</button></td>');
+                            }
 
-                        if (IsEdited == "")
-                            $('#table-DenomnationParamter').append('<tr id="tr-dp-'+data.id+'"><td>' + data.id + '</td><td>' + data.sequence + '</td><td>' + data.value + '</td><td>' + data.validationExpression + '</td><td>' + data.validationMessage + '</td><td>' + data.optional + '</td><td> <button onclick="viewDataDenomiationParamterModal(' + data.id + ',this)" class="btn btn-primary mr-1">Edit</button> <button onclick="ConfirmDeleteDenominationParameter('+data.id+','+data.denominationId+',this)" class="btn btn-danger">Delete</button></td></tr>');
-                        else {
-                            var row = '#tr-dp-' + data.id;
-                            $(row).empty();
-                            $(row).append('<td>' + data.id + '</td><td>' + data.sequence + '</td><td>' + data.value + '</td><td>' + data.validationExpression + '</td><td>' + data.validationMessage + '</td><td>' + data.optional + '</td><td> <button onclick="viewDataDenomiationParamterModal(' + data.id + ',this)" class="btn btn-primary mr-1">Edit</button> <button onclick="ConfirmDeleteDenominationParameter('+data.id+','+data.denominationId+',this)" class="btn btn-danger">Delete</button></td>');
+                            ClearData();
+                            $('#myDenominationParameter').modal('hide');
+                            swal("Your record has been updated", {
+                                icon: "success",
+                            });
                         }
-
-                        ClearData();
-                        $('#myDenominationParameter').modal('hide');
+                        else {
+                            swal("There is some error happened! Please try again", {
+                                icon: "error",
+                            });
+                        }
                     },
                      error: function (req, status, error) {
 
@@ -553,33 +565,21 @@
 
         function saveDenominationRecepit() {
 
-            var DenominationID = @ViewContext.RouteData.Values["id"];
+            @*var DenominationID = @ViewContext.RouteData.Values["id"];
             var id = $('#RecepitId').val();
             var title = $('#title').val();
             var disclaimer = $('#disclaimer').val();
             var footer = $('#footer').val();
             var paramterId = $('#paramterId').val();
             var alignment = $('#alignment').val();
-            var bold = $('#bold').val();
+            var bold = $('#bold').val();*@
 
             $.ajax({
-                type: "POST",
+                method: "post",
+                data: new FormData($('#denominationReceiptForm')[0]),
+                contentType: false,
+                processData: false,
                 url: "@Url.Action("EditDenominationRecepit")",
-                data: {
-                    DenominationReceiptData: {
-                        id: id,
-                        DenominationID: DenominationID,
-                        Title: title,
-                        Disclaimer: disclaimer,
-                        Footer: footer
-                    },
-                    DenominationReceiptParams: [{
-                        ParameterID: paramterId,
-                        Alignment: alignment,
-                        Bold: bold
-                    }]
-                },
-                 dataType: "text",
                 success: function (msg) {
                     swal({
                         title: "Good job!",
@@ -647,6 +647,7 @@
             $('#ProviderAmount').val('');
             $('#OldServiceID').val('');
             $('#div-configs').empty();
+            //$('#div-params').empty();
         }
 
         function ConfirmDeleteDenominationParameter(id, denominationId,row)
@@ -791,16 +792,6 @@
             reorderLocations();
         }
 
-        function addConfig(name, value) {
-            let configsTemplate = $('#configsTemplate').clone();
-            configsTemplate.removeAttr('id');
-            configsTemplate.find('.item').hide();
-            configsTemplate.find('#providerConfigParamName').attr("value", name);
-            configsTemplate.find('#providerConfigParamValue').attr("value", value);
-            $('#div-configs').append(configsTemplate);
-            configsTemplate.show();
-            reorderLocations();
-        }
 
         function deleteConfig(id) {
             $(`#${id}`).remove();
@@ -824,6 +815,51 @@
                     .first()
                     .attr("onclick", "deleteConfig('configs-" + i + "\')");
                 $(e).attr("id", "configs-" + i);
+            });
+        }
+        function addParam() {
+            let paramsTemplate = $('#paramsTemplate').clone();
+            paramsTemplate.removeAttr('id');
+            $('#div-params').append(paramsTemplate);
+            paramsTemplate.show();
+            reorderParamsLocations();
+        }
+
+        function addParam(parameterId, alignment, bold) {
+            let paramsTemplate = $('#paramsTemplate').clone();
+            paramsTemplate.removeAttr('id');
+            paramsTemplate.find('.item').hide();
+            paramsTemplate.find('#paramterId').attr("value", parameterId);
+            paramsTemplate.find('#alignment').attr("value", alignment);
+            paramsTemplate.find('#bold').attr("value", bold);
+            $('#div-params').append(paramsTemplate);
+            paramsTemplate.show();
+            reorderParamsLocations();
+        }
+
+        function deleteParam(id) {
+            $(`#${id}`).remove();
+            reorderParamsLocations();
+        }
+
+        function reorderParamsLocations() {
+            $('#div-params').children().each((i, e) => {
+                $(e).find("select")
+                    .first()
+                    .attr("id", "DenominationReceiptParams_" + i + "__ParameterID")
+                    .attr("name", "DenominationReceiptParams[" + i + "].ParameterID");
+                $(e).find("input")
+                    .first()
+                    .attr("id", "DenominationReceiptParams_" + i + "__Alignment")
+                    .attr("name", "DenominationReceiptParams[" + i + "].Alignment");
+                $(e).find("checkbox")
+                    .first()
+                    .attr("id", "DenominationReceiptParams_" + i + "__Bold")
+                    .attr("name", "DenominationReceiptParams[" + i + "].Bold");
+                $(e).find("button")
+                    .first()
+                    .attr("onclick", "deleteParam('params-" + i + "\')");
+                $(e).attr("id", "params-" + i);
             });
         }
     </script>

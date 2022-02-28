@@ -1,12 +1,7 @@
 ﻿@model DenominationReceiptViewModel
-@using AdminDashboard.Models.SwaggerModels
-@using AdminDashboard.Helper
 
 <div class="card-body">
-    <div class="form-group">
-        <input asp-for="DenominationReceiptData.Id" type="hidden" id="RecepitId" class="form-control" />
-        <input asp-for="DenominationReceiptData.DenominationID" id="denomaitonId" type="hidden" class="form-control" />
-    </div>
+        
     <div class="form-group">
         <label class="control-label">Title <span class="validation-error">*</span></label>
         <input asp-for="DenominationReceiptData.Title" id="title" type="text" class="form-control" />
@@ -25,31 +20,71 @@
     <hr />
     <div class="card">
         <div class="card-header">
-            <h4> Denomination Recepit Param</h4>
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h5>Denomination Recepit Param</h5>
+                </div>
+                <div>
+                    <button type="button" class="btn btn-info" onclick="addParam()">Add Recepit Param</button>
+                </div>
+            </div>
         </div>
         <div class="card-body" id="divCont">
-            <div class="form-group row">
-                <div class="col-md-4">
-                    <label class="control-label">Parameter <span class="validation-error">*</span></label>
-                    <select asp-items="@ViewBag.Parameters" class="form-control" id="paramterId" data-style="select-with-transition" title="Choose an Param" data-size="7">
-                        <option disabled selected> Choose Param</option>
-                    </select>
-                    <span class="text-danger"></span>
-                </div>
-                <div class="col-md-4">
-                    <label class="control-label">Alignment <span class="validation-error">*</span></label>
-                    <input type="text" onkeypress="return isNumberKey(event)" id="alignment" class="form-control" />
-                    <span class="text-danger"></span>
-                </div>
-                <div class="col-md-2 mt-5">
-                    <label class="control-label" id="bold">Is Bold?</label>
-                    <input type="checkbox" />
-                </div>
-                <div class="col-md-2" style="margin-top: 30px;">
-                    <input type="button" id="addProviderConfigParams" value="Add" class="btn btn-info float-right" onclick="AddTextBox()" disabled />
+            <div class="form-group">
+                <div id="div-params">
+                    @if (Model.DenominationReceiptParams != null)
+                    {
+                        for (int i = 0; i < Model.DenominationReceiptParams.Count; i++)
+                        {
+                            <div id="@string.Format("params-{0}", i)" class="form-group">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <label class="control-label">Parameter <span class="validation-error">*</span></label>
+                                        <select asp-items="@ViewBag.Parameters" asp-for="@Model.DenominationReceiptParams[i].ParameterID" class="form-control" id="paramterId" data-style="select-with-transition" title="Choose an Param" data-size="7">
+                                            <option disabled selected> Choose Param</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="control-label">Alignment <span class="validation-error">*</span></label>
+                                        <input type="text" asp-for="@Model.DenominationReceiptParams[i].Alignment" onkeypress="return isNumberKey(event)" id="alignment" class="form-control" />
+                                    </div>
+                                    <div class="col-md-3">
+                                        <label class="control-label" id="bold">Is Bold?</label>
+                                        <input type="checkbox" asp-for="@Model.DenominationReceiptParams[i].Bold" id="bold"/>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button style="margin-top:30px" class="btn btn-secondary" onclick="deleteParam(@string.Format("'params-{0}'", i))">
+                                            <i class="fa fa-close">Remove</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<div id="paramsTemplate" class="form-group" style="display: none">
+    <div class="row">
+        <div class="col-md-3">
+            <label class="control-label">Parameter <span class="validation-error">*</span></label>
+            @Html.DropDownList("DenominationReceiptParams[].ParameterID", (SelectList)ViewBag.Parameters, "Choose Parameter",  new { @class="form-control", @id="paramterId" })
+        </div>
+        <div class="col-md-3">
+            <label class="control-label">Alignment <span class="validation-error">*</span></label>
+            @Html.TextBox("DenominationReceiptParams[].Alignment", "", new { @class = "form-control", @id = "alignment", onkeypress = "return isNumberKey(event)" })
+        </div>
+        <div class="col-md-3">
+            <label class="control-label" id="bold">Is Bold?</label>
+            @Html.CheckBox("DenominationReceiptParams[].Bold", new { @class = "form-control", @id = "bold" })
+        </div>
+        <div class="col-md-2">
+            <button style="margin-top:30px" class="btn btn-secondary">
+                <i class="fa fa-close">Remove</i>
+            </button>
+        </div>
+    </div>
+</div>
