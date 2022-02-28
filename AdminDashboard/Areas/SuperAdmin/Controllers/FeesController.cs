@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -53,6 +54,11 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
+            if (!model.EndDate.HasValue)
+            {
+                model.EndDate = DateTime.Now.AddYears(100);
+            }
+
             _apiFees.ApiFeesAddFeePost(MapToModel(model));
             return RedirectToAction(nameof(Index), new { processSucceded =true});
         }
@@ -61,15 +67,20 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         public IActionResult Edit(int id)
         {
             var model = _apiFees.ApiFeesGetFeeByIdIdGet(id);
-            return View(Map(model));
+            return View(MapEdit(model));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(FeesViewModel model)
+        public IActionResult Edit(EditFeesViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
+
+            if (!model.EndDate.HasValue)
+            {
+                model.EndDate = DateTime.Now.AddYears(100);
+            }
 
             _apiFees.ApiFeesEditFeePut(MapToModel(model));
             return RedirectToAction(nameof(Index));
@@ -106,6 +117,25 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 EndDate = x.EndDate,
             };
         }
+        private EditFeesViewModel MapEdit(FeesModel x)
+        {
+            return new EditFeesViewModel
+            {
+                ID = (int)x.Id,
+                FeesTypeID = (FeesType)x.FeesTypeID,
+                AmountFrom = (decimal)x.AmountFrom,
+                AmountTo = (decimal)x.AmountTo,
+                CreatedBy = (int)x.CreatedBy,
+                FeesTypeName = x.FeesTypeName,
+                PaymentModeName = x.PaymentModeName,
+                PaymentModeID = (PaymentMode)x.PaymentModeID,
+                Status = (bool)x.Status,
+                Value = (decimal)x.Value,
+                StartDate = x.StartDate,
+                EndDate = x.EndDate,
+            };
+        }
+        
 
         private FeesModel MapToModel(FeesViewModel x)
         {

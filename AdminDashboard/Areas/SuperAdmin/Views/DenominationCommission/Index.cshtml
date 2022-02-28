@@ -27,7 +27,8 @@
                     <table class="table table-striped">
                         <thead>
                             <tr>
-                                <th>Range</th>
+                                <th>From</th>
+                                <th>To</th>
                                 <th>Value</th>
                                 <th>Type Name</th>
                                 <th>Payment Mode</th>
@@ -38,7 +39,8 @@
                             @foreach (var commission in Model)
                             {
                                 <tr>
-                                    <td>@commission.Range</td>
+                                    <td>@commission.AmountFrom</td>
+                                    <td>@commission.AmountTo</td>
                                     <td>@commission.CommissionValue</td>
                                     <td>@commission.CommissionTypeName</td>
                                     <td>@commission.PaymentMode</td>

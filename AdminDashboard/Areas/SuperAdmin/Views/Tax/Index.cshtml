@@ -42,8 +42,8 @@
                                     <td>@tax.Value</td>
                                     <td>@tax.PaymentModeName</td>
                                     <td>@tax.TaxesTypeName</td>
-                                    <td>@tax.StartDate.ToShortDateString()</td>
-                                    <td>@tax.EndDate.ToShortDateString()</td>
+                                    <td>@tax.StartDate.Value.ToShortDateString()</td>
+                                    <td>@tax.EndDate.Value.ToShortDateString()</td>
                                     <td>
                                         <div class="dropdown">
                                             <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
@@ -55,7 +55,7 @@
                                                     @(tax.Status ? "Deactive" : "Active")
                                                 </a>
                                                 <a asp-action="Edit" asp-route-id="@tax.ID" class="dropdown-item">Edit</a>
-                                                <button onclick="ConfirmDelete(@tax.ID,this)" class="dropdown-item">Delete</button>
+                                                <button onclick="ConfirmDelete(@tax.ID,this)" class="dropdown-item" style="color:red">Delete</button>
                                             </div>
                                         </div>
                                     </td>
