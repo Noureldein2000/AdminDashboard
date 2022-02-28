@@ -49,6 +49,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Text = a.Name,
                 Value = a.Id.ToString()
             }).ToList();
+
             ViewBag.processSucceded = processSucceded;
             return View(new PagedResult<ChannelViewModel>());
         }

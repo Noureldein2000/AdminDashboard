@@ -27,7 +27,8 @@
                     <table class="table table-striped" id="tbl-DenominationTax">
                         <thead>
                             <tr>
-                                <th>Range</th>
+                                <th>From</th>
+                                <th>To</th>
                                 <th>Value</th>
                                 <th>Type Name</th>
                                 <th>Payment Mode</th>
@@ -38,7 +39,8 @@
                             @foreach (var tax in Model)
                             {
                                 <tr>
-                                    <td>@tax.Range</td>
+                                    <td>@tax.AmountFrom</td>
+                                    <td>@tax.AmountTo</td>
                                     <td>@tax.TaxValue</td>
                                     <td>@tax.TaxTypeName</td>
                                     <td>@tax.PaymentMode</td>

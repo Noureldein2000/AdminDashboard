@@ -9,6 +9,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
     {
         public int Id { get; set; }
         public int TaxId { get; set; }
+        public decimal AmountFrom { get; set; }
+        public decimal AmountTo { get; set; }
         public decimal TaxValue { get; set; }
         public int PaymentModeId { get; set; }
         public string PaymentMode { get; set; }

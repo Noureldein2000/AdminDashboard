@@ -34,6 +34,8 @@ namespace AdminDashboard.Models.SwaggerModels
         /// </summary>
         /// <param name="id">id.</param>
         /// <param name="feesId">feesId.</param>
+        /// <param name="amountFrom">amountFrom.</param>
+        /// <param name="amountTo">amountTo.</param>
         /// <param name="feesValue">feesValue.</param>
         /// <param name="paymentModeId">paymentModeId.</param>
         /// <param name="paymentMode">paymentMode.</param>
@@ -43,10 +45,12 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="denominationFullName">denominationFullName.</param>
         /// <param name="serviceId">serviceId.</param>
         /// <param name="serviceName">serviceName.</param>
-        public AccountFeesModel(int? id = default(int?), int? feesId = default(int?), double? feesValue = default(double?), int? paymentModeId = default(int?), string paymentMode = default(string), int? feesTypeId = default(int?), string feesTypeName = default(string), int? denomiinationId = default(int?), string denominationFullName = default(string), int? serviceId = default(int?), string serviceName = default(string))
+        public AccountFeesModel(int? id = default(int?), int? feesId = default(int?), double? amountFrom = default(double?), double? amountTo = default(double?), double? feesValue = default(double?), int? paymentModeId = default(int?), string paymentMode = default(string), int? feesTypeId = default(int?), string feesTypeName = default(string), int? denomiinationId = default(int?), string denominationFullName = default(string), int? serviceId = default(int?), string serviceName = default(string))
         {
             this.Id = id;
             this.FeesId = feesId;
+            this.AmountFrom = amountFrom;
+            this.AmountTo = amountTo;
             this.FeesValue = feesValue;
             this.PaymentModeId = paymentModeId;
             this.PaymentMode = paymentMode;
@@ -69,6 +73,18 @@ namespace AdminDashboard.Models.SwaggerModels
         /// </summary>
         [DataMember(Name="feesId", EmitDefaultValue=false)]
         public int? FeesId { get; set; }
+
+        /// <summary>
+        /// Gets or Sets AmountFrom
+        /// </summary>
+        [DataMember(Name="amountFrom", EmitDefaultValue=false)]
+        public double? AmountFrom { get; set; }
+
+        /// <summary>
+        /// Gets or Sets AmountTo
+        /// </summary>
+        [DataMember(Name="amountTo", EmitDefaultValue=false)]
+        public double? AmountTo { get; set; }
 
         /// <summary>
         /// Gets or Sets FeesValue
@@ -134,6 +150,8 @@ namespace AdminDashboard.Models.SwaggerModels
             sb.Append("class AccountFeesModel {\n");
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  FeesId: ").Append(FeesId).Append("\n");
+            sb.Append("  AmountFrom: ").Append(AmountFrom).Append("\n");
+            sb.Append("  AmountTo: ").Append(AmountTo).Append("\n");
             sb.Append("  FeesValue: ").Append(FeesValue).Append("\n");
             sb.Append("  PaymentModeId: ").Append(PaymentModeId).Append("\n");
             sb.Append("  PaymentMode: ").Append(PaymentMode).Append("\n");
@@ -186,6 +204,16 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.FeesId == input.FeesId ||
                     (this.FeesId != null &&
                     this.FeesId.Equals(input.FeesId))
+                ) && 
+                (
+                    this.AmountFrom == input.AmountFrom ||
+                    (this.AmountFrom != null &&
+                    this.AmountFrom.Equals(input.AmountFrom))
+                ) && 
+                (
+                    this.AmountTo == input.AmountTo ||
+                    (this.AmountTo != null &&
+                    this.AmountTo.Equals(input.AmountTo))
                 ) && 
                 (
                     this.FeesValue == input.FeesValue ||
@@ -247,6 +275,10 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.Id.GetHashCode();
                 if (this.FeesId != null)
                     hashCode = hashCode * 59 + this.FeesId.GetHashCode();
+                if (this.AmountFrom != null)
+                    hashCode = hashCode * 59 + this.AmountFrom.GetHashCode();
+                if (this.AmountTo != null)
+                    hashCode = hashCode * 59 + this.AmountTo.GetHashCode();
                 if (this.FeesValue != null)
                     hashCode = hashCode * 59 + this.FeesValue.GetHashCode();
                 if (this.PaymentModeId != null)

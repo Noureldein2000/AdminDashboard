@@ -19,7 +19,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
-using SwaggerDateConverter = AdminDashboard.SwaggerClientHelpers.SwaggerDateConverter;
+using AdminDashboard.Models.SwaggerModels;
 
 namespace AdminDashboard.Models.SwaggerModels
 {
@@ -40,9 +40,10 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="commissionTypeId">commissionTypeId.</param>
         /// <param name="commissionTypeName">commissionTypeName.</param>
         /// <param name="denominationId">denominationId.</param>
-        /// <param name="range">range.</param>
+        /// <param name="amountFrom">amountFrom.</param>
+        /// <param name="amountTo">amountTo.</param>
         /// <param name="creationDate">creationDate.</param>
-        public DenominationCommissionModel(int? id = default(int?), int? commissionId = default(int?), double? commissionValue = default(double?), int? paymentModeId = default(int?), string paymentMode = default(string), int? commissionTypeId = default(int?), string commissionTypeName = default(string), int? denominationId = default(int?), string range = default(string), DateTime? creationDate = default(DateTime?))
+        public DenominationCommissionModel(int? id = default(int?), int? commissionId = default(int?), double? commissionValue = default(double?), int? paymentModeId = default(int?), string paymentMode = default(string), int? commissionTypeId = default(int?), string commissionTypeName = default(string), int? denominationId = default(int?), double? amountFrom = default(double?), double? amountTo = default(double?), DateTime? creationDate = default(DateTime?))
         {
             this.Id = id;
             this.CommissionId = commissionId;
@@ -52,7 +53,8 @@ namespace AdminDashboard.Models.SwaggerModels
             this.CommissionTypeId = commissionTypeId;
             this.CommissionTypeName = commissionTypeName;
             this.DenominationId = denominationId;
-            this.Range = range;
+            this.AmountFrom = amountFrom;
+            this.AmountTo = amountTo;
             this.CreationDate = creationDate;
         }
         
@@ -105,10 +107,16 @@ namespace AdminDashboard.Models.SwaggerModels
         public int? DenominationId { get; set; }
 
         /// <summary>
-        /// Gets or Sets Range
+        /// Gets or Sets AmountFrom
         /// </summary>
-        [DataMember(Name="range", EmitDefaultValue=false)]
-        public string Range { get; set; }
+        [DataMember(Name="amountFrom", EmitDefaultValue=false)]
+        public double? AmountFrom { get; set; }
+
+        /// <summary>
+        /// Gets or Sets AmountTo
+        /// </summary>
+        [DataMember(Name="amountTo", EmitDefaultValue=false)]
+        public double? AmountTo { get; set; }
 
         /// <summary>
         /// Gets or Sets CreationDate
@@ -132,7 +140,8 @@ namespace AdminDashboard.Models.SwaggerModels
             sb.Append("  CommissionTypeId: ").Append(CommissionTypeId).Append("\n");
             sb.Append("  CommissionTypeName: ").Append(CommissionTypeName).Append("\n");
             sb.Append("  DenominationId: ").Append(DenominationId).Append("\n");
-            sb.Append("  Range: ").Append(Range).Append("\n");
+            sb.Append("  AmountFrom: ").Append(AmountFrom).Append("\n");
+            sb.Append("  AmountTo: ").Append(AmountTo).Append("\n");
             sb.Append("  CreationDate: ").Append(CreationDate).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -209,9 +218,14 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.DenominationId.Equals(input.DenominationId))
                 ) && 
                 (
-                    this.Range == input.Range ||
-                    (this.Range != null &&
-                    this.Range.Equals(input.Range))
+                    this.AmountFrom == input.AmountFrom ||
+                    (this.AmountFrom != null &&
+                    this.AmountFrom.Equals(input.AmountFrom))
+                ) && 
+                (
+                    this.AmountTo == input.AmountTo ||
+                    (this.AmountTo != null &&
+                    this.AmountTo.Equals(input.AmountTo))
                 ) && 
                 (
                     this.CreationDate == input.CreationDate ||
@@ -245,8 +259,10 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.CommissionTypeName.GetHashCode();
                 if (this.DenominationId != null)
                     hashCode = hashCode * 59 + this.DenominationId.GetHashCode();
-                if (this.Range != null)
-                    hashCode = hashCode * 59 + this.Range.GetHashCode();
+                if (this.AmountFrom != null)
+                    hashCode = hashCode * 59 + this.AmountFrom.GetHashCode();
+                if (this.AmountTo != null)
+                    hashCode = hashCode * 59 + this.AmountTo.GetHashCode();
                 if (this.CreationDate != null)
                     hashCode = hashCode * 59 + this.CreationDate.GetHashCode();
                 return hashCode;

@@ -19,7 +19,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
-using SwaggerDateConverter = AdminDashboard.SwaggerClientHelpers.SwaggerDateConverter;
+using AdminDashboard.Models.SwaggerModels;
 
 namespace AdminDashboard.Models.SwaggerModels
 {

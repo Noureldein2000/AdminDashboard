@@ -111,7 +111,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 TaxValue = (decimal)x.TaxValue,
                 PaymentModeId = (int)x.PaymentModeId,
                 DenominationId = (int)x.DenominationId,
-                Range = x.Range
+                AmountFrom =(decimal) x.AmountFrom,
+                AmountTo = (decimal) x.AmountTo,
             };
         }
     }

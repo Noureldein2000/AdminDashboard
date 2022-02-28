@@ -8,8 +8,14 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2>Accounts</h2>
-                    <a asp-action="Create" class="pull-right btn btn-outline-primary">Create</a>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2>Accounts</h2>
+                        </div>
+                        <div>
+                            <a asp-action="Create" class="pull-right btn btn-outline-primary">Create</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <div class="row">
@@ -17,8 +23,8 @@
                             <form asp-controller="Accounts" asp-action="SearchAccounts" method="get">
                                 <div class="form-group">
                                     <div class="form-group">
-                                        <label class="control-label">Filter by account type</label>
-                                        <select id="DropDownFilter" asp-for="DropDownFilter" asp-items="ViewBag.AccountTypeList" class="form-control" data-style="select-with-transition" title="Choose an AccountType" data-size="7">
+                                        <label class="control-label" style="display:block">Filter by account type</label>
+                                        <select id="DropDownFilter" asp-for="DropDownFilter" asp-items="ViewBag.AccountTypeList" class="form-control js-example-responsive" style="width: 100%" data-style="select-with-transition" data-size="7">
                                             <option>Choose an AccountType</option>
                                         </select>
                                     </div>
@@ -62,11 +68,11 @@
                                                     </button>
                                                     <div class="dropdown-menu">
                                                         <h5 class="dropdown-header">Modules</h5>
-                                                        <a asp-action="ViewChannels" asp-route-id="@account.Id" class="dropdown-item">Channels</a>
-                                                        <a asp-action="ViewChannelsTypes" asp-route-id="@account.Id" class="dropdown-item">ChannelTypes</a>
+                                                        <a asp-action="ViewChannels" asp-route-accountId="@account.Id" asp-route-accountName="@account.AccountName" class="dropdown-item">Channels</a>
+                                                        <a asp-action="ViewChannelsTypes" asp-route-accountId="@account.Id" asp-route-accountName="@account.AccountName" class="dropdown-item">ChannelTypes</a>
                                                         <a asp-action="Index" asp-controller="Users" asp-route-accountId="@account.Id" class="dropdown-item">Users</a>
-                                                        <a asp-action="Index" asp-controller="AccountFees" asp-route-accountId="@account.Id" class="dropdown-item">Fees</a>
-                                                        <a asp-action="Index" asp-controller="AccountCommission" asp-route-accountId="@account.Id" class="dropdown-item">Commissions</a>
+                                                        <a asp-action="Index" asp-controller="AccountFees" asp-route-accountId="@account.Id" asp-route-accountName="@account.AccountName" class="dropdown-item">Fees</a>
+                                                        <a asp-action="Index" asp-controller="AccountCommission" asp-route-accountId="@account.Id" asp-route-accountName="@account.AccountName" class="dropdown-item">Commissions</a>
                                                         <a asp-action="Index" asp-controller="Balance" asp-route-accountId="@account.Id" asp-route-accountName="@account.AccountName" class="dropdown-item">Balances</a>
                                                         <div class="dropdown-divider"></div>
                                                         <h5 class="dropdown-header">Actions</h5>
@@ -99,6 +105,12 @@
 @section Scripts{
 
     <script>
+        $(document).ready(function () {
+
+            $('#DropDownFilter').select2({
+                placeholder: "Select a Account Type"
+            });
+
         $(function () {
             if (@ViewBag.processSucceded.ToString().ToLower()) {
                 swal({
@@ -108,6 +120,7 @@
                     button: "Ok",
                 });
             }
+        });
         });
 
         $("#SearchKey").keyup(function () {

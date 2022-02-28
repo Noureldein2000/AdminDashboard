@@ -252,7 +252,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             model.ConsumerUser.UserRole = Roles.Consumer;
             if (result != null)
             {
-                _accounts.ApiAccountsCreateAccountPost(new CreateAccountModel(accountId: result.Id, 0.0, new List<int?> { model.BalanceTypeId }));
+                _accounts.ApiAccountsCreateAccountPost(new CreateAccountModel(accountId: result.Id, 0.0, model.BalanceTypeId));
 
                 _usersApi.ApiUsersCreateUserPost(new CreateUserModel(
                                 username: model.Username,
@@ -300,11 +300,11 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Value = a.Id.ToString()
             }).ToList();
 
-            var balanceTypes = _accounts.ApiAccountsBalanceTypesGet("ar").Select(a => new SelectListItem
-            {
-                Text = a.Name,
-                Value = a.Id.ToString()
-            }).ToList();
+            //var balanceTypes = _accounts.ApiAccountsBalanceTypesGet("ar").Select(a => new SelectListItem
+            //{
+            //    Text = a.Name,
+            //    Value = a.Id.ToString()
+            //}).ToList();
 
             var model = _api.ApiAccountGetAccountByIdIdGet(id);
 
@@ -314,7 +314,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             viewModel.Governerates = governerates;
             viewModel.Entities = entities;
             viewModel.AccountTypes = accountTypes;
-            viewModel.BalanceTypes = balanceTypes;
+            //viewModel.BalanceTypes = balanceTypes;
             if (model.GovernerateID.HasValue)
             {
                 var cities = _regionApi.ApiRegionGetRegionByGovernorateIdIdGet(model.GovernerateID).ToList();
@@ -362,17 +362,17 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     Text = a.Name,
                     Value = a.Id.ToString()
                 }).ToList();
-                var balanceTypes = _accounts.ApiAccountsBalanceTypesGet("ar").Select(a => new SelectListItem
-                {
-                    Text = a.Name,
-                    Value = a.Id.ToString()
-                }).ToList();
+                //var balanceTypes = _accounts.ApiAccountsBalanceTypesGet("ar").Select(a => new SelectListItem
+                //{
+                //    Text = a.Name,
+                //    Value = a.Id.ToString()
+                //}).ToList();
 
                 model.Activities = activities;
                 model.Governerates = governerates;
                 model.Entities = entities;
                 model.AccountTypes = accountTypes;
-                model.BalanceTypes = balanceTypes;
+                //model.BalanceTypes = balanceTypes;
                 return View(model);
             }
 
@@ -408,7 +408,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             }
         }
         [HttpGet]
-        public IActionResult EditAccountChannelType(int id)
+        public IActionResult EditAccountChannelType(int id, string channelTypeName)
         {
             var data = _accountChannelTypesApi.ApiAccountChannelTypeGetAccountChannelTypeByIdIdGet(id);
 
@@ -428,8 +428,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 HasLimitedAccess = (bool)data.HasLimitedAccess,
                 ChannelTypes = channelTypes
             };
-
-            return Json(viewModel);
+            ViewBag.ChannelTypeName = channelTypeName;
+            return View(viewModel);
         }
         [HttpPost]
         public IActionResult EditAccountChannelType(AccountChannelTypeViewModel model)
@@ -465,9 +465,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return RedirectToAction(nameof(Index));
         }
         [HttpGet]
-        public IActionResult ViewChannels(int id)
+        public IActionResult ViewChannels(int accountId, string accountName)
         {
-            var data = _accountChannelApi.ApiAccountChannelGetChannelsByAccountIdAccountIdGet(id);
+            var data = _accountChannelApi.ApiAccountChannelGetChannelsByAccountIdAccountIdGet(accountId);
             var viewModel = data.Select(d => new AccountChannelViewModel()
             {
                 Id = d.Id,
@@ -481,6 +481,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 CreatedName = d.CreatedName
             });
 
+            ViewBag.AccountId = accountId;
+            ViewBag.AccountName = accountName;
 
             //var statusCreated = new List<AccountChannelStatus>() { AccountChannelStatus.Created};
 
@@ -513,7 +515,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 AccountChannels = viewModel.ToList(),
                 CreateChannelAccount = new CreateChannelAccountViewModel
                 {
-                    AccountId = id,
+                    AccountId = accountId,
                     ChannelOwners = channelOwners,
                     ChannelTypes = channelTypes,
                     PaymentMethods = channelPaymentMethods
@@ -521,9 +523,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             });
         }
         [HttpGet]
-        public IActionResult ViewChannelsTypes(int id)
+        public IActionResult ViewChannelsTypes(int accountId, string accountName)
         {
-            var data = _accountChannelTypesApi.ApiAccountChannelTypeGetAccountChannelTypesAccountIdGet(id);
+            var data = _accountChannelTypesApi.ApiAccountChannelTypeGetAccountChannelTypesAccountIdGet(accountId);
             var viewModel = data.Select(d => new AccountChannelTypeViewModel()
             {
                 Id = (int)d.Id,
@@ -534,6 +536,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 HasLimitedAccess = (bool)d.HasLimitedAccess
             });
 
+            ViewBag.AccountId = accountId;
+            ViewBag.AccountName = accountName;
             return View(viewModel);
         }
         //[HttpGet]
@@ -600,7 +604,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             }
 
         }
-
         [HttpGet]
         public JsonResult GetCities(int id)
         {

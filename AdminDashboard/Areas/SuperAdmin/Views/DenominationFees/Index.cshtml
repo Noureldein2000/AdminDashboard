@@ -27,7 +27,8 @@
                     <table class="table table-striped" id="tbl-DenominationFees">
                         <thead>
                             <tr>
-                                <th>Range</th>
+                                <th>From</th>
+                                <th>To</th>
                                 <th>Value</th>
                                 <th>Type Name</th>
                                 <th>Payment Mode</th>
@@ -38,7 +39,8 @@
                             @foreach (var fee in Model)
                             {
                                 <tr>
-                                    <td>@fee.Range</td>
+                                    <td>@fee.AmountFrom</td>
+                                    <td>@fee.AmountTo</td>
                                     <td>@fee.FeesValue</td>
                                     <td>@fee.FeesTypeName</td>
                                     <td>@fee.PaymentMode</td>

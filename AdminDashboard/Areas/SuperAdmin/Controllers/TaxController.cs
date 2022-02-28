@@ -52,6 +52,10 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             if (!ModelState.IsValid)
                 return View(model);
+            if (!model.EndDate.HasValue)
+            {
+                model.EndDate = DateTime.Now.AddYears(100);
+            }
 
             _apiTaxes.ApiTaxAddTaxPost(MapToModel(model));
             return RedirectToAction(nameof(Index), new { processSucceded = true });
@@ -61,15 +65,19 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         public IActionResult Edit(int id)
         {
             var model = _apiTaxes.ApiTaxGetTaxByIdIdGet(id);
-            return View(Map(model));
+            return View(MapEdit(model));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(TaxesViewModel model)
+        public IActionResult Edit(EditTaxesViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
+            if (!model.EndDate.HasValue)
+            {
+                model.EndDate = DateTime.Now.AddYears(100);
+            }
 
             _apiTaxes.ApiTaxEditTaxPut(MapToModel(model));
             return RedirectToAction(nameof(Index));
@@ -106,6 +114,25 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 EndDate = (DateTime)x.EndDate
             };
         }
+        private EditTaxesViewModel MapEdit(TaxModel x)
+        {
+            return new EditTaxesViewModel
+            {
+                ID = (int)x.Id,
+                TaxesTypeID = (TaxType)x.TaxesTypeID,
+                AmountFrom = (decimal)x.AmountFrom,
+                AmountTo = (decimal)x.AmountTo,
+                CreatedBy = (int)x.CreatedBy,
+                TaxesTypeName = x.TaxesTypeName,
+                PaymentModeName = x.PaymentModeName,
+                PaymentModeID = (PaymentMode)x.PaymentModeID,
+                Status = (bool)x.Status,
+                Value = (decimal)x.Value,
+                StartDate = (DateTime)x.StartDate,
+                EndDate = (DateTime)x.EndDate
+            };
+        }
+        
 
         private TaxModel MapToModel(TaxesViewModel x)
         {

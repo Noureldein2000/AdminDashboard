@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -52,7 +53,10 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         {
             if (!ModelState.IsValid)
                 return View(model);
-
+            if (!model.EndDate.HasValue)
+            {
+                model.EndDate = DateTime.Now.AddYears(100);
+            }
             _apiCommission.ApiCommissionAddCommissionPost(MapToModel(model));
             return RedirectToAction(nameof(Index), new { processSucceded = true });
         }
@@ -60,15 +64,20 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         public IActionResult Edit(int id)
         {
             var model = _apiCommission.ApiCommissionGetCommissionByIdIdGet(id);
-            return View(Map(model));
+            return View(MapEdit(model));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Edit(CommissionViewModel model)
+        public IActionResult Edit(EditCommissionViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
+
+            if (!model.EndDate.HasValue)
+            {
+                model.EndDate = DateTime.Now.AddYears(100);
+            }
 
             _apiCommission.ApiCommissionEditCommissionPut(MapToModel(model));
             return RedirectToAction(nameof(Index));
@@ -90,6 +99,24 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         private CommissionViewModel Map(CommissionModel x)
         {
             return new CommissionViewModel
+            {
+                ID = (int)x.Id,
+                CommissionTypeID = (CommissionType)x.CommissionTypeID,
+                AmountFrom = (decimal)x.AmountFrom,
+                AmountTo = (decimal)x.AmountTo,
+                CreatedBy = (int)x.CreatedBy,
+                CommissionTypeName = x.CommissionTypeName,
+                PaymentModeName = x.PaymentModeName,
+                PaymentModeID = (PaymentMode)x.PaymentModeID,
+                Status = (bool)x.Status,
+                Value = (decimal)x.Value,
+                StartDate = x.StartDate,
+                EndDate = x.EndDate,
+            };
+        }
+        private EditCommissionViewModel MapEdit(CommissionModel x)
+        {
+            return new EditCommissionViewModel
             {
                 ID = (int)x.Id,
                 CommissionTypeID = (CommissionType)x.CommissionTypeID,

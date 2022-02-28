@@ -122,7 +122,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 CommissionValue = x.CommissionValue,
                 PaymentModeId = (int)x.PaymentModeId,
                 DenominationId = (int)x.DenominationId,
-                Range = x.Range
+                AmountFrom = (decimal)x.AmountFrom,
+                AmountTo = (decimal)x.AmountTo,
             };
         }
     }

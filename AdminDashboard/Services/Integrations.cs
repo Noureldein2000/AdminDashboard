@@ -48,7 +48,7 @@ namespace AdminDashboard.Services
                 return new Dictionary<ResponceStatus, string> { { ResponceStatus.Error, response.ErrorMessage } };
             }
             var authResult = JsonConvert.DeserializeObject<OldServiceResponseModel>(response.Content);
-            if(authResult.Code != "200")
+            if (authResult.Code != "200")
             {
                 return new Dictionary<ResponceStatus, string> { { ResponceStatus.Error, authResult.Message } };
             }
@@ -64,13 +64,20 @@ namespace AdminDashboard.Services
             {
                 return new Dictionary<ResponceStatus, string> { { ResponceStatus.Error, seedResponse.ErrorMessage } };
             }
-            var seedResult = JsonConvert.DeserializeObject<OldServiceResponseModel>(seedResponse.Content);
-            if (seedResult.Code != "200")
+            var seedContent = JsonConvert.DeserializeObject<OldServiceResponseModel>(seedResponse.Content);
+            if (seedContent.Code == "401")
             {
-                return new Dictionary<ResponceStatus, string> { { ResponceStatus.Error, seedResult.Message } };
+                return new Dictionary<ResponceStatus, string> { 
+                    { ResponceStatus.Error, seedContent.Message },
+                    { ResponceStatus.InvalidData, string.Join(", ", seedContent.InvalidData) } 
+                };
+            }
+            else if (seedContent.Code != "200")
+            {
+                return new Dictionary<ResponceStatus, string> { { ResponceStatus.Error, seedContent.Message } };
             }
 
-            return new Dictionary<ResponceStatus, string> { { ResponceStatus.Success, seedResult.Message } };
+            return new Dictionary<ResponceStatus, string> { { ResponceStatus.Success, seedContent.Message } };
 
         }
     }

@@ -8,8 +8,26 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2> Fees</h2>
-                    <a asp-action="Create" asp-route-accountId="@ViewBag.AccountId" class="pull-right btn btn-outline-primary">Add</a>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2>Account Fees</h2>
+                            <h6>
+                                <strong>
+                                    Account Name:
+                                </strong>
+                                @ViewBag.AccountName
+                            </h6>
+                            <h6>
+                                <strong>
+                                    Account ID:
+                                </strong>
+                                @ViewBag.AccountId
+                            </h6>
+                        </div>
+                        <div>
+                            <a asp-action="Create" asp-route-accountId="@ViewBag.AccountId" class="pull-right btn btn-outline-primary">Add</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped">
@@ -17,9 +35,11 @@
                             <tr>
                                 <th>Denomiination ID</th>
                                 <th>Denomination</th>
+                                <th>From</th>
+                                <th>To</th>
                                 <th>Value</th>
-                                <th>Type Name</th>
                                 <th>Payment Mode</th>
+                                <th>Type Name</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -29,9 +49,11 @@
                                 <tr>
                                     <td>@fee.DenomiinationId</td>
                                     <td>@fee.DenominationFullName</td>
+                                    <td>@fee.From</td>
+                                    <td>@fee.To</td>
                                     <td>@fee.FeesValue</td>
-                                    <td>@fee.FeesTypeName</td>
                                     <td>@fee.PaymentMode</td>
+                                    <td>@fee.FeesTypeName</td>
                                     <td>
                                         <button onclick="ConfirmDeleteAccountFee(@fee.Id,this)" class="btn btn-danger">Delete</button>
                                     </td>

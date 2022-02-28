@@ -8,8 +8,14 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h2> AccountType Profile</h2>
-                    <button onclick="ViewDataModel()" class="pull-right btn btn-primary">Add</button>
+                    <div class="d-flex justify-content-between">
+                        <div>
+                            <h2>Account Types Profiles</h2>
+                        </div>
+                        <div>
+                            <a asp-action="Create" class="pull-right btn btn-outline-primary">Add</a>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table class="table table-striped" id="tbl-AccountTypeProfile">

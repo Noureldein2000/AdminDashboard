@@ -83,13 +83,13 @@
                             </select>
                             <span asp-validation-for="EntityID" class="text-danger"></span>
                         </div>
-                        <div class="form-group">
+                        @*<div class="form-group">
                             <label class="control-label">BalanceType<span class="validation-error">*</span></label>
                             <select asp-for="BalanceTypeId" asp-items="Model.BalanceTypes" class="form-control" data-style="select-with-transition" title="Choose an entity" data-size="7">
                                 <option disabled> Choose BalanceType </option>
                             </select>
                             <span asp-validation-for="BalanceTypeId" class="text-danger"></span>
-                        </div>
+                        </div>*@
                         <div class="form-group">
                             <label class="control-label">Account Type <span class="validation-error">*</span></label>
                             <select id="drpAccountType" asp-items="Model.AccountTypes" class="form-control" data-style="select-with-transition" title="Choose an AccountType" data-size="7">
