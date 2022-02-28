@@ -128,9 +128,6 @@
         }
 
         function ViewDataModel() {
-
-            $('#accountTypeProfileId').val(id);
-/*            $('#denominationName').val(denominationName);*/
             $('#AccountTypeProfileFormModal').modal('show');
         }
 
@@ -178,6 +175,7 @@
 
                          $('#accountTypeID').val(0);
                          $('#profileID').val(0);
+                         $('#btnAddAccountTypeProfile').prop("disabled", true);
 
                      swal({
                          title: "Good job!",
