@@ -408,6 +408,27 @@ namespace AdminDashboard.SwaggerClient
         /// 
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="denominationId"></param>
+        /// <returns>List&lt;DenominationServiceProvidersModel&gt;</returns>
+        List<DenominationServiceProvidersModel> ApiDenominationGetDenominationServiceProvidersByDenominationIdDenominationIdGet (int? denominationId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="denominationId"></param>
+        /// <returns>ApiResponse of List&lt;DenominationServiceProvidersModel&gt;</returns>
+        ApiResponse<List<DenominationServiceProvidersModel>> ApiDenominationGetDenominationServiceProvidersByDenominationIdDenominationIdGetWithHttpInfo (int? denominationId);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="serviceId"></param>
         /// <param name="pageNumber"> (optional, default to 1)</param>
         /// <param name="pageSize"> (optional, default to 10)</param>
@@ -841,6 +862,27 @@ namespace AdminDashboard.SwaggerClient
         /// <param name="id"></param>
         /// <returns>Task of ApiResponse (DenominationServiceProvidersModel)</returns>
         System.Threading.Tasks.Task<ApiResponse<DenominationServiceProvidersModel>> ApiDenominationGetDenominationServiceProviderByDenominationIdIdGetAsyncWithHttpInfo (int? id);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="denominationId"></param>
+        /// <returns>Task of List&lt;DenominationServiceProvidersModel&gt;</returns>
+        System.Threading.Tasks.Task<List<DenominationServiceProvidersModel>> ApiDenominationGetDenominationServiceProvidersByDenominationIdDenominationIdGetAsync (int? denominationId);
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <remarks>
+        /// 
+        /// </remarks>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="denominationId"></param>
+        /// <returns>Task of ApiResponse (List&lt;DenominationServiceProvidersModel&gt;)</returns>
+        System.Threading.Tasks.Task<ApiResponse<List<DenominationServiceProvidersModel>>> ApiDenominationGetDenominationServiceProvidersByDenominationIdDenominationIdGetAsyncWithHttpInfo (int? denominationId);
         /// <summary>
         /// 
         /// </summary>
@@ -3648,6 +3690,151 @@ namespace AdminDashboard.SwaggerClient
             return new ApiResponse<DenominationServiceProvidersModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
                 (DenominationServiceProvidersModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(DenominationServiceProvidersModel)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="denominationId"></param>
+        /// <returns>List&lt;DenominationServiceProvidersModel&gt;</returns>
+        public List<DenominationServiceProvidersModel> ApiDenominationGetDenominationServiceProvidersByDenominationIdDenominationIdGet (int? denominationId)
+        {
+             ApiResponse<List<DenominationServiceProvidersModel>> localVarResponse = ApiDenominationGetDenominationServiceProvidersByDenominationIdDenominationIdGetWithHttpInfo(denominationId);
+             return localVarResponse.Data;
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="denominationId"></param>
+        /// <returns>ApiResponse of List&lt;DenominationServiceProvidersModel&gt;</returns>
+        public ApiResponse< List<DenominationServiceProvidersModel> > ApiDenominationGetDenominationServiceProvidersByDenominationIdDenominationIdGetWithHttpInfo (int? denominationId)
+        {
+            // verify the required parameter 'denominationId' is set
+            if (denominationId == null)
+                throw new ApiException(400, "Missing required parameter 'denominationId' when calling DenominationApi->ApiDenominationGetDenominationServiceProvidersByDenominationIdDenominationIdGet");
+
+            var localVarPath = "/api/Denomination/GetDenominationServiceProvidersByDenominationId/{denominationId}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (denominationId != null) localVarPathParams.Add("denominationId", this.Configuration.ApiClient.ParameterToString(denominationId)); // path parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) this.Configuration.ApiClient.CallApi(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiDenominationGetDenominationServiceProvidersByDenominationIdDenominationIdGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<List<DenominationServiceProvidersModel>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (List<DenominationServiceProvidersModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<DenominationServiceProvidersModel>)));
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="denominationId"></param>
+        /// <returns>Task of List&lt;DenominationServiceProvidersModel&gt;</returns>
+        public async System.Threading.Tasks.Task<List<DenominationServiceProvidersModel>> ApiDenominationGetDenominationServiceProvidersByDenominationIdDenominationIdGetAsync (int? denominationId)
+        {
+             ApiResponse<List<DenominationServiceProvidersModel>> localVarResponse = await ApiDenominationGetDenominationServiceProvidersByDenominationIdDenominationIdGetAsyncWithHttpInfo(denominationId);
+             return localVarResponse.Data;
+
+        }
+
+        /// <summary>
+        ///  
+        /// </summary>
+        /// <exception cref="ApiException">Thrown when fails to make API call</exception>
+        /// <param name="denominationId"></param>
+        /// <returns>Task of ApiResponse (List&lt;DenominationServiceProvidersModel&gt;)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<List<DenominationServiceProvidersModel>>> ApiDenominationGetDenominationServiceProvidersByDenominationIdDenominationIdGetAsyncWithHttpInfo (int? denominationId)
+        {
+            // verify the required parameter 'denominationId' is set
+            if (denominationId == null)
+                throw new ApiException(400, "Missing required parameter 'denominationId' when calling DenominationApi->ApiDenominationGetDenominationServiceProvidersByDenominationIdDenominationIdGet");
+
+            var localVarPath = "/api/Denomination/GetDenominationServiceProvidersByDenominationId/{denominationId}";
+            var localVarPathParams = new Dictionary<String, String>();
+            var localVarQueryParams = new List<KeyValuePair<String, String>>();
+            var localVarHeaderParams = new Dictionary<String, String>(this.Configuration.DefaultHeader);
+            var localVarFormParams = new Dictionary<String, String>();
+            var localVarFileParams = new Dictionary<String, FileParameter>();
+            Object localVarPostBody = null;
+
+            // to determine the Content-Type header
+            String[] localVarHttpContentTypes = new String[] {
+            };
+            String localVarHttpContentType = this.Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
+
+            // to determine the Accept header
+            String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
+            };
+            String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
+            if (localVarHttpHeaderAccept != null)
+                localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+
+            if (denominationId != null) localVarPathParams.Add("denominationId", this.Configuration.ApiClient.ParameterToString(denominationId)); // path parameter
+            // authentication (Bearer) required
+            if (!String.IsNullOrEmpty(this.Configuration.GetApiKeyWithPrefix("Authorization")))
+            {
+                localVarHeaderParams["Authorization"] = this.Configuration.GetApiKeyWithPrefix("Authorization");
+            }
+
+            // make the HTTP request
+            IRestResponse localVarResponse = (IRestResponse) await this.Configuration.ApiClient.CallApiAsync(localVarPath,
+                Method.GET, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
+                localVarPathParams, localVarHttpContentType);
+
+            int localVarStatusCode = (int) localVarResponse.StatusCode;
+
+            if (ExceptionFactory != null)
+            {
+                Exception exception = ExceptionFactory("ApiDenominationGetDenominationServiceProvidersByDenominationIdDenominationIdGet", localVarResponse);
+                if (exception != null) throw exception;
+            }
+
+            return new ApiResponse<List<DenominationServiceProvidersModel>>(localVarStatusCode,
+                localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
+                (List<DenominationServiceProvidersModel>) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(List<DenominationServiceProvidersModel>)));
         }
 
         /// <summary>

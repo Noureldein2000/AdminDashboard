@@ -20,13 +20,6 @@
                 </li>
                 <li class="nav-item disabled">
                     <a class="nav-link" id="receiptData-tab" data-toggle="tab" href="#receiptData" role="tab" aria-controls="receiptData" aria-selected="false">Denomination Receipt</a>
-                    @*<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Denomination Receipt
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" id="receiptData-tab" data-toggle="tab" href="#receiptData" role="tab" aria-controls="receiptData" aria-selected="false">Receipt Data</a>
-                            <a class="dropdown-item" id="receiptParam-tab" data-toggle="tab" href="#receiptParam" role="tab" aria-controls="receiptParam" aria-selected="false">Receipt Params</a>
-                        </div>*@
                 </li>
             </ul>
 
@@ -75,7 +68,7 @@
                                                     <td>@item.ProviderHasFees</td>
                                                     <td>
                                                         <button onclick="EditDenominationServiceProvider(@item.Id,this)" class="btn btn-primary">Edit</button>
-                                                        <button onclick="ChangeStatusDenominationServiceProvider(@item.Id,this)" class="btn @(item.Status ? "btn-danger" : "btn-success")">
+                                                        <button id="btnChangeStatusTr-@item.Id" onclick="ConfirmChangeStatusDenominationServiceProvider(@item.Id,@item.DenominationID)" class="btn @(item.Status ? "btn-danger" : "btn-success")">
                                                             @(item.Status ? "Deactive" : "Active")
                                                         </button>
                                                     </td>
@@ -369,7 +362,7 @@
         }
 
         function AddDenominationServiceProvider(IsEdited) {
-            
+
             var id = $('#denominationServieProviderId').val();
             var DenominationID = @ViewContext.RouteData.Values["id"];
             var ServiceProviderID = $('#ServiceProviderID').val();
@@ -400,7 +393,7 @@
                     },
                      dataType: "text",
                     success: function (msg) {
-                        
+
 
                         var dataTest = JSON.parse(msg);
 
@@ -408,7 +401,7 @@
                         <td> ${dataTest.balance} </td><td>${dataTest.providerCode}</td>
                         <td>${dataTest.providerAmount}</td><td>${dataTest.providerHasFees}</td>
                         <td><button onclick="EditDenominationServiceProvider(${dataTest.id},this)" class="btn btn-primary mr-1">Edit</button>
-                        <button onclick="ChangeStatusDenominationServiceProvider(${dataTest.id},this)" class="${dataTest.status ? 'btn btn-danger' : 'btn btn-success'}">${dataTest.status ? 'Deactive' : 'Active'}</button></td>`;
+                        <button id="btnChangeStatusTr-${data.id}" onclick="ChangeStatusDenominationServiceProvider(${dataTest.id},this)" class="${dataTest.status ? 'btn btn-danger' : 'btn btn-success'}">${dataTest.status ? 'Deactive' : 'Active'}</button></td>`;
 
                         if (IsEdited == "")
                             $('#table-DenominationServiceProvider').append(`<tr id="tr-dsp-' + dataTest.id+'">${html}</tr>`);
@@ -552,7 +545,7 @@
                         $('#myDenominationParameter').modal('hide');
                     },
                      error: function (req, status, error) {
-                         
+
                          swal("Ops! There is some error happened!", {
                              icon: "error",
                          });
@@ -604,7 +597,7 @@
                     });
                 },
                  error: function (req, status, error) {
-                     
+
                      swal("Ops! There is some error happened!", {
                          icon: "error",
                      });
@@ -635,7 +628,7 @@
                     $('#myDenominationParameter').modal('toggle');
                 },
                  error: function (req, status, error) {
-                     
+
                 }
             });
         }
@@ -699,7 +692,7 @@
 
                 },
                  error: function (req, status, error) {
-                     
+
                      swal("Ops! There is some error happened!", {
                          icon: "error",
                      });
@@ -715,7 +708,7 @@
                 data: {id:id},
                  dataType: "text",
                  success: function (msg) {
-                     
+
                     var data = JSON.parse(msg);
 
                     $('#denominationServieProviderId').val(id);
@@ -731,12 +724,27 @@
                     $('#myDenominationServiceProviderModal').modal('toggle');
                 },
                  error: function (req, status, error) {
-                     
+
                 }
             });
             }
 
-        function ChangeStatusDenominationServiceProvider(id,row) {
+        function ConfirmChangeStatusDenominationServiceProvider(id, denominationId) {
+
+            swal({
+                title: "Are you sure to Change this status?",
+                text: "Note,this transaction will change the other status to inactive!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willChange) => {
+                if (willChange) {
+                    ChangeStatusDenominationServiceProvider(id, denominationId);
+                }
+            });
+        }
+
+        function ChangeStatusDenominationServiceProvider(id, denominationId) {
              $.ajax({
                 type: "GET",
                 url: "@Url.Action("ChangeStatusDenominationServiceProvider")",
@@ -745,21 +753,17 @@
                   },
                  dataType: "text",
                  success: function (msg) {
-
-                    swal("Poof! Your record has been Changed!", {
-                        icon: "success",
-                    });
-
-                     var rowCurrent = $(row).attr('class');
-                     var active = rowCurrent.includes("danger");
-
-                     $(row).removeClass(rowCurrent);
-                     $(row).addClass(active == false ? 'btn btn-danger' : 'btn btn-success');
-                     $(row).html(active == false ? 'Deactive' : 'Active');
+                     @*var denominationId =@(ViewContext.RouteData.Values["id"]);*@
+                     if (msg)
+                         GetDenominationServiceProvidersByDenomniationId(denominationId)
+                     else
+                           swal("Error! There is some happen Failed!", {
+                        icon: "error",
+                           });
                 },
                  error: function (req, status, error) {
-                     
-                     swal("Ops! There is some error happened!", {
+                     console.log(error);
+                     swal("Ops! There is some error happened!" + error, {
                          icon: "error",
                      });
                 }
@@ -768,7 +772,7 @@
 
         function CheckValidation(formId)
         {
-            
+
             var valid = true;
 
             switch (formId) {
@@ -789,6 +793,42 @@
             }
 
             return valid;
+        }
+
+        function GetDenominationServiceProvidersByDenomniationId(denominationId) {
+            
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetDenominationServiceProvidersByDenomniationId")",
+                  data: {
+                      denomniationId: denominationId,
+                  },
+                 dataType: "text",
+                 success: function (data) {
+                     
+                     var array = $.parseJSON(data);
+
+                     $.each(array, function (key, value) {
+                        
+                         var row = $('#btnChangeStatusTr-' + value.id);
+                         var rowCurrent = $(row).attr('class');
+                         $(row).removeClass(rowCurrent);
+                         $(row).addClass(value.status? 'btn btn-danger' : 'btn btn-success');
+                         $(row).html(value.status ? 'Deactive' : 'Active');
+                     });
+
+
+                     swal("Poof! Your record has been Changed!", {
+                        icon: "success",
+                    });
+                },
+                 error: function (req, status, error) {
+                     console.log(error);
+                     swal("Ops! There is some error happened!" + error, {
+                         icon: "error",
+                     });
+                }
+            });
         }
 
     </script>

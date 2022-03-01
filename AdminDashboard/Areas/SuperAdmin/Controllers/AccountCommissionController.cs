@@ -81,8 +81,39 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(CreateAccountCommissionViewModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
+                if (!ModelState.IsValid)
+                {
+                    var commissions = _apiCommission.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
+                    {
+                        Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
+                        Value = a.Id.ToString()
+                    }).ToList();
+
+                    var services = _apiService.ApiAdminServiceGetServicesGet(1, 1000, "ar").Results.Select(a => new SelectListItem
+                    {
+                        Text = a.Name,
+                        Value = a.Id.ToString()
+                    }).ToList();
+
+                    model.Services = services;
+                    model.Commissions = commissions;
+
+                    return View(model);
+                }
+
+                _apiAccountCommission.ApiAccountCommissionAddAccountCommissionPost(new AddAccountCommissionModel(
+                    accountId: model.AccountId,
+                    denominationId: model.DenominationId,
+                    commissionId: model.CommissionId));
+
+                return RedirectToAction(nameof(Index), new { accountId = model.AccountId, processSucceded = true });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+
                 var commissions = _apiCommission.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
                 {
                     Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
@@ -100,13 +131,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
 
                 return View(model);
             }
-
-            _apiAccountCommission.ApiAccountCommissionAddAccountCommissionPost(new AddAccountCommissionModel(
-                accountId: model.AccountId,
-                denominationId: model.DenominationId,
-                commissionId: model.CommissionId));
-
-            return RedirectToAction(nameof(Index), new { accountId = model.AccountId, processSucceded = true });
         }
 
         [HttpGet]
