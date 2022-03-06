@@ -43,8 +43,8 @@
                                             </button>
                                             <div class="dropdown-menu">
                                                 <h5 class="dropdown-header">Modules</h5>
-                                                <a asp-action="Index" asp-controller="AccountTypeProfileFee" asp-route-id="@ATPD.Id" asp-route-title="@ATPD.AccountTypeName - @ATPD.ProfileName" class="dropdown-item">Fees</a>
-                                                <a asp-action="Index" asp-controller="AccountTypeProfileCommission" asp-route-id="@ATPD.Id" asp-route-title="@ATPD.AccountTypeName - @ATPD.ProfileName" class="dropdown-item">Commission</a>
+                                                <a asp-action="Index" asp-controller="AccountTypeProfileFee" asp-route-id="@ATPD.Id" asp-route-denomination="@ATPD.DenominationName" asp-route-title="@ATPD.AccountTypeName - @ATPD.ProfileName" class="dropdown-item">Fees</a>
+                                                <a asp-action="Index" asp-controller="AccountTypeProfileCommission" asp-route-id="@ATPD.Id" asp-route-denomination="@ATPD.DenominationName" asp-route-title="@ATPD.AccountTypeName - @ATPD.ProfileName" class="dropdown-item">Commission</a>
                                                 <div class="dropdown-divider"></div>
                                                 <h5 class="dropdown-header">Actions</h5>
                                                 <a asp-action="ChangeStatus" asp-route-id="@ATPD.Id" class="dropdown-item">

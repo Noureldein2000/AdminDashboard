@@ -224,10 +224,30 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return RedirectToAction(nameof(Index), new { id = serviceId, serviceTypeId, title });
         }
         [HttpGet]
-        public JsonResult ChangeStatusDenominationServiceProvider(int id, int denominationId)
+        public JsonResult ChangeStatusDenominationServiceProvider(int id)
         {
-            _apiDenomination.ApiDenominationChangeDenominationServiceProviderStatusPut(id);
-            return Json(id);
+            try
+            {
+                _apiDenomination.ApiDenominationChangeDenominationServiceProviderStatusPut(id);
+                return Json(true);
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
+        }
+        [HttpGet]
+        public JsonResult GetDenominationServiceProvidersByDenomniationId(int denomniationId)
+        {
+            try
+            {
+                var result = _apiDenomination.ApiDenominationGetDenominationServiceProvidersByDenominationIdDenominationIdGet(denomniationId);
+                return Json(result.Select(x => MapToViewModel(x)));
+            }
+            catch (Exception ex)
+            {
+                return Json(ex.Message);
+            }
         }
 
         [HttpGet]
@@ -513,6 +533,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Sequence = (int)model.Sequence,
                 ValidationExpression = model.ValidationExpression,
                 ValidationMessage = model.ValidationMessage,
+                ValidationMessageAr = model.ValidationMessageAr,
                 DenominationParamID = (int)model.DenominationParamID,
                 Value = model.Value,
                 ValueList = model.ValueList
@@ -528,6 +549,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Sequence = model.Sequence,
                 ValidationExpression = model.ValidationExpression,
                 ValidationMessage = model.ValidationMessage,
+                ValidationMessageAr = model.ValidationMessageAr,
                 DenominationParamID = model.DenominationParamID,
                 Value = model.Value,
                 ValueList = model.ValueList
@@ -566,7 +588,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Bold = (bool)model.Bold,
                 Alignment = (int)model.Alignment,
                 Status = (bool)model.Status,
-                DenominationReceiptDataID = model.DenominationReceiptDataID
+                DenominationReceiptDataID = model.DenominationReceiptDataID,
+                FontSize = model.FontSize
             };
         }
         private DenominationReceiptParamModel MapToModel(DenominationReceiptParamViewModel model)
@@ -578,7 +601,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 ParameterID = model.ParameterID,
                 Bold = model.Bold,
                 Alignment = model.Alignment,
-                Status = model.Status
+                Status = model.Status,
+                FontSize = model.FontSize,
             };
         }
         private DenominationParamViewModel MapToViewModel(DenominationParamModel model)

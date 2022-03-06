@@ -19,12 +19,12 @@
                             </h6>
                         </div>
                         <div>
-                            <a asp-action="Create" asp-route-id="@ViewBag.denominationId" asp-route-denominationName="@ViewBag.DenominationName" class="pull-right btn btn-outline-primary">Add</a>
+                            <button onclick="ViewDataModel(@ViewBag.denominationId)" class="pull-right btn btn-primary">Add</button>
                         </div>
                     </div>
                 </div>
                 <div class="card-body">
-                    <table class="table table-striped">
+                    <table class="table table-striped" id="tbl-DenominationTax">
                         <thead>
                             <tr>
                                 <th>From</th>
@@ -51,6 +51,23 @@
                             }
                         </tbody>
                     </table>
+                </div>
+            </div>
+            <div id="DenominationTaxesFormModal" class="modal fade" role="dialog" dir="ltr">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3> Add Denomiantion Taxes</h3>
+                        </div>
+                        <div class="modal-body">
+                            <partial name="_Create" />
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" onclick="AddDenominationTaxes()" id="btnAddDenominationTaxes" value="Add" class="btn btn-success float-right" disabled />
+                            <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -115,6 +132,82 @@
                      });
                 }
             });
+        }
+
+        function ViewDataModel(denominationId) {
+
+            $('#denominationId').val(denominationId);
+/*            $('#denominationName').val(denominationName);*/
+              $('#DenominationTaxesFormModal').modal('show');
+        }
+
+        function AddDenominationTaxes() {
+            
+            var denominationId = $('#denominationId').val();
+            var taxesId = $('#taxesId').val();
+
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("Create")",
+                  data: {
+                      TaxesId: taxesId,
+                      DenominationId: denominationId,
+                  },
+                 dataType: "text",
+                 success: function (msg) {
+                     
+                     var data = JSON.parse(msg);
+
+                     if (data.code != null)
+                     {
+                         swal({
+                             title: "Failure job!",
+                             text: "Failed, " + data.message + "",
+                             icon: "error",
+                             button: "Ok",
+                         });
+                     }
+                     else {
+
+                        var html = `<tr>
+                                    <td>${data.range}</td>
+                                    <td>${data.taxValue}</td>
+                                    <td>${data.taxTypeName}</td>
+                                    <td>${data.paymentMode}</td>
+                                    <td>
+                                        <button onclick="ConfirmDelete(${data.id},this)" class="btn btn-danger">Delete</button>
+                                    </td>
+                                </tr>`;
+
+                         $('#tbl-DenominationTax').append(html);
+
+                         $('#DenominationTaxesFormModal').modal('hide');
+
+                         $('#taxesId').val(0);
+
+                     swal({
+                         title: "Good job!",
+                         text: "You Added the Record Successfully!",
+                         icon: "success",
+                         button: "Ok",
+                     });
+                     }
+                },
+                 error: function (req, status, error) {
+
+                     swal({
+                         title: "Failure job!",
+                         text: "Ops, message error is '" + error + "'",
+                         icon: "error",
+                         button: "Ok",
+                     });
+                }
+            });
+        }
+
+        function toggleButton(ref, bttnID) {
+            document.getElementById(bttnID).disabled = ((ref.value !== ref.defaultValue) ? false : true);
         }
 
     </script>

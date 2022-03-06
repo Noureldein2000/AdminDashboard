@@ -84,8 +84,39 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Create(CreateAccountFeesViewModel model)
         {
-            if (!ModelState.IsValid)
+            try
             {
+
+                if (!ModelState.IsValid)
+                {
+                    var fees = _apiFees.ApiFeesGetFeesGet(1, 100).Results.Select(a => new SelectListItem
+                    {
+                        Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
+                        Value = a.Id.ToString()
+                    }).ToList();
+
+                    var services = _apiService.ApiAdminServiceGetServicesGet(1, 1000, "ar").Results.Select(a => new SelectListItem
+                    {
+                        Text = a.Name,
+                        Value = a.Id.ToString()
+                    }).ToList();
+
+                    model.Services = services;
+                    model.Fees = fees;
+
+                    return View(model);
+                }
+                _apiAccountFees.ApiAccountFeesAddAccountFeesPost(new AddAccountFeeModel(
+                    accountId: model.AccountId,
+                    denominationId: model.DenominationId,
+                    feeId: model.FeesId));
+
+                return RedirectToAction(nameof(Index), new { accountId = model.AccountId, processSucceded = true });
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", ex.Message);
+
                 var fees = _apiFees.ApiFeesGetFeesGet(1, 100).Results.Select(a => new SelectListItem
                 {
                     Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
@@ -104,12 +135,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 return View(model);
             }
 
-            _apiAccountFees.ApiAccountFeesAddAccountFeesPost(new AddAccountFeeModel(
-                accountId: model.AccountId,
-                denominationId: model.DenominationId,
-                feeId: model.FeesId));
-
-            return RedirectToAction(nameof(Index), new { accountId = model.AccountId, processSucceded = true });
         }
 
         [HttpGet]

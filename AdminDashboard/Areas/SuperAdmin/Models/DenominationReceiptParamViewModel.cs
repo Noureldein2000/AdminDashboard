@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AdminDashboard.Models.SwaggerModels;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,5 +19,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public int Alignment { get; set; }
         public bool Status { get; set; }
         public int? DenominationReceiptDataID { get; set; }
+        public FontSize FontSize{ get; set; }
     }
 }

@@ -43,12 +43,12 @@
                         <tbody>
                             @foreach (var ACT in Model)
                             {
-                                <tr>
+                                <tr id="tr-@ACT.Id">
                                     <td>@ACT.ChannelTypeName</td>
                                     <td>@ACT.ExpirationPeriod</td>
                                     <td>@ACT.HasLimitedAccess</td>
                                     <td>
-                                        <a asp-action="EditAccountChannelType" asp-route-id="@ACT.Id" asp-route-channelTypeName="@ACT.ChannelTypeName" class="btn btn-info">Edit</a>
+                                        <button onclick="GetAccountChannelTypeById(@ACT.Id)" class="btn btn-info">Edit</button>
                                         @*<a asp-action="DeleteAccountChannelType" asp-route-id="@ACT.Id" class="btn btn-danger">Delete</a>*@
                                     </td>
                                 </tr>
@@ -57,13 +57,119 @@
                     </table>
                 </div>
             </div>
+            <div id="AccountChannelTypeFormModal" class="modal fade" role="dialog" dir="ltr">
+                <div class="modal-dialog">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h3> Edit Account Channel Type</h3>
+                        </div>
+                        <div class="modal-body">
+                            <partial name="_EditAccountChannelType" />
+                        </div>
+                        <div class="modal-footer">
+                            <input type="button" onclick="EditAccountChannelType()" id="btnEditAccountChannelType" value="Edit" class="btn btn-success float-right" disabled />
+                            <button type="button" class="btn btn-secondary float-left" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
+
 </div>
 
 @section Scripts{
 
     <script type="text/javascript">
 
+        function isNumberKey(evt) {
+            var charCode = (evt.which) ? evt.which : event.keyCode;
+            if (charCode != 46 && charCode > 31
+                && (charCode < 48 || charCode > 57))
+                return false;
+
+            return true;
+        }
+
+        function toggleButton(ref, bttnID) {
+            document.getElementById(bttnID).disabled = ((ref.value !== ref.defaultValue) ? false : true);
+        }
+
+        function GetAccountChannelTypeById(id) {
+             $.ajax({
+                type: "GET",
+                url: "@Url.Action("EditAccountChannelType")",
+                  data: {
+                      id: id
+                  },
+                 dataType: "text",
+                 success: function (msg) {
+                     var data = JSON.parse(msg);
+
+                     $('#accountId').val(id);
+                     $('#txtExpirationPeriod').val(data.expirationPeriod);
+                     $("#chkHasLimitedAccess").prop("checked", data.hasLimitedAccess);
+
+                     $('#AccountChannelTypeFormModal').modal('show');
+                },
+                 error: function (req, status, error) {
+
+                     swal("Ops! There is some error happened!", {
+                         icon: "error",
+                     });
+                }
+            });
+        }
+
+        function EditAccountChannelType() {
+            
+            var id = $('#accountId').val();
+            var expirationData = $('#txtExpirationPeriod').val();
+            var hasLimitedAccess = $('#chkHasLimitedAccess').is(":checked");
+            var channelTypeName = $('#tr-' + id).find("td:eq(0)").text();
+
+            $.ajax({
+                type: "POST",
+                url: "@Url.Action("EditAccountChannelType")",
+                  data: {
+                      Id: id,
+                      ExpirationPeriod: expirationData,
+                      HasLimitedAccess: hasLimitedAccess
+                  },
+                 dataType: "text",
+                 success: function (msg) {
+                     
+                     var data = JSON.parse(msg);
+
+                     var html = `<td>${channelTypeName}</td>
+                        <td> ${expirationData}</td>
+                        <td> ${hasLimitedAccess}</td>
+                        <td><button onclick="GetAccountChannelTypeById(${id})" class="btn btn-info">Edit</button></td>`;
+
+                     var row = '#tr-' + id;
+                     $(row).empty();
+                     $(row).append(html);
+
+                     $('#AccountChannelTypeFormModal').modal('hide');
+                     $('#txtExpirationPeriod').val(0);
+                     swal({
+                         title: "Good job!",
+                         text: "You Modified the Record Successfully!",
+                         icon: "success",
+                         button: "Ok",
+                     });
+                },
+                 error: function (req, status, error) {
+
+                     swal({
+                         title: "Failure job!",
+                         text: "Ops, message error is '" + error + "'",
+                         icon: "error",
+                         button: "Ok",
+                     });
+                }
+            });
+        }
     </script>
 }

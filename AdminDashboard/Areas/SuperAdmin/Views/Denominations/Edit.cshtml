@@ -20,13 +20,6 @@
                 </li>
                 <li class="nav-item disabled">
                     <a class="nav-link" id="receiptData-tab" data-toggle="tab" href="#receiptData" role="tab" aria-controls="receiptData" aria-selected="false">Denomination Receipt</a>
-                    @*<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Denomination Receipt
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" id="receiptData-tab" data-toggle="tab" href="#receiptData" role="tab" aria-controls="receiptData" aria-selected="false">Receipt Data</a>
-                            <a class="dropdown-item" id="receiptParam-tab" data-toggle="tab" href="#receiptParam" role="tab" aria-controls="receiptParam" aria-selected="false">Receipt Params</a>
-                        </div>*@
                 </li>
             </ul>
 
@@ -75,7 +68,7 @@
                                                     <td>@item.ProviderHasFees</td>
                                                     <td>
                                                         <button onclick="EditDenominationServiceProvider(@item.Id,this)" class="btn btn-primary">Edit</button>
-                                                        <button onclick="ChangeStatusDenominationServiceProvider(@item.Id,this)" class="btn @(item.Status ? "btn-danger" : "btn-success")">
+                                                        <button id="btnChangeStatusTr-@item.Id" onclick="ConfirmChangeStatusDenominationServiceProvider(@item.Id,@item.DenominationID)" class="btn @(item.Status ? "btn-danger" : "btn-success")">
                                                             @(item.Status ? "Deactive" : "Active")
                                                         </button>
                                                     </td>
@@ -133,6 +126,7 @@
                                                 <th>Value</th>
                                                 <th>Validation Expression</th>
                                                 <th>Validation Message</th>
+                                                <th>Validation Message Ar</th>
                                                 <th>Optional</th>
                                                 <th>Actions</th>
                                             </tr>
@@ -146,6 +140,7 @@
                                                     <td>@item.Value</td>
                                                     <td>@item.ValidationExpression</td>
                                                     <td>@item.ValidationMessage</td>
+                                                    <td>@item.ValidationMessageAr</td>
                                                     <td>@item.Optional</td>
                                                     <td>
                                                         <button onclick="viewDataDenomiationParamterModal(@item.Id,this)" class="btn btn-primary">Edit</button>
@@ -373,7 +368,7 @@
 
         function AddDenominationServiceProvider(IsEdited) {
 
-            var urlDenomnitonServiceProvider = IsEdited != "" ? "@Url.Action("EditDenominationServiceProvider", "Denominations")" : "@Url.Action("AddDenominationServiceProvider", "Denominations")";
+            let urlDenomnitonServiceProvider = IsEdited != "" ? "@Url.Action("EditDenominationServiceProvider", "Denominations")" : "@Url.Action("AddDenominationServiceProvider", "Denominations")";
             if (CheckValidation("frmDenominationServiceProviders"))
             {
                 $.ajax({
@@ -506,7 +501,7 @@
              var DenominationParamID = $('#DenominationParamID').val();
             var Optional = $('#Optional').is(':checked');
 
-            var urlDenomnitonParamter = IsEdited != "" ? "@Url.Action("EditDenominationParameter")" : "@Url.Action("AddDenominationParameter")";
+            let urlDenomnitonParamter = IsEdited != "" ? "@Url.Action("EditDenominationParameter")" : "@Url.Action("AddDenominationParameter")";
 
             if (CheckValidation("frmDenominationParamters"))
             {
@@ -564,16 +559,6 @@
         }
 
         function saveDenominationRecepit() {
-
-            @*var DenominationID = @ViewContext.RouteData.Values["id"];
-            var id = $('#RecepitId').val();
-            var title = $('#title').val();
-            var disclaimer = $('#disclaimer').val();
-            var footer = $('#footer').val();
-            var paramterId = $('#paramterId').val();
-            var alignment = $('#alignment').val();
-            var bold = $('#bold').val();*@
-
             $.ajax({
                 method: "post",
                 data: new FormData($('#denominationReceiptForm')[0]),
@@ -589,8 +574,7 @@
                     });
                 },
                  error: function (req, status, error) {
-
-                     swal("Ops! There is some error happened!", {
+                     swal("There is some error happened!", {
                          icon: "error",
                      });
                 }
@@ -647,7 +631,6 @@
             $('#ProviderAmount').val('');
             $('#OldServiceID').val('');
             $('#div-configs').empty();
-            //$('#div-params').empty();
         }
 
         function ConfirmDeleteDenominationParameter(id, denominationId,row)
@@ -728,7 +711,22 @@
             });
             }
 
-        function ChangeStatusDenominationServiceProvider(id,row) {
+        function ConfirmChangeStatusDenominationServiceProvider(id, denominationId) {
+
+            swal({
+                title: "Are you sure to Change this status?",
+                text: "Note,this transaction will change the other status to inactive!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((willChange) => {
+                if (willChange) {
+                    ChangeStatusDenominationServiceProvider(id, denominationId);
+                }
+            });
+        }
+
+        function ChangeStatusDenominationServiceProvider(id, denominationId) {
              $.ajax({
                 type: "GET",
                 url: "@Url.Action("ChangeStatusDenominationServiceProvider")",
@@ -737,21 +735,20 @@
                   },
                  dataType: "text",
                  success: function (msg) {
+                     @*var denominationId =@(ViewContext.RouteData.Values["id"]);*@
+                     if (msg) {
+                         GetDenominationServiceProvidersByDenomniationId(denominationId);
+                     }
 
-                    swal("Poof! Your record has been Changed!", {
-                        icon: "success",
-                    });
-
-                     var rowCurrent = $(row).attr('class');
-                     var active = rowCurrent.includes("danger");
-
-                     $(row).removeClass(rowCurrent);
-                     $(row).addClass(active == false ? 'btn btn-danger' : 'btn btn-success');
-                     $(row).html(active == false ? 'Deactive' : 'Active');
+                     else {
+                         swal("Error! There is some happen Failed!", {
+                             icon: "error",
+                         });
+                     }
+                        
                 },
                  error: function (req, status, error) {
-
-                     swal("Ops! There is some error happened!", {
+                     swal("There is some error happened!" + error, {
                          icon: "error",
                      });
                 }
@@ -781,6 +778,42 @@
             }
 
             return valid;
+        }
+
+        function GetDenominationServiceProvidersByDenomniationId(denominationId) {
+
+            $.ajax({
+                type: "GET",
+                url: "@Url.Action("GetDenominationServiceProvidersByDenomniationId")",
+                  data: {
+                      denomniationId: denominationId,
+                  },
+                 dataType: "text",
+                 success: function (data) {
+
+                     var array = $.parseJSON(data);
+
+                     $.each(array, function (key, value) {
+
+                         var row = $('#btnChangeStatusTr-' + value.id);
+                         var rowCurrent = $(row).attr('class');
+                         $(row).removeClass(rowCurrent);
+                         $(row).addClass(value.status? 'btn btn-danger' : 'btn btn-success');
+                         $(row).html(value.status ? 'Deactive' : 'Active');
+                     });
+
+
+                     swal("Poof! Your record has been Changed!", {
+                        icon: "success",
+                    });
+                },
+                 error: function (req, status, error) {
+                     console.log(error);
+                     swal("Ops! There is some error happened!" + error, {
+                         icon: "error",
+                     });
+                }
+            });
         }
 
         function addConfig() {
@@ -835,18 +868,6 @@
             reorderParamsLocations();
         }
 
-        function addParam(parameterId, alignment, bold) {
-            let paramsTemplate = $('#paramsTemplate').clone();
-            paramsTemplate.removeAttr('id');
-            paramsTemplate.find('.item').hide();
-            paramsTemplate.find('#paramterId').attr("value", parameterId);
-            paramsTemplate.find('#alignment').attr("value", alignment);
-            paramsTemplate.find('#bold').attr("value", bold);
-            $('#div-params').append(paramsTemplate);
-            paramsTemplate.show();
-            reorderParamsLocations();
-        }
-
         function deleteParam(id) {
             $(`#${id}`).remove();
             reorderParamsLocations();
@@ -866,6 +887,10 @@
                     .first()
                     .attr("id", "DenominationReceiptParams_" + i + "__Bold")
                     .attr("name", "DenominationReceiptParams[" + i + "].Bold");
+                $(e).find("select")
+                    .last()
+                    .attr("id", "DenominationReceiptParams_" + i + "__FontSize")
+                    .attr("name", "DenominationReceiptParams[" + i + "].FontSize");
                 $(e).find("button")
                     .first()
                     .attr("onclick", "deleteParam('params-" + i + "\')");

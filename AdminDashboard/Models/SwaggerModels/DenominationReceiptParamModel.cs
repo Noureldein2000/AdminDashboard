@@ -19,6 +19,7 @@ using System.Runtime.Serialization;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using System.ComponentModel.DataAnnotations;
+using SwaggerDateConverter = AdminDashboard.SwaggerClientHelpers.SwaggerDateConverter;
 
 namespace AdminDashboard.Models.SwaggerModels
 {
@@ -40,7 +41,7 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="status">status.</param>
         /// <param name="fontSize">fontSize.</param>
         /// <param name="denominationReceiptDataID">denominationReceiptDataID.</param>
-        public DenominationReceiptParamModel(int? id = default(int?), int? denominationID = default(int?), int? parameterID = default(int?), string parameterName = default(string), bool? bold = default(bool?), int? alignment = default(int?), bool? status = default(bool?), int? denominationReceiptDataID = default(int?))
+        public DenominationReceiptParamModel(int? id = default(int?), int? denominationID = default(int?), int? parameterID = default(int?), string parameterName = default(string), bool? bold = default(bool?), int? alignment = default(int?), bool? status = default(bool?), FontSize fontSize = default(FontSize), int? denominationReceiptDataID = default(int?))
         {
             this.Id = id;
             this.DenominationID = denominationID;
@@ -50,6 +51,7 @@ namespace AdminDashboard.Models.SwaggerModels
             this.Alignment = alignment;
             this.Status = status;
             this.DenominationReceiptDataID = denominationReceiptDataID;
+            this.FontSize = fontSize;
         }
         
         /// <summary>
@@ -101,6 +103,12 @@ namespace AdminDashboard.Models.SwaggerModels
         public int? DenominationReceiptDataID { get; set; }
 
         /// <summary>
+        /// Gets or Sets FontSize
+        /// </summary>
+        [DataMember(Name="fontSize", EmitDefaultValue=false)]
+        public FontSize FontSize { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -116,6 +124,7 @@ namespace AdminDashboard.Models.SwaggerModels
             sb.Append("  Alignment: ").Append(Alignment).Append("\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
             sb.Append("  DenominationReceiptDataID: ").Append(DenominationReceiptDataID).Append("\n");
+            sb.Append("  FontSize: ").Append(FontSize).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -189,6 +198,11 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.DenominationReceiptDataID == input.DenominationReceiptDataID ||
                     (this.DenominationReceiptDataID != null &&
                     this.DenominationReceiptDataID.Equals(input.DenominationReceiptDataID))
+                ) && 
+                (
+                    this.FontSize == input.FontSize ||
+                    (this.FontSize != null &&
+                    this.FontSize.Equals(input.FontSize))
                 );
         }
 
@@ -217,6 +231,8 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.Status.GetHashCode();
                 if (this.DenominationReceiptDataID != null)
                     hashCode = hashCode * 59 + this.DenominationReceiptDataID.GetHashCode();
+                if (this.FontSize != null)
+                    hashCode = hashCode * 59 + this.FontSize.GetHashCode();
                 return hashCode;
             }
         }

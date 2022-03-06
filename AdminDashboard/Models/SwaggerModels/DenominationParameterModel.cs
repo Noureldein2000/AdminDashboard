@@ -41,7 +41,8 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="valueList">valueList.</param>
         /// <param name="validationExpression">validationExpression.</param>
         /// <param name="validationMessage">validationMessage.</param>
-        public DenominationParameterModel(int? id = default(int?), int? denominationID = default(int?), int? sequence = default(int?), bool? optional = default(bool?), int? denominationParamID = default(int?), string value = default(string), string valueList = default(string), string validationExpression = default(string), string validationMessage = default(string))
+        /// <param name="validationMessageAr">validationMessageAr.</param>
+        public DenominationParameterModel(int? id = default(int?), int? denominationID = default(int?), int? sequence = default(int?), bool? optional = default(bool?), int? denominationParamID = default(int?), string value = default(string), string valueList = default(string), string validationExpression = default(string), string validationMessage = default(string), string validationMessageAr = default(string))
         {
             this.Id = id;
             this.DenominationID = denominationID;
@@ -52,6 +53,7 @@ namespace AdminDashboard.Models.SwaggerModels
             this.ValueList = valueList;
             this.ValidationExpression = validationExpression;
             this.ValidationMessage = validationMessage;
+            this.ValidationMessageAr = validationMessageAr;
         }
         
         /// <summary>
@@ -109,6 +111,12 @@ namespace AdminDashboard.Models.SwaggerModels
         public string ValidationMessage { get; set; }
 
         /// <summary>
+        /// Gets or Sets ValidationMessageAr
+        /// </summary>
+        [DataMember(Name="validationMessageAr", EmitDefaultValue=false)]
+        public string ValidationMessageAr { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -125,6 +133,7 @@ namespace AdminDashboard.Models.SwaggerModels
             sb.Append("  ValueList: ").Append(ValueList).Append("\n");
             sb.Append("  ValidationExpression: ").Append(ValidationExpression).Append("\n");
             sb.Append("  ValidationMessage: ").Append(ValidationMessage).Append("\n");
+            sb.Append("  ValidationMessageAr: ").Append(ValidationMessageAr).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -203,6 +212,11 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.ValidationMessage == input.ValidationMessage ||
                     (this.ValidationMessage != null &&
                     this.ValidationMessage.Equals(input.ValidationMessage))
+                ) && 
+                (
+                    this.ValidationMessageAr == input.ValidationMessageAr ||
+                    (this.ValidationMessageAr != null &&
+                    this.ValidationMessageAr.Equals(input.ValidationMessageAr))
                 );
         }
 
@@ -233,6 +247,8 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.ValidationExpression.GetHashCode();
                 if (this.ValidationMessage != null)
                     hashCode = hashCode * 59 + this.ValidationMessage.GetHashCode();
+                if (this.ValidationMessageAr != null)
+                    hashCode = hashCode * 59 + this.ValidationMessageAr.GetHashCode();
                 return hashCode;
             }
         }

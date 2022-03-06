@@ -1,0 +1,24 @@
+﻿
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <input type="hidden" id="accountTypeProfileDenominationID" />
+                    <div class="form-group">
+                        <label class="control-label">Commissions <span class="validation-error">*</span></label>
+                        <select id="commissionId" asp-items="@ViewBag.Commissions" onchange="toggleButton(this,'btnAccountTyprProfileCommission')" class="form-control" data-style="select-with-transition" title="Choose a Accout Type Profile " data-size="7">
+                            <option value="0" disabled selected> Choose a Commission</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+    </script>
+}
