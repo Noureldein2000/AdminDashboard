@@ -31,8 +31,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns></returns>
-        void ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPost (AccountTypeProfileCommissionModel body = null);
+        /// <returns>AccountTypeProfileCommissionModel</returns>
+        AccountTypeProfileCommissionModel ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPost (AccountTypeProfileCommissionModel body = null);
 
         /// <summary>
         /// 
@@ -42,8 +42,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPostWithHttpInfo (AccountTypeProfileCommissionModel body = null);
+        /// <returns>ApiResponse of AccountTypeProfileCommissionModel</returns>
+        ApiResponse<AccountTypeProfileCommissionModel> ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPostWithHttpInfo (AccountTypeProfileCommissionModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -102,8 +102,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPostAsync (AccountTypeProfileCommissionModel body = null);
+        /// <returns>Task of AccountTypeProfileCommissionModel</returns>
+        System.Threading.Tasks.Task<AccountTypeProfileCommissionModel> ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPostAsync (AccountTypeProfileCommissionModel body = null);
 
         /// <summary>
         /// 
@@ -113,8 +113,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPostAsyncWithHttpInfo (AccountTypeProfileCommissionModel body = null);
+        /// <returns>Task of ApiResponse (AccountTypeProfileCommissionModel)</returns>
+        System.Threading.Tasks.Task<ApiResponse<AccountTypeProfileCommissionModel>> ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPostAsyncWithHttpInfo (AccountTypeProfileCommissionModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -279,10 +279,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns></returns>
-        public void ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPost (AccountTypeProfileCommissionModel body = null)
+        /// <returns>AccountTypeProfileCommissionModel</returns>
+        public AccountTypeProfileCommissionModel ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPost (AccountTypeProfileCommissionModel body = null)
         {
-             ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPostWithHttpInfo(body);
+             ApiResponse<AccountTypeProfileCommissionModel> localVarResponse = ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPostWithHttpInfo(body);
+             return localVarResponse.Data;
         }
 
         /// <summary>
@@ -290,8 +291,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPostWithHttpInfo (AccountTypeProfileCommissionModel body = null)
+        /// <returns>ApiResponse of AccountTypeProfileCommissionModel</returns>
+        public ApiResponse< AccountTypeProfileCommissionModel > ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPostWithHttpInfo (AccountTypeProfileCommissionModel body = null)
         {
 
             var localVarPath = "/api/AccountTypeProfileCommission/AddAccountTypeProfileCommission";
@@ -312,6 +313,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -344,9 +348,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<AccountTypeProfileCommissionModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (AccountTypeProfileCommissionModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountTypeProfileCommissionModel)));
         }
 
         /// <summary>
@@ -354,10 +358,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPostAsync (AccountTypeProfileCommissionModel body = null)
+        /// <returns>Task of AccountTypeProfileCommissionModel</returns>
+        public async System.Threading.Tasks.Task<AccountTypeProfileCommissionModel> ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPostAsync (AccountTypeProfileCommissionModel body = null)
         {
-             await ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPostAsyncWithHttpInfo(body);
+             ApiResponse<AccountTypeProfileCommissionModel> localVarResponse = await ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPostAsyncWithHttpInfo(body);
+             return localVarResponse.Data;
 
         }
 
@@ -366,8 +371,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPostAsyncWithHttpInfo (AccountTypeProfileCommissionModel body = null)
+        /// <returns>Task of ApiResponse (AccountTypeProfileCommissionModel)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<AccountTypeProfileCommissionModel>> ApiAccountTypeProfileCommissionAddAccountTypeProfileCommissionPostAsyncWithHttpInfo (AccountTypeProfileCommissionModel body = null)
         {
 
             var localVarPath = "/api/AccountTypeProfileCommission/AddAccountTypeProfileCommission";
@@ -388,6 +393,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -420,9 +428,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<AccountTypeProfileCommissionModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (AccountTypeProfileCommissionModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountTypeProfileCommissionModel)));
         }
 
         /// <summary>

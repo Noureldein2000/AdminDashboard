@@ -31,8 +31,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns></returns>
-        void ApiServiceProviderAddServiceProviderPost (ServiceProviderModel body = null);
+        /// <returns>ServiceProviderModel</returns>
+        ServiceProviderModel ApiServiceProviderAddServiceProviderPost (ServiceProviderModel body = null);
 
         /// <summary>
         /// 
@@ -42,8 +42,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ApiServiceProviderAddServiceProviderPostWithHttpInfo (ServiceProviderModel body = null);
+        /// <returns>ApiResponse of ServiceProviderModel</returns>
+        ApiResponse<ServiceProviderModel> ApiServiceProviderAddServiceProviderPostWithHttpInfo (ServiceProviderModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -140,8 +140,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ApiServiceProviderAddServiceProviderPostAsync (ServiceProviderModel body = null);
+        /// <returns>Task of ServiceProviderModel</returns>
+        System.Threading.Tasks.Task<ServiceProviderModel> ApiServiceProviderAddServiceProviderPostAsync (ServiceProviderModel body = null);
 
         /// <summary>
         /// 
@@ -151,8 +151,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ApiServiceProviderAddServiceProviderPostAsyncWithHttpInfo (ServiceProviderModel body = null);
+        /// <returns>Task of ApiResponse (ServiceProviderModel)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ServiceProviderModel>> ApiServiceProviderAddServiceProviderPostAsyncWithHttpInfo (ServiceProviderModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -355,10 +355,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns></returns>
-        public void ApiServiceProviderAddServiceProviderPost (ServiceProviderModel body = null)
+        /// <returns>ServiceProviderModel</returns>
+        public ServiceProviderModel ApiServiceProviderAddServiceProviderPost (ServiceProviderModel body = null)
         {
-             ApiServiceProviderAddServiceProviderPostWithHttpInfo(body);
+             ApiResponse<ServiceProviderModel> localVarResponse = ApiServiceProviderAddServiceProviderPostWithHttpInfo(body);
+             return localVarResponse.Data;
         }
 
         /// <summary>
@@ -366,8 +367,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ApiServiceProviderAddServiceProviderPostWithHttpInfo (ServiceProviderModel body = null)
+        /// <returns>ApiResponse of ServiceProviderModel</returns>
+        public ApiResponse< ServiceProviderModel > ApiServiceProviderAddServiceProviderPostWithHttpInfo (ServiceProviderModel body = null)
         {
 
             var localVarPath = "/api/ServiceProvider/AddServiceProvider";
@@ -388,6 +389,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -420,9 +424,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<ServiceProviderModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (ServiceProviderModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ServiceProviderModel)));
         }
 
         /// <summary>
@@ -430,10 +434,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ApiServiceProviderAddServiceProviderPostAsync (ServiceProviderModel body = null)
+        /// <returns>Task of ServiceProviderModel</returns>
+        public async System.Threading.Tasks.Task<ServiceProviderModel> ApiServiceProviderAddServiceProviderPostAsync (ServiceProviderModel body = null)
         {
-             await ApiServiceProviderAddServiceProviderPostAsyncWithHttpInfo(body);
+             ApiResponse<ServiceProviderModel> localVarResponse = await ApiServiceProviderAddServiceProviderPostAsyncWithHttpInfo(body);
+             return localVarResponse.Data;
 
         }
 
@@ -442,8 +447,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiServiceProviderAddServiceProviderPostAsyncWithHttpInfo (ServiceProviderModel body = null)
+        /// <returns>Task of ApiResponse (ServiceProviderModel)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<ServiceProviderModel>> ApiServiceProviderAddServiceProviderPostAsyncWithHttpInfo (ServiceProviderModel body = null)
         {
 
             var localVarPath = "/api/ServiceProvider/AddServiceProvider";
@@ -464,6 +469,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -496,9 +504,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<ServiceProviderModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (ServiceProviderModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(ServiceProviderModel)));
         }
 
         /// <summary>
