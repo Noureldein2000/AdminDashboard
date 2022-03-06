@@ -28,7 +28,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             _commissionApi = commissionApi;
             _accountTypeProfileCommissionApi = accountTypeProfileCommissionApi;
         }
-        public async Task<IActionResult> Index(int id, string title, int page = 1, int size = 10, bool processSucceded = false)
+        public async Task<IActionResult> Index(int id, string title, string denomination, int page = 1, int size = 10, bool processSucceded = false)
         {
             var model = await _accountTypeProfileCommissionApi.ApiAccountTypeProfileCommissionGetAccountTypeProfileCommissionsIdGetAsync(id, page, size, "ar");
 
@@ -43,6 +43,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             ViewBag.FullTitle = title;
             ViewBag.processSucceded = processSucceded;
             ViewBag.accountTypeProfileDenomination = id;
+            ViewBag.denomination = denomination;
             ViewBag.Commissions = _commissionApi.ApiCommissionGetCommissionsGet(1, 1000, "ar").Results.Select(a => new SelectListItem
             {
                 Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
@@ -105,8 +106,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 PaymentModeName = x.PaymentModeName,
                 CommissionValue = (double)x.CommissionValue,
                 AccountTypeProfileDenominationID = x.AccountTypeProfileDenominationID,
-                DenomintionName = x.DenomintionName,
-                ServiceName = x.ServiceName,
                 CommissionID = x.CommissionID,
                 AccountTypeName = x.AccountTypeName,
                 ProfileName = x.ProfileName
@@ -124,8 +123,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 PaymentModeName = x.PaymentModeName,
                 CommissionValue = (decimal)x.CommissionValue,
                 AccountTypeProfileDenominationID = (int)x.AccountTypeProfileDenominationID,
-                DenomintionName = x.DenomintionName,
-                ServiceName = x.ServiceName,
                 CommissionID = (int)x.CommissionID,
                 AccountTypeName = x.AccountTypeName,
                 ProfileName = x.ProfileName

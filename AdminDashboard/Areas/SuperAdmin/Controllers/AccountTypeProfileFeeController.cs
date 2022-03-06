@@ -27,7 +27,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             _feesApi = feesApi;
             _accountTypeProfileFeeApi = accountTypeProfileFeeApi;
         }
-        public async Task<IActionResult> Index(int id, string title, int page = 1, int size = 10, bool processSucceded = false)
+        public async Task<IActionResult> Index(int id, string title, string denomination, int page = 1, int size = 10, bool processSucceded = false)
         {
             var model = await _accountTypeProfileFeeApi.ApiAccountTypeProfileFeeGetAccountTypeProfileFeesIdGetAsync(id, page, size, "ar");
 
@@ -42,6 +42,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             ViewBag.FullTitle = title;
             ViewBag.processSucceded = processSucceded;
             ViewBag.accountTypeProfileDenomination = id;
+            ViewBag.denomination = denomination;
             ViewBag.Fees = _feesApi.ApiFeesGetFeesGet(1, 1000, "ar").Results.Select(a => new SelectListItem
             {
                 Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
@@ -104,8 +105,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 PaymentModeName = x.PaymentModeName,
                 FeesValue = (double)x.FeesValue,
                 AccountTypeProfileDenominationID = x.AccountTypeProfileDenominationID,
-                DenomintionName = x.DenomintionName,
-                ServiceName = x.ServiceName,
                 FeesID = x.FeesID,
                 AccountTypeName = x.AccountTypeName,
                 ProfileName = x.ProfileName
@@ -123,8 +122,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 PaymentModeName = x.PaymentModeName,
                 FeesValue = (decimal)x.FeesValue,
                 AccountTypeProfileDenominationID = (int)x.AccountTypeProfileDenominationID,
-                DenomintionName = x.DenomintionName,
-                ServiceName = x.ServiceName,
                 FeesID = (int)x.FeesID,
                 AccountTypeName = x.AccountTypeName,
                 ProfileName = x.ProfileName

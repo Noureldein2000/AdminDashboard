@@ -17,6 +17,12 @@
                                 </strong>
                                 @ViewBag.FullTitle
                             </h6>
+                            <h6>
+                                <strong>
+                                    Denomination:
+                                </strong>
+                                @ViewBag.denomination
+                            </h6>
                         </div>
                         <div>
                             <button onclick="ViewDataModel(@ViewBag.accountTypeProfileDenomination)" class="pull-right btn btn-primary">Add</button>
@@ -28,8 +34,6 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Sevice</th>
-                                <th>Denomination</th>
                                 <th>From</th>
                                 <th>To</th>
                                 <th>Value</th>
@@ -43,8 +47,6 @@
                             {
                                 <tr id="tr-@ATPF.Id">
                                     <td>@ATPF.Id</td>
-                                    <td>@ATPF.ServiceName</td>
-                                    <td>@ATPF.DenomintionName</td>
                                     <td>@ATPF.AmountFrom</td>
                                     <td>@ATPF.AmountTo</td>
                                     <td>@ATPF.FeesValue</td>
@@ -176,8 +178,6 @@
 
                          var html = `<tr id="tr-${data.id}">
                                     <td>${data.id}</td>
-                                    <td>${data.serviceName}</td>
-                                    <td>${data.denomintionName}</td>
                                     <td>${data.amountFrom}</td>
                                     <td>${data.amountTo}</td>
                                     <td>${data.feesValue}</td>
