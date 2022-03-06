@@ -1,10 +1,8 @@
 ﻿@model DenominationServiceProvidersViewModel
-@using AdminDashboard.Models.SwaggerModels
-@using AdminDashboard.Helper
 
 <div class="card-body">
     <div class="form-group">
-        <input asp-for="Id" id ="denominationServieProviderId" type="hidden" class="form-control" />
+        <input asp-for="Id" id="denominationServieProviderId" type="hidden" class="form-control" />
         <input asp-for="DenominationID" type="hidden" class="form-control" />
     </div>
     <div class="form-group row">
@@ -45,23 +43,61 @@
     <hr />
     <div class="card">
         <div class="card-header">
-            <h4> Denomination Provider Configuaration</h4>
-        </div>
-        <div class="card-body" id="divCont">
-            <div class="form-group row">
-                <div class="col-md-5">
-                    <label class="control-label">Name</label>
-                    <input type="text" class="form-control enableAddProviderParam" id="providerConfigParamName" />
+            <div class="d-flex justify-content-between">
+                <div>
+                    <h5>Denomination Provider Configurations</h5>
                 </div>
-                <div class="col-md-5">
-                    <label class="control-label">Value</label>
-                    <input type="text" class="form-control enableAddProviderParam" id="providerConfigParamValue" />
-                    <span class="text-danger"></span>
-                </div>
-                <div class="col-md-2" style="margin-top: 30px;">
-                    <input type="button" id="addProviderConfigParams" value="Add" class="btn btn-info float-right" onclick="AddTextBox()"  disabled/>
+                <div>
+                    <button type="button" class="btn btn-info" onclick="addConfig()">Add Provider Configuration</button>
                 </div>
             </div>
+        </div>
+        <div class="card-body" id="divCont">
+            <div class="form-group">
+                <div id="div-configs">
+                    @if (Model.DenominationProviderConfigurations != null)
+                    {
+                        for (int i = 0; i < Model.DenominationProviderConfigurations.Count; i++)
+                        {
+                            <div id="@string.Format("configs-{0}", i)" class="form-group">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label class="control-label">Name</label>
+                                        @Html.TextBoxFor(m => m.DenominationProviderConfigurations[i].Name, new { @class = "form-control enableAddProviderParam", @id = "providerConfigParamName" })
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label class="control-label">Value</label>
+                                        @Html.TextBoxFor(m => m.DenominationProviderConfigurations[i].Value, new { @class = "form-control enableAddProviderParam", @id = "providerConfigParamValue" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        <button style="margin-top:30px" class="btn btn-secondary" onclick="deleteConfig(@string.Format("'configs-{0}'", i))">
+                                            <i class="fa fa-close">Remove</i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="configsTemplate" class="form-group" style="display: none">
+    <div class="row">
+        <div class="col-md-4">
+            <label class="control-label">Name</label>
+            @Html.TextBox("DenominationProviderConfigurations[].Name", "", new { @class = "form-control enableAddProviderParam", @id = "providerConfigParamName" })
+        </div>
+        <div class="col-md-4">
+            <label class="control-label">Value</label>
+            @Html.TextBox("DenominationProviderConfigurations[].Value", "", new { @class = "form-control enableAddProviderParam", @id = "providerConfigParamValue" })
+        </div>
+        <div class="col-md-2">
+            <button style="margin-top:30px" class="btn btn-secondary">
+                <i class="fa fa-close">Remove</i>
+            </button>
         </div>
     </div>
 </div>

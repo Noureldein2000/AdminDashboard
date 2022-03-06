@@ -10,7 +10,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
     {
         public DenominationServiceProvidersViewModel()
         {
-            DenominationProviderConfigeration = new List<DenominationProviderConfigerationViewModel>();
+            DenominationProviderConfigurations = new List<DenominationProviderConfigurationViewModel>();
         }
 
         public int Id { get; set; }
@@ -28,6 +28,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public int? OldServiceID { get; set; }
         public bool ProviderHasFees { get; set; }
         public ServiceConfigerationViewModel ServiceConfigeration { get; set; }
-        public List<DenominationProviderConfigerationViewModel> DenominationProviderConfigeration { get; set; }
+        public List<DenominationProviderConfigurationViewModel> DenominationProviderConfigurations { get; set; }
     }
 }

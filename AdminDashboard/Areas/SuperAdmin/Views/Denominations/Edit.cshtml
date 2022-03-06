@@ -89,11 +89,12 @@
                                 </div>
                                 <div class="modal-body">
                                     <form id="frmDenominationServiceProviders">
+                                        <input type="hidden" asp-for="DenominationID">
                                         <partial name="_DenominationServiceProviders.cshtml" model="new DenominationServiceProvidersViewModel()" />
                                         <hr />
                                         <div class="col-md-8">
                                             <label class="control-label d-block">URL</label>
-                                            <select asp-items="@ViewBag.ServiceConfiguartion" class="form-control" id="ServiceConfigerationID">
+                                            <select asp-items="@ViewBag.ServiceConfiguartion" asp-for="ServiceConfigerationID" class="form-control" id="ServiceConfigerationID">
                                                 <option disabled selected> Choose URL Service</option>
                                             </select>
                                             <span class="text-danger"></span>
@@ -183,7 +184,6 @@
                                     <form id="frmDenominationParams">
                                         <div class="card">
                                             <div class="card-body">
-                                                @*<input type="hidden" asp-for="Id" />*@
                                                 <div class="form-group">
                                                     <label class="control-label">Label</label>
                                                     <input class="form-control enableAddDenomintionParam" id="Label" />
@@ -224,11 +224,16 @@
                 </div>
                 <div class="tab-pane fade" id="receiptData" role="tabpanel" aria-labelledby="receiptData-tab">
                     <div class="card">
-                        <partial name="_DenominationReceipt" model="@Model.DenominationReceipt" />
+                        <form id="denominationReceiptForm">
+                            <input type="hidden" asp-for="DenominationID" />
+                            <input type="hidden" asp-for="@Model.DenominationReceiptDataID" />
+                            <partial name="_DenominationReceipt" model="@Model.DenominationReceipt" />
+                        </form>
                         <div class="card-footer mt-2">
                             <input type="button" id="saveDenominationRecepit" onclick="saveDenominationRecepit()" value="Save" class="btn btn-success btnSubmit float-right" />
                         </div>
                     </div>
+                   
                 </div>
             </div>
         </div>
@@ -363,59 +368,45 @@
 
         function AddDenominationServiceProvider(IsEdited) {
 
-            var id = $('#denominationServieProviderId').val();
-            var DenominationID = @ViewContext.RouteData.Values["id"];
-            var ServiceProviderID = $('#ServiceProviderID').val();
-            var ServiceConfigerationID = $('#ServiceConfigerationID').val();
-            var Balance = $('#Balance').val();
-/*            var Status = $('#Status').val();*/
-            var ProviderCode = $('#ProviderCode').val();
-            var ProviderAmount = $('#ProviderAmount').val();
-            var OldServiceID = $('#OldServiceID').val();
-            var ProviderHasFees = $('#ProviderHasFees').is(':checked');
-
-            var urlDenomnitonServiceProvider = IsEdited != "" ? "@Url.Action("EditDenominationServiceProvider")" : "@Url.Action("AddDenominationServiceProvider")";
+            let urlDenomnitonServiceProvider = IsEdited != "" ? "@Url.Action("EditDenominationServiceProvider", "Denominations")" : "@Url.Action("AddDenominationServiceProvider", "Denominations")";
             if (CheckValidation("frmDenominationServiceProviders"))
             {
                 $.ajax({
-                    type: "POST",
+                    method: "post",
                     url: urlDenomnitonServiceProvider,
-                    data: {
-                        Id: id,
-                        DenominationID ,
-                        ServiceProviderID ,
-                        ServiceConfigerationID,
-                        Balance ,
-                        ProviderCode ,
-                        ProviderAmount ,
-                        OldServiceID ,
-                        ProviderHasFees
-                    },
-                     dataType: "text",
-                    success: function (msg) {
+                    data: new FormData($('#frmDenominationServiceProviders')[0]),
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        if (data) {
+                            var html = `<td>${data.id}</td><td> ${data.serviceProviderName}</td>
+                            <td> ${data.balance} </td><td>${data.providerCode}</td>
+                            <td>${data.providerAmount}</td><td>${data.providerHasFees}</td>
+                            <td><button onclick="EditDenominationServiceProvider(${data.id},this)" class="btn btn-primary mr-1">Edit</button>
+                            <button onclick="ChangeStatusDenominationServiceProvider(${data.id},this)" class="${data.status ? 'btn btn-danger' : 'btn btn-success'}">${data.status ? 'Deactive' : 'Active'}</button></td>`;
 
-
-                        var dataTest = JSON.parse(msg);
-
-                        var html = `<td>${dataTest.id}</td><td> ${dataTest.serviceProviderName}</td>
-                        <td> ${dataTest.balance} </td><td>${dataTest.providerCode}</td>
-                        <td>${dataTest.providerAmount}</td><td>${dataTest.providerHasFees}</td>
-                        <td><button onclick="EditDenominationServiceProvider(${dataTest.id},this)" class="btn btn-primary mr-1">Edit</button>
-                        <button id="btnChangeStatusTr-${data.id}" onclick="ChangeStatusDenominationServiceProvider(${dataTest.id},this)" class="${dataTest.status ? 'btn btn-danger' : 'btn btn-success'}">${dataTest.status ? 'Deactive' : 'Active'}</button></td>`;
-
-                        if (IsEdited == "")
-                            $('#table-DenominationServiceProvider').append(`<tr id="tr-dsp-' + dataTest.id+'">${html}</tr>`);
+                            if (IsEdited == "") {
+                                $('#table-DenominationServiceProvider').append(`<tr id="tr-dsp-' + dataTest.id+'">${html}</tr>`);
+                            }
                             else {
-                            var row = '#tr-dsp-' + dataTest.id;
-                            $(row).empty();
-                            $(row).append(html);
-/*                            $(row).append('<td>' + data.id + '</td><td>' + data.serviceProviderName + '</td><td>' + data.balance + '</td><td>' + data.providerCode + '</td><td>' + data.providerAmount + '</td><td>' + data.providerHasFees + '</td><td><button onclick="EditDenominationServiceProvider(' + data.id + ',this)" class="btn btn-primary mr-1">Edit</button><a onclick="ChangeStatusDenominationServiceProvider(' + data.id + ',this)" class="btn btn-success">Change</a></td>');*/
-                        }
+                                var row = '#tr-dsp-' + data.id;
+                                $(row).empty();
+                                $(row).append(html);
+                            }
 
-                        ClearData();
-                        $('#myDenominationServiceProviderModal').modal('hide');
+                            ClearData();
+                            $('#myDenominationServiceProviderModal').modal('hide');
+                            swal("Your record has been updated", {
+                                icon: "success",
+                            });
+                        }
+                        else {
+                            swal("There is some error happened! Please try again", {
+                                icon: "error",
+                            });
+                        }
                     },
-                     error: function (req, status, error) {
+                    error: function (req, status, error) {
                          swal("There is some error happened!", {
                              icon: "error",
                          });
@@ -500,7 +491,7 @@
 
         function AddDenominationParamter(IsEdited) {
 
-             var Id = $('#denomintionParamterId').val();
+                var Id = $('#denomintionParamterId').val();
              var DenominationID = @ViewContext.RouteData.Values["id"];
              var Sequence = $('#Sequence').val();
              var Value = $('#Value').val();
@@ -510,7 +501,7 @@
              var DenominationParamID = $('#DenominationParamID').val();
             var Optional = $('#Optional').is(':checked');
 
-             var urlDenomnitonParamter = IsEdited != "" ? "@Url.Action("EditDenominationParameter")" : "@Url.Action("AddDenominationParameter")";
+            let urlDenomnitonParamter = IsEdited != "" ? "@Url.Action("EditDenominationParameter")" : "@Url.Action("AddDenominationParameter")";
 
             if (CheckValidation("frmDenominationParamters"))
             {
@@ -519,30 +510,38 @@
                     url: urlDenomnitonParamter,
                     data: {
                         Id,
-                        DenominationID  ,
-                        Sequence ,
+                        DenominationID,
+                        Sequence,
                         Value,
-                        ValueList ,
-                        ValidationExpression ,
-                        ValidationMessage ,
-                        DenominationParamID ,
+                        ValueList,
+                        ValidationExpression,
+                        ValidationMessage,
+                        DenominationParamID,
                         Optional
                     },
-                     dataType: "text",
+                    dataType: "text",
                     success: function (msg) {
-
                         var data = JSON.parse(msg);
+                        if (data) {
+                            if (IsEdited == "")
+                                $('#table-DenomnationParamter').append('<tr id="tr-dp-' + data.id + '"><td>' + data.id + '</td><td>' + data.sequence + '</td><td>' + data.value + '</td><td>' + data.validationExpression + '</td><td>' + data.validationMessage + '</td><td>' + data.optional + '</td><td> <button onclick="viewDataDenomiationParamterModal(' + data.id + ',this)" class="btn btn-primary mr-1">Edit</button> <button onclick="ConfirmDeleteDenominationParameter(' + data.id + ',' + data.denominationId + ',this)" class="btn btn-danger">Delete</button></td></tr>');
+                            else {
+                                var row = '#tr-dp-' + data.id;
+                                $(row).empty();
+                                $(row).append('<td>' + data.id + '</td><td>' + data.sequence + '</td><td>' + data.value + '</td><td>' + data.validationExpression + '</td><td>' + data.validationMessage + '</td><td>' + data.optional + '</td><td> <button onclick="viewDataDenomiationParamterModal(' + data.id + ',this)" class="btn btn-primary mr-1">Edit</button> <button onclick="ConfirmDeleteDenominationParameter(' + data.id + ',' + data.denominationId + ',this)" class="btn btn-danger">Delete</button></td>');
+                            }
 
-                        if (IsEdited == "")
-                            $('#table-DenomnationParamter').append('<tr id="tr-dp-'+data.id+'"><td>' + data.id + '</td><td>' + data.sequence + '</td><td>' + data.value + '</td><td>' + data.validationExpression + '</td><td>' + data.validationMessage + '</td><td>' + data.optional + '</td><td> <button onclick="viewDataDenomiationParamterModal(' + data.id + ',this)" class="btn btn-primary mr-1">Edit</button> <button onclick="ConfirmDeleteDenominationParameter('+data.id+','+data.denominationId+',this)" class="btn btn-danger">Delete</button></td></tr>');
-                        else {
-                            var row = '#tr-dp-' + data.id;
-                            $(row).empty();
-                            $(row).append('<td>' + data.id + '</td><td>' + data.sequence + '</td><td>' + data.value + '</td><td>' + data.validationExpression + '</td><td>' + data.validationMessage + '</td><td>' + data.optional + '</td><td> <button onclick="viewDataDenomiationParamterModal(' + data.id + ',this)" class="btn btn-primary mr-1">Edit</button> <button onclick="ConfirmDeleteDenominationParameter('+data.id+','+data.denominationId+',this)" class="btn btn-danger">Delete</button></td>');
+                            ClearData();
+                            $('#myDenominationParameter').modal('hide');
+                            swal("Your record has been updated", {
+                                icon: "success",
+                            });
                         }
-
-                        ClearData();
-                        $('#myDenominationParameter').modal('hide');
+                        else {
+                            swal("There is some error happened! Please try again", {
+                                icon: "error",
+                            });
+                        }
                     },
                      error: function (req, status, error) {
 
@@ -560,34 +559,12 @@
         }
 
         function saveDenominationRecepit() {
-
-            var DenominationID = @ViewContext.RouteData.Values["id"];
-            var id = $('#RecepitId').val();
-            var title = $('#title').val();
-            var disclaimer = $('#disclaimer').val();
-            var footer = $('#footer').val();
-            var paramterId = $('#paramterId').val();
-            var alignment = $('#alignment').val();
-            var bold = $('#bold').val();
-
             $.ajax({
-                type: "POST",
+                method: "post",
+                data: new FormData($('#denominationReceiptForm')[0]),
+                contentType: false,
+                processData: false,
                 url: "@Url.Action("EditDenominationRecepit")",
-                data: {
-                    DenominationReceiptData: {
-                        id: id,
-                        DenominationID: DenominationID,
-                        Title: title,
-                        Disclaimer: disclaimer,
-                        Footer: footer
-                    },
-                    DenominationReceiptParams: [{
-                        ParameterID: paramterId,
-                        Alignment: alignment,
-                        Bold: bold
-                    }]
-                },
-                 dataType: "text",
                 success: function (msg) {
                     swal({
                         title: "Good job!",
@@ -597,8 +574,7 @@
                     });
                 },
                  error: function (req, status, error) {
-
-                     swal("Ops! There is some error happened!", {
+                     swal("There is some error happened!", {
                          icon: "error",
                      });
                 }
@@ -654,6 +630,7 @@
             $('#ProviderCode').val('');
             $('#ProviderAmount').val('');
             $('#OldServiceID').val('');
+            $('#div-configs').empty();
         }
 
         function ConfirmDeleteDenominationParameter(id, denominationId,row)
@@ -720,6 +697,11 @@
                     $('#ProviderAmount').val(data.providerAmount);
                     $('#OldServiceID').val(data.oldServiceID);
                     $('#ProviderHasFees').prop('checked', data.providerHasFees);
+
+                     $('#div-configs').empty();
+                     data.denominationProviderConfigurations.forEach(dpc => {
+                         addConfig(dpc.name, dpc.value);
+                     });
 
                     $('#myDenominationServiceProviderModal').modal('toggle');
                 },
@@ -834,5 +816,86 @@
             });
         }
 
+        function addConfig() {
+            let configsTemplate = $('#configsTemplate').clone();
+            configsTemplate.removeAttr('id');
+            configsTemplate.find('.item').hide();
+            $('#div-configs').append(configsTemplate);
+            configsTemplate.show();
+            reorderLocations();
+        }
+
+        function addConfig(name, value) {
+            let configsTemplate = $('#configsTemplate').clone();
+            configsTemplate.removeAttr('id');
+            configsTemplate.find('.item').hide();
+            configsTemplate.find('#providerConfigParamName').attr("value", name);
+            configsTemplate.find('#providerConfigParamValue').attr("value", value);
+            $('#div-configs').append(configsTemplate);
+            configsTemplate.show();
+            reorderLocations();
+        }
+
+        function deleteConfig(id) {
+            $(`#${id}`).remove();
+            //if ($('#div-configs').children().length == 0) {
+            //    $('.HideLabel').hide();
+            //}
+            reorderLocations();
+        }
+
+        function reorderLocations() {
+            $('#div-configs').children().each((i, e) => {
+                $(e).find("input")
+                    .first()
+                    .attr("id", "DenominationProviderConfigurations_" + i + "__Name")
+                    .attr("name", "DenominationProviderConfigurations[" + i + "].Name");
+                $(e).find("input:eq(1)")
+                    .first()
+                    .attr("id", "DenominationProviderConfigurations_" + i + "__Value")
+                    .attr("name", "DenominationProviderConfigurations[" + i + "].Value");
+                $(e).find("button")
+                    .first()
+                    .attr("onclick", "deleteConfig('configs-" + i + "\')");
+                $(e).attr("id", "configs-" + i);
+            });
+        }
+        function addParam() {
+            let paramsTemplate = $('#paramsTemplate').clone();
+            paramsTemplate.removeAttr('id');
+            $('#div-params').append(paramsTemplate);
+            paramsTemplate.show();
+            reorderParamsLocations();
+        }
+
+        function deleteParam(id) {
+            $(`#${id}`).remove();
+            reorderParamsLocations();
+        }
+
+        function reorderParamsLocations() {
+            $('#div-params').children().each((i, e) => {
+                $(e).find("select")
+                    .first()
+                    .attr("id", "DenominationReceiptParams_" + i + "__ParameterID")
+                    .attr("name", "DenominationReceiptParams[" + i + "].ParameterID");
+                $(e).find("input")
+                    .first()
+                    .attr("id", "DenominationReceiptParams_" + i + "__Alignment")
+                    .attr("name", "DenominationReceiptParams[" + i + "].Alignment");
+                $(e).find("checkbox")
+                    .first()
+                    .attr("id", "DenominationReceiptParams_" + i + "__Bold")
+                    .attr("name", "DenominationReceiptParams[" + i + "].Bold");
+                $(e).find("select")
+                    .last()
+                    .attr("id", "DenominationReceiptParams_" + i + "__FontSize")
+                    .attr("name", "DenominationReceiptParams[" + i + "].FontSize");
+                $(e).find("button")
+                    .first()
+                    .attr("onclick", "deleteParam('params-" + i + "\')");
+                $(e).attr("id", "params-" + i);
+            });
+        }
     </script>
 }

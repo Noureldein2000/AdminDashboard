@@ -177,17 +177,20 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Value = a.Id.ToString()
             }).ToList();
 
-            ViewBag.Parameters = _apiParameter.ApiParameterGetParamtersGet(1, 200).Results.Select(a => new SelectListItem
+            var parameters = _apiParameter.ApiParameterGetParamtersGet(1, 200).Results.Select(a => new SelectListItem
             {
                 Text = a.ProviderName.ToString(),
                 Value = a.Id.ToString()
             }).ToList();
 
+            ViewBag.Parameters = new SelectList(parameters, "Value", "Text");
 
             var model = _apiDenomination.ApiDenominationGetDenominationByIdIdGet(id);
 
-            var viewModel = new EditDenominationViewModel()
+            var viewModel = new EditDenominationViewModel
             {
+                DenominationID = (int)model.Denomination.Id,
+                DenominationReceiptDataID = (int)model.DenominationReceipt.DenominationReceiptData.Id,
                 Denomination = MapToViewModel(model.Denomination),
                 DenominationServiceProvidersViewModels = model.DenominationServiceProviders.Select(x => MapToViewModel(x)).ToList(),
                 DenominationParameters = model.DenominationParameters.Select(x => MapToViewModel(x)).ToList(),
@@ -268,14 +271,14 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         }
 
         [HttpPost]
-        public JsonResult EditDenominationServiceProvider(DenominationServiceProvidersViewModel model)
+        public JsonResult EditDenominationServiceProvider([FromForm] DenominationServiceProvidersViewModel model)
         {
             var viewModel = _apiDenomination.ApiDenominationEditDenominationServiceProviderPut(MapToModel(model));
 
             return Json(MapToViewModel(viewModel));
         }
         [HttpPost]
-        public JsonResult AddDenominationServiceProvider(DenominationServiceProvidersViewModel model)
+        public JsonResult AddDenominationServiceProvider([FromForm] DenominationServiceProvidersViewModel model)
         {
             var viewModel = _apiDenomination.ApiDenominationAddDenominationServiceProvdierPost(MapToModel(model));
 
@@ -365,8 +368,10 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return RedirectToAction(nameof(Edit), new { id = denominationId });
         }
         [HttpPost]
-        public JsonResult EditDenominationRecepit(DenominationReceiptViewModel model)
+        public JsonResult EditDenominationRecepit([FromForm] DenominationReceiptViewModel model)
         {
+            model.DenominationReceiptData.DenominationID = model.DenominationID;
+            model.DenominationReceiptData.Id = model.DenominationReceiptDataID;
             _apiDenomination.ApiDenominationEditDenominationReceiptPut(new DenominationReceiptModel
             {
                 DenominationReceiptData = MapToModel(model.DenominationReceiptData),
@@ -446,7 +451,7 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 ServiceConfigerationId = model.ServiceConfigerationID,
                 Status = model.Status,
                 DenominationId = model.DenominationID,
-                //DenominationProviderConfigurationModel = model.DenominationProviderConfigeration.Select(x=> MapToModel(x)).ToList()
+                DenominationProviderConfigurationModel = model.DenominationProviderConfigurations.Select(x => MapToModel(x)).ToList()
             };
         }
         private DenominationServiceProvidersViewModel MapToViewModel(DenominationServiceProvidersModel model)
@@ -464,10 +469,10 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Status = (bool)model.Status,
                 DenominationID = (int)model.DenominationId,
                 ServiceConfigerationID = (int)model.ServiceConfigerationId, //Edit
-                DenominationProviderConfigeration = model.DenominationProviderConfigurationModel?.Select(x => MapToViewModel(x)).ToList()
+                DenominationProviderConfigurations = model.DenominationProviderConfigurationModel?.Select(x => MapToViewModel(x)).ToList()
             };
         }
-        private DenominationProviderConfigerationModel MapToModel(DenominationProviderConfigerationViewModel model)
+        private DenominationProviderConfigerationModel MapToModel(DenominationProviderConfigurationViewModel model)
         {
             return new DenominationProviderConfigerationModel
             {
@@ -477,9 +482,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 DenominationProviderID = model.DenominationProviderID
             };
         }
-        private DenominationProviderConfigerationViewModel MapToViewModel(DenominationProviderConfigerationModel model)
+        private DenominationProviderConfigurationViewModel MapToViewModel(DenominationProviderConfigerationModel model)
         {
-            return new DenominationProviderConfigerationViewModel
+            return new DenominationProviderConfigurationViewModel
             {
                 ID = (int)model.Id,
                 Name = model.Name,
@@ -582,7 +587,9 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 ParameterName = model.ParameterName,
                 Bold = (bool)model.Bold,
                 Alignment = (int)model.Alignment,
-                FontSize = model.FontSize,
+                Status = (bool)model.Status,
+                DenominationReceiptDataID = model.DenominationReceiptDataID,
+                FontSize = model.FontSize
             };
         }
         private DenominationReceiptParamModel MapToModel(DenominationReceiptParamViewModel model)
