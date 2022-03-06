@@ -29,23 +29,32 @@
         </div>
         <div class="card-body" id="divCont">
             <div class="form-group row">
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label class="control-label">Parameter <span class="validation-error">*</span></label>
                     <select asp-items="@ViewBag.Parameters" class="form-control" id="paramterId" data-style="select-with-transition" title="Choose an Param" data-size="7">
                         <option disabled selected> Choose Param</option>
                     </select>
                     <span class="text-danger"></span>
                 </div>
+                <div class="col-md-6">
+                    <label class="control-label">Font-Size <span class="validation-error">*</span></label>
+                    <select asp-items="@Html.GetEnumSelectList<FontSize>()" class="form-control" id="fontSize" data-style="select-with-transition" title="Choose an Param" data-size="7">
+                        <option disabled selected> Choose Font-Size</option>
+                    </select>
+                    <span class="text-danger"></span>
+                </div>
+            </div>
+            <div class="form-group row">
                 <div class="col-md-4">
                     <label class="control-label">Alignment <span class="validation-error">*</span></label>
                     <input type="text" onkeypress="return isNumberKey(event)" id="alignment" class="form-control" />
                     <span class="text-danger"></span>
                 </div>
-                <div class="col-md-2 mt-5">
+                <div class="col-md-4 mt-5">
                     <label class="control-label" id="bold">Is Bold?</label>
                     <input type="checkbox" />
                 </div>
-                <div class="col-md-2" style="margin-top: 30px;">
+                <div class="col-md-4" style="margin-top: 30px;">
                     <input type="button" id="addProviderConfigParams" value="Add" class="btn btn-info float-right" onclick="AddTextBox()" disabled />
                 </div>
             </div>
