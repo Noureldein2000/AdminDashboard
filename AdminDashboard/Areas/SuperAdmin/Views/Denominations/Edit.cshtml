@@ -754,16 +754,19 @@
                  dataType: "text",
                  success: function (msg) {
                      @*var denominationId =@(ViewContext.RouteData.Values["id"]);*@
-                     if (msg)
-                         GetDenominationServiceProvidersByDenomniationId(denominationId)
-                     else
-                           swal("Error! There is some happen Failed!", {
-                        icon: "error",
-                           });
+                     if (msg) {
+                         GetDenominationServiceProvidersByDenomniationId(denominationId);
+                     }
+
+                     else {
+                         swal("Error! There is some happen Failed!", {
+                             icon: "error",
+                         });
+                     }
+                        
                 },
                  error: function (req, status, error) {
-                     console.log(error);
-                     swal("Ops! There is some error happened!" + error, {
+                     swal("There is some error happened!" + error, {
                          icon: "error",
                      });
                 }
@@ -796,7 +799,7 @@
         }
 
         function GetDenominationServiceProvidersByDenomniationId(denominationId) {
-            
+
             $.ajax({
                 type: "GET",
                 url: "@Url.Action("GetDenominationServiceProvidersByDenomniationId")",
@@ -805,11 +808,11 @@
                   },
                  dataType: "text",
                  success: function (data) {
-                     
+
                      var array = $.parseJSON(data);
 
                      $.each(array, function (key, value) {
-                        
+
                          var row = $('#btnChangeStatusTr-' + value.id);
                          var rowCurrent = $(row).attr('class');
                          $(row).removeClass(rowCurrent);
