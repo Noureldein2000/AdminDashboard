@@ -5,6 +5,7 @@ using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,29 +48,24 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Create(AccountTypeViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
             try
             {
                 //throw new Exception("There is some thing error happened");
-                _accountTypeServiceApi.ApiAccountTypeAddAccountTypePost(new AccountTypeModel
-                    (
-                    name: model.Name,
-                    nameAr: model.NameAr,
-                    status: model.Status
-                    ));
+                var result = _accountTypeServiceApi.ApiAccountTypeAddAccountTypePost(new AccountTypeModel
+                      (
+                      name: model.Name,
+                      nameAr: model.NameAr,
+                      status: model.Status
+                      ));
 
-                return RedirectToAction(nameof(Index), new { processSucceded = true });
+                return Json(MapToViewModel(result));
             }
             catch (Exception ex)
             {
-                return View("../../Views/Shared/Error", new ErrorViewModel());
+                var errorMessage = ex.Message.Remove(0, ex.Message.IndexOf('{'));
+                return Json(JsonConvert.DeserializeObject<ExceptionErrorMessage>(errorMessage));
             }
         }
 
@@ -81,14 +77,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Edit(AccountTypeViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-
             try
             {
                 _accountTypeServiceApi.ApiAccountTypeEditAccountTypePut(new AccountTypeModel
@@ -100,14 +90,12 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     treeLevel: model.TreeLevel
                     ));
 
-                TempData["result"] = true;
-                return RedirectToAction(nameof(Index));
+                return Json(model);
             }
             catch (Exception ex)
             {
-                TempData["result"] = false;
-
-                return View(model);
+                var errorMessage = ex.Message.Remove(0, ex.Message.IndexOf('{'));
+                return Json(JsonConvert.DeserializeObject<ExceptionErrorMessage>(errorMessage));
             }
         }
 

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -44,14 +45,20 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
             return View(new ServiceProviderViewModel());
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Create(ServiceProviderViewModel model)
         {
-            if (!ModelState.IsValid)
-                return View(model);
+            try
+            {
+                var result = _apiServiceProvider.ApiServiceProviderAddServiceProviderPost(MapToModel(model));
+                return Json(MapToViewModel(result));
 
-            _apiServiceProvider.ApiServiceProviderAddServiceProviderPost(MapToModel(model));
-            return RedirectToAction(nameof(Index), new { processSucceded = true });
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = ex.Message.Remove(0, ex.Message.IndexOf('{'));
+                return Json(JsonConvert.DeserializeObject<ExceptionErrorMessage>(errorMessage));
+            }
+
         }
         public IActionResult Edit(int id)
         {
@@ -60,14 +67,19 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Edit(ServiceProviderViewModel model)
         {
-            if (!ModelState.IsValid)
-                return View(model);
+            try
+            {
 
-            _apiServiceProvider.ApiServiceProviderEditServiceProviderPut(MapToModel(model));
-            return RedirectToAction(nameof(Index));
+                _apiServiceProvider.ApiServiceProviderEditServiceProviderPut(MapToModel(model));
+                return Json(model);
+            }
+            catch (Exception ex)
+            {
+                var errorMessage = ex.Message.Remove(0, ex.Message.IndexOf('{'));
+                return Json(JsonConvert.DeserializeObject<ExceptionErrorMessage>(errorMessage));
+            }
         }
         public JsonResult Delete(int id)
         {

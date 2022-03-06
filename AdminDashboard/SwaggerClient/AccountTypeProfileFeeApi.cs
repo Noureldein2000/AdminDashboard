@@ -31,8 +31,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns></returns>
-        void ApiAccountTypeProfileFeeAddAccountTypeProfileFeePost (AccountTypeProfileFeesModel body = null);
+        /// <returns>AccountTypeProfileFeesModel</returns>
+        AccountTypeProfileFeesModel ApiAccountTypeProfileFeeAddAccountTypeProfileFeePost (AccountTypeProfileFeesModel body = null);
 
         /// <summary>
         /// 
@@ -42,8 +42,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ApiAccountTypeProfileFeeAddAccountTypeProfileFeePostWithHttpInfo (AccountTypeProfileFeesModel body = null);
+        /// <returns>ApiResponse of AccountTypeProfileFeesModel</returns>
+        ApiResponse<AccountTypeProfileFeesModel> ApiAccountTypeProfileFeeAddAccountTypeProfileFeePostWithHttpInfo (AccountTypeProfileFeesModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -102,8 +102,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ApiAccountTypeProfileFeeAddAccountTypeProfileFeePostAsync (AccountTypeProfileFeesModel body = null);
+        /// <returns>Task of AccountTypeProfileFeesModel</returns>
+        System.Threading.Tasks.Task<AccountTypeProfileFeesModel> ApiAccountTypeProfileFeeAddAccountTypeProfileFeePostAsync (AccountTypeProfileFeesModel body = null);
 
         /// <summary>
         /// 
@@ -113,8 +113,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountTypeProfileFeeAddAccountTypeProfileFeePostAsyncWithHttpInfo (AccountTypeProfileFeesModel body = null);
+        /// <returns>Task of ApiResponse (AccountTypeProfileFeesModel)</returns>
+        System.Threading.Tasks.Task<ApiResponse<AccountTypeProfileFeesModel>> ApiAccountTypeProfileFeeAddAccountTypeProfileFeePostAsyncWithHttpInfo (AccountTypeProfileFeesModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -279,10 +279,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns></returns>
-        public void ApiAccountTypeProfileFeeAddAccountTypeProfileFeePost (AccountTypeProfileFeesModel body = null)
+        /// <returns>AccountTypeProfileFeesModel</returns>
+        public AccountTypeProfileFeesModel ApiAccountTypeProfileFeeAddAccountTypeProfileFeePost (AccountTypeProfileFeesModel body = null)
         {
-             ApiAccountTypeProfileFeeAddAccountTypeProfileFeePostWithHttpInfo(body);
+             ApiResponse<AccountTypeProfileFeesModel> localVarResponse = ApiAccountTypeProfileFeeAddAccountTypeProfileFeePostWithHttpInfo(body);
+             return localVarResponse.Data;
         }
 
         /// <summary>
@@ -290,8 +291,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ApiAccountTypeProfileFeeAddAccountTypeProfileFeePostWithHttpInfo (AccountTypeProfileFeesModel body = null)
+        /// <returns>ApiResponse of AccountTypeProfileFeesModel</returns>
+        public ApiResponse< AccountTypeProfileFeesModel > ApiAccountTypeProfileFeeAddAccountTypeProfileFeePostWithHttpInfo (AccountTypeProfileFeesModel body = null)
         {
 
             var localVarPath = "/api/AccountTypeProfileFee/AddAccountTypeProfileFee";
@@ -312,6 +313,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -344,9 +348,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<AccountTypeProfileFeesModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (AccountTypeProfileFeesModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountTypeProfileFeesModel)));
         }
 
         /// <summary>
@@ -354,10 +358,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ApiAccountTypeProfileFeeAddAccountTypeProfileFeePostAsync (AccountTypeProfileFeesModel body = null)
+        /// <returns>Task of AccountTypeProfileFeesModel</returns>
+        public async System.Threading.Tasks.Task<AccountTypeProfileFeesModel> ApiAccountTypeProfileFeeAddAccountTypeProfileFeePostAsync (AccountTypeProfileFeesModel body = null)
         {
-             await ApiAccountTypeProfileFeeAddAccountTypeProfileFeePostAsyncWithHttpInfo(body);
+             ApiResponse<AccountTypeProfileFeesModel> localVarResponse = await ApiAccountTypeProfileFeeAddAccountTypeProfileFeePostAsyncWithHttpInfo(body);
+             return localVarResponse.Data;
 
         }
 
@@ -366,8 +371,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiAccountTypeProfileFeeAddAccountTypeProfileFeePostAsyncWithHttpInfo (AccountTypeProfileFeesModel body = null)
+        /// <returns>Task of ApiResponse (AccountTypeProfileFeesModel)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<AccountTypeProfileFeesModel>> ApiAccountTypeProfileFeeAddAccountTypeProfileFeePostAsyncWithHttpInfo (AccountTypeProfileFeesModel body = null)
         {
 
             var localVarPath = "/api/AccountTypeProfileFee/AddAccountTypeProfileFee";
@@ -388,6 +393,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -420,9 +428,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<AccountTypeProfileFeesModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (AccountTypeProfileFeesModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(AccountTypeProfileFeesModel)));
         }
 
         /// <summary>

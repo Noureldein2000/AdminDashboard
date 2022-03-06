@@ -1,0 +1,28 @@
+﻿
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="form-group">
+                        <input id="accountId" type="hidden" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Expiration Period <span class="validation-error">*</span> </label>
+                        <input id="txtExpirationPeriod" onkeypress="return isNumberKey(event)" onkeyup="toggleButton(this,'btnEditAccountChannelType')"  type="text" class="form-control" />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label">Has LimitedAccess?</label>
+                        <input id="chkHasLimitedAccess" type="checkbox" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+
+    </script>
+}

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -29,9 +30,17 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         public async Task<IActionResult> Index(int denominationId, string denominationName, bool processSucceded = false)
         {
             var data = await _apiDenominationCommission.ApiDenominationCommissionGetdenominationCommissionByDenominationIdDenominationIdGetAsync(denominationId);
+
             ViewBag.denominationId = denominationId;
             ViewBag.DenominationName = denominationName;
             ViewBag.processSucceded = processSucceded;
+
+            ViewBag.Commissions = _apiCommissions.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
+            {
+                Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
+                Value = a.Id.ToString()
+            }).ToList();
+
             return View(data.Select(x => Map(x)));
         }
 
@@ -54,41 +63,33 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
         public IActionResult Create(CreateDenominationCommissionViewModel model)
         {
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    var commissions = _apiCommissions.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
-                    {
-                        Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
-                        Value = a.Id.ToString()
-                    }).ToList();
+                //if (!ModelState.IsValid)
+                //{
+                //    var commissions = _apiCommissions.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
+                //    {
+                //        Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
+                //        Value = a.Id.ToString()
+                //    }).ToList();
 
-                    model.Commissions = commissions;
+                //    model.Commissions = commissions;
 
-                    return View(model);
-                }
+                //    return View(model);
+                //}
 
-                _apiDenominationCommission.ApiDenominationCommissionAddDenominationCommissionPost(new AddDenominationCommissionModel(
-                    denominationId: model.DenominationId,
-                    commissionId: model.CommissionId));
+                var result = _apiDenominationCommission.ApiDenominationCommissionAddDenominationCommissionPost(new AddDenominationCommissionModel(
+                     denominationId: model.DenominationId,
+                     commissionId: model.CommissionId));
 
-                return RedirectToAction(nameof(Index), new { denominationId = model.DenominationId, denominationName = model.DenominationName, processSucceded = true }); ;
+                return Json(Map(result));
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", ex.Message);
-                var commissions = _apiCommissions.ApiCommissionGetCommissionsGet(1, 100).Results.Select(a => new SelectListItem
-                {
-                    Text = $"From: {a.AmountFrom} To: {a.AmountTo}, Value: {a.Value} {a.PaymentModeName}",
-                    Value = a.Id.ToString()
-                }).ToList();
-
-                model.Commissions = commissions;
-                return View(model);
+                var errorMessage = ex.Message.Remove(0, ex.Message.IndexOf('{'));
+                return Json(JsonConvert.DeserializeObject<ExceptionErrorMessage>(errorMessage));
             }
         }
 

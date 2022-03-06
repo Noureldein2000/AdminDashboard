@@ -31,8 +31,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns></returns>
-        void ApiDenominationTaxesAddDenominationTaxesPost (AddDenominationTaxesModel body = null);
+        /// <returns>DenominationTaxesModel</returns>
+        DenominationTaxesModel ApiDenominationTaxesAddDenominationTaxesPost (AddDenominationTaxesModel body = null);
 
         /// <summary>
         /// 
@@ -42,8 +42,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        ApiResponse<Object> ApiDenominationTaxesAddDenominationTaxesPostWithHttpInfo (AddDenominationTaxesModel body = null);
+        /// <returns>ApiResponse of DenominationTaxesModel</returns>
+        ApiResponse<DenominationTaxesModel> ApiDenominationTaxesAddDenominationTaxesPostWithHttpInfo (AddDenominationTaxesModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -98,8 +98,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of void</returns>
-        System.Threading.Tasks.Task ApiDenominationTaxesAddDenominationTaxesPostAsync (AddDenominationTaxesModel body = null);
+        /// <returns>Task of DenominationTaxesModel</returns>
+        System.Threading.Tasks.Task<DenominationTaxesModel> ApiDenominationTaxesAddDenominationTaxesPostAsync (AddDenominationTaxesModel body = null);
 
         /// <summary>
         /// 
@@ -109,8 +109,8 @@ namespace AdminDashboard.SwaggerClient
         /// </remarks>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        System.Threading.Tasks.Task<ApiResponse<Object>> ApiDenominationTaxesAddDenominationTaxesPostAsyncWithHttpInfo (AddDenominationTaxesModel body = null);
+        /// <returns>Task of ApiResponse (DenominationTaxesModel)</returns>
+        System.Threading.Tasks.Task<ApiResponse<DenominationTaxesModel>> ApiDenominationTaxesAddDenominationTaxesPostAsyncWithHttpInfo (AddDenominationTaxesModel body = null);
         /// <summary>
         /// 
         /// </summary>
@@ -271,10 +271,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns></returns>
-        public void ApiDenominationTaxesAddDenominationTaxesPost (AddDenominationTaxesModel body = null)
+        /// <returns>DenominationTaxesModel</returns>
+        public DenominationTaxesModel ApiDenominationTaxesAddDenominationTaxesPost (AddDenominationTaxesModel body = null)
         {
-             ApiDenominationTaxesAddDenominationTaxesPostWithHttpInfo(body);
+             ApiResponse<DenominationTaxesModel> localVarResponse = ApiDenominationTaxesAddDenominationTaxesPostWithHttpInfo(body);
+             return localVarResponse.Data;
         }
 
         /// <summary>
@@ -282,8 +283,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>ApiResponse of Object(void)</returns>
-        public ApiResponse<Object> ApiDenominationTaxesAddDenominationTaxesPostWithHttpInfo (AddDenominationTaxesModel body = null)
+        /// <returns>ApiResponse of DenominationTaxesModel</returns>
+        public ApiResponse< DenominationTaxesModel > ApiDenominationTaxesAddDenominationTaxesPostWithHttpInfo (AddDenominationTaxesModel body = null)
         {
 
             var localVarPath = "/api/DenominationTaxes/AddDenominationTaxes";
@@ -304,6 +305,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -336,9 +340,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<DenominationTaxesModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (DenominationTaxesModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(DenominationTaxesModel)));
         }
 
         /// <summary>
@@ -346,10 +350,11 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of void</returns>
-        public async System.Threading.Tasks.Task ApiDenominationTaxesAddDenominationTaxesPostAsync (AddDenominationTaxesModel body = null)
+        /// <returns>Task of DenominationTaxesModel</returns>
+        public async System.Threading.Tasks.Task<DenominationTaxesModel> ApiDenominationTaxesAddDenominationTaxesPostAsync (AddDenominationTaxesModel body = null)
         {
-             await ApiDenominationTaxesAddDenominationTaxesPostAsyncWithHttpInfo(body);
+             ApiResponse<DenominationTaxesModel> localVarResponse = await ApiDenominationTaxesAddDenominationTaxesPostAsyncWithHttpInfo(body);
+             return localVarResponse.Data;
 
         }
 
@@ -358,8 +363,8 @@ namespace AdminDashboard.SwaggerClient
         /// </summary>
         /// <exception cref="ApiException">Thrown when fails to make API call</exception>
         /// <param name="body"> (optional)</param>
-        /// <returns>Task of ApiResponse</returns>
-        public async System.Threading.Tasks.Task<ApiResponse<Object>> ApiDenominationTaxesAddDenominationTaxesPostAsyncWithHttpInfo (AddDenominationTaxesModel body = null)
+        /// <returns>Task of ApiResponse (DenominationTaxesModel)</returns>
+        public async System.Threading.Tasks.Task<ApiResponse<DenominationTaxesModel>> ApiDenominationTaxesAddDenominationTaxesPostAsyncWithHttpInfo (AddDenominationTaxesModel body = null)
         {
 
             var localVarPath = "/api/DenominationTaxes/AddDenominationTaxes";
@@ -380,6 +385,9 @@ namespace AdminDashboard.SwaggerClient
 
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
+                "text/plain",
+                "application/json",
+                "text/json"
             };
             String localVarHttpHeaderAccept = this.Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
@@ -412,9 +420,9 @@ namespace AdminDashboard.SwaggerClient
                 if (exception != null) throw exception;
             }
 
-            return new ApiResponse<Object>(localVarStatusCode,
+            return new ApiResponse<DenominationTaxesModel>(localVarStatusCode,
                 localVarResponse.Headers.ToDictionary(x => x.Name, x => string.Join(",", x.Value)),
-                null);
+                (DenominationTaxesModel) this.Configuration.ApiClient.Deserialize(localVarResponse, typeof(DenominationTaxesModel)));
         }
 
         /// <summary>
