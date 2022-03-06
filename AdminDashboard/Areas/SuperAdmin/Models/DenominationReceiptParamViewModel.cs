@@ -17,5 +17,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         [Required]
         public int Alignment { get; set; }
         public bool Status { get; set; }
+        public int? DenominationReceiptDataID { get; set; }
     }
 }

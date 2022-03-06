@@ -231,7 +231,7 @@
                     <div class="card">
                         <form id="denominationReceiptForm">
                             <input type="hidden" asp-for="DenominationID" />
-                            <input type="hidden" asp-for="@Model.DenominationReceipt.DenominationReceiptData.Id"/>
+                            <input type="hidden" asp-for="@Model.DenominationReceiptDataID" />
                             <partial name="_DenominationReceipt" model="@Model.DenominationReceipt" />
                         </form>
                         <div class="card-footer mt-2">
@@ -792,6 +792,16 @@
             reorderLocations();
         }
 
+        function addConfig(name, value) {
+            let configsTemplate = $('#configsTemplate').clone();
+            configsTemplate.removeAttr('id');
+            configsTemplate.find('.item').hide();
+            configsTemplate.find('#providerConfigParamName').attr("value", name);
+            configsTemplate.find('#providerConfigParamValue').attr("value", value);
+            $('#div-configs').append(configsTemplate);
+            configsTemplate.show();
+            reorderLocations();
+        }
 
         function deleteConfig(id) {
             $(`#${id}`).remove();

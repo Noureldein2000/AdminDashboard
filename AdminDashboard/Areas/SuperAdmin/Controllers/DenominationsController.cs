@@ -183,19 +183,19 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 Value = a.Id.ToString()
             }).ToList();
 
-            ViewBag.Parameters = new SelectList(parameters, "Text", "Value");
+            ViewBag.Parameters = new SelectList(parameters, "Value", "Text");
 
             var model = _apiDenomination.ApiDenominationGetDenominationByIdIdGet(id);
 
             var viewModel = new EditDenominationViewModel
             {
                 DenominationID = (int)model.Denomination.Id,
+                DenominationReceiptDataID = (int)model.DenominationReceipt.DenominationReceiptData.Id,
                 Denomination = MapToViewModel(model.Denomination),
                 DenominationServiceProvidersViewModels = model.DenominationServiceProviders.Select(x => MapToViewModel(x)).ToList(),
                 DenominationParameters = model.DenominationParameters.Select(x => MapToViewModel(x)).ToList(),
                 DenominationReceipt = new DenominationReceiptViewModel
                 {
-                    ID = (int)model.DenominationReceipt.DenominationReceiptData.Id,
                     DenominationReceiptData = MapToViewModel(model.DenominationReceipt.DenominationReceiptData),
                     DenominationReceiptParams = model.DenominationReceipt.DenominationReceiptParams.Select(x => MapToViewModel(x)).ToList()
                 }
@@ -350,6 +350,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
         [HttpPost]
         public JsonResult EditDenominationRecepit([FromForm] DenominationReceiptViewModel model)
         {
+            model.DenominationReceiptData.DenominationID = model.DenominationID;
+            model.DenominationReceiptData.Id = model.DenominationReceiptDataID;
             _apiDenomination.ApiDenominationEditDenominationReceiptPut(new DenominationReceiptModel
             {
                 DenominationReceiptData = MapToModel(model.DenominationReceiptData),
@@ -563,7 +565,8 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 ParameterName = model.ParameterName,
                 Bold = (bool)model.Bold,
                 Alignment = (int)model.Alignment,
-                Status = (bool)model.Status
+                Status = (bool)model.Status,
+                DenominationReceiptDataID = model.DenominationReceiptDataID
             };
         }
         private DenominationReceiptParamModel MapToModel(DenominationReceiptParamViewModel model)

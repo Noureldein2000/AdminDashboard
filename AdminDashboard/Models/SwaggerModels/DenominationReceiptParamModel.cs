@@ -38,7 +38,9 @@ namespace AdminDashboard.Models.SwaggerModels
         /// <param name="bold">bold.</param>
         /// <param name="alignment">alignment.</param>
         /// <param name="status">status.</param>
-        public DenominationReceiptParamModel(int? id = default(int?), int? denominationID = default(int?), int? parameterID = default(int?), string parameterName = default(string), bool? bold = default(bool?), int? alignment = default(int?), bool? status = default(bool?))
+        /// <param name="fontSize">fontSize.</param>
+        /// <param name="denominationReceiptDataID">denominationReceiptDataID.</param>
+        public DenominationReceiptParamModel(int? id = default(int?), int? denominationID = default(int?), int? parameterID = default(int?), string parameterName = default(string), bool? bold = default(bool?), int? alignment = default(int?), bool? status = default(bool?), int? denominationReceiptDataID = default(int?))
         {
             this.Id = id;
             this.DenominationID = denominationID;
@@ -47,6 +49,7 @@ namespace AdminDashboard.Models.SwaggerModels
             this.Bold = bold;
             this.Alignment = alignment;
             this.Status = status;
+            this.DenominationReceiptDataID = denominationReceiptDataID;
         }
         
         /// <summary>
@@ -92,6 +95,12 @@ namespace AdminDashboard.Models.SwaggerModels
         public bool? Status { get; set; }
 
         /// <summary>
+        /// Gets or Sets DenominationReceiptDataID
+        /// </summary>
+        [DataMember(Name="denominationReceiptDataID", EmitDefaultValue=false)]
+        public int? DenominationReceiptDataID { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -106,6 +115,7 @@ namespace AdminDashboard.Models.SwaggerModels
             sb.Append("  Bold: ").Append(Bold).Append("\n");
             sb.Append("  Alignment: ").Append(Alignment).Append("\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
+            sb.Append("  DenominationReceiptDataID: ").Append(DenominationReceiptDataID).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -174,6 +184,11 @@ namespace AdminDashboard.Models.SwaggerModels
                     this.Status == input.Status ||
                     (this.Status != null &&
                     this.Status.Equals(input.Status))
+                ) && 
+                (
+                    this.DenominationReceiptDataID == input.DenominationReceiptDataID ||
+                    (this.DenominationReceiptDataID != null &&
+                    this.DenominationReceiptDataID.Equals(input.DenominationReceiptDataID))
                 );
         }
 
@@ -200,6 +215,8 @@ namespace AdminDashboard.Models.SwaggerModels
                     hashCode = hashCode * 59 + this.Alignment.GetHashCode();
                 if (this.Status != null)
                     hashCode = hashCode * 59 + this.Status.GetHashCode();
+                if (this.DenominationReceiptDataID != null)
+                    hashCode = hashCode * 59 + this.DenominationReceiptDataID.GetHashCode();
                 return hashCode;
             }
         }

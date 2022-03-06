@@ -15,5 +15,6 @@ namespace AdminDashboard.Areas.SuperAdmin.Models
         public DenominationReceiptViewModel DenominationReceipt{ get; set; }
         public int ServiceConfigerationID { get; set; }
         public int DenominationID { get; set; }
+        public int DenominationReceiptDataID { get; set; }
     }
 }
