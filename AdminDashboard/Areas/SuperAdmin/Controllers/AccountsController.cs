@@ -6,6 +6,7 @@ using AdminDashboard.SwaggerClient;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -429,14 +430,11 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                 ChannelTypes = channelTypes
             };
             ViewBag.ChannelTypeName = channelTypeName;
-            return View(viewModel);
+            return Json(viewModel);
         }
         [HttpPost]
         public IActionResult EditAccountChannelType(AccountChannelTypeViewModel model)
         {
-            if (!ModelState.IsValid)
-                return View(model);
-
             try
             {
                 var result = _accountChannelTypesApi.ApiAccountChannelTypeEditAccountChannelTypesPut(new EditAccountChannelTypeModel(
@@ -445,12 +443,12 @@ namespace AdminDashboard.Areas.SuperAdmin.Controllers
                     expirationPeriod: model.ExpirationPeriod
                     ));
 
-                return Json(result);
+                return Json(model);
             }
             catch (Exception ex)
             {
-                ModelState.AddModelError("", ex.Message);
-                return View(model);
+                var errorMessage = ex.Message.Remove(0, ex.Message.IndexOf('{'));
+                return Json(JsonConvert.DeserializeObject<ExceptionErrorMessage>(errorMessage));
             }
         }
         [HttpGet]

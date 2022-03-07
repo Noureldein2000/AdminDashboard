@@ -48,7 +48,7 @@
                                     <td>@ACT.ExpirationPeriod</td>
                                     <td>@ACT.HasLimitedAccess</td>
                                     <td>
-                                        <button onclick="GetAccountChannelTypeById(@ACT.Id)" class="btn btn-info">Edit</button>
+                                        <button onclick="ViewDataModel(@ACT.Id)" class="btn btn-info">Edit</button>
                                         @*<a asp-action="DeleteAccountChannelType" asp-route-id="@ACT.Id" class="btn btn-danger">Delete</a>*@
                                     </td>
                                 </tr>
@@ -97,6 +97,7 @@
         }
 
         function GetAccountChannelTypeById(id) {
+
              $.ajax({
                 type: "GET",
                 url: "@Url.Action("EditAccountChannelType")",
@@ -105,6 +106,7 @@
                   },
                  dataType: "text",
                  success: function (msg) {
+
                      var data = JSON.parse(msg);
 
                      $('#accountId').val(id);
@@ -122,8 +124,19 @@
             });
         }
 
+        function ViewDataModel(id) {
+            debugger;
+            $('#accountId').val(id);
+            var expirationPeriod = $('#tr-' + id).find("td:eq(1)").text();
+            $('#txtExpirationPeriod').val(expirationPeriod);
+            var hasLimitedAccess = JSON.parse( $('#tr-' + id).find("td:eq(2)").text().toLowerCase());
+            $("#chkHasLimitedAccess").prop("checked", hasLimitedAccess);
+
+            $('#AccountChannelTypeFormModal').modal('show');
+        }
+
         function EditAccountChannelType() {
-            
+
             var id = $('#accountId').val();
             var expirationData = $('#txtExpirationPeriod').val();
             var hasLimitedAccess = $('#chkHasLimitedAccess').is(":checked");
@@ -139,13 +152,22 @@
                   },
                  dataType: "text",
                  success: function (msg) {
-                     
+
                      var data = JSON.parse(msg);
+                     if (data.code != null) {
+                         swal({
+                             title: "Failure job!",
+                             text: "Failed, " + data.message + "",
+                             icon: "error",
+                             button: "Ok",
+                         });
+                     }
+                     else {
 
                      var html = `<td>${channelTypeName}</td>
                         <td> ${expirationData}</td>
                         <td> ${hasLimitedAccess}</td>
-                        <td><button onclick="GetAccountChannelTypeById(${id})" class="btn btn-info">Edit</button></td>`;
+                        <td><button onclick="ViewDataModel(${id})" class="btn btn-info">Edit</button></td>`;
 
                      var row = '#tr-' + id;
                      $(row).empty();
@@ -159,6 +181,7 @@
                          icon: "success",
                          button: "Ok",
                      });
+                     }
                 },
                  error: function (req, status, error) {
 

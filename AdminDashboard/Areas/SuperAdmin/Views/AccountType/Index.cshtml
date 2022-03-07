@@ -13,7 +13,7 @@
                             <h2>Account Types </h2>
                         </div>
                         <div>
-                            <a asp-action="Create" class="pull-right btn btn-outline-primary">Add</a>
+                            <button onclick="ViewDataModel()" class="pull-right btn btn-primary">Add</button>
                         </div>
                     </div>
                 </div>
@@ -143,6 +143,9 @@
         function ViewDataModel(id= null) {
 
             $('#accountTypeId').val(id);
+            $('#name').val('');
+            $('#nameAr').val('');
+
             $('#btnAddAccountType').prop('disabled', true);
 
             if (id != null) {
